@@ -1,0 +1,137 @@
+﻿<#@ template language="C#" inherits="CodeGenerator.Templates.TemplateBase" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="CodeGenerator.Models" #>
+<# 
+	FilePath = TableMeta.NameSpace + ".WebApp/Views/" + TableMeta.Name + "/List.cshtml";
+#>
+@{
+	ViewBag.Title = "<#= TableMeta.Description #>列表";
+	string tableListId = "<#= TableMeta.Name #>List";
+	Pagination<<#= TableMeta.Name #>Domain> pagination = ViewBag.Pagination;
+	IHtmlHelper<RoleDomain> pageHtml = Html.PropertyHelper(pagination);
+
+}
+
+@section Styles {
+}
+
+
+@section Scripts {
+}
+
+
+<div class="page-header" ext-horizontal-fix="">
+	<h1>@ViewBag.Title</h1>
+</div>
+
+
+@using (Html.BeginForm(null, null, FormMethod.Get, new { id = "SearchForm", @class = "well btn-toolbar", ext_horizontal_fix = "" }))
+{
+	/*if (User.AnyAct(ACT.<#= TableMeta.Name #>Create))
+	{*/
+		<div class="toolbar-left">
+			<a class="btn btn-success btn-sm" href="@Url.Action("Create")"><i class="fa fa-plus fa-lg"></i> 新增</a>
+		</div>
+	/*}*/
+	<div class="toolbar-left">
+		@(Html.WhereBuilder(pagination)
+<# foreach(var col in TableMeta.Columns.Where(x => !x.IsPrimaryKey)) { #>
+			.Column(x => x.<#= col.WhereBox() #>)
+<# } #>
+		)
+
+	</div>
+
+	<div class="toolbar-left">
+		<button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-search fa-lg"></i> 搜尋</button>
+		<a class="btn btn-default btn-sm hidden-xs hidden-sm" href="@Context.Request.QueryString.Add("Export", "true")" target="_blank">
+			<i class="fa fa-file-excel-o fa-lg"></i> 匯出
+		</a>
+	</div>
+
+	<div class="toolbar-left">
+        @await Html.OrderableBtn(tableListId)
+        @await Html.SortBuilderBtn(tableListId)		
+	</div>
+
+	@await Html.PageSizeChange(pagination)
+}
+
+
+
+<div id="@tableListId">
+	<table class="table table-striped table-bordered table-condensed table-nowrap table-hover">
+		<thead ext-table-fix="">
+			<tr class="head">
+				<th class="min"></th>
+<# foreach(var col in TableMeta.Columns) { #>
+				<th ext-orderable-col="" class="<#= col.Name #>">@pageHtml.PagerSortFor(x => x.<#= col.Name #>)</th>
+<# } #>
+			</tr>
+		</thead>
+		<tbody dialog-change-reload="">
+			@foreach (var row in pagination.List)
+			{
+				<tr>
+					<td class="min">
+						@*@if (User.AnyAct(ACT.<#= TableMeta.Name #>Edit))
+						{*@
+							@{ string editUrl = Url.Action("Edit", new { row.<#= TableMeta.PK.Name #> }); }
+							<a class="btn btn-warning btn-sm btn-icon" href="@editUrl"><i class="fa fa-pencil fa-lg"></i></a>
+						@*}*@
+					</td>
+<# foreach(var col in TableMeta.Columns) { #>
+					<td class="<#= col.Name #>">@<#= col.DisplayBox("row") #></td>
+<# } #>
+				</tr>
+			}
+		</tbody>
+	</table>
+
+	@await Html.PageEmptyAlert(pagination)
+</div>
+
+
+<div class="text-center" ext-horizontal-fix="">
+	<ul class="pagination">@Html.PagerLinks(pagination)</ul>
+</div>
+
+
+
+
+
+
+
+@section Export {
+	@if (ViewBag.IsExport != true) { return; }
+
+	@(Html.ExcelExport(pagination.List)
+		
+<# foreach(var col in TableMeta.Columns) { #>
+		.Column(row => <#= col.DisplayBox("row") #>)
+<# } #>
+	)
+
+	 
+ @*
+	@{
+		string thStyle = "color: #fff; background: #2d6da3;";
+	}
+	<table>
+		<tr>
+<# foreach(var col in TableMeta.Columns) { #>
+			<td style="@thStyle">@pagination.DisplayNameFor(x => x.<#= col.Name #>)</td>
+<# } #>
+		</tr>
+		@foreach (var row in pagination.List)
+		{
+			<tr>
+<# foreach(var col in TableMeta.Columns) { #>
+				<td>@<#= col.DisplayBox("row") #></td>
+<# } #>
+			</tr>
+		}
+	</table>
+ *@
+
+}

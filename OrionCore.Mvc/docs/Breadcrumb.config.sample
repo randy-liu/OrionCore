@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE node [
+	<!ELEMENT node (node*)>
+	<!ATTLIST node name CDATA #REQUIRED>
+	<!ATTLIST node url CDATA #IMPLIED>
+	<!ATTLIST node icon CDATA #IMPLIED>
+  <!ATTLIST node pattern CDATA #IMPLIED>
+]>
+
+<node name="首頁" url="~/Home" icon="fa-home">
+	<node name="使用者" url="~/User" icon="">
+		<node name="新增" url="~/User/Create" icon=""></node>
+		<node name="編輯" url="~/User/Edit" icon=""></node>
+	</node>
+	<node name="角色" url="~/Role" icon="">
+		<node name="新增" url="~/Role/Create" icon=""></node>
+		<node name="編輯" url="~/Role/Edit" icon=""></node>
+	</node>
+</node>

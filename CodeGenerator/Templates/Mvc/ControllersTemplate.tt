@@ -1,0 +1,180 @@
+﻿<#@ template language="C#" inherits="CodeGenerator.Templates.TemplateBase" #>
+<#@ import namespace="CodeGenerator.Models" #>
+
+<# 
+	string className = TableMeta.Name + "Controller";
+	FilePath = TableMeta.NameSpace + ".WebApp/Controllers/" + className + ".cs";
+#>
+using System;
+using System.Net;
+using OrionCore.API;
+using OrionCore.API.Extensions;
+using OrionCore.API.Models;
+using OrionCore.Mvc.Attributes;
+using OrionCore.Mvc.Security;
+using OrionCore.Mvc.Extensions;
+using System.Collections.Generic;
+using System.Web.Mvc;
+using <#= TableMeta.NameSpace #>.Service;
+using <#= TableMeta.NameSpace #>.Domain;
+using <#= TableMeta.NameSpace #>.Enums;
+using <#= TableMeta.NameSpace #>.WebApp.Models;
+
+
+namespace <#= TableMeta.NameSpace #>.WebApp.Controllers 
+{
+	/// <summary><#= TableMeta.Description #></summary>
+	//TODO [ActAuthorize(ACT.<#= TableMeta.Name #>View)]
+	public class <#= className #> : Controller 
+	{
+		public IServiceContext Svc { get; set; }
+
+
+
+		private <#= TableMeta.Name #>Domain toDomain(<#= TableMeta.Name #>ViewModel vm)
+		{
+			if(vm == null) { return null; }
+
+			var domain =  new <#= TableMeta.Name #>Domain
+			{
+<# foreach(var col in ActiveColumns) { #>
+				<#= col.Name #> = vm.<#= col.Name #>,
+<# } #>
+<# foreach(var col in WithColumns("ModifyBy", "ModifiedBy")) { #>
+				<#= col.Name #> =  this.UserId(),
+<# } #>
+			};
+
+			return domain;
+		}
+
+		//FIXME For Edit (Get) Use Or Remove
+		private <#= TableMeta.Name #>ViewModel toViewModel(<#= TableMeta.Name #>Domain domain)
+		{
+			if (domain == null) { return null; }
+
+			return new <#= TableMeta.Name #>ViewModel
+			{
+<# foreach(var col in TableMeta.Columns) { #>
+				<#= col.Name #> = domain.<#= col.Name #>,
+<# } #>
+			};
+		}
+
+
+		//private ActionResult forbidden()
+		//{
+		//	return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+		//}
+
+
+
+
+
+		public ActionResult Index()
+		{
+			return RedirectToAction(nameof(List));
+		}
+
+			   		 
+
+
+		//[SearchRemember(Ignore = new[] { "export" })]
+		public ActionResult List(WhereParams<<#= TableMeta.Name #>Domain> findParam, PageParams<<#= TableMeta.Name #>Domain> pageParams, bool export = false)
+		{
+			if (export) { pageParams.PageIndex = 1; pageParams.PageSize = -1; }
+
+			Pagination<<#= TableMeta.Name #>Domain> domainPage = Svc.<#= TableMeta.Name #>.GetPagination(findParam, pageParams);
+			ViewBag.Pagination = domainPage;
+
+			if (!export) { return View(); }
+			return this.ExcelView($"<#= TableMeta.Description #>-{DateTime.Now:yyyyMMddHHmmss}.xls");
+		}
+
+
+
+		[HttpGet]
+		[UseViewPage("Form")]
+		//TODO [ActAuthorize(ACT.<#= TableMeta.Name #>Create)]
+		public ActionResult Create()
+		{
+			var vm = new <#= TableMeta.Name #>ViewModel
+			{
+				//TODO
+			};
+
+			return View(vm);
+		}
+
+
+
+
+		[HttpPost]
+		[UseViewPage("Form")]
+		//TODO [ActAuthorize(ACT.<#= TableMeta.Name #>Create)]
+		public ActionResult Create(<#= TableMeta.Name #>ViewModel vm)
+		{
+			if (!ModelState.IsValid) { return View(vm); }
+
+			<#= TableMeta.Name #>Domain domain = toDomain(vm);
+
+			<#= TableMeta.PK.CodeType #> <#= TableMeta.PK.Variable #> = Svc.<#= TableMeta.Name #>.Save(domain);
+
+			this.SetStatusSuccess("儲存成功!!");
+			return RedirectToAction(nameof(Edit), new { <#= TableMeta.PK.Variable #> });
+		}
+
+		 
+
+
+		
+		[HttpGet]
+		[UseViewPage("Form")]
+		//TODO [ActAuthorize(ACT.<#= TableMeta.Name #>Edit)]
+		public ActionResult Edit(<#= TableMeta.PK.CodeType #> <#= TableMeta.PK.Variable #>)
+		{
+			<#= TableMeta.Name #>Domain domain = Svc.<#= TableMeta.Name #>.GetById(<#= TableMeta.PK.Variable #>);
+
+			var vm =  new <#= TableMeta.Name #>ViewModel
+			{
+<# foreach(var col in TableMeta.Columns) { #>
+				<#= col.Name #> = domain.<#= col.Name #>,
+<# } #>
+			};
+
+			return View(vm);
+		}
+
+
+
+
+
+
+
+		[HttpPost]
+		[UseViewPage("Form")]
+		//TODO [ActAuthorize(ACT.<#= TableMeta.Name #>Edit)]
+		public ActionResult Edit(<#= TableMeta.Name #>ViewModel vm, string action = null)
+		{
+			if ("delete".EqualsIgnoreCase(action))
+			{
+				//if (!User.AnyAct(ACT.<#= TableMeta.Name #>Delete)) { throw new OrionException("權限不足!!"); }
+
+				Svc.<#= TableMeta.Name #>.Delete(vm.<#= TableMeta.PK.Name #>);
+				this.SetStatusSuccess("刪除成功!!");
+				return View();
+			}
+
+			if (!ModelState.IsValid) { return View(vm); }
+
+			<#= TableMeta.Name #>Domain domain = toDomain(vm);
+
+			<#= TableMeta.PK.CodeType #> <#= TableMeta.PK.Variable #> = Svc.<#= TableMeta.Name #>.Save(domain);
+
+			this.SetStatusSuccess("儲存成功!!");
+			return RedirectToAction(nameof(Edit), new { <#= TableMeta.PK.Variable #> });
+		}
+
+
+	}
+}

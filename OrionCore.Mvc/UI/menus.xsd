@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+	<xs:element name="menus">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="menu" type="menuType" minOccurs="0" maxOccurs="unbounded" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:complexType name="menuType">
+		<xs:sequence>
+			<xs:element name="menu" type="menuType" minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="sub" type="subType" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+		<xs:attribute name="name" type="xs:string"/>
+		<xs:attribute name="url" type="xs:string"/>
+		<xs:attribute name="act" type="xs:string"/>
+		<xs:attribute name="target" type="xs:string"/>
+		<xs:attribute name="icon" type="xs:string" />
+		<xs:attribute name="pattern" type="xs:string" />
+		<xs:attribute name="useFirstSubUrl" type="xs:boolean" />
+	</xs:complexType>
+	
+	<xs:complexType name="subType">
+		<xs:attribute name="name" type="xs:string"/>
+		<xs:attribute name="url" type="xs:string" use="required"/>
+		<xs:attribute name="act" type="xs:string"/>
+		<xs:attribute name="target" type="xs:string"/>
+		<xs:attribute name="icon" type="xs:string" />
+		<xs:attribute name="pattern" type="xs:string" />
+	</xs:complexType>
+
+</xs:schema>

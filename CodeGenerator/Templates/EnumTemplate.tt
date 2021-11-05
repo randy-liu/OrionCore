@@ -1,0 +1,26 @@
+﻿<#@ template language="C#" inherits="CodeGenerator.Templates.TemplateBase" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="CodeGenerator.Models" #>
+<# 
+	ColumnMeta enumMeta = TableMeta.Columns[0];
+
+	FilePath = TableMeta.NameSpace + "/Enums/" + enumMeta.Name + ".cs";
+#>
+using System.ComponentModel.DataAnnotations;
+
+namespace <#= TableMeta.NameSpace #>.Enums 
+{
+	/// <summary><#= enumMeta.Description #></summary>
+	public enum <#= enumMeta.Name #> 
+	{
+		//TODO 程式產生未完成
+		<# foreach(var item in enumMeta.EnumList) { #>
+
+		/// <summary><#= item #></summary>
+		[Display(Name = "<#= item #>")]
+		<#= item #>,
+		<# } #>
+
+	}
+
+}
