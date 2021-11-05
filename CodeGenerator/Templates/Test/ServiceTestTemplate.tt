@@ -1,0 +1,50 @@
+﻿<#@ template language="C#" inherits="CodeGenerator.Templates.TemplateBase" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="CodeGenerator.Models" #>
+<# 
+	string className = TableMeta.Name + "ServiceTests";
+	FilePath = TableMeta.NameSpace + ".Tests/Service/Impl/" + className + ".cs";
+#>
+using OrionCore.API;
+using Moq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using <#= TableMeta.NameSpace #>.Dao;
+using <#= TableMeta.NameSpace #>.Domain;
+using <#= TableMeta.NameSpace #>.Enums;
+using Xunit;
+
+namespace <#= TableMeta.NameSpace #>.Service.Impl.Tests
+{
+	public class <#= className #>
+	{
+
+		public static IEnumerable<object[]> Save_ValidationTest_Data
+		{
+			get
+			{
+				yield return new object[] { new <#= TableMeta.Name #>Domain(){
+				//TODO 程式產生未完成
+<# foreach(var col in TableMeta.Columns) { #>
+					<#= col.Name #> = default(<#= col.CodeType #>),
+<# } #>
+				}};
+			}
+		}
+
+
+		[Theory]
+		[MemberData("Save_ValidationTest_Data")]
+		public void Save_ValidationTest(<#= TableMeta.Name #>Domain domain)
+		{
+			var mock = new Mock<I<#= TableMeta.Name #>Dao>();
+			var <#= TableMeta.Variable #>Service = new <#= TableMeta.Name #>Service(mock.Object);
+			Assert.Throws<OrionException>(() => <#= TableMeta.Variable #>Service.Save(domain));
+		}
+
+
+	}
+}

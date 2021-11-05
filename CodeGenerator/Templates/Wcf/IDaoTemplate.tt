@@ -1,0 +1,41 @@
+﻿<#@ template language="C#" inherits="CodeGenerator.Templates.TemplateBase" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="CodeGenerator.Models" #>
+<# 
+	string className = "I" + TableMeta.Name + "Dao";
+	FilePath = TableMeta.NameSpace + ".Dao/" + className + ".cs";
+#>
+using System;
+using System.Collections.Generic;
+using OrionCore.API.Models;
+using <#= TableMeta.NameSpace #>.Domain;
+using <#= TableMeta.NameSpace #>.Enums;
+
+
+namespace <#= TableMeta.NameSpace #>.Dao
+{
+	/// <summary><#= TableMeta.Description #></summary>
+	public interface <#= className #>
+	{
+		//TODO 程式產生未完成
+		//Dictionary<int, string> GetDic(string status = null);
+
+		//TODO 程式產生未完成
+		//Dictionary<string, string> GetStatusItems();
+
+		Pagination<<#= TableMeta.Name #>Domain> GetPagination(WhereParams<<#= TableMeta.Name #>Domain> findParam, PageParams<<#= TableMeta.Name #>Domain> pageParams);
+
+		//TODO 程式產生未完成
+		//List<<#= TableMeta.Name #>Domain> GetList(WhereParams<<#= TableMeta.Name #>Domain> findParam = null);
+		
+		<#= TableMeta.Name #>Domain GetById(<#= TableMeta.PK.CodeType #> <#= TableMeta.PK.Variable #>);
+		
+		int Save(<#= TableMeta.Name #>Domain domain);
+				
+		void Delete(<#= TableMeta.PK.CodeType #> <#= TableMeta.PK.Variable #>, int modifyBy);
+		
+		//TODO 程式產生未完成
+		//bool IsXxxDuplicate(<#= TableMeta.PK.CodeType #> <#= TableMeta.PK.Variable #>, string xxx);
+
+	}
+}

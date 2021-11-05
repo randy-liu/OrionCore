@@ -1,0 +1,77 @@
+﻿<#@ template language="C#" inherits="CodeGenerator.Templates.TemplateBase" #>
+<#@ import namespace="CodeGenerator.Models" #>
+<#@ import namespace="System.Linq" #>
+
+<# 
+	FilePath = TableMeta.NameSpace + ".WebApp/Views/" + TableMeta.Name + "/Dialog.cshtml";
+#>
+@model <#= TableMeta.Name #>ViewModel
+
+
+@{
+	Layout = "~/Views/Shared/_DialogLayout.cshtml";
+
+	bool isCreate = this.IsRouteAction("Create");
+
+	ViewBag.Title = isCreate ? "新增<#= TableMeta.Description #>" : "編輯<#= TableMeta.Description #>";
+}
+
+@section Styles {
+<style type="text/css"></style>
+}
+
+
+@section Scripts {
+<script type="text/javascript">
+Dialog.resize(480, 360);
+
+jQuery(function ($) {
+});
+</script>
+}
+
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new
+{
+	action = "",
+	@class = "form-horizontal form-sm",
+	ext_one_submit = "",
+	ext_exit_alert = "資料尚未儲存，確定要離開？",
+}))
+{
+	@Html.HiddenFor(m => m.<#= TableMeta.PK.Name #>)
+
+	<div class="modal-header">
+		<h4 class="modal-title">@ViewBag.Title</h4>
+	</div>
+
+	<div class="modal-body auto">
+    @{ var labelCol = "col-sm-4"; var wrapCol = "col-sm-8"; }
+
+<# foreach(var col in ActiveColumns.Where(x => !x.IsPrimaryKey)) { #>
+
+		<div class="form-group">
+			@Html.BsLabelFor(m => m.<#= col.Name #>, new { @class = labelCol + "<#= (col.IsNullable ? "" : " required") #>" })
+			<div class="@wrapCol">
+				@Html.<#= col.EditBox()#>(m => m.<#= col.Name #>)
+				<span class="form-tip">@Html.ValidationMessageFor(m => m.<#= col.Name #>)</span>
+			</div>
+		</div>
+<# } #>
+	</div>
+
+
+	<div class="modal-footer">
+		<span class="btn btn-default btn-sm" data-dismiss="modal"><i class="fa fa-times fa-lg"></i> 關閉</span>
+
+		<button class="btn btn-primary btn-sm" type="submit"><i class="fa fa-save fa-lg"></i> 儲存</button>
+
+		@if (!isCreate @*&& User.AnyAct(ACT.<#= TableMeta.Name #>Delete)*@ )
+		{
+			<button class="btn btn-danger btn-sm pull-left" type="submit" name="action" value="delete" onclick="return confirm('確定要刪除嗎?');">
+				<i class="fa fa-trash-o fa-lg"></i> 刪除
+			</button>
+		}
+	</div>
+}
+

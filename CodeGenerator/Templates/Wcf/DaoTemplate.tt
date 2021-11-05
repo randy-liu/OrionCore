@@ -1,0 +1,247 @@
+﻿<#@ template language="C#" inherits="CodeGenerator.Templates.TemplateBase" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="CodeGenerator.Models" #>
+<# 
+	string className = TableMeta.Name + "Dao";
+	FilePath = TableMeta.NameSpace + ".Dao/Impl/" + className + ".cs";
+#>
+using OrionCore.API;
+using OrionCore.API.Extensions;
+using OrionCore.API.Models;
+using <#= TableMeta.NameSpace #>.Dao.Database;
+using <#= TableMeta.NameSpace #>.Domain;
+using <#= TableMeta.NameSpace #>.Enums;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+
+namespace <#= TableMeta.NameSpace #>.Dao.Impl
+{
+	/// <summary><#= TableMeta.Description #></summary>
+	public class <#= className #> : I<#= className #>
+	{
+		private <#= DataContextName #> _dc;
+
+		public <#= className #>(<#= DataContextName #> dc)
+		{
+			_dc = dc;
+		}
+
+
+		//TODO 程式產生未完成
+		//public Dictionary<int, string> GetDic(string status = null)
+		//{
+		//	IQueryable<<#= TableMeta.TableName #>> query = _dc.<#= TableMeta.TableName #>;
+		//	query = query.WhereHas(x => x.UseStatus == status);
+
+		//	var items = query.ToDictionary(x => x.<#= TableMeta.PK.Name #>, x => x.<#= TableMeta.Name #>Name);
+		//	return items;
+		//}
+
+
+		//TODO 程式產生未完成
+		//public Dictionary<string, string> GetStatusItems()
+		//{
+		//	var items = new Dictionary<string, string>
+		//	{
+		//		{ "y", "開啟" },
+		//		{ "n", "關閉" },
+		//	};
+		//	return items;
+		//}
+
+		private <#= TableMeta.Name #>Domain toDomain(_<#= TableMeta.Name #> data)
+		{
+			if(data == null) { return null; }
+
+			var domain = new <#= TableMeta.Name #>Domain 
+			{
+<# foreach(var col in TableMeta.Columns) { 
+	   if(col.IsEnum) 
+	   { WriteLine("\t\t\t\t{0} = data.{0}.ToEnum<{0}>(),", col.Name); }
+	   else
+	   { WriteLine("\t\t\t\t{0} = data.{0},", col.Name); }
+} #>
+			};			
+
+			return domain;
+		}
+
+
+		private Func<_<#= TableMeta.Name #>, <#= TableMeta.Name #>Domain> prepareToDomain(IEnumerable<_<#= TableMeta.Name #>> list)
+		{
+//            int[] roleIds = list.ToArray(x => x.RoleId);
+//
+//            Func<int, List<int>> getUserIds = _dc.AMS_UserRole
+//                .WhereIn(x => x.RoleId, roleIds)
+//                .OrderBy(x => x.UserId)
+//                .PrepareList(x => x.RoleId, x => x.UserId);
+
+			return data =>
+			{
+				if (data == null) { return null; }
+
+				<#= TableMeta.Name #>Domain domain = toDomain(data);
+				//domain.UserIds = getUserIds(data.RoleId);
+				return domain;
+			};
+		}
+
+
+		private IQueryable<_<#= TableMeta.Name #>> getQuery(WhereParams<<#= TableMeta.Name #>Domain> findParam = null)
+		{
+			IQueryable<_<#= TableMeta.Name #>> query =
+				from x in _dc.<#= TableMeta.TableName #>
+				select new _<#= TableMeta.Name #>
+				{
+<# foreach(var col in TableMeta.Columns) { #>
+					<#= col.Name #> = x.<#= col.Name #>,
+<# } #>
+				};
+
+
+			if (findParam == null) { return query; }
+
+			query = query.WhereBuilder(findParam)
+<# foreach(var col in TableMeta.Columns) { 
+	if(col.IsEnum) 
+	{ WriteLine("\t\t\t\t.WhereBind(x => x.{0}.ToString(), y => y.{0})", col.Name); }
+	else
+	{ WriteLine("\t\t\t\t.WhereBind(x => x.{0}, y => y.{0})", col.Name); }
+} #>
+				.Build();
+
+			return query;
+		}
+
+
+
+
+		//TODO 程式產生未完成
+		public Pagination<<#= TableMeta.Name #>Domain> GetPagination(WhereParams<<#= TableMeta.Name #>Domain> findParam, PageParams<<#= TableMeta.Name #>Domain> pageParams)
+		{
+			IQueryable<_<#= TableMeta.Name #>> query = getQuery(findParam);
+
+
+			if (pageParams == null) { pageParams = PageParams<<#= TableMeta.Name #>Domain>.Unlimited(); }
+
+			try
+			{
+				query = query.AdvancedOrderBy(pageParams.OrderField);
+			}
+			catch (Exception)
+			{
+				query = query.OrderBy(x => x.<#= TableMeta.PK.Name #>);
+			}
+
+
+			var result = query.AsPagination(pageParams.PageIndex, pageParams.PageSize);
+
+			Func<_<#= TableMeta.Name #>, <#= TableMeta.Name #>Domain> toDomain = prepareToDomain(result.List);
+			return result.As(x => toDomain(x));
+		}
+
+		
+
+		//TODO 程式產生未完成
+		//public List<<#= TableMeta.Name #>Domain> GetList(WhereParams<<#= TableMeta.Name #>Domain> findParam = null)
+		//{
+		//    List<_<#= TableMeta.Name #>> list = getQuery(findParam).ToList();
+		//
+		//    Func<_<#= TableMeta.Name #>, <#= TableMeta.Name #>Domain> toDomain = prepareToDomain(list);
+		//    return list.ToList(x => toDomain(x));
+		//}
+
+
+		//TODO 程式產生未完成
+		public <#= TableMeta.Name #>Domain GetById(<#= TableMeta.PK.CodeType #> <#= TableMeta.PK.Variable #>)
+		{
+			_<#= TableMeta.Name #> data = getQuery().FirstOrDefault(x => x.<#= TableMeta.PK.Name #> == <#= TableMeta.PK.Variable #>);
+			if (data == null) { return null; }
+
+			Func<_<#= TableMeta.Name #>, <#= TableMeta.Name #>Domain> toDomain = prepareToDomain(new[] { data });
+			<#= TableMeta.Name #>Domain domain = toDomain(data);
+
+			return domain;
+		}
+
+
+
+		//TODO 程式產生未完成
+		public int Save(<#= TableMeta.Name #>Domain domain)
+		{
+			<#= TableMeta.TableName #> data;
+
+			if (domain.<#= TableMeta.PK.Name #> > 0)
+			{
+				data = _dc.<#= TableMeta.TableName #>.FirstOrDefault(x => x.<#= TableMeta.PK.Name #> == domain.<#= TableMeta.PK.Name #>);
+				Checker.Has(data, "<#= TableMeta.Description #>不存在無法修改");
+			}
+			else
+			{
+				data = new <#= TableMeta.TableName #>
+				{
+<# foreach(var col in WithColumns("CreateBy")) { #>
+					<#= col.Name #> = domain.ModifyBy,
+<# } #>
+<# foreach(var col in WithColumns("CreatedBy")) { #>
+					<#= col.Name #> = domain.ModifiedBy,
+<# } #>
+<# foreach(var col in WithColumns("CreateDate", "CreatedDate")) { #>
+					<#= col.Name #> = DateTime.Now,
+<# } #>
+				};
+				_dc.<#= TableMeta.TableName #>.Add(data);
+			}
+
+<# foreach(var col in ActiveColumns.Where(x => x.Name != TableMeta.PK.Name)) {
+	   if(col.IsEnum) 
+	   { WriteLine("\t\t\tdata.{0} = domain.{0}.ToString();", col.Name); }
+	   else
+	   { WriteLine("\t\t\tdata.{0} = domain.{0};", col.Name); }
+} #>
+
+<# foreach(var col in WithColumns("ModifyBy", "ModifiedBy")) { #>
+			data.<#= col.Name #> = domain.<#= col.Name #>;
+<# } #>
+<# foreach(var col in WithColumns("ModifyDate", "ModifiedDate")) { #>
+			data.<#= col.Name #> = DateTime.Now;
+<# } #>
+
+			_dc.SaveChanges();
+
+
+			return data.<#= TableMeta.PK.Name #>;
+		}
+
+
+
+		public void Delete(<#= TableMeta.PK.CodeType #> <#= TableMeta.PK.Variable #>, int modifyBy)
+		{
+			_dc.<#= TableMeta.TableName #>.DeleteAllOnSubmit(x => x.<#= TableMeta.PK.Name #> == <#= TableMeta.PK.Variable #>);
+
+			_dc.SaveChanges();
+		}
+
+
+		//TODO 程式產生未完成
+		//public bool IsXxxDuplicate(<#= TableMeta.PK.CodeType #> <#= TableMeta.PK.Variable #>, string xxx)
+		//{
+		//	return _dc.<#= TableMeta.TableName #>
+		//		.Where(x => x. <#= TableMeta.PK.Name #> != <#= TableMeta.PK.Variable #>)
+		//		.Where(x => x.Xxx == xxx)
+		//		.Any();
+		//}
+
+
+
+		/*######################################################################*/
+
+		private class _<#= TableMeta.Name #> : <#= TableMeta.TableName #>
+		{
+		}
+
+	}
+	
+}

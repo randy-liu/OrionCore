@@ -1,0 +1,33 @@
+﻿<#@ template language="C#" inherits="CodeGenerator.Templates.TemplateBase" #>
+<#@ import namespace="CodeGenerator.Models" #>
+<#@ import namespace="System.Linq" #>
+<# 
+	string className = TableMeta.Name + "ViewModel";
+	FilePath = TableMeta.NameSpace + ".WebApp/Models/" + className + ".cs";
+#>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Serialization;
+using System.ComponentModel.DataAnnotations;
+using System.Text;
+using OrionCore.API.Models;
+using <#= TableMeta.NameSpace #>.Enums;
+
+namespace <#= TableMeta.NameSpace #>.WebApp.Models 
+{
+	/// <summary><#= TableMeta.Description #></summary>
+	public class <#= className #> 
+	{
+<# foreach(var col in TableMeta.Columns) { #>
+		/// <summary><#= col.Description #></summary>
+<# if(!col.IsNullable && !col.IsPrimaryKey){ #>
+		[Required]
+<# } #>
+		[Display(Name = "<#= col.DisplayName #>")]
+		public <#= col.CodeType #> <#= col.Name #> { get; set; }
+
+<# } #>
+	}
+
+}

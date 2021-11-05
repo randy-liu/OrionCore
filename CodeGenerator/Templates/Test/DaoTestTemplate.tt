@@ -1,0 +1,110 @@
+﻿<#@ template language="C#" inherits="CodeGenerator.Templates.TemplateBase" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="CodeGenerator.Models" #>
+<# 
+	string className = TableMeta.Name + "DaoTests";
+	FilePath = TableMeta.NameSpace + ".Tests/Dao/Impl/" + className + ".cs";
+#>
+using OrionCore.API.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Transactions;
+using <#= TableMeta.NameSpace #>.Dao.Database;
+using <#= TableMeta.NameSpace #>.Domain;
+using <#= TableMeta.NameSpace #>.Enums;
+using <#= TableMeta.NameSpace #>.Dao.Impl;
+
+using Xunit;
+
+
+namespace <#= TableMeta.NameSpace #>.Dao.Tests
+{
+	public class <#= className #>
+	{
+
+
+		private <#= TableMeta.Name #>Dao _<#= TableMeta.Variable #>Dao;
+
+		public <#= className #>()
+		{
+			_<#= TableMeta.Variable #>Dao = new <#= TableMeta.Name #>Dao(new <#= DataContextName #>());
+		}
+
+
+
+
+		//TODO 程式產生未完成
+		//[Fact]
+		//public void GetStatusItems_NotNullTest()
+		//{
+		//    var result = _<#= TableMeta.Variable #>Dao.GetStatusItems(); 
+		//    Assert.NotNull(result);
+		//}
+
+
+		[Fact]
+		public void GetPagination_NotNullTest()
+		{
+			var result = _<#= TableMeta.Variable #>Dao.GetPagination(null, new PageParams<<#= TableMeta.Name #>Domain>{
+				PageIndex  = 1,
+				PageSize   = 20,
+				OrderField = nameof(<#= TableMeta.Name #>Domain.<#= TableMeta.PK.Name #>), 
+			});
+			Assert.NotNull(result);
+		}
+
+
+
+		[Theory]
+		[InlineData(1)]
+		public void GetById_NotNullTest(<#= TableMeta.PK.CodeType #> <#= TableMeta.PK.Variable #>)
+		{
+			var result = _<#= TableMeta.Variable #>Dao.GetById(<#= TableMeta.PK.Variable #>);
+			Assert.NotNull(result);
+		}
+
+
+
+
+
+		public static IEnumerable<object[]> Save_EqualTest_Data
+		{
+			get
+			{
+				yield return new object[] { new <#= TableMeta.Name #>Domain {
+				//TODO 程式產生未完成
+<# foreach(var col in TableMeta.Columns) { #>
+					<#= col.Name #> = default(<#= col.CodeType #>),
+<# } #>
+				}};
+
+			}
+		}
+		 
+
+		[Theory]
+		[MemberData("Save_EqualTest_Data")]
+		public void Save_EqualTest(<#= TableMeta.Name #>Domain domain)
+		{
+			using (var tx = new TransactionScope())
+			{
+				int id = _<#= TableMeta.Variable #>Dao.Save(domain);
+				<#= TableMeta.Name #>Domain data = _<#= TableMeta.Variable #>Dao.GetById(id);
+
+				//TODO 程式產生未完成
+<# foreach(var col in TableMeta.Columns) { #>
+				Assert.Equal(domain.<#= col.Name #>, data.<#= col.Name #>);
+<# } #>
+			}
+
+		}
+
+
+
+	}
+}
+
+

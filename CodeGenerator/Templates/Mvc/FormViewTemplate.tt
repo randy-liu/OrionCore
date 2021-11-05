@@ -1,0 +1,69 @@
+﻿<#@ template language="C#" inherits="CodeGenerator.Templates.TemplateBase" #>
+<#@ import namespace="CodeGenerator.Models" #>
+<#@ import namespace="System.Linq" #>
+
+<# 
+	FilePath = TableMeta.NameSpace + ".WebApp/Views/" + TableMeta.Name + "/Form.cshtml";
+#>
+@model <#= TableMeta.Name #>ViewModel
+
+
+@{
+	bool isCreate = this.IsRouteAction("Create");
+
+	ViewBag.Title = isCreate ? "新增<#= TableMeta.Description #>" : "編輯<#= TableMeta.Description #>";
+}
+
+@section Styles {
+<style type="text/css"></style>
+}
+
+
+@section Scripts {
+<script type="text/javascript">
+jQuery(function ($) {
+});
+</script>
+}
+
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new
+{
+	action = "",
+	@class = "form-horizontal form-sm",
+	ext_one_submit = "",
+	ext_exit_alert = "資料尚未儲存，確定要離開？",
+}))
+{
+	@Html.HiddenFor(m => m.<#= TableMeta.PK.Name #>)
+
+	<div class="page-header" ext-scroll-follow="">
+		<div class="pull-right hidden-print">
+			<a class="btn btn-default btn-sm" href="List"><i class="fa fa-reply fa-lg"></i> 返回</a>
+			<button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-save fa-lg"></i> 儲存</button>
+			@if (!isCreate @*&& User.AnyAct(ACT.<#= TableMeta.Name #>Delete)*@ )
+			{
+				<button class="btn btn-danger btn-sm" type="submit" name="action" value="delete"><i class="fa fa-trash-o fa-lg"></i> 刪除</button>
+			}
+		</div>
+
+		<h1>@ViewBag.Title</h1>
+	</div>
+
+	
+	<div class="col-sm-6">
+	@{ var labelCol = "col-sm-4"; var wrapCol = "col-sm-8"; }
+
+<# foreach(var col in ActiveColumns.Where(x => !x.IsPrimaryKey)) { #>
+
+		<div class="form-group">
+			@Html.BsLabelFor(m => m.<#= col.Name #>, new { @class = labelCol + "<#= (col.IsNullable ? "" : " required") #>" })
+			<div class="@wrapCol">
+				@Html.<#= col.EditBox()#>(m => m.<#= col.Name #>)
+				<span class="form-tip">@Html.ValidationMessageFor(m => m.<#= col.Name #>)</span>
+			</div>
+		</div>
+<# } #>
+	</div>
+}
+

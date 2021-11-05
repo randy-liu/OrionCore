@@ -1,0 +1,127 @@
+﻿<Window x:Class="CodeGenerator.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        mc:Ignorable="d"
+		xmlns:local="clr-namespace:CodeGenerator"
+        Title=" 從 DbContext 定義產生程式" 
+		Width="{Binding FormWidth, Mode=TwoWay}" 
+		Height="{Binding FormHeight, Mode=TwoWay}" 
+		Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
+        Loaded="window_Loaded"
+		d:DesignWidth="600" d:DesignHeight="400"
+>
+
+	<DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" LastChildFill="True" >
+        
+		<Grid DockPanel.Dock="Top">
+			<Grid.RowDefinitions >
+				<RowDefinition />
+				<RowDefinition />
+				<RowDefinition />
+				<RowDefinition />
+			</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions >
+				<ColumnDefinition Width="100" />
+				<ColumnDefinition />
+				<ColumnDefinition Width="80" />
+			</Grid.ColumnDefinitions>
+
+			<ComboBox SelectionChanged="cntStringBox_Changed" HorizontalAlignment="Stretch" Margin="5,2" Grid.Row="0" Grid.Column="0"  Grid.ColumnSpan="2">
+				<ComboBox.SelectedValue>
+					<Binding Path="CntString" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" />
+				</ComboBox.SelectedValue>
+				<ComboBox.ItemsSource>
+					<Binding Path="CntStringItems" Mode="TwoWay" />
+				</ComboBox.ItemsSource>
+			</ComboBox>
+			<Button Click="cntStringBtn_Click" HorizontalAlignment="Stretch" Margin="5,2" Grid.Row="0" Grid.Column="2" Content="選擇連線" />
+
+			<ComboBox HorizontalAlignment="Stretch" Margin="5,2" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+				<ComboBox.SelectedValue>
+					<Binding Path="Solution" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" />
+				</ComboBox.SelectedValue>
+				<ComboBox.ItemsSource>
+					<Binding Path="SolutionItems" Mode="TwoWay" />
+				</ComboBox.ItemsSource>
+			</ComboBox>
+			<Button Click="solutionBtn_Click" HorizontalAlignment="Stretch" Margin="5,2" Grid.Row="1" Grid.Column="2" Content="方案選擇" />
+
+			<Label Content="Class NameSpace" HorizontalAlignment="Left" Margin="0,2" Grid.Row="2" Grid.Column="0" />
+			<TextBox HorizontalAlignment="Stretch" Margin="5,2" Grid.Row="2" Grid.Column="1">
+				<TextBox.Text>
+					<Binding Path="ClassNameSpace" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" />
+				</TextBox.Text>
+			</TextBox>
+            <Button Click="openDir_Click" HorizontalAlignment="Stretch" Margin="5,2" Grid.Row="2" Grid.Column="2" Content="開啟目錄" />
+
+            <Label Content="DataContext Name" HorizontalAlignment="Left" Margin="0,2" Grid.Row="3" Grid.Column="0" />
+			<TextBox HorizontalAlignment="Stretch" Margin="5,2" Grid.Row="3" Grid.Column="1">				
+				<TextBox.Text>
+					<Binding Path="DataContextName" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" />
+				</TextBox.Text>
+			</TextBox>
+		</Grid>
+
+
+		<StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="10,5" DockPanel.Dock="Bottom" >
+			<CheckBox VerticalAlignment="Center" Margin="15,0" Content="強制覆蓋" IsChecked="{Binding IsOverride}" />
+
+			<Button Click="execBtn_Click" Margin="5,0">
+				<StackPanel Orientation="Horizontal">
+					<Image Source="Icons/execute.png" Height="16" ></Image>
+                    <TextBlock Margin="5,3,5,3">➤ 產生</TextBlock>
+				</StackPanel>
+			</Button>
+			<Button Click="close_Click" Margin="5,0">
+				<StackPanel Orientation="Horizontal">
+					<Image Source="Icons/close.png" Height="16" ></Image>
+                    <TextBlock Margin="5,3,5,3">✖ 關閉</TextBlock>
+				</StackPanel>
+			</Button>
+		</StackPanel>
+
+
+		<Grid DockPanel.Dock="Top">
+			<Grid.RowDefinitions >
+				<RowDefinition />
+			</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions >
+                <ColumnDefinition Width="120" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+				<ColumnDefinition Width="Auto" />
+				<ColumnDefinition Width="*" />
+			</Grid.ColumnDefinitions>
+
+			<ListBox HorizontalAlignment="Stretch" Background="Transparent" BorderBrush="Transparent" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemsSource="{Binding TemplateSelectItems}" Grid.Column="0">
+				<ListBox.ItemsPanel>
+					<ItemsPanelTemplate>
+						<WrapPanel IsItemsHost="True" />
+					</ItemsPanelTemplate>
+				</ListBox.ItemsPanel>
+				<ListBox.ItemTemplate>
+					<DataTemplate>
+						<CheckBox IsChecked="{Binding IsChecked}" Content="{Binding Display}" Margin="0,5,5,0"/>
+					</DataTemplate>
+				</ListBox.ItemTemplate>
+			</ListBox>
+
+			<GridSplitter HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="3" ResizeBehavior="PreviousAndNext" Grid.Column="1" />
+
+			<ListBox HorizontalAlignment="Stretch" ItemsSource="{Binding TableSelectItems}" Grid.Column="2">
+				<ListBox.ItemTemplate>
+					<DataTemplate>
+						<CheckBox IsChecked="{Binding IsChecked}" Content="{Binding Display}" Margin="0,5,0,0"/>
+					</DataTemplate>
+				</ListBox.ItemTemplate>
+			</ListBox>
+            
+            <GridSplitter HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="3" ResizeBehavior="PreviousAndNext" Grid.Column="3" />
+            
+            <TextBox x:Name="_execStatusMsg" HorizontalAlignment="Stretch" Grid.Column="4" IsReadOnly="True" />
+		</Grid>
+        
+	</DockPanel>
+</Window>

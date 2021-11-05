@@ -1,0 +1,93 @@
+﻿<#@ template language="C#" inherits="CodeGenerator.Templates.TemplateBase" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="CodeGenerator.Models" #>
+<# 
+	string className = TableMeta.Name + "Service";
+	FilePath = TableMeta.NameSpace + ".Service.Impl/" + className + ".cs";
+
+
+	var validateColumns = ActiveColumns
+		.Where(x => !x.IsPrimaryKey)
+		.Where(x => !x.IsEnum)
+		.Where(x => !x.IsNullable)
+		.Where(x => x.CodeType != "bool")
+		.Where(x => x.Name != "RemarkText")
+		;
+
+#>
+using OrionCore.API;
+using OrionCore.API.Models;
+using System;
+using System.Linq;
+using System.Collections.Generic;
+using System.Data.Linq;
+using <#= TableMeta.NameSpace #>.Dao;
+using <#= TableMeta.NameSpace #>.Domain;
+using <#= TableMeta.NameSpace #>.Enums;
+
+
+namespace <#= TableMeta.NameSpace #>.Service.Impl
+{
+	/// <summary><#= TableMeta.Description #></summary>
+	public class <#= className #> : I<#= className #>
+	{
+		private readonly I<#= TableMeta.Name #>Dao _<#= TableMeta.Variable #>Dao;
+
+		public <#= className #>(I<#= TableMeta.Name #>Dao <#= TableMeta.Variable #>Dao)
+		{
+			_<#= TableMeta.Variable #>Dao = <#= TableMeta.Variable #>Dao;
+		}
+
+
+		//TODO 程式產生未完成
+		//public Dictionary<int, string> Get<#= TableMeta.Name #>Dic(UseStatus? status)
+		//{
+		//    return _<#= TableMeta.Variable #>Dao.Get<#= TableMeta.Name #>Dic(status);
+		//}
+
+		public Pagination<<#= TableMeta.Name #>Domain> GetPagination(WhereParams<<#= TableMeta.Name #>Domain> findParam, PageParams<<#= TableMeta.Name #>Domain> pageParams)
+		{
+			using (OrionUtils.TransactionReadUncommitted())
+			{
+				return _<#= TableMeta.Variable #>Dao.GetPagination(findParam, pageParams);
+			}
+		}
+
+
+		//public List<<#= TableMeta.Name #>Domain> GetList(WhereParams<<#= TableMeta.Name #>Domain> findParam)
+		//{
+		//	using (OrionUtils.TransactionReadUncommitted())
+		//	{
+		//		return _<#= TableMeta.Variable #>Dao.GetList(findParam);
+		//	}
+		//}
+
+		public <#= TableMeta.Name #>Domain GetById(<#= TableMeta.PK.CodeType #> <#= TableMeta.PK.Variable #>)
+		{
+			<#= TableMeta.Name #>Domain domain = _<#= TableMeta.Variable #>Dao.GetById(<#= TableMeta.PK.Variable #>);
+
+			if (domain == null) { throw new OrionNoDataException("<#= TableMeta.Description #>資料不存在"); }
+
+			return domain;
+		}
+
+
+		//TODO 程式產生未完成
+		public int Save(<#= TableMeta.Name #>Domain domain)
+		{
+<# foreach(var col in validateColumns) { #>
+			Checker.Has(domain.<#= col.Name #>, "<#= col.DisplayName #>不可以為空");
+<# } #>
+<# foreach(var col in WithColumns("ModifyBy", "ModifiedBy")) { #>
+			Checker.Has(domain.<#= col.Name #>, "修改人不可以為空");
+<# } #>
+
+			return _<#= TableMeta.Variable #>Dao.Save(domain);
+		}
+
+		public void Delete(<#= TableMeta.PK.CodeType #> <#= TableMeta.PK.Variable #>, int modifyBy)
+		{
+			_<#= TableMeta.Variable #>Dao.Delete(<#= TableMeta.PK.Variable #>, modifyBy);
+		}
+	}
+}

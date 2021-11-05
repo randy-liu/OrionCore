@@ -1,0 +1,152 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon>logo.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Templates\EnumTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>EnumTemplate.cs</LastGenOutput>
+    </None>
+    <None Update="Templates\Mvc\ControllersTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>ControllersTemplate.cs</LastGenOutput>
+    </None>
+    <None Update="Templates\Mvc\DialogViewTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>DialogViewTemplate.cs</LastGenOutput>
+    </None>
+    <None Update="Templates\Mvc\FormViewTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>FormViewTemplate.cs</LastGenOutput>
+    </None>
+    <None Update="Templates\Mvc\ListViewTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>ListViewTemplate.cs</LastGenOutput>
+    </None>
+    <None Update="Templates\Mvc\ViewModelTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>ViewModelTemplate.cs</LastGenOutput>
+    </None>
+    <None Update="Templates\Test\DaoTestTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>DaoTestTemplate.cs</LastGenOutput>
+    </None>
+    <None Update="Templates\Test\ServiceTestTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>ServiceTestTemplate.cs</LastGenOutput>
+    </None>
+    <None Update="Templates\Wcf\DaoTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>DaoTemplate.cs</LastGenOutput>
+    </None>
+    <None Update="Templates\Wcf\DomainTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>DomainTemplate.cs</LastGenOutput>
+    </None>
+    <None Update="Templates\Wcf\IDaoTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>IDaoTemplate.cs</LastGenOutput>
+    </None>
+    <None Update="Templates\Wcf\IServiceTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>IServiceTemplate.cs</LastGenOutput>
+    </None>
+    <None Update="Templates\Wcf\ServiceTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>ServiceTemplate.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Templates\EnumTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>EnumTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Templates\Mvc\ControllersTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ControllersTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Templates\Mvc\DialogViewTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>DialogViewTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Templates\Mvc\FormViewTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>FormViewTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Templates\Mvc\ListViewTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ListViewTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Templates\Mvc\ViewModelTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Templates\Test\DaoTestTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>DaoTestTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Templates\Test\ServiceTestTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ServiceTestTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Templates\Wcf\DaoTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>DaoTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Templates\Wcf\DomainTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>DomainTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Templates\Wcf\IDaoTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>IDaoTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Templates\Wcf\IServiceTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>IServiceTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Templates\Wcf\ServiceTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ServiceTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+
+</Project>
