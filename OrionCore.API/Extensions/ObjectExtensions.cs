@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -18,9 +19,29 @@ namespace Orion.Api.Extensions
 		};
 
 
+
+        /// <summary>Json 轉換的前置處裡 </summary>
+        private static object preJson(this object obj)
+        {
+            if(obj is DataRow row) 
+            {
+                var dict = new Dictionary<string, object>();
+
+                foreach (DataColumn col in row.Table.Columns)
+                { dict[col.ColumnName] = row[col]; }
+
+                return dict;
+            }
+
+            return obj;
+        }
+
+
         /// <summary>將 object 轉換為 Json</summary>
         public static string ToJson(this object obj)
         {
+            obj = preJson(obj);
+
             var settings = new JsonSerializerSettings()
             {
                 Converters = _defaultConverters,
@@ -32,10 +53,11 @@ namespace Orion.Api.Extensions
         }
 
 
-
         /// <summary>將 object 轉換為縮排格式化的 Json</summary>
         public static string ToFormatJson(this object obj)
         {
+            obj = preJson(obj);
+
             var settings = new JsonSerializerSettings()
             {
                 Formatting = Formatting.Indented,
@@ -50,7 +72,7 @@ namespace Orion.Api.Extensions
 
 
         /// <summary>將 json string 轉換為 Object</summary>
-        public static TObject JsonToObject<TObject>(this String jsonStr)
+        public static TObject JsonToObject<TObject>(this string jsonStr)
         {
             if (jsonStr == null) { return default(TObject); }
 

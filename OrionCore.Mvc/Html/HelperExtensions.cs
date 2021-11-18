@@ -289,11 +289,6 @@ namespace Orion.Mvc.Html
 			return new HtmlString(ObjectExtensions.ToFormatJson(obj));
 		}
 
-		/// <summary>將 DataRow 轉換為 JsonRaw</summary>
-		public static IHtmlContent ToJsonRaw(this DataRow obj)
-		{
-			return new HtmlString(ObjectExtensions.ToJson(obj));
-		}
 
 
 
