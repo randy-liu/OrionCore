@@ -1,11 +1,11 @@
-﻿using OrionCore.API.Tests;
+﻿using Orion.Api.Tests;
 using System.Collections.Generic;
 using Xunit;
 using System.IO;
 using Microsoft.EntityFrameworkCore;
 using System;
 
-namespace OrionCore.API.Extensions.Tests
+namespace Orion.Api.Extensions.Tests
 {
 	public class WhereHasExtensionsTests
 	{

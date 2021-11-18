@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace OrionCore.API.Models
+namespace Orion.Api.Models
 {
 	/// <summary>Assembly Meta 資訊</summary>
 	public class AssemblyMeta

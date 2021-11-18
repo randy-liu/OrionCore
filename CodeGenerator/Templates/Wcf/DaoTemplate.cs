@@ -17,7 +17,7 @@ namespace CodeGenerator.Templates.Wcf
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+    #line 1 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
     public partial class DaoTemplate : CodeGenerator.Templates.TemplateBase
     {
@@ -28,7 +28,7 @@ namespace CodeGenerator.Templates.Wcf
         public override string TransformText()
         {
             
-            #line 4 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 4 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
  
 	string className = TableMeta.Name + "Dao";
 	FilePath = TableMeta.NameSpace + ".Dao/Impl/" + className + ".cs";
@@ -36,24 +36,24 @@ namespace CodeGenerator.Templates.Wcf
             
             #line default
             #line hidden
-            this.Write("using OrionCore.API;\r\nusing OrionCore.API.Extensions;\r\nusing OrionCore.API.Models" +
+            this.Write("using Orion.Api;\r\nusing Orion.Api.Extensions;\r\nusing Orion.Api.Models" +
                     ";\r\nusing ");
             
-            #line 11 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 11 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.NameSpace));
             
             #line default
             #line hidden
             this.Write(".Dao.Database;\r\nusing ");
             
-            #line 12 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 12 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.NameSpace));
             
             #line default
             #line hidden
             this.Write(".Domain;\r\nusing ");
             
-            #line 13 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 13 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.NameSpace));
             
             #line default
@@ -61,49 +61,49 @@ namespace CodeGenerator.Templates.Wcf
             this.Write(".Enums;\r\nusing System;\r\nusing System.Collections.Generic;\r\nusing System.Linq;\r\n\r\n" +
                     "\r\nnamespace ");
             
-            #line 19 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 19 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.NameSpace));
             
             #line default
             #line hidden
             this.Write(".Dao.Impl\r\n{\r\n\t/// <summary>");
             
-            #line 21 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 21 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Description));
             
             #line default
             #line hidden
             this.Write("</summary>\r\n\tpublic class ");
             
-            #line 22 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 22 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(className));
             
             #line default
             #line hidden
             this.Write(" : I");
             
-            #line 22 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 22 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(className));
             
             #line default
             #line hidden
             this.Write("\r\n\t{\r\n\t\tprivate ");
             
-            #line 24 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 24 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DataContextName));
             
             #line default
             #line hidden
             this.Write(" _dc;\r\n\r\n\t\tpublic ");
             
-            #line 26 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 26 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(className));
             
             #line default
             #line hidden
             this.Write("(");
             
-            #line 26 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 26 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DataContextName));
             
             #line default
@@ -111,14 +111,14 @@ namespace CodeGenerator.Templates.Wcf
             this.Write(" dc)\r\n\t\t{\r\n\t\t\t_dc = dc;\r\n\t\t}\r\n\r\n\r\n\t\t//TODO 程式產生未完成\r\n\t\t//public Dictionary<int, st" +
                     "ring> GetDic(string status = null)\r\n\t\t//{\r\n\t\t//\tIQueryable<");
             
-            #line 35 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 35 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.TableName));
             
             #line default
             #line hidden
             this.Write("> query = _dc.");
             
-            #line 35 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 35 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.TableName));
             
             #line default
@@ -126,14 +126,14 @@ namespace CodeGenerator.Templates.Wcf
             this.Write(";\r\n\t\t//\tquery = query.WhereHas(x => x.UseStatus == status);\r\n\r\n\t\t//\tvar items = q" +
                     "uery.ToDictionary(x => x.");
             
-            #line 38 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 38 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.PK.Name));
             
             #line default
             #line hidden
             this.Write(", x => x.");
             
-            #line 38 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 38 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
@@ -156,28 +156,28 @@ namespace CodeGenerator.Templates.Wcf
 
 		private ");
             
-            #line 54 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 54 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
             #line hidden
             this.Write("Domain toDomain(_");
             
-            #line 54 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 54 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
             #line hidden
             this.Write(" data)\r\n\t\t{\r\n\t\t\tif(data == null) { return null; }\r\n\r\n\t\t\tvar domain = new ");
             
-            #line 58 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 58 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
             #line hidden
             this.Write("Domain \r\n\t\t\t{\r\n");
             
-            #line 60 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 60 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
  foreach(var col in TableMeta.Columns) { 
 	   if(col.IsEnum) 
 	   { WriteLine("\t\t\t\t{0} = data.{0}.ToEnum<{0}>(),", col.Name); }
@@ -189,21 +189,21 @@ namespace CodeGenerator.Templates.Wcf
             #line hidden
             this.Write("\t\t\t};\t\t\t\r\n\r\n\t\t\treturn domain;\r\n\t\t}\r\n\r\n\r\n\t\tprivate Func<_");
             
-            #line 72 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 72 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
             #line hidden
             this.Write(", ");
             
-            #line 72 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 72 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
             #line hidden
             this.Write("Domain> prepareToDomain(IEnumerable<_");
             
-            #line 72 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 72 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
@@ -223,7 +223,7 @@ namespace CodeGenerator.Templates.Wcf
 
 				");
             
-            #line 85 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 85 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
@@ -231,63 +231,63 @@ namespace CodeGenerator.Templates.Wcf
             this.Write("Domain domain = toDomain(data);\r\n\t\t\t\t//domain.UserIds = getUserIds(data.RoleId);\r" +
                     "\n\t\t\t\treturn domain;\r\n\t\t\t};\r\n\t\t}\r\n\r\n\r\n\t\tprivate IQueryable<_");
             
-            #line 92 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 92 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
             #line hidden
             this.Write("> getQuery(WhereParams<");
             
-            #line 92 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 92 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
             #line hidden
             this.Write("Domain> findParam = null)\r\n\t\t{\r\n\t\t\tIQueryable<_");
             
-            #line 94 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 94 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
             #line hidden
             this.Write("> query =\r\n\t\t\t\tfrom x in _dc.");
             
-            #line 95 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 95 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.TableName));
             
             #line default
             #line hidden
             this.Write("\r\n\t\t\t\tselect new _");
             
-            #line 96 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 96 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
             #line hidden
             this.Write("\r\n\t\t\t\t{\r\n");
             
-            #line 98 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 98 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
  foreach(var col in TableMeta.Columns) { 
             
             #line default
             #line hidden
             this.Write("\t\t\t\t\t");
             
-            #line 99 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 99 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.Name));
             
             #line default
             #line hidden
             this.Write(" = x.");
             
-            #line 99 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 99 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.Name));
             
             #line default
             #line hidden
             this.Write(",\r\n");
             
-            #line 100 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 100 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
  } 
             
             #line default
@@ -295,7 +295,7 @@ namespace CodeGenerator.Templates.Wcf
             this.Write("\t\t\t\t};\r\n\r\n\r\n\t\t\tif (findParam == null) { return query; }\r\n\r\n\t\t\tquery = query.Where" +
                     "Builder(findParam)\r\n");
             
-            #line 107 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 107 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
  foreach(var col in TableMeta.Columns) { 
 	if(col.IsEnum) 
 	{ WriteLine("\t\t\t\t.WhereBind(x => x.{0}.ToString(), y => y.{0})", col.Name); }
@@ -308,28 +308,28 @@ namespace CodeGenerator.Templates.Wcf
             this.Write("\t\t\t\t.Build();\r\n\r\n\t\t\treturn query;\r\n\t\t}\r\n\r\n\r\n\r\n\r\n\t\t//TODO 程式產生未完成\r\n\t\tpublic Pagina" +
                     "tion<");
             
-            #line 122 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 122 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
             #line hidden
             this.Write("Domain> GetPagination(WhereParams<");
             
-            #line 122 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 122 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
             #line hidden
             this.Write("Domain> findParam, PageParams<");
             
-            #line 122 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 122 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
             #line hidden
             this.Write("Domain> pageParams)\r\n\t\t{\r\n\t\t\tIQueryable<_");
             
-            #line 124 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 124 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
@@ -337,7 +337,7 @@ namespace CodeGenerator.Templates.Wcf
             this.Write("> query = getQuery(findParam);\r\n\r\n\r\n\t\t\tif (pageParams == null) { pageParams = Pag" +
                     "eParams<");
             
-            #line 127 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 127 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
@@ -346,7 +346,7 @@ namespace CodeGenerator.Templates.Wcf
                     "ams.OrderField);\r\n\t\t\t}\r\n\t\t\tcatch (Exception)\r\n\t\t\t{\r\n\t\t\t\tquery = query.OrderBy(x " +
                     "=> x.");
             
-            #line 135 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 135 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.PK.Name));
             
             #line default
@@ -354,14 +354,14 @@ namespace CodeGenerator.Templates.Wcf
             this.Write(");\r\n\t\t\t}\r\n\r\n\r\n\t\t\tvar result = query.AsPagination(pageParams.PageIndex, pageParams" +
                     ".PageSize);\r\n\r\n\t\t\tFunc<_");
             
-            #line 141 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 141 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
             #line hidden
             this.Write(", ");
             
-            #line 141 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 141 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
@@ -369,35 +369,35 @@ namespace CodeGenerator.Templates.Wcf
             this.Write("Domain> toDomain = prepareToDomain(result.List);\r\n\t\t\treturn result.As(x => toDoma" +
                     "in(x));\r\n\t\t}\r\n\r\n\t\t\r\n\r\n\t\t//TODO 程式產生未完成\r\n\t\t//public List<");
             
-            #line 148 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 148 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
             #line hidden
             this.Write("Domain> GetList(WhereParams<");
             
-            #line 148 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 148 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
             #line hidden
             this.Write("Domain> findParam = null)\r\n\t\t//{\r\n\t\t//    List<_");
             
-            #line 150 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 150 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
             #line hidden
             this.Write("> list = getQuery(findParam).ToList();\r\n\t\t//\r\n\t\t//    Func<_");
             
-            #line 152 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 152 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
             #line hidden
             this.Write(", ");
             
-            #line 152 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 152 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
@@ -405,63 +405,63 @@ namespace CodeGenerator.Templates.Wcf
             this.Write("Domain> toDomain = prepareToDomain(list);\r\n\t\t//    return list.ToList(x => toDoma" +
                     "in(x));\r\n\t\t//}\r\n\r\n\r\n\t\t//TODO 程式產生未完成\r\n\t\tpublic ");
             
-            #line 158 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 158 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
             #line hidden
             this.Write("Domain GetById(");
             
-            #line 158 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 158 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.PK.CodeType));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 158 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 158 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.PK.Variable));
             
             #line default
             #line hidden
             this.Write(")\r\n\t\t{\r\n\t\t\t_");
             
-            #line 160 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 160 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
             #line hidden
             this.Write(" data = getQuery().FirstOrDefault(x => x.");
             
-            #line 160 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 160 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.PK.Name));
             
             #line default
             #line hidden
             this.Write(" == ");
             
-            #line 160 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 160 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.PK.Variable));
             
             #line default
             #line hidden
             this.Write(");\r\n\t\t\tif (data == null) { return null; }\r\n\r\n\t\t\tFunc<_");
             
-            #line 163 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 163 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
             #line hidden
             this.Write(", ");
             
-            #line 163 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 163 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
             #line hidden
             this.Write("Domain> toDomain = prepareToDomain(new[] { data });\r\n\t\t\t");
             
-            #line 164 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 164 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
@@ -469,131 +469,131 @@ namespace CodeGenerator.Templates.Wcf
             this.Write("Domain domain = toDomain(data);\r\n\r\n\t\t\treturn domain;\r\n\t\t}\r\n\r\n\r\n\r\n\t\t//TODO 程式產生未完成" +
                     "\r\n\t\tpublic int Save(");
             
-            #line 172 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 172 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
             #line hidden
             this.Write("Domain domain)\r\n\t\t{\r\n\t\t\t");
             
-            #line 174 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 174 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.TableName));
             
             #line default
             #line hidden
             this.Write(" data;\r\n\r\n\t\t\tif (domain.");
             
-            #line 176 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 176 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.PK.Name));
             
             #line default
             #line hidden
             this.Write(" > 0)\r\n\t\t\t{\r\n\t\t\t\tdata = _dc.");
             
-            #line 178 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 178 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.TableName));
             
             #line default
             #line hidden
             this.Write(".FirstOrDefault(x => x.");
             
-            #line 178 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 178 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.PK.Name));
             
             #line default
             #line hidden
             this.Write(" == domain.");
             
-            #line 178 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 178 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.PK.Name));
             
             #line default
             #line hidden
             this.Write(");\r\n\t\t\t\tChecker.Has(data, \"");
             
-            #line 179 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 179 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Description));
             
             #line default
             #line hidden
             this.Write("不存在無法修改\");\r\n\t\t\t}\r\n\t\t\telse\r\n\t\t\t{\r\n\t\t\t\tdata = new ");
             
-            #line 183 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 183 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.TableName));
             
             #line default
             #line hidden
             this.Write("\r\n\t\t\t\t{\r\n");
             
-            #line 185 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 185 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
  foreach(var col in WithColumns("CreateBy")) { 
             
             #line default
             #line hidden
             this.Write("\t\t\t\t\t");
             
-            #line 186 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 186 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.Name));
             
             #line default
             #line hidden
             this.Write(" = domain.ModifyBy,\r\n");
             
-            #line 187 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 187 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
  } 
             
             #line default
             #line hidden
             
-            #line 188 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 188 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
  foreach(var col in WithColumns("CreatedBy")) { 
             
             #line default
             #line hidden
             this.Write("\t\t\t\t\t");
             
-            #line 189 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 189 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.Name));
             
             #line default
             #line hidden
             this.Write(" = domain.ModifiedBy,\r\n");
             
-            #line 190 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 190 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
  } 
             
             #line default
             #line hidden
             
-            #line 191 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 191 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
  foreach(var col in WithColumns("CreateDate", "CreatedDate")) { 
             
             #line default
             #line hidden
             this.Write("\t\t\t\t\t");
             
-            #line 192 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 192 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.Name));
             
             #line default
             #line hidden
             this.Write(" = DateTime.Now,\r\n");
             
-            #line 193 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 193 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\t\t\t\t};\r\n\t\t\t\t_dc.");
             
-            #line 195 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 195 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.TableName));
             
             #line default
             #line hidden
             this.Write(".Add(data);\r\n\t\t\t}\r\n\r\n");
             
-            #line 198 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 198 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
  foreach(var col in ActiveColumns.Where(x => x.Name != TableMeta.PK.Name)) {
 	   if(col.IsEnum) 
 	   { WriteLine("\t\t\tdata.{0} = domain.{0}.ToString();", col.Name); }
@@ -605,90 +605,90 @@ namespace CodeGenerator.Templates.Wcf
             #line hidden
             this.Write("\r\n");
             
-            #line 205 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 205 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
  foreach(var col in WithColumns("ModifyBy", "ModifiedBy")) { 
             
             #line default
             #line hidden
             this.Write("\t\t\tdata.");
             
-            #line 206 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 206 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.Name));
             
             #line default
             #line hidden
             this.Write(" = domain.");
             
-            #line 206 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 206 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.Name));
             
             #line default
             #line hidden
             this.Write(";\r\n");
             
-            #line 207 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 207 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
  } 
             
             #line default
             #line hidden
             
-            #line 208 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 208 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
  foreach(var col in WithColumns("ModifyDate", "ModifiedDate")) { 
             
             #line default
             #line hidden
             this.Write("\t\t\tdata.");
             
-            #line 209 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 209 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.Name));
             
             #line default
             #line hidden
             this.Write(" = DateTime.Now;\r\n");
             
-            #line 210 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 210 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\r\n\t\t\t_dc.SaveChanges();\r\n\r\n\r\n\t\t\treturn data.");
             
-            #line 215 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 215 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.PK.Name));
             
             #line default
             #line hidden
             this.Write(";\r\n\t\t}\r\n\r\n\r\n\r\n\t\tpublic void Delete(");
             
-            #line 220 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 220 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.PK.CodeType));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 220 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 220 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.PK.Variable));
             
             #line default
             #line hidden
             this.Write(", int modifyBy)\r\n\t\t{\r\n\t\t\t_dc.");
             
-            #line 222 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 222 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.TableName));
             
             #line default
             #line hidden
             this.Write(".DeleteAllOnSubmit(x => x.");
             
-            #line 222 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 222 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.PK.Name));
             
             #line default
             #line hidden
             this.Write(" == ");
             
-            #line 222 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 222 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.PK.Variable));
             
             #line default
@@ -696,35 +696,35 @@ namespace CodeGenerator.Templates.Wcf
             this.Write(");\r\n\r\n\t\t\t_dc.SaveChanges();\r\n\t\t}\r\n\r\n\r\n\t\t//TODO 程式產生未完成\r\n\t\t//public bool IsXxxDupl" +
                     "icate(");
             
-            #line 229 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 229 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.PK.CodeType));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 229 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 229 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.PK.Variable));
             
             #line default
             #line hidden
             this.Write(", string xxx)\r\n\t\t//{\r\n\t\t//\treturn _dc.");
             
-            #line 231 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 231 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.TableName));
             
             #line default
             #line hidden
             this.Write("\r\n\t\t//\t\t.Where(x => x. ");
             
-            #line 232 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 232 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.PK.Name));
             
             #line default
             #line hidden
             this.Write(" != ");
             
-            #line 232 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 232 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.PK.Variable));
             
             #line default
@@ -733,14 +733,14 @@ namespace CodeGenerator.Templates.Wcf
                     "#########################################################*/\r\n\r\n\t\tprivate class _" +
                     "");
             
-            #line 241 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 241 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
             #line hidden
             this.Write(" : ");
             
-            #line 241 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
+            #line 241 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.TableName));
             
             #line default

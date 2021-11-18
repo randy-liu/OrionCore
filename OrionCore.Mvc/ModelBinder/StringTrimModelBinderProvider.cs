@@ -2,10 +2,10 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
-namespace OrionCore.Mvc.ModelBinder
+namespace Orion.Mvc.ModelBinder
 {
     public class StringTrimModelBinderProvider : IModelBinderProvider
     {

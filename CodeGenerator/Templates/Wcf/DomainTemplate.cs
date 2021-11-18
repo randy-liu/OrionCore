@@ -17,7 +17,7 @@ namespace CodeGenerator.Templates.Wcf
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DomainTemplate.tt"
+    #line 1 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DomainTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
     public partial class DomainTemplate : CodeGenerator.Templates.TemplateBase
     {
@@ -28,7 +28,7 @@ namespace CodeGenerator.Templates.Wcf
         public override string TransformText()
         {
             
-            #line 4 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DomainTemplate.tt"
+            #line 4 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DomainTemplate.tt"
  
 	string className = TableMeta.Name + "Domain";
 	FilePath = TableMeta.NameSpace + "/" + className + ".cs";
@@ -36,73 +36,73 @@ namespace CodeGenerator.Templates.Wcf
             
             #line default
             #line hidden
-            this.Write("using System;\r\nusing System.ComponentModel.DataAnnotations;\r\nusing OrionCore.API." +
+            this.Write("using System;\r\nusing System.ComponentModel.DataAnnotations;\r\nusing Orion.Api." +
                     "Models;\r\nusing ");
             
-            #line 11 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DomainTemplate.tt"
+            #line 11 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DomainTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.NameSpace));
             
             #line default
             #line hidden
             this.Write(".Enums;\r\n\r\n\r\nnamespace ");
             
-            #line 14 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DomainTemplate.tt"
+            #line 14 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DomainTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.NameSpace));
             
             #line default
             #line hidden
             this.Write(".Domain \r\n{\r\n\t/// <summary>");
             
-            #line 16 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DomainTemplate.tt"
+            #line 16 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DomainTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Description));
             
             #line default
             #line hidden
             this.Write("</summary>\r\n\tpublic class ");
             
-            #line 17 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DomainTemplate.tt"
+            #line 17 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DomainTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(className));
             
             #line default
             #line hidden
             this.Write(" \r\n\t{\r\n\t\t");
             
-            #line 19 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DomainTemplate.tt"
+            #line 19 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DomainTemplate.tt"
  foreach(var col in TableMeta.Columns) { 
             
             #line default
             #line hidden
             this.Write("\r\n\t\t/// <summary>");
             
-            #line 21 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DomainTemplate.tt"
+            #line 21 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DomainTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.Description));
             
             #line default
             #line hidden
             this.Write("</summary>\t\t\r\n\t\t[Display(Name = \"");
             
-            #line 22 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DomainTemplate.tt"
+            #line 22 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DomainTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.DisplayName));
             
             #line default
             #line hidden
             this.Write("\")]\r\n\t\tpublic ");
             
-            #line 23 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DomainTemplate.tt"
+            #line 23 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DomainTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.CodeType));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 23 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DomainTemplate.tt"
+            #line 23 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DomainTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.Name));
             
             #line default
             #line hidden
             this.Write(" { get; set; }\r\n\t\t");
             
-            #line 24 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\DomainTemplate.tt"
+            #line 24 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Wcf\DomainTemplate.tt"
  } 
             
             #line default

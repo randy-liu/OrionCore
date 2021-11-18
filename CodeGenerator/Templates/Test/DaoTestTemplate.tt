@@ -5,7 +5,7 @@
 	string className = TableMeta.Name + "DaoTests";
 	FilePath = TableMeta.NameSpace + ".Tests/Dao/Impl/" + className + ".cs";
 #>
-using OrionCore.API.Models;
+using Orion.Api.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,16 +1,15 @@
-﻿using OrionCore.API.Models;
-using OrionCore.API.Extensions;
-using System;
+﻿using System;
 using System.Collections.Specialized;
-using System.Text;
-using System.Web;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Collections.Generic;
+using System.Text;
+using System.Web;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Orion.Api.Extensions;
+using Orion.Api.Models;
 
-namespace OrionCore.Mvc.Html
+namespace Orion.Mvc.Html
 {
 
 	/// <summary></summary>
@@ -27,25 +26,16 @@ namespace OrionCore.Mvc.Html
 		/// <param name="pagination">The datasource</param>
 		public static IHtmlContent PagerLinks(this IHtmlHelper helper, IPagination pagination)
 		{
-			return PagerLinks(helper, pagination, IndexParam);
-		}
-
-		/// <summary>換頁的頁面連結列</summary>
-		/// <param name="helper">The HTML Helper</param>
-		/// <param name="pagination">The datasource</param>
-		/// <param name="param">連結的 QueryString 名稱</param>
-		public static IHtmlContent PagerLinks(this IHtmlHelper helper, IPagination pagination, string param)
-		{
 			/*資料為空*/
 			if (pagination.TotalItems == 0)
 			{
-				return new HtmlString(String.Empty);
+				return new HtmlString(string.Empty);
 			}
 
 			string queryString = helper.ViewContext.HttpContext.Request.QueryString.ToString();
 			NameValueCollection values = HttpUtility.ParseQueryString(queryString);
-			values.Remove(param);
-			values.Add(param, "");
+			values.Remove(IndexParam);
+			values.Add(IndexParam, "");
 
 			string linkTpl = "<li class=\"{0}\"><a href=\"?" + values.ToString() + "{2}\">{1}</a></li>";
 			string spanTpl = "<li class=\"{0}\"><span>{1}</span></li>";
@@ -109,14 +99,14 @@ namespace OrionCore.Mvc.Html
 				links.AppendFormat(linkTpl, "", 1, 1);
 			}
 
-			/* ... */
+			/* … */
 			if (index > 2)
 			{
 				string className = "disabled";
 				if (total < max) { className += " hidden-lg"; }
 				if (romL <= 2) { className += " hidden-md"; }
 				if (index <= 4) { className += " hidden-sm"; }
-				links.AppendFormat(spanTpl, className, "...");
+				links.AppendFormat(spanTpl, className, "…");
 			}
 
 			/*中間的頁面連結*/
@@ -134,14 +124,14 @@ namespace OrionCore.Mvc.Html
 				}
 			}
 
-			/* ... */
+			/* … */
 			if ((total - index) >= 2)
 			{
 				string className = "disabled";
 				if (total < max) { className += " hidden-lg"; }
 				if ((total - romR) < 2) { className += " hidden-md"; }
 				if ((total - index) < 4) { className += " hidden-sm"; }
-				links.AppendFormat(spanTpl, className, "...");
+				links.AppendFormat(spanTpl, className, "…");
 			}
 
 			/*最後一個頁面連結*/
@@ -203,7 +193,7 @@ namespace OrionCore.Mvc.Html
 
 			string iconName = "fa-sort";
 
-			if (values[SortParam] == ("-" + column))
+			if (values[SortParam] == $"-{column}")
 			{
 				values[SortParam] = column;
 				iconName = "fa-sort-desc";

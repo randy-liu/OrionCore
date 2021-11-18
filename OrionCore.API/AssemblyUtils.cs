@@ -1,49 +1,49 @@
-﻿using OrionCore.API.Models;
-using System;
+﻿using System;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using Orion.Api.Models;
 
-namespace OrionCore.API
+namespace Orion.Api
 {
-	/// <summary></summary>
-	public static class AssemblyUtils
+    /// <summary></summary>
+    public static class AssemblyUtils
     {
 
-		/// <summary></summary>
-		public static string GetName(string assemblyString)
-		{
-			Assembly asm = Assembly.Load(assemblyString);
-			return GetName(asm);
-		}
-		/// <summary></summary>
-		public static string GetName(Type type)
-		{
-			return GetName(type.Assembly);
-		}
-		/// <summary></summary>
-		public static string GetName(Assembly asm)
-		{
-			return asm.GetName().Name;
-		}
+        /// <summary></summary>
+        public static string GetName(string assemblyString)
+        {
+            Assembly asm = Assembly.Load(assemblyString);
+            return GetName(asm);
+        }
+        /// <summary></summary>
+        public static string GetName(Type type)
+        {
+            return GetName(type.Assembly);
+        }
+        /// <summary></summary>
+        public static string GetName(Assembly asm)
+        {
+            return asm.GetName().Name;
+        }
 
 
 
-		/// <summary></summary>
-		public static string GetTitle(string assemblyString)
+        /// <summary></summary>
+        public static string GetTitle(string assemblyString)
         {
             Assembly asm = Assembly.Load(assemblyString);
             return GetTitle(asm);
         }
-		/// <summary></summary>
-		public static string GetTitle(Type type)
-		{
-			return GetTitle(type.Assembly);
-		}
-		/// <summary></summary>
-		public static string GetTitle(Assembly asm)
+        /// <summary></summary>
+        public static string GetTitle(Type type)
+        {
+            return GetTitle(type.Assembly);
+        }
+        /// <summary></summary>
+        public static string GetTitle(Assembly asm)
         {
             return asm.GetCustomAttribute<AssemblyTitleAttribute>()?.Title;
-		}
+        }
 
 
         /// <summary></summary>
@@ -52,13 +52,13 @@ namespace OrionCore.API
             Assembly asm = Assembly.Load(assemblyString);
             return GetVersion(asm);
         }
-		/// <summary></summary>
-		public static Version GetVersion(Type type)
-		{
-			return GetVersion(type.Assembly);
-		}
-		/// <summary></summary>
-		public static Version GetVersion(Assembly asm)
+        /// <summary></summary>
+        public static Version GetVersion(Type type)
+        {
+            return GetVersion(type.Assembly);
+        }
+        /// <summary></summary>
+        public static Version GetVersion(Assembly asm)
         {
             return asm.GetName().Version;
         }
@@ -70,13 +70,13 @@ namespace OrionCore.API
             Assembly asm = Assembly.Load(assemblyString);
             return GetDescription(asm);
         }
-		/// <summary></summary>
-		public static string GetDescription(Type type)
-		{
-			return GetDescription(type.Assembly);
-		}
-		/// <summary></summary>
-		public static string GetDescription(Assembly asm)
+        /// <summary></summary>
+        public static string GetDescription(Type type)
+        {
+            return GetDescription(type.Assembly);
+        }
+        /// <summary></summary>
+        public static string GetDescription(Assembly asm)
         {
             return asm.GetCustomAttribute<AssemblyDescriptionAttribute>()?.Description;
         }
@@ -90,19 +90,19 @@ namespace OrionCore.API
             return GetMeta(asm);
         }
 
-		/// <summary></summary>
-		public static AssemblyMeta GetMeta(Type type)
-		{
-			return GetMeta(type.Assembly);
-		}
+        /// <summary></summary>
+        public static AssemblyMeta GetMeta(Type type)
+        {
+            return GetMeta(type.Assembly);
+        }
 
-		/// <summary></summary>
-		public static AssemblyMeta GetMeta(Assembly asm)
+        /// <summary></summary>
+        public static AssemblyMeta GetMeta(Assembly asm)
         {
             var meta = new AssemblyMeta
             {
-				Name = GetName(asm),
-				Title = GetTitle(asm),
+                Name = GetName(asm),
+                Title = GetTitle(asm),
                 Version = GetVersion(asm),
                 Description = GetDescription(asm),
                 Culture = asm.GetName().CultureName,

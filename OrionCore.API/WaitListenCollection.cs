@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using OrionCore.API.Extensions;
+using Orion.Api.Extensions;
 
-namespace OrionCore.API
+namespace Orion.Api
 {
 
     /// <summary></summary>
@@ -38,7 +38,7 @@ namespace OrionCore.API
                     .Where(x => listen.IsMatch(x.Type, x.Model))
                     .FirstOrDefault();
 
-                if(info != null)
+                if (info != null)
                 {
                     listen.Invoke(info.Model);
                     return listen.Task;
@@ -60,7 +60,7 @@ namespace OrionCore.API
             return listen.Task;
         }
 
- 
+
 
 
         /// <summary></summary>

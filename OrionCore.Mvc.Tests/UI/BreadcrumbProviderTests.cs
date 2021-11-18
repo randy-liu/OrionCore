@@ -2,7 +2,7 @@
 using Xunit;
 
 
-namespace OrionCore.Mvc.UI.Tests
+namespace Orion.Mvc.UI.Tests
 {
     public class BreadcrumbProviderTests
     {

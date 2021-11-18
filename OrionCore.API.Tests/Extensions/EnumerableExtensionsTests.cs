@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using Xunit;
 
 
-namespace OrionCore.API.Extensions.Tests
+namespace Orion.Api.Extensions.Tests
 {
 	public class EnumerableExtensionsTests
 	{ 

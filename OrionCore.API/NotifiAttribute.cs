@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace OrionCore.API
+namespace Orion.Api
 {
 
 	/// <summary>通知 Attribute</summary>

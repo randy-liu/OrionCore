@@ -1,15 +1,14 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System;
+using System.Linq;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using OrionCore.API.Models;
-using System;
-using System.Linq;
-using System.Web;
+using Orion.Api.Models;
 
-namespace OrionCore.Mvc.Filters
+namespace Orion.Mvc.Filters
 {
-	/// <summary>PageParams 的預設值 ActionFilter</summary>
-	public class PageParamsActionFilter : ActionFilterAttribute
+    /// <summary>PageParams 的預設值 ActionFilter</summary>
+    public class PageParamsActionFilter : ActionFilterAttribute
 	{
 		private readonly string _sizeParam;
 		private readonly int _defaultSize;
@@ -25,7 +24,7 @@ namespace OrionCore.Mvc.Filters
 		/// <summary></summary>
 		public override void OnActionExecuting(ActionExecutingContext filterContext)
 		{
-			IPageParams pageParams = filterContext.ActionArguments.Values.OfType<IPageParams>().FirstOrDefault();
+			PageParams pageParams = filterContext.ActionArguments.Values.OfType<PageParams>().FirstOrDefault();
 			if (pageParams == null) { base.OnActionExecuting(filterContext); return; }
 
 

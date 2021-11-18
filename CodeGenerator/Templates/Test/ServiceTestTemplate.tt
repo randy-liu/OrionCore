@@ -5,7 +5,7 @@
 	string className = TableMeta.Name + "ServiceTests";
 	FilePath = TableMeta.NameSpace + ".Tests/Service/Impl/" + className + ".cs";
 #>
-using OrionCore.API;
+using Orion.Api;
 using Moq;
 using System;
 using System.Collections.Generic;

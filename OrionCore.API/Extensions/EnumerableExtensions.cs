@@ -5,7 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace OrionCore.API.Extensions
+namespace Orion.Api.Extensions
 {
 	/// <summary>定義 IEnumerable 與泛型 IEnumerable 的 Extension</summary>
 	public static class EnumerableExtensions
@@ -39,17 +39,36 @@ namespace OrionCore.API.Extensions
 		{
 			return source.Select(selector).ToArray();
 		}
-        
-
-        /// <summary>source 如果為 null 就回傳 Empty</summary>
-        public static IEnumerable<T> NullToEmpty<T>(this IEnumerable<T> source)
-        {
-            return source ?? Enumerable.Empty<T>();
-        }
 
 
-        /// <summary>加入項目到 IList</summary>
-        public static void AddRangeTo(this IEnumerable source, IList collection)
+
+		/// <summary>從 IEnumerable 建立 Queue</summary>
+		public static Queue<TSource> ToQueue<TSource>(this IEnumerable<TSource> source)
+		{
+			return new Queue<TSource>(source);
+		}
+		/// <summary>從 IEnumerable 建立 Queue</summary>
+		public static Queue<TResult> ToQueue<TSource, TResult>(this IEnumerable<TSource> source, Func<TSource, TResult> selector)
+		{
+			return source.Select(selector).ToQueue();
+		}
+		/// <summary>從 IEnumerable 建立 Queue</summary>
+		public static Queue<TResult> ToQueue<TSource, TResult>(this IEnumerable<TSource> source, Func<TSource, int, TResult> selector)
+		{
+			return source.Select(selector).ToQueue();
+		}
+
+
+
+		/// <summary>source 如果為 null 就回傳 Empty</summary>
+		public static IEnumerable<T> NullToEmpty<T>(this IEnumerable<T> source)
+		{
+			return source ?? Enumerable.Empty<T>();
+		}
+
+
+		/// <summary>加入項目到 IList</summary>
+		public static void AddRangeTo(this IEnumerable source, IList collection)
 		{
 			foreach (var item in source) { collection.Add(item); }
 		}
@@ -65,8 +84,8 @@ namespace OrionCore.API.Extensions
 		/// <summary> 賦予 IEnumerable ForEach Method</summary>
 		public static void ForEach<T>(this IEnumerable<T> enumeration, Action<T> action)
 		{
-			foreach (T item in enumeration) 
-			{ 
+			foreach (T item in enumeration)
+			{
 				action(item);
 			}
 		}
@@ -108,19 +127,12 @@ namespace OrionCore.API.Extensions
 		/// <summary> 到 string.Join, 輸入 null 則回傳 null</summary>
 		public static string JoinBy<TSource>(this IEnumerable<TSource> enumeration, string separator)
 		{
-			if(enumeration == null) { return null; }
+			if (enumeration == null) { return null; }
 			return string.Join(separator, enumeration);
 		}
-         
 
 
 
-
-        /// <summary>從 IEnumerable 建立 HashSet</summary>
-        public static HashSet<T> ToHashSet<T>(this IEnumerable<T> enumeration)
-		{
-			return new HashSet<T>(enumeration);
-		}
 
 		/// <summary>從 IEnumerable 建立 HashSet</summary>
 		public static HashSet<T> ToHashSet<TSource, T>(this IEnumerable<TSource> source, Func<TSource, T> selector)
@@ -161,7 +173,33 @@ namespace OrionCore.API.Extensions
 			return descending ? source.ThenByDescending(keySelector) : source.ThenBy(keySelector);
 		}
 
-		 
+
+		/// <summary> OrderBy 擴充，可直接使用 Enum Field 排序，Field Name 必須與 Column Name 一致</summary>
+		public static IOrderedEnumerable<TSource> OrderBy<TSource>(this IEnumerable<TSource> source, Enum keySelector, bool descending)
+		{
+			return OrderBy(source, keySelector.ToString(), descending);
+		}
+
+		/// <summary> OrderBy 擴充</summary>
+		/// <param name="source"></param>
+		/// <param name="keySelector">field Name, propertyName</param>
+		/// <param name="descending">true Asc; false Desc</param>
+		/// <returns></returns>
+		public static IOrderedEnumerable<TSource> OrderBy<TSource>(this IEnumerable<TSource> source, string keySelector, bool descending)
+		{
+			Type modelType = typeof(TSource);
+			var prop = modelType.GetProperty(keySelector);
+			if (prop == null) { throw new ArgumentOutOfRangeException(keySelector, "不存在"); }
+
+			MethodInfo orderByMethod = Utils.EnumerableOrderByMethod(modelType, prop.PropertyType);
+			LambdaExpression keyExpression = Utils.KeyExpression(modelType, prop);
+
+			return (IOrderedEnumerable<TSource>)orderByMethod.Invoke(null, new object[]
+			{
+				source, keyExpression.Compile(), descending
+			});
+		}
+
 
 
 
@@ -313,7 +351,7 @@ namespace OrionCore.API.Extensions
 		{
 			foreach (var value in source)
 			{
-				object result = OrionUtils.ConvertType(value, type);
+				object result = value.ConvertTo(type);
 				if (result == null) { continue; }
 
 				yield return result;
@@ -344,7 +382,7 @@ namespace OrionCore.API.Extensions
 
 
 		/// <summary>尋訪所有節點，廣度優先</summary>
-		public static IEnumerable<T> Traverse<T>(this IEnumerable<T> items, Func<T, IEnumerable<T>> childSelector)
+		public static IEnumerable<T> Traversal<T>(this IEnumerable<T> items, Func<T, IEnumerable<T>> childSelector)
 		{
 			var queue = new Queue<T>(items);
 			while (queue.Count > 0)
@@ -353,7 +391,7 @@ namespace OrionCore.API.Extensions
 				yield return item;
 
 				IEnumerable<T> childs = childSelector(item);
-				if(childs == null) { continue; }
+				if (childs == null) { continue; }
 				foreach (var child in childs) { queue.Enqueue(child); }
 			}
 		}

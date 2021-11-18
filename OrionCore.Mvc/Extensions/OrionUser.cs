@@ -1,4 +1,4 @@
-﻿namespace OrionCore.Mvc.Extensions
+﻿namespace Orion.Mvc.Extensions
 {
     public class OrionUser
     {

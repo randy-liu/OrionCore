@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 using Xunit;
 
 
-namespace OrionCore.API.Extensions.Tests
+namespace Orion.Api.Extensions.Tests
 {
 	public class NotifyPropertyExtensionsTests
 	{

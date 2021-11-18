@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Web;
 using Microsoft.AspNetCore.Http;
 
-namespace OrionCore.Mvc.Extensions
+namespace Orion.Mvc.Extensions
 {
     /// <summary></summary>
     public static class RequestExtensions

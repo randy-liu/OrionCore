@@ -7,7 +7,7 @@
 #>
 using System;
 using System.ComponentModel.DataAnnotations;
-using OrionCore.API.Models;
+using Orion.Api.Models;
 using <#= TableMeta.NameSpace #>.Enums;
 
 

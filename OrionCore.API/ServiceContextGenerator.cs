@@ -3,12 +3,14 @@ using System.Collections.Concurrent;
 using System.Reflection;
 using Autofac;
 
-namespace OrionCore.API
+
+namespace Orion.Api
 {
+
     /// <summary></summary>
     public class ServiceContextGenerator : DispatchProxy
     {
-        
+
         public static T Create<T>(IComponentContext resolver)
         {
             object proxy = Create<T, ServiceContextGenerator>();
@@ -39,7 +41,7 @@ namespace OrionCore.API
             _scope?.Dispose();
             _cache?.Clear();
             _scope = null; /* 避免記憶體洩漏 */
-            _cache = null; 
+            _cache = null;
             _targetType = null;
             return null;
         }
@@ -66,4 +68,5 @@ namespace OrionCore.API
         }
 
     }
+
 }

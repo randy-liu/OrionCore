@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace OrionCore.API
+namespace Orion.Api
 {
 	/// <summary>事件類型</summary>
 	public enum NotifiStatus

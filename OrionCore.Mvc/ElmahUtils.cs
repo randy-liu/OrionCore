@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Configuration;
 using System.IO;
 using System.Linq;
-using System.Web;
 
-namespace OrionCore.API
+namespace Orion.Mvc
 {
-	/// <summary>Utility Tools</summary>
-	public static class OrionElmahUtils
+    /// <summary>Utility Tools</summary>
+    public static class ElmahUtils
 	{
 
 		private static readonly ConcurrentDictionary<string, bool> _flag = new ConcurrentDictionary<string, bool>();

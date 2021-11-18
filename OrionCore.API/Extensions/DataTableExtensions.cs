@@ -3,17 +3,136 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 
-namespace OrionCore.API.Extensions
+namespace Orion.Api.Extensions
 {
 	/// <summary>定義 DataTable 的 Extension</summary>
 	public static class DataTableExtensions
 	{
 
-		/// <summary>將 DataRow 與 POCO Mapping，回傳 IEnumerable of POCO</summary>
-		public static IEnumerable<TModel> ToModel<TModel>(this DataTable table) where TModel : new()
-		{
-			if (table == null) { throw new ArgumentNullException("table", "不可以為 Null"); }
-			if (table.Rows.Count == 0) { return Enumerable.Empty<TModel>(); }
+
+        public static Dictionary<TKey, TElement> ToDictionary<TKey, TElement>(this DataTable table, Func<DataRow, TKey> keySelector, Func<DataRow, TElement> elementSelector)
+        {
+            if (table == null) { return new Dictionary<TKey, TElement>(); }
+            return table.AsEnumerable().ToDictionary(keySelector, elementSelector);
+        }
+
+
+        public static DataRow FirstOrDefault(this DataTable table)
+        {
+            return table.AsEnumerable().FirstOrDefault();
+        }
+        public static DataRow FirstOrDefault(this DataTable table, Func<DataRow, bool> predicate)
+        {
+            return table.AsEnumerable().FirstOrDefault(predicate);
+        }
+
+
+        public static IEnumerable<T> Select<T>(this DataTable table, Func<DataRow, T> selector)
+        {
+            return table.AsEnumerable().Select(selector);
+        }
+
+        public static IEnumerable<DataRow> Where(this DataTable table, Func<DataRow, bool> predicate)
+        {
+            return table.AsEnumerable().Where(predicate);
+        }
+
+        public static bool Any(this DataTable table)
+        {
+            return table.AsEnumerable().Any();
+        }
+
+        public static bool Any(this DataTable table, Func<DataRow, bool> predicate)
+        {
+            return table.AsEnumerable().Any(predicate);
+        }
+
+
+        public static List<T> ToList<T>(this DataTable table, Func<DataRow, T> selector)
+        {
+            return table.AsEnumerable().ToList(selector);
+        }
+        public static HashSet<T> ToHashSet<T>(this DataTable table, Func<DataRow, T> selector)
+        {
+            return table.AsEnumerable().ToHashSet(selector);
+        }
+
+
+
+
+        private static T toType<T>(this DataRow row, string columnName, T empty)
+        {
+            if (row == null) { return empty; }
+
+            object value = row[columnName];
+            if (value == null) { return empty; }
+            if (value is T tValue) { return tValue; }
+
+            return value.ConvertTo<T>();
+        }
+
+
+        public static string String(this DataRow row, string columnName)
+        {
+            return toType<string>(row, columnName, null);
+        }
+
+
+        public static int Int(this DataRow row, string columnName)
+        {
+            return toType<int>(row, columnName, 0);
+        }
+
+        public static double Double(this DataRow row, string columnName)
+        {
+            return toType<double>(row, columnName, 0d);
+        }
+
+        public static decimal Decimal(this DataRow row, string columnName)
+        {
+            return toType<decimal>(row, columnName, 0m);
+        }
+
+        public static DateTime DateTime(this DataRow row, string columnName)
+        {
+            return toType<DateTime>(row, columnName, System.DateTime.MinValue);
+        }
+
+        public static DateTime? DateTimeN(this DataRow row, string columnName)
+        {
+            return toType<DateTime?>(row, columnName, null);
+        }
+
+
+        public static bool ContainsColumn(this DataRow row, string column)
+        {
+            if (row == null) { return false; }
+            return row.Table.Columns.Contains(column);
+        }
+
+
+
+        /// <summary>將 DataRow 轉換為 Json</summary>
+        public static string ToJson(this DataRow row)
+        {
+            var dict = new Dictionary<string, object>();
+
+            foreach (DataColumn col in row.Table.Columns)
+            { dict[col.ColumnName] = row[col]; }
+
+            return ObjectExtensions.ToJson(dict);
+        }
+
+
+
+
+        /*##############################################################*/
+
+        /// <summary>將 DataRow 與 POCO Mapping，回傳 IEnumerable of POCO</summary>
+        public static IEnumerable<TModel> ToModel<TModel>(this DataTable table) where TModel : new()
+        {
+            if (table == null) { throw new ArgumentNullException("table", "不可以為 Null"); }
+            if (table.Rows.Count == 0) { return Enumerable.Empty<TModel>(); }
 
 
             Action<DataRow, TModel> mapping = (row, model) => { };
@@ -25,23 +144,24 @@ namespace OrionCore.API.Extensions
 
                 mapping += (row, model) =>
                 {
-                    object value = OrionUtils.ConvertType(row[prop.Name], prop.PropertyType);
+                    object value = row[prop.Name].ConvertTo(prop.PropertyType);
                     if (value == null) { return; }
 
                     prop.SetValue(model, value);
                 };
             }
 
-            return table.Rows.Cast<DataRow>().Select(row =>
+            return table.AsEnumerable().Select(row =>
             {
                 var model = new TModel();
                 mapping(row, model);
                 return model;
             });
-		}
+        }
+         
 
 
-
+         
         /// <summary>將 IEnumerable of POCO 回傳 DataTable</summary>
         public static DataTable ToDataTable<TModel>(this IEnumerable<TModel> source) 
         {

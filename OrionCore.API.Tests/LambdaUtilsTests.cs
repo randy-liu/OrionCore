@@ -6,7 +6,7 @@ using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
 
-namespace OrionCore.API.Tests
+namespace Orion.Api.Tests
 {
 	public class LambdaUtilsTests
 	{

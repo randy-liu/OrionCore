@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using Xunit;
 
-namespace OrionCore.API.Tests
+namespace Orion.Api.Tests
 {
     public class AssemblyUtilsTests
     {
@@ -16,7 +16,7 @@ namespace OrionCore.API.Tests
         [Fact]
         public void GetMeta_Test2()
         {
-            AssemblyUtils.GetMeta("OrionCore.API");
+            AssemblyUtils.GetMeta("OrionCore.Api");
         }
     }
 }

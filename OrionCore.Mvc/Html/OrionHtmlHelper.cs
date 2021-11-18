@@ -8,11 +8,11 @@ using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using OrionCore.API.Extensions;
+using Orion.Api.Extensions;
 
-namespace OrionCore.Mvc.Html
+namespace Orion.Mvc.Html
 {
-    
+
     public class OrionHtmlHelper<TModel> : IHtmlHelper<TModel>
     {
         private readonly IHtmlHelper _org;

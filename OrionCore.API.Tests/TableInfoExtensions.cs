@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using OrionCore.API.Models;
+using Orion.Api.Models;
 
-namespace OrionCore.API.Extensions
+namespace Orion.Api.Extensions
 {
     public static class TableInfoExtensions
     {

@@ -1,7 +1,7 @@
-﻿using OrionCore.API.Extensions;
-using System;
+﻿using System;
+using Orion.Api.Extensions;
 
-namespace OrionCore.API
+namespace Orion.Api
 {
     /// <summary>Thread 的時區</summary>
     public static class ThreadTimeZone

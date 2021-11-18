@@ -17,7 +17,7 @@ namespace CodeGenerator.Templates.Test
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Test\DaoTestTemplate.tt"
+    #line 1 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Test\DaoTestTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
     public partial class DaoTestTemplate : CodeGenerator.Templates.TemplateBase
     {
@@ -28,7 +28,7 @@ namespace CodeGenerator.Templates.Test
         public override string TransformText()
         {
             
-            #line 4 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Test\DaoTestTemplate.tt"
+            #line 4 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Test\DaoTestTemplate.tt"
  
 	string className = TableMeta.Name + "DaoTests";
 	FilePath = TableMeta.NameSpace + ".Tests/Dao/Impl/" + className + ".cs";
@@ -36,88 +36,88 @@ namespace CodeGenerator.Templates.Test
             
             #line default
             #line hidden
-            this.Write("using OrionCore.API.Models;\r\nusing System;\r\nusing System.Collections.Generic;\r\nus" +
+            this.Write("using Orion.Api.Models;\r\nusing System;\r\nusing System.Collections.Generic;\r\nus" +
                     "ing System.Linq;\r\nusing System.Text;\r\nusing System.Threading.Tasks;\r\nusing Syste" +
                     "m.Transactions;\r\nusing ");
             
-            #line 15 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Test\DaoTestTemplate.tt"
+            #line 15 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Test\DaoTestTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.NameSpace));
             
             #line default
             #line hidden
             this.Write(".Dao.Database;\r\nusing ");
             
-            #line 16 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Test\DaoTestTemplate.tt"
+            #line 16 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Test\DaoTestTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.NameSpace));
             
             #line default
             #line hidden
             this.Write(".Domain;\r\nusing ");
             
-            #line 17 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Test\DaoTestTemplate.tt"
+            #line 17 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Test\DaoTestTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.NameSpace));
             
             #line default
             #line hidden
             this.Write(".Enums;\r\nusing ");
             
-            #line 18 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Test\DaoTestTemplate.tt"
+            #line 18 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Test\DaoTestTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.NameSpace));
             
             #line default
             #line hidden
             this.Write(".Dao.Impl;\r\n\r\nusing Xunit;\r\n\r\n\r\nnamespace ");
             
-            #line 23 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Test\DaoTestTemplate.tt"
+            #line 23 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Test\DaoTestTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.NameSpace));
             
             #line default
             #line hidden
             this.Write(".Dao.Tests\r\n{\r\n\tpublic class ");
             
-            #line 25 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Test\DaoTestTemplate.tt"
+            #line 25 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Test\DaoTestTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(className));
             
             #line default
             #line hidden
             this.Write("\r\n\t{\r\n\r\n\r\n\t\tprivate ");
             
-            #line 29 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Test\DaoTestTemplate.tt"
+            #line 29 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Test\DaoTestTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
             #line hidden
             this.Write("Dao _");
             
-            #line 29 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Test\DaoTestTemplate.tt"
+            #line 29 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Test\DaoTestTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Variable));
             
             #line default
             #line hidden
             this.Write("Dao;\r\n\r\n\t\tpublic ");
             
-            #line 31 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Test\DaoTestTemplate.tt"
+            #line 31 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Test\DaoTestTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(className));
             
             #line default
             #line hidden
             this.Write("()\r\n\t\t{\r\n\t\t\t_");
             
-            #line 33 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Test\DaoTestTemplate.tt"
+            #line 33 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Test\DaoTestTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Variable));
             
             #line default
             #line hidden
             this.Write("Dao = new ");
             
-            #line 33 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Test\DaoTestTemplate.tt"
+            #line 33 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Test\DaoTestTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
             #line hidden
             this.Write("Dao(new ");
             
-            #line 33 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Test\DaoTestTemplate.tt"
+            #line 33 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Test\DaoTestTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DataContextName));
             
             #line default
@@ -125,7 +125,7 @@ namespace CodeGenerator.Templates.Test
             this.Write("());\r\n\t\t}\r\n\r\n\r\n\r\n\r\n\t\t//TODO 程式產生未完成\r\n\t\t//[Fact]\r\n\t\t//public void GetStatusItems_N" +
                     "otNullTest()\r\n\t\t//{\r\n\t\t//    var result = _");
             
-            #line 43 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Test\DaoTestTemplate.tt"
+            #line 43 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Test\DaoTestTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Variable));
             
             #line default
@@ -133,28 +133,28 @@ namespace CodeGenerator.Templates.Test
             this.Write("Dao.GetStatusItems(); \r\n\t\t//    Assert.NotNull(result);\r\n\t\t//}\r\n\r\n\r\n\t\t[Fact]\r\n\t\tp" +
                     "ublic void GetPagination_NotNullTest()\r\n\t\t{\r\n\t\t\tvar result = _");
             
-            #line 51 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Test\DaoTestTemplate.tt"
+            #line 51 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Test\DaoTestTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Variable));
             
             #line default
             #line hidden
             this.Write("Dao.GetPagination(null, new PageParams<");
             
-            #line 51 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Test\DaoTestTemplate.tt"
+            #line 51 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Test\DaoTestTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
             #line hidden
             this.Write("Domain>{\r\n\t\t\t\tPageIndex  = 1,\r\n\t\t\t\tPageSize   = 20,\r\n\t\t\t\tOrderField = nameof(");
             
-            #line 54 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Test\DaoTestTemplate.tt"
+            #line 54 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Test\DaoTestTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
             #line hidden
             this.Write("Domain.");
             
-            #line 54 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Test\DaoTestTemplate.tt"
+            #line 54 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Test\DaoTestTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.PK.Name));
             
             #line default
@@ -162,28 +162,28 @@ namespace CodeGenerator.Templates.Test
             this.Write("), \r\n\t\t\t});\r\n\t\t\tAssert.NotNull(result);\r\n\t\t}\r\n\r\n\r\n\r\n\t\t[Theory]\r\n\t\t[InlineData(1)]" +
                     "\r\n\t\tpublic void GetById_NotNullTest(");
             
-            #line 63 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Test\DaoTestTemplate.tt"
+            #line 63 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Test\DaoTestTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.PK.CodeType));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 63 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Test\DaoTestTemplate.tt"
+            #line 63 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Test\DaoTestTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.PK.Variable));
             
             #line default
             #line hidden
             this.Write(")\r\n\t\t{\r\n\t\t\tvar result = _");
             
-            #line 65 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Test\DaoTestTemplate.tt"
+            #line 65 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Test\DaoTestTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Variable));
             
             #line default
             #line hidden
             this.Write("Dao.GetById(");
             
-            #line 65 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Test\DaoTestTemplate.tt"
+            #line 65 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Test\DaoTestTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.PK.Variable));
             
             #line default
@@ -192,35 +192,35 @@ namespace CodeGenerator.Templates.Test
                     "[]> Save_EqualTest_Data\r\n\t\t{\r\n\t\t\tget\r\n\t\t\t{\r\n\t\t\t\tyield return new object[] { new " +
                     "");
             
-            #line 77 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Test\DaoTestTemplate.tt"
+            #line 77 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Test\DaoTestTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
             #line hidden
             this.Write("Domain {\r\n\t\t\t\t//TODO 程式產生未完成\r\n");
             
-            #line 79 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Test\DaoTestTemplate.tt"
+            #line 79 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Test\DaoTestTemplate.tt"
  foreach(var col in TableMeta.Columns) { 
             
             #line default
             #line hidden
             this.Write("\t\t\t\t\t");
             
-            #line 80 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Test\DaoTestTemplate.tt"
+            #line 80 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Test\DaoTestTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.Name));
             
             #line default
             #line hidden
             this.Write(" = default(");
             
-            #line 80 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Test\DaoTestTemplate.tt"
+            #line 80 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Test\DaoTestTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.CodeType));
             
             #line default
             #line hidden
             this.Write("),\r\n");
             
-            #line 81 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Test\DaoTestTemplate.tt"
+            #line 81 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Test\DaoTestTemplate.tt"
  } 
             
             #line default
@@ -228,7 +228,7 @@ namespace CodeGenerator.Templates.Test
             this.Write("\t\t\t\t}};\r\n\r\n\t\t\t}\r\n\t\t}\r\n\t\t \r\n\r\n\t\t[Theory]\r\n\t\t[MemberData(\"Save_EqualTest_Data\")]\r\n\t" +
                     "\tpublic void Save_EqualTest(");
             
-            #line 90 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Test\DaoTestTemplate.tt"
+            #line 90 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Test\DaoTestTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
@@ -236,49 +236,49 @@ namespace CodeGenerator.Templates.Test
             this.Write("Domain domain)\r\n\t\t{\r\n\t\t\tusing (var tx = new TransactionScope())\r\n\t\t\t{\r\n\t\t\t\tint id" +
                     " = _");
             
-            #line 94 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Test\DaoTestTemplate.tt"
+            #line 94 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Test\DaoTestTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Variable));
             
             #line default
             #line hidden
             this.Write("Dao.Save(domain);\r\n\t\t\t\t");
             
-            #line 95 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Test\DaoTestTemplate.tt"
+            #line 95 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Test\DaoTestTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
             #line hidden
             this.Write("Domain data = _");
             
-            #line 95 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Test\DaoTestTemplate.tt"
+            #line 95 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Test\DaoTestTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Variable));
             
             #line default
             #line hidden
             this.Write("Dao.GetById(id);\r\n\r\n\t\t\t\t//TODO 程式產生未完成\r\n");
             
-            #line 98 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Test\DaoTestTemplate.tt"
+            #line 98 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Test\DaoTestTemplate.tt"
  foreach(var col in TableMeta.Columns) { 
             
             #line default
             #line hidden
             this.Write("\t\t\t\tAssert.Equal(domain.");
             
-            #line 99 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Test\DaoTestTemplate.tt"
+            #line 99 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Test\DaoTestTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.Name));
             
             #line default
             #line hidden
             this.Write(", data.");
             
-            #line 99 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Test\DaoTestTemplate.tt"
+            #line 99 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Test\DaoTestTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.Name));
             
             #line default
             #line hidden
             this.Write(");\r\n");
             
-            #line 100 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Test\DaoTestTemplate.tt"
+            #line 100 "D:\Jax-Work\Dropbox\Case-Project\NugetProject\OrionCore\CodeGenerator\Templates\Test\DaoTestTemplate.tt"
  } 
             
             #line default

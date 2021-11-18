@@ -2,11 +2,11 @@
 using System.Linq;
 using System.Collections.Generic;
 using Xunit;
-using OrionCore.API;
+using Orion.Api;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace OrionCore.API.Tests
+namespace Orion.Api.Tests
 {
 
 	public class NotifierTests

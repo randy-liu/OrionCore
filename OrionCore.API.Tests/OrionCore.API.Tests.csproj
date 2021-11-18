@@ -6,6 +6,15 @@
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Extensions\NumberCommaExtensionsTests.cs" />
+    <Compile Remove="TableReplicator.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="TableReplicator.cs" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.2" />
@@ -33,7 +42,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\OrionCore.API\OrionCore.API.csproj" />
+    <ProjectReference Include="..\OrionCore.Api\OrionCore.Api.csproj" />
   </ItemGroup>
 
 </Project>

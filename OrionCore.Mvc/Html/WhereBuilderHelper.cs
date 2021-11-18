@@ -5,13 +5,12 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Text.Encodings.Web;
 using System.Text.RegularExpressions;
-using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using OrionCore.API;
-using OrionCore.API.Extensions;
-using OrionCore.API.Models;
+using Orion.Api;
+using Orion.Api.Extensions;
+using Orion.Api.Models;
 
-namespace OrionCore.Mvc.Html
+namespace Orion.Mvc.Html
 {
 
 
