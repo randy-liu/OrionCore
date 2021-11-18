@@ -1,4 +1,4 @@
-﻿namespace OrionCore.API.Models
+﻿namespace Orion.Api.Models
 {
 
 	public class TableInfo

@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using OrionCore.API.Tests;
+using Orion.Api.Tests;
 
-namespace OrionCore.API.Tests.Migrations
+namespace Orion.Api.Tests.Migrations
 {
     [DbContext(typeof(OrionApiDbContext))]
     partial class OrionApiDbContextModelSnapshot : ModelSnapshot
@@ -19,7 +19,7 @@ namespace OrionCore.API.Tests.Migrations
                 .HasAnnotation("ProductVersion", "3.1.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            modelBuilder.Entity("OrionCore.API.Tests.InventoryTemp", b =>
+            modelBuilder.Entity("OrionCore.Api.Tests.InventoryTemp", b =>
                 {
                     b.Property<int>("InventoryId")
                         .ValueGeneratedOnAdd()
@@ -57,7 +57,7 @@ namespace OrionCore.API.Tests.Migrations
                     b.ToTable("InventoryTemp");
                 });
 
-            modelBuilder.Entity("OrionCore.API.Tests.InvoiceIssue", b =>
+            modelBuilder.Entity("OrionCore.Api.Tests.InvoiceIssue", b =>
                 {
                     b.Property<int>("InvoiceId")
                         .ValueGeneratedOnAdd()
@@ -105,7 +105,7 @@ namespace OrionCore.API.Tests.Migrations
                     b.ToTable("InvoiceIssue");
                 });
 
-            modelBuilder.Entity("OrionCore.API.Tests.InvoiceIssueItems", b =>
+            modelBuilder.Entity("OrionCore.Api.Tests.InvoiceIssueItems", b =>
                 {
                     b.Property<int>("ItemId")
                         .ValueGeneratedOnAdd()
@@ -140,9 +140,9 @@ namespace OrionCore.API.Tests.Migrations
                     b.ToTable("InvoiceIssueItems");
                 });
 
-            modelBuilder.Entity("OrionCore.API.Tests.InvoiceIssueItems", b =>
+            modelBuilder.Entity("OrionCore.Api.Tests.InvoiceIssueItems", b =>
                 {
-                    b.HasOne("OrionCore.API.Tests.InvoiceIssue", "InvoiceIssue")
+                    b.HasOne("OrionCore.Api.Tests.InvoiceIssue", "InvoiceIssue")
                         .WithMany("InvoiceIssueItems")
                         .HasForeignKey("InvoiceId")
                         .OnDelete(DeleteBehavior.Cascade)

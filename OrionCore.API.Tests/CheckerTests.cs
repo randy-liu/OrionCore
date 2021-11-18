@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Xunit;
 
-namespace OrionCore.API.Tests
+namespace Orion.Api.Tests
 {
 	public class CheckerTests
 	{

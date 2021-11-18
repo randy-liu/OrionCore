@@ -1,5 +1,5 @@
 ﻿
-namespace OrionCore.API.Models
+namespace Orion.Api.Models
 {
 	/// <summary>查詢方式的定義</summary>
 	public enum WhereOperator

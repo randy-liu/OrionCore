@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Reflection;
-using OrionCore.API.Extensions;
+using Orion.Api.Extensions;
 
-namespace OrionCore.API
+namespace Orion.Api
 {
     /// <summary>變數監看</summary>
     public static class VariableMonitor

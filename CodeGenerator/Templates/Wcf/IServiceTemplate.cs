@@ -17,7 +17,7 @@ namespace CodeGenerator.Templates.Wcf
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\IServiceTemplate.tt"
+    #line 1 "..\CodeGenerator\Templates\Wcf\IServiceTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
     public partial class IServiceTemplate : CodeGenerator.Templates.TemplateBase
     {
@@ -31,7 +31,7 @@ namespace CodeGenerator.Templates.Wcf
             this.Write("\n");
             this.Write("\n");
             
-            #line 1 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\IServiceTemplate.tt"
+            #line 1 "..\CodeGenerator\Templates\Wcf\IServiceTemplate.tt"
  
 	string className = "I" + TableMeta.Name + "Service";
 	FilePath = TableMeta.NameSpace + "/" + className + ".cs";
@@ -39,129 +39,129 @@ namespace CodeGenerator.Templates.Wcf
             
             #line default
             #line hidden
-            this.Write("\nusing OrionCore.API.Models;\nusing System.Collections.Generic;\nusing System.Servi" +
+            this.Write("\nusing Orion.Api.Models;\nusing System.Collections.Generic;\nusing System.Servi" +
                     "ceModel;\nusing ");
             
-            #line 1 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\IServiceTemplate.tt"
+            #line 1 "..\CodeGenerator\Templates\Wcf\IServiceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.NameSpace));
             
             #line default
             #line hidden
             this.Write(".Domain;\nusing ");
             
-            #line 1 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\IServiceTemplate.tt"
+            #line 1 "..\CodeGenerator\Templates\Wcf\IServiceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.NameSpace));
             
             #line default
             #line hidden
             this.Write(".Enums;\n\n\nnamespace ");
             
-            #line 1 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\IServiceTemplate.tt"
+            #line 1 "..\CodeGenerator\Templates\Wcf\IServiceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.NameSpace));
             
             #line default
             #line hidden
             this.Write(".Service\n{\n\t/// <summary>");
             
-            #line 1 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\IServiceTemplate.tt"
+            #line 1 "..\CodeGenerator\Templates\Wcf\IServiceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Description));
             
             #line default
             #line hidden
             this.Write("</summary>\n\t[ServiceContract]\n\tpublic interface ");
             
-            #line 1 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\IServiceTemplate.tt"
+            #line 1 "..\CodeGenerator\Templates\Wcf\IServiceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(className));
             
             #line default
             #line hidden
             this.Write("\n\t{\n\t\t//TODO 程式產生未完成\n\t\t//[OperationContract]\n\t\t//Dictionary<int, string> Get");
             
-            #line 1 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\IServiceTemplate.tt"
+            #line 1 "..\CodeGenerator\Templates\Wcf\IServiceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
             #line hidden
             this.Write("Dic(UseStatus? status);\n\t\t\n\t\t[OperationContract]\n\t\tPagination<");
             
-            #line 1 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\IServiceTemplate.tt"
+            #line 1 "..\CodeGenerator\Templates\Wcf\IServiceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
             #line hidden
             this.Write("Domain> GetPagination(WhereParams<");
             
-            #line 1 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\IServiceTemplate.tt"
+            #line 1 "..\CodeGenerator\Templates\Wcf\IServiceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
             #line hidden
             this.Write("Domain> findParam, PageParams<");
             
-            #line 1 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\IServiceTemplate.tt"
+            #line 1 "..\CodeGenerator\Templates\Wcf\IServiceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
             #line hidden
             this.Write("Domain> pageParams);\n\n\t\t//[OperationContract]\n\t\t//List<");
             
-            #line 1 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\IServiceTemplate.tt"
+            #line 1 "..\CodeGenerator\Templates\Wcf\IServiceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
             #line hidden
             this.Write("Domain> GetList(WhereParams<");
             
-            #line 1 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\IServiceTemplate.tt"
+            #line 1 "..\CodeGenerator\Templates\Wcf\IServiceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
             #line hidden
             this.Write("Domain> findParam);\n\n\t\t[OperationContract]\n\t\t");
             
-            #line 1 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\IServiceTemplate.tt"
+            #line 1 "..\CodeGenerator\Templates\Wcf\IServiceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
             #line hidden
             this.Write("Domain GetById(");
             
-            #line 1 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\IServiceTemplate.tt"
+            #line 1 "..\CodeGenerator\Templates\Wcf\IServiceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.PK.CodeType));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 1 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\IServiceTemplate.tt"
+            #line 1 "..\CodeGenerator\Templates\Wcf\IServiceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.PK.Variable));
             
             #line default
             #line hidden
             this.Write(");\n\t\t\n\t\t[OperationContract]\n\t\t");
             
-            #line 1 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\IServiceTemplate.tt"
+            #line 1 "..\CodeGenerator\Templates\Wcf\IServiceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.PK.CodeType));
             
             #line default
             #line hidden
             this.Write(" Save(");
             
-            #line 1 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\IServiceTemplate.tt"
+            #line 1 "..\CodeGenerator\Templates\Wcf\IServiceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
             #line hidden
             this.Write("Domain domain);\n\n\t\t[OperationContract]\n\t\tvoid Delete(");
             
-            #line 1 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\IServiceTemplate.tt"
+            #line 1 "..\CodeGenerator\Templates\Wcf\IServiceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.PK.CodeType));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 1 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\IServiceTemplate.tt"
+            #line 1 "..\CodeGenerator\Templates\Wcf\IServiceTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.PK.Variable));
             
             #line default

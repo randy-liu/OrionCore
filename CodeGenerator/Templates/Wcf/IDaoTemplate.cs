@@ -17,7 +17,7 @@ namespace CodeGenerator.Templates.Wcf
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\IDaoTemplate.tt"
+    #line 1 "..\CodeGenerator\Templates\Wcf\IDaoTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
     public partial class IDaoTemplate : CodeGenerator.Templates.TemplateBase
     {
@@ -28,7 +28,7 @@ namespace CodeGenerator.Templates.Wcf
         public override string TransformText()
         {
             
-            #line 4 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\IDaoTemplate.tt"
+            #line 4 "..\CodeGenerator\Templates\Wcf\IDaoTemplate.tt"
  
 	string className = "I" + TableMeta.Name + "Dao";
 	FilePath = TableMeta.NameSpace + ".Dao/" + className + ".cs";
@@ -36,38 +36,38 @@ namespace CodeGenerator.Templates.Wcf
             
             #line default
             #line hidden
-            this.Write("using System;\r\nusing System.Collections.Generic;\r\nusing OrionCore.API.Models;\r\nus" +
+            this.Write("using System;\r\nusing System.Collections.Generic;\r\nusing Orion.Api.Models;\r\nus" +
                     "ing ");
             
-            #line 11 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\IDaoTemplate.tt"
+            #line 11 "..\CodeGenerator\Templates\Wcf\IDaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.NameSpace));
             
             #line default
             #line hidden
             this.Write(".Domain;\r\nusing ");
             
-            #line 12 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\IDaoTemplate.tt"
+            #line 12 "..\CodeGenerator\Templates\Wcf\IDaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.NameSpace));
             
             #line default
             #line hidden
             this.Write(".Enums;\r\n\r\n\r\nnamespace ");
             
-            #line 15 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\IDaoTemplate.tt"
+            #line 15 "..\CodeGenerator\Templates\Wcf\IDaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.NameSpace));
             
             #line default
             #line hidden
             this.Write(".Dao\r\n{\r\n\t/// <summary>");
             
-            #line 17 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\IDaoTemplate.tt"
+            #line 17 "..\CodeGenerator\Templates\Wcf\IDaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Description));
             
             #line default
             #line hidden
             this.Write("</summary>\r\n\tpublic interface ");
             
-            #line 18 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\IDaoTemplate.tt"
+            #line 18 "..\CodeGenerator\Templates\Wcf\IDaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(className));
             
             #line default
@@ -76,91 +76,91 @@ namespace CodeGenerator.Templates.Wcf
                     "\r\n\r\n\t\t//TODO 程式產生未完成\r\n\t\t//Dictionary<string, string> GetStatusItems();\r\n\r\n\t\tPagi" +
                     "nation<");
             
-            #line 26 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\IDaoTemplate.tt"
+            #line 26 "..\CodeGenerator\Templates\Wcf\IDaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
             #line hidden
             this.Write("Domain> GetPagination(WhereParams<");
             
-            #line 26 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\IDaoTemplate.tt"
+            #line 26 "..\CodeGenerator\Templates\Wcf\IDaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
             #line hidden
             this.Write("Domain> findParam, PageParams<");
             
-            #line 26 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\IDaoTemplate.tt"
+            #line 26 "..\CodeGenerator\Templates\Wcf\IDaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
             #line hidden
             this.Write("Domain> pageParams);\r\n\r\n\t\t//TODO 程式產生未完成\r\n\t\t//List<");
             
-            #line 29 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\IDaoTemplate.tt"
+            #line 29 "..\CodeGenerator\Templates\Wcf\IDaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
             #line hidden
             this.Write("Domain> GetList(WhereParams<");
             
-            #line 29 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\IDaoTemplate.tt"
+            #line 29 "..\CodeGenerator\Templates\Wcf\IDaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
             #line hidden
             this.Write("Domain> findParam = null);\r\n\t\t\r\n\t\t");
             
-            #line 31 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\IDaoTemplate.tt"
+            #line 31 "..\CodeGenerator\Templates\Wcf\IDaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
             #line hidden
             this.Write("Domain GetById(");
             
-            #line 31 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\IDaoTemplate.tt"
+            #line 31 "..\CodeGenerator\Templates\Wcf\IDaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.PK.CodeType));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 31 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\IDaoTemplate.tt"
+            #line 31 "..\CodeGenerator\Templates\Wcf\IDaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.PK.Variable));
             
             #line default
             #line hidden
             this.Write(");\r\n\t\t\r\n\t\tint Save(");
             
-            #line 33 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\IDaoTemplate.tt"
+            #line 33 "..\CodeGenerator\Templates\Wcf\IDaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
             #line hidden
             this.Write("Domain domain);\r\n\t\t\t\t\r\n\t\tvoid Delete(");
             
-            #line 35 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\IDaoTemplate.tt"
+            #line 35 "..\CodeGenerator\Templates\Wcf\IDaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.PK.CodeType));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 35 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\IDaoTemplate.tt"
+            #line 35 "..\CodeGenerator\Templates\Wcf\IDaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.PK.Variable));
             
             #line default
             #line hidden
             this.Write(", int modifyBy);\r\n\t\t\r\n\t\t//TODO 程式產生未完成\r\n\t\t//bool IsXxxDuplicate(");
             
-            #line 38 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\IDaoTemplate.tt"
+            #line 38 "..\CodeGenerator\Templates\Wcf\IDaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.PK.CodeType));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 38 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Wcf\IDaoTemplate.tt"
+            #line 38 "..\CodeGenerator\Templates\Wcf\IDaoTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.PK.Variable));
             
             #line default

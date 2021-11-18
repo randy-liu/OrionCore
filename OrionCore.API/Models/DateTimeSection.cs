@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace OrionCore.API.Models
+namespace Orion.Api.Models
 {
 	/// <summary>日期時間區段</summary>
 	public class DateTimeSection : IEquatable<DateTimeSection>

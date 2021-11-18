@@ -1,5 +1,5 @@
-﻿using OrionCore.API.Extensions;
-using OrionCore.API.Models;
+﻿using Orion.Api.Extensions;
+using Orion.Api.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +8,7 @@ using System.IO;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
-namespace OrionCore.API.Tests
+namespace Orion.Api.Tests
 {
 
 
@@ -32,7 +32,7 @@ namespace OrionCore.API.Tests
 		{
 			WhereParams<InvoiceIssueDomain> param = null;
 
-			var build = new WhereBuilder<InvoiceIssue, InvoiceIssueDomain>(_dc.InvoiceIssue, param);
+			var build = new WhereQueryableBuilder<InvoiceIssue, InvoiceIssueDomain>(_dc.InvoiceIssue, param);
 
 			build.WhereBind(x => x.InvoicePrefix, y => y.InvoicePrefix);
 
@@ -77,7 +77,7 @@ namespace OrionCore.API.Tests
 			var param = new WhereParams<InvoiceIssueDomain>();
 			param.SetValues(x => x.InvoicePrefix, oper, "SS");
 
-			var build = new WhereBuilder<InvoiceIssue, InvoiceIssueDomain>(_dc.InvoiceIssue, param);
+			var build = new WhereQueryableBuilder<InvoiceIssue, InvoiceIssueDomain>(_dc.InvoiceIssue, param);
 
 			build.WhereBind(x => x.InvoicePrefix, y => y.InvoicePrefix);
 
@@ -119,7 +119,7 @@ namespace OrionCore.API.Tests
 			var param = new WhereParams<InvoiceIssueDomain>();
 			param.SetValues(x => x.ProductQty, oper, 1, 3);
 
-			var build = new WhereBuilder<InvoiceIssue, InvoiceIssueDomain>(_dc.InvoiceIssue, param);
+			var build = new WhereQueryableBuilder<InvoiceIssue, InvoiceIssueDomain>(_dc.InvoiceIssue, param);
 
 			build.WhereBind(x => x.ProductQty, y => y.InvoiceNum);
 
@@ -164,7 +164,7 @@ namespace OrionCore.API.Tests
 			var param = new WhereParams<InvoiceIssueDomain>();
 			param.SetValues(x => x.ModifyDate, oper, DateTime.Today, DateTime.Now);
 
-			var build = new WhereBuilder<InvoiceIssue, InvoiceIssueDomain>(_dc.InvoiceIssue, param);
+			var build = new WhereQueryableBuilder<InvoiceIssue, InvoiceIssueDomain>(_dc.InvoiceIssue, param);
 
 			build.WhereBind(x => x.ModifyDate, y => y.ModifyDate);
 
@@ -219,7 +219,7 @@ namespace OrionCore.API.Tests
 			var param = new WhereParams<InvoiceIssueDomain>();
 			param.SetValues(x => x.Sum, oper, 1.0m, 3.0m);
 
-			var build = new WhereBuilder<InvoiceIssue, InvoiceIssueDomain>(_dc.InvoiceIssue, param);
+			var build = new WhereQueryableBuilder<InvoiceIssue, InvoiceIssueDomain>(_dc.InvoiceIssue, param);
 
 			build.WhereBind(x => x.Sum, y => y.Total);
 
@@ -262,7 +262,7 @@ namespace OrionCore.API.Tests
 			var param = new WhereParams<InvoiceIssueDomain>();
 			param.SetValues(x => x.ProductQty, oper, 1, 3);
 
-			var build = new WhereBuilder<InvoiceIssue, InvoiceIssueDomain>(_dc.InvoiceIssue, param);
+			var build = new WhereQueryableBuilder<InvoiceIssue, InvoiceIssueDomain>(_dc.InvoiceIssue, param);
 
 			build.WhereBind<int?>(x => x.ProductQty, y => y.InvoiceIssueItems.Select(z => (int?)z.Qty));
 

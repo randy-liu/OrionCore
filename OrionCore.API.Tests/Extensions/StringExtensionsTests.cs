@@ -1,11 +1,11 @@
-﻿using OrionCore.API.Tests;
+﻿using Orion.Api.Tests;
 using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using Xunit;
 
-namespace OrionCore.API.Extensions.Tests
+namespace Orion.Api.Extensions.Tests
 {
 	public class StringExtensionsTests
 	{

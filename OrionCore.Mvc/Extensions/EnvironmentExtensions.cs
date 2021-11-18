@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.FileProviders;
 
-namespace OrionCore.Mvc.Extensions
-{ 
+namespace Orion.Mvc.Extensions
+{
     /// <summary></summary>
     public static class EnvironmentExtensions
     {

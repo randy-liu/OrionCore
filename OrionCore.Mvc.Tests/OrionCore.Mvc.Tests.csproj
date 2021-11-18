@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\OrionCore.API\OrionCore.API.csproj" />
+    <ProjectReference Include="..\OrionCore.Api\OrionCore.Api.csproj" />
     <ProjectReference Include="..\OrionCore.Mvc\OrionCore.Mvc.csproj" />
   </ItemGroup>
 

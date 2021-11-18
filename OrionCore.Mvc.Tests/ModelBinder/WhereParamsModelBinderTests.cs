@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
-using OrionCore.API.Models;
+using Orion.Api.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using Xunit;
 
-namespace OrionCore.Mvc.ModelBinder.Tests
+namespace Orion.Mvc.ModelBinder.Tests
 {
 
 
@@ -104,7 +104,7 @@ namespace OrionCore.Mvc.ModelBinder.Tests
 
 			var modelBinder = new WhereParamsModelBinder();
 			var obj = modelBinder.CreateWhereParams(typeof(TestParamsDomain), collection, modelState);
-			var param = obj as IWhereParams;
+			var param = obj as WhereParams;
 
 			Assert.Equal(param.GetValues(name).Length, length);
 		}

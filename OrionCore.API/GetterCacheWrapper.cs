@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using System.Reflection;
 
-namespace OrionCore.API
+
+namespace Orion.Api
 {
 
     /// <summary></summary>
@@ -41,7 +41,5 @@ namespace OrionCore.API
         }
 
     }
-
-
 
 }

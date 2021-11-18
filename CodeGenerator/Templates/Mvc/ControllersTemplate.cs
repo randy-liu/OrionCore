@@ -16,7 +16,7 @@ namespace CodeGenerator.Templates.Mvc
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
+    #line 1 "..\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
     public partial class ControllersTemplate : CodeGenerator.Templates.TemplateBase
     {
@@ -28,7 +28,7 @@ namespace CodeGenerator.Templates.Mvc
         {
             this.Write("\r\n");
             
-            #line 4 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
+            #line 4 "..\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
  
 	string className = TableMeta.Name + "Controller";
 	FilePath = TableMeta.NameSpace + ".WebApp/Controllers/" + className + ".cs";
@@ -38,135 +38,135 @@ namespace CodeGenerator.Templates.Mvc
             #line hidden
             this.Write(@"using System;
 using System.Net;
-using OrionCore.API;
-using OrionCore.API.Extensions;
-using OrionCore.API.Models;
-using OrionCore.Mvc.Attributes;
-using OrionCore.Mvc.Security;
-using OrionCore.Mvc.Extensions;
+using Orion.Api;
+using Orion.Api.Extensions;
+using Orion.Api.Models;
+using Orion.Mvc.Attributes;
+using Orion.Mvc.Security;
+using Orion.Mvc.Extensions;
 using System.Collections.Generic;
 using System.Web.Mvc;
 using ");
             
-            #line 18 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
+            #line 18 "..\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.NameSpace));
             
             #line default
             #line hidden
             this.Write(".Service;\r\nusing ");
             
-            #line 19 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
+            #line 19 "..\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.NameSpace));
             
             #line default
             #line hidden
             this.Write(".Domain;\r\nusing ");
             
-            #line 20 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
+            #line 20 "..\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.NameSpace));
             
             #line default
             #line hidden
             this.Write(".Enums;\r\nusing ");
             
-            #line 21 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
+            #line 21 "..\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.NameSpace));
             
             #line default
             #line hidden
             this.Write(".WebApp.Models;\r\n\r\n\r\nnamespace ");
             
-            #line 24 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
+            #line 24 "..\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.NameSpace));
             
             #line default
             #line hidden
             this.Write(".WebApp.Controllers \r\n{\r\n\t/// <summary>");
             
-            #line 26 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
+            #line 26 "..\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Description));
             
             #line default
             #line hidden
             this.Write("</summary>\r\n\t//TODO [ActAuthorize(ACT.");
             
-            #line 27 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
+            #line 27 "..\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
             #line hidden
             this.Write("View)]\r\n\tpublic class ");
             
-            #line 28 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
+            #line 28 "..\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(className));
             
             #line default
             #line hidden
             this.Write(" : Controller \r\n\t{\r\n\t\tpublic IServiceContext Svc { get; set; }\r\n\r\n\r\n\r\n\t\tprivate ");
             
-            #line 34 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
+            #line 34 "..\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
             #line hidden
             this.Write("Domain toDomain(");
             
-            #line 34 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
+            #line 34 "..\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
             #line hidden
             this.Write("ViewModel vm)\r\n\t\t{\r\n\t\t\tif(vm == null) { return null; }\r\n\r\n\t\t\tvar domain =  new ");
             
-            #line 38 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
+            #line 38 "..\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
             #line hidden
             this.Write("Domain\r\n\t\t\t{\r\n");
             
-            #line 40 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
+            #line 40 "..\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
  foreach(var col in ActiveColumns) { 
             
             #line default
             #line hidden
             this.Write("\t\t\t\t");
             
-            #line 41 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
+            #line 41 "..\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.Name));
             
             #line default
             #line hidden
             this.Write(" = vm.");
             
-            #line 41 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
+            #line 41 "..\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.Name));
             
             #line default
             #line hidden
             this.Write(",\r\n");
             
-            #line 42 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
+            #line 42 "..\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
  } 
             
             #line default
             #line hidden
             
-            #line 43 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
+            #line 43 "..\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
  foreach(var col in WithColumns("ModifyBy", "ModifiedBy")) { 
             
             #line default
             #line hidden
             this.Write("\t\t\t\t");
             
-            #line 44 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
+            #line 44 "..\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.Name));
             
             #line default
             #line hidden
             this.Write(" =  this.UserId(),\r\n");
             
-            #line 45 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
+            #line 45 "..\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
  } 
             
             #line default
@@ -174,49 +174,49 @@ using ");
             this.Write("\t\t\t};\r\n\r\n\t\t\treturn domain;\r\n\t\t}\r\n\r\n\t\t//FIXME For Edit (Get) Use Or Remove\r\n\t\tpriv" +
                     "ate ");
             
-            #line 52 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
+            #line 52 "..\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
             #line hidden
             this.Write("ViewModel toViewModel(");
             
-            #line 52 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
+            #line 52 "..\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
             #line hidden
             this.Write("Domain domain)\r\n\t\t{\r\n\t\t\tif (domain == null) { return null; }\r\n\r\n\t\t\treturn new ");
             
-            #line 56 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
+            #line 56 "..\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
             #line hidden
             this.Write("ViewModel\r\n\t\t\t{\r\n");
             
-            #line 58 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
+            #line 58 "..\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
  foreach(var col in TableMeta.Columns) { 
             
             #line default
             #line hidden
             this.Write("\t\t\t\t");
             
-            #line 59 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
+            #line 59 "..\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.Name));
             
             #line default
             #line hidden
             this.Write(" = domain.");
             
-            #line 59 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
+            #line 59 "..\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.Name));
             
             #line default
             #line hidden
             this.Write(",\r\n");
             
-            #line 60 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
+            #line 60 "..\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
  } 
             
             #line default
@@ -245,14 +245,14 @@ using ");
 		//[SearchRemember(Ignore = new[] { ""export"" })]
 		public ActionResult List(WhereParams<");
             
-            #line 83 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
+            #line 83 "..\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
             #line hidden
             this.Write("Domain> findParam, PageParams<");
             
-            #line 83 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
+            #line 83 "..\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
@@ -260,14 +260,14 @@ using ");
             this.Write("Domain> pageParams, bool export = false)\r\n\t\t{\r\n\t\t\tif (export) { pageParams.PageIn" +
                     "dex = 1; pageParams.PageSize = -1; }\r\n\r\n\t\t\tPagination<");
             
-            #line 87 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
+            #line 87 "..\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
             #line hidden
             this.Write("Domain> domainPage = Svc.");
             
-            #line 87 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
+            #line 87 "..\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
@@ -275,7 +275,7 @@ using ");
             this.Write(".GetPagination(findParam, pageParams);\r\n\t\t\tViewBag.Pagination = domainPage;\r\n\r\n\t\t" +
                     "\tif (!export) { return View(); }\r\n\t\t\treturn this.ExcelView($\"");
             
-            #line 91 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
+            #line 91 "..\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Description));
             
             #line default
@@ -283,14 +283,14 @@ using ");
             this.Write("-{DateTime.Now:yyyyMMddHHmmss}.xls\");\r\n\t\t}\r\n\r\n\r\n\r\n\t\t[HttpGet]\r\n\t\t[UseViewPage(\"Fo" +
                     "rm\")]\r\n\t\t//TODO [ActAuthorize(ACT.");
             
-            #line 98 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
+            #line 98 "..\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
             #line hidden
             this.Write("Create)]\r\n\t\tpublic ActionResult Create()\r\n\t\t{\r\n\t\t\tvar vm = new ");
             
-            #line 101 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
+            #line 101 "..\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
@@ -298,42 +298,42 @@ using ");
             this.Write("ViewModel\r\n\t\t\t{\r\n\t\t\t\t//TODO\r\n\t\t\t};\r\n\r\n\t\t\treturn View(vm);\r\n\t\t}\r\n\r\n\r\n\r\n\r\n\t\t[HttpPo" +
                     "st]\r\n\t\t[UseViewPage(\"Form\")]\r\n\t\t//TODO [ActAuthorize(ACT.");
             
-            #line 114 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
+            #line 114 "..\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
             #line hidden
             this.Write("Create)]\r\n\t\tpublic ActionResult Create(");
             
-            #line 115 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
+            #line 115 "..\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
             #line hidden
             this.Write("ViewModel vm)\r\n\t\t{\r\n\t\t\tif (!ModelState.IsValid) { return View(vm); }\r\n\r\n\t\t\t");
             
-            #line 119 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
+            #line 119 "..\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
             #line hidden
             this.Write("Domain domain = toDomain(vm);\r\n\r\n\t\t\t");
             
-            #line 121 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
+            #line 121 "..\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.PK.CodeType));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 121 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
+            #line 121 "..\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.PK.Variable));
             
             #line default
             #line hidden
             this.Write(" = Svc.");
             
-            #line 121 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
+            #line 121 "..\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
@@ -341,7 +341,7 @@ using ");
             this.Write(".Save(domain);\r\n\r\n\t\t\tthis.SetStatusSuccess(\"儲存成功!!\");\r\n\t\t\treturn RedirectToAction" +
                     "(nameof(Edit), new { ");
             
-            #line 124 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
+            #line 124 "..\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.PK.Variable));
             
             #line default
@@ -349,77 +349,77 @@ using ");
             this.Write(" });\r\n\t\t}\r\n\r\n\t\t \r\n\r\n\r\n\t\t\r\n\t\t[HttpGet]\r\n\t\t[UseViewPage(\"Form\")]\r\n\t\t//TODO [ActAuth" +
                     "orize(ACT.");
             
-            #line 133 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
+            #line 133 "..\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
             #line hidden
             this.Write("Edit)]\r\n\t\tpublic ActionResult Edit(");
             
-            #line 134 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
+            #line 134 "..\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.PK.CodeType));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 134 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
+            #line 134 "..\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.PK.Variable));
             
             #line default
             #line hidden
             this.Write(")\r\n\t\t{\r\n\t\t\t");
             
-            #line 136 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
+            #line 136 "..\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
             #line hidden
             this.Write("Domain domain = Svc.");
             
-            #line 136 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
+            #line 136 "..\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
             #line hidden
             this.Write(".GetById(");
             
-            #line 136 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
+            #line 136 "..\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.PK.Variable));
             
             #line default
             #line hidden
             this.Write(");\r\n\r\n\t\t\tvar vm =  new ");
             
-            #line 138 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
+            #line 138 "..\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
             #line hidden
             this.Write("ViewModel\r\n\t\t\t{\r\n");
             
-            #line 140 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
+            #line 140 "..\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
  foreach(var col in TableMeta.Columns) { 
             
             #line default
             #line hidden
             this.Write("\t\t\t\t");
             
-            #line 141 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
+            #line 141 "..\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.Name));
             
             #line default
             #line hidden
             this.Write(" = domain.");
             
-            #line 141 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
+            #line 141 "..\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.Name));
             
             #line default
             #line hidden
             this.Write(",\r\n");
             
-            #line 142 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
+            #line 142 "..\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
  } 
             
             #line default
@@ -427,14 +427,14 @@ using ");
             this.Write("\t\t\t};\r\n\r\n\t\t\treturn View(vm);\r\n\t\t}\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\t\t[HttpPost]\r\n\t\t[UseViewPage(\"Fo" +
                     "rm\")]\r\n\t\t//TODO [ActAuthorize(ACT.");
             
-            #line 156 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
+            #line 156 "..\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
             #line hidden
             this.Write("Edit)]\r\n\t\tpublic ActionResult Edit(");
             
-            #line 157 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
+            #line 157 "..\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
@@ -442,21 +442,21 @@ using ");
             this.Write("ViewModel vm, string action = null)\r\n\t\t{\r\n\t\t\tif (\"delete\".EqualsIgnoreCase(action" +
                     "))\r\n\t\t\t{\r\n\t\t\t\t//if (!User.AnyAct(ACT.");
             
-            #line 161 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
+            #line 161 "..\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
             #line hidden
             this.Write("Delete)) { throw new OrionException(\"權限不足!!\"); }\r\n\r\n\t\t\t\tSvc.");
             
-            #line 163 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
+            #line 163 "..\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
             #line hidden
             this.Write(".Delete(vm.");
             
-            #line 163 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
+            #line 163 "..\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.PK.Name));
             
             #line default
@@ -464,28 +464,28 @@ using ");
             this.Write(");\r\n\t\t\t\tthis.SetStatusSuccess(\"刪除成功!!\");\r\n\t\t\t\treturn View();\r\n\t\t\t}\r\n\r\n\t\t\tif (!Mod" +
                     "elState.IsValid) { return View(vm); }\r\n\r\n\t\t\t");
             
-            #line 170 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
+            #line 170 "..\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
             #line hidden
             this.Write("Domain domain = toDomain(vm);\r\n\r\n\t\t\t");
             
-            #line 172 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
+            #line 172 "..\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.PK.CodeType));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 172 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
+            #line 172 "..\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.PK.Variable));
             
             #line default
             #line hidden
             this.Write(" = Svc.");
             
-            #line 172 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
+            #line 172 "..\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
@@ -493,7 +493,7 @@ using ");
             this.Write(".Save(domain);\r\n\r\n\t\t\tthis.SetStatusSuccess(\"儲存成功!!\");\r\n\t\t\treturn RedirectToAction" +
                     "(nameof(Edit), new { ");
             
-            #line 175 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
+            #line 175 "..\CodeGenerator\Templates\Mvc\ControllersTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.PK.Variable));
             
             #line default

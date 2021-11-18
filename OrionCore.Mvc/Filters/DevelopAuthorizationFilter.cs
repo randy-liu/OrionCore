@@ -1,15 +1,35 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc.Filters;
-using OrionCore.API;
-using OrionCore.API.Extensions;
-using OrionCore.Mvc.Extensions;
+using Orion.Api;
+using Orion.Api.Extensions;
+using Orion.Mvc.Extensions;
 
-namespace OrionCore.Mvc.Filters
+namespace Orion.Mvc.Filters
 {
+    public class DevelopAuthorizationFilter : IAuthorizationFilter
+    {
+        private readonly List<Claim> _claims;
+
+        public DevelopAuthorizationFilter(List<Claim> claims)
+        {
+            _claims = claims;
+        }
+
+        public void OnAuthorization(AuthorizationFilterContext context)
+        {
+            if (context.HttpContext.User.Identity.IsAuthenticated) { return; }
+
+            var claimsIdentity = new ClaimsIdentity(_claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            context.HttpContext.SignInAsync(new ClaimsPrincipal(claimsIdentity)).Wait();
+        }
+    }
+
+
+
+
     public class DevelopAuthorizationFilter<TActEnum> : IAuthorizationFilter
     {
         private bool _runOneFlag = false;
@@ -24,7 +44,7 @@ namespace OrionCore.Mvc.Filters
 
             List<Claim> claims = OrionUtils.EnumToDictionary<TActEnum>()
                 .Keys.ToList(x => new Claim(ClaimTypes.Role, x));
-            
+
             claims.Add(new Claim(ClaimTypes.Role, "DevelopAdmin"));
 
             claims.Add(new Claim(OrionUser.UserId, "11"));

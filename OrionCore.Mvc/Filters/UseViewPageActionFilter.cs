@@ -1,12 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Reflection;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Filters;
-using OrionCore.API.Extensions;
-using OrionCore.Mvc.Attributes;
-using System.Linq;
-using System.Reflection;
+using Orion.Api.Extensions;
+using Orion.Mvc.Attributes;
 
-namespace OrionCore.Mvc.Filters
+namespace Orion.Mvc.Filters
 {
 	/// <summary></summary>
 	public class UseViewPageActionFilter : ActionFilterAttribute

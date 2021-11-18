@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace OrionCore.API.Models
+namespace Orion.Api.Models
 {
 	/// <summary>使用狀態</summary>
 	public enum UseStatus

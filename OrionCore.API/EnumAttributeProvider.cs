@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace OrionCore.API
+namespace Orion.Api
 {
     /// <summary></summary>
-    public class EnumAttributeProvider<TEnum, TMeta> 
-        where TEnum : struct 
+    public class EnumAttributeProvider<TEnum, TMeta>
+        where TEnum : struct
         where TMeta : Attribute, new()
     {
         private TMeta _defaultMeta = new TMeta();
@@ -20,7 +20,7 @@ namespace OrionCore.API
             foreach (TEnum value in OrionUtils.GetEnumValues<TEnum>())
             {
                 TMeta meta = type.GetField(value.ToString()).GetCustomAttribute<TMeta>();
-                if (meta != null) { _metas[value] = meta; }                
+                if (meta != null) { _metas[value] = meta; }
             }
         }
 

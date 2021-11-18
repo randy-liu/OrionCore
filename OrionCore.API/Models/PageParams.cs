@@ -1,34 +1,12 @@
-﻿using OrionCore.API.Extensions;
-using System;
-using System.Linq;
+﻿using System;
 using System.Linq.Expressions;
+using Orion.Api.Extensions;
 
-namespace OrionCore.API.Models
+namespace Orion.Api.Models
 {
 	/// <summary>分頁參數</summary>
-	public interface IPageParams
+	public class PageParams
 	{
-		/// <summary></summary>
-		int PageIndex { get; set; }
-
-		/// <summary></summary>
-		int PageSize { get; set; }
-
-		/// <summary></summary>
-		string OrderField { get; set; }
-
-	}
-
-
-
-	/// <summary>分頁參數</summary>
-	public class PageParams<T> : IPageParams
-	{
-
-		/// <summary>不限制 PageSize</summary>
-        [Obsolete("請使用 pageParams = pageParams.NullToUnlimited();")]
-		public static PageParams<T> Unlimited() { return new PageParams<T> { PageSize = -1 }; }
-
 		/// <summary></summary>
 		public int PageIndex { get; set; }
 
@@ -38,19 +16,24 @@ namespace OrionCore.API.Models
 		/// <summary></summary>
 		public string OrderField { get; set; }
 
+	}
 
 
-		/// <summary></summary>
-		public void SetOrderField<TProp>(Expression<Func<T, TProp>> selector)
+	public static class PageParamsExtensions 
+	{
+		/// <summary>PageParams 如果為 null 就回傳不限制分頁 Unlimited</summary>
+		public static PageParams NullToUnlimited(this PageParams source)
 		{
-			OrderField = selector.GetProperty().Name;
+			return source ?? new PageParams { PageSize = -1 };
 		}
 
 		/// <summary></summary>
-		public void SetOrderField(T selector)
+		public static void SetOrderField(this PageParams source, string orderField, bool descending)
 		{
-			OrderField = selector.ToString();
+			source.OrderField = descending ? "-" + orderField : orderField;
 		}
 
 	}
+
+
 }

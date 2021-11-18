@@ -3,39 +3,39 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace OrionCore.API.Extensions
+namespace Orion.Api.Extensions
 {
-	/// <summary>Initialization Extension Utility</summary>
-	internal static class Utils
-	{
-              
-		private static readonly MethodInfo _lambda;
-		private static readonly MethodInfo _enumerableOrderBy;
-		private static readonly MethodInfo _queryableOrderBy;
+    /// <summary>Initialization Extension Utility</summary>
+    internal static class Utils
+    {
+
+        private static readonly MethodInfo _lambda;
+        private static readonly MethodInfo _enumerableOrderBy;
+        private static readonly MethodInfo _queryableOrderBy;
         private static readonly MethodInfo _queryableThenBy;
-        
+
 
         static Utils()
-		{
-			_lambda = typeof(Expression).GetMethods()
-				.Where(m => m.IsGenericMethod)
-				.Where(m => m.Name == "Lambda")
-				.Where(m => m.GetParameters().Length == 2)
-				.First();
+        {
+            _lambda = typeof(Expression).GetMethods()
+                .Where(m => m.IsGenericMethod)
+                .Where(m => m.Name == "Lambda")
+                .Where(m => m.GetParameters().Length == 2)
+                .First();
 
-			_enumerableOrderBy = typeof(EnumerableExtensions).GetMethods()
-				.Where(m => m.IsGenericMethod)
-				.Where(m => m.Name == "OrderBy")
-				.Where(m => m.GetParameters().Length == 3)
-				.Where(m => m.GetGenericArguments().Length == 2)
-				.First();
+            _enumerableOrderBy = typeof(EnumerableExtensions).GetMethods()
+                .Where(m => m.IsGenericMethod)
+                .Where(m => m.Name == "OrderBy")
+                .Where(m => m.GetParameters().Length == 3)
+                .Where(m => m.GetGenericArguments().Length == 2)
+                .First();
 
-			_queryableOrderBy = typeof(QueryableExtensions).GetMethods()
-				.Where(m => m.IsGenericMethod)
-				.Where(m => m.Name == "OrderBy")
-				.Where(m => m.GetParameters().Length == 3)
-				.Where(m => m.GetGenericArguments().Length == 2)
-				.First();
+            _queryableOrderBy = typeof(QueryableExtensions).GetMethods()
+                .Where(m => m.IsGenericMethod)
+                .Where(m => m.Name == "OrderBy")
+                .Where(m => m.GetParameters().Length == 3)
+                .Where(m => m.GetGenericArguments().Length == 2)
+                .First();
 
             _queryableThenBy = typeof(QueryableExtensions).GetMethods()
                 .Where(m => m.IsGenericMethod)

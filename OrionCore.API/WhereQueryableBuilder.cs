@@ -1,15 +1,15 @@
-﻿using OrionCore.API.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using OrionCore.API.Extensions;
+using Orion.Api.Extensions;
+using Orion.Api.Models;
 
-namespace OrionCore.API
+namespace Orion.Api
 {
 	/// <summary>WhereBuild Tools</summary>
-	public class WhereBuilder<TModel, TParams> 
+	public class WhereQueryableBuilder<TModel, TParams>
 	{
 
 		private static readonly MethodInfo _containsMethod = LambdaUtils
@@ -29,7 +29,7 @@ namespace OrionCore.API
 
 
 		/// <summary></summary>
-		public WhereBuilder(IQueryable<TModel> query, WhereParams<TParams> param)
+		public WhereQueryableBuilder(IQueryable<TModel> query, WhereParams<TParams> param)
 		{
 			_query = query;
 			_param = param;
@@ -62,7 +62,7 @@ namespace OrionCore.API
 			Func<TParams, T> getter = find.Compile();
 			var tempParam = (TParams)Activator.CreateInstance(typeof(TParams));
 
-			object[] values = ((IWhereParams)_param).GetValues(prop.Name);
+			object[] values = _param.GetValues(prop.Name);
 
 			var result = new List<T>();
 			foreach (var value in values)
@@ -154,7 +154,7 @@ namespace OrionCore.API
 				case WhereOperator.NotIn: /* !values.Contains(x) */
 					return Expression.Not(Expression.Call(containsMethod, valuesExpr, parameter));
 				case WhereOperator.Between: /* x >= values[0] && x <= values[1] */
-					if(values.Length < 2) { return Expression.GreaterThanOrEqual(parameter, valueExpr); } /* x >= value */
+					if (values.Length < 2) { return Expression.GreaterThanOrEqual(parameter, valueExpr); } /* x >= value */
 
 					var value1Expr = Expression.Convert(Expression.Constant(values[1]), typeof(T));
 					return Expression.AndAlso(
@@ -199,15 +199,15 @@ namespace OrionCore.API
 
 			switch (oper)
 			{
-				case WhereOperator.NotIn:           oper = WhereOperator.In; break;
-				case WhereOperator.NotEquals:       oper = WhereOperator.Equals; break;
-				case WhereOperator.NotContains:     oper = WhereOperator.Contains; break;
-				case WhereOperator.NotStartsWith:   oper = WhereOperator.StartsWith; break;
-				case WhereOperator.NotEndsWith:     oper = WhereOperator.EndsWith; break;
+				case WhereOperator.NotIn: oper = WhereOperator.In; break;
+				case WhereOperator.NotEquals: oper = WhereOperator.Equals; break;
+				case WhereOperator.NotContains: oper = WhereOperator.Contains; break;
+				case WhereOperator.NotStartsWith: oper = WhereOperator.StartsWith; break;
+				case WhereOperator.NotEndsWith: oper = WhereOperator.EndsWith; break;
 				default: notOperator = false; break;
 			}
 
-			
+
 			Expression condition = getCondition(parameter, oper, values);
 			if (condition == null) { return; }
 
@@ -233,7 +233,7 @@ namespace OrionCore.API
 
 
 		/// <summary>綁定查詢欄位</summary>
-		public WhereBuilder<TModel, TParams> WhereBind<T>(Expression<Func<TParams, IEnumerable<T>>> find, Expression<Func<TModel, IEnumerable<T>>> columnSelector)
+		public WhereQueryableBuilder<TModel, TParams> WhereBind<T>(Expression<Func<TParams, IEnumerable<T>>> find, Expression<Func<TModel, IEnumerable<T>>> columnSelector)
 		{
 			if (_param == null) { return this; }
 			T[] values = getValues(find);
@@ -245,7 +245,7 @@ namespace OrionCore.API
 
 
 		/// <summary>綁定查詢欄位</summary>
-		public WhereBuilder<TModel, TParams> WhereBind<T>(Expression<Func<TParams, T>> find, Expression<Func<TModel, IEnumerable<T>>> columnSelector)
+		public WhereQueryableBuilder<TModel, TParams> WhereBind<T>(Expression<Func<TParams, T>> find, Expression<Func<TModel, IEnumerable<T>>> columnSelector)
 		{
 			if (_param == null) { return this; }
 			T[] values = getValues(find);
@@ -257,7 +257,7 @@ namespace OrionCore.API
 
 
 		/// <summary>綁定查詢欄位</summary>
-		public WhereBuilder<TModel, TParams> WhereBind<T>(Expression<Func<TParams, T>> find, Expression<Func<TModel, T>> columnSelector)
+		public WhereQueryableBuilder<TModel, TParams> WhereBind<T>(Expression<Func<TParams, T>> find, Expression<Func<TModel, T>> columnSelector)
 		{
 			if (_param == null) { return this; }
 			T[] values = getValues(find);
@@ -273,11 +273,11 @@ namespace OrionCore.API
 			_query = _query.Where(whereExpr);
 			return this;
 		}
-				 
+
 
 
 		/// <summary>綁定查詢欄位</summary>
-		public WhereBuilder<TModel, TParams> WhereBind(Expression<Func<TParams, Enum>> find, Expression<Func<TModel, string>> columnSelector)
+		public WhereQueryableBuilder<TModel, TParams> WhereBind(Expression<Func<TParams, Enum>> find, Expression<Func<TModel, string>> columnSelector)
 		{
 			if (_param == null) { return this; }
 

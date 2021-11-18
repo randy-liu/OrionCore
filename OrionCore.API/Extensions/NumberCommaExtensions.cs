@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Web;
 
-namespace OrionCore.API.Extensions
+namespace OrionCore.Api.Extensions
 {
     /// <summary></summary>
     public static class NumberCommaExtensions
@@ -17,7 +16,7 @@ namespace OrionCore.API.Extensions
 
                 string digitFmt = "";
                 if (digits == -1)
-                { digitFmt  = new string('#',10); }
+                { digitFmt = new string('#', 10); }
                 else if (digits > 0)
                 { digitFmt = "0".PadLeft(digits, '#'); }
 
@@ -76,7 +75,7 @@ namespace OrionCore.API.Extensions
         public static string Comma(this decimal? value) { return comma(value); }
 
 
- 
+
 
         /// <summary></summary>
         public static string Comma(this float value, int digits)

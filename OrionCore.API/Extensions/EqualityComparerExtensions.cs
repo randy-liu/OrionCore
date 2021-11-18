@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace OrionCore.API.Extensions
+namespace Orion.Api.Extensions
 {
 	/// <summary>對於需要實作 IEqualityComparer 的 Extension Method 進行的 Extension 定義</summary>
 	public static class EqualityComparerExtensions

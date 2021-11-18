@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
-namespace OrionCore.API.Tests.Migrations
+namespace Orion.Api.Tests.Migrations
 {
     public partial class Init : Migration
     {

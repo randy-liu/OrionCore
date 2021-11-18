@@ -1,87 +1,78 @@
-﻿using OrionCore.API.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Orion.Api.Models;
 
-namespace OrionCore.API.Extensions
+namespace Orion.Api.Extensions
 {
-	/// <summary>定義 Pagination&lt;TSource&gt; 的 Extension</summary>
-	public static class PaginationExtensions
-	{
+    /// <summary>定義 Pagination&lt;TSource&gt; 的 Extension</summary>
+    public static class PaginationExtensions
+    {
 
-		/// <summary>預設換頁大小</summary>
-		public static int DefaultPageSize { get; set; } = 20;
-
-
-		/// <summary>取得換頁泛型物件</summary>
-		public static Pagination<T> AsPagination<T>(this IEnumerable<T> source, int pageNumber, int pageSize)
-		{
-			IQueryable<T> query = source.AsQueryable();
-			return AsPagination(query, pageNumber, pageSize);
-		}
+        /// <summary>預設換頁大小</summary>
+        public static int DefaultPageSize { get; set; } = 20;
 
 
-		/// <summary>取得換頁泛型物件</summary>
-		public static Pagination<T> AsPagination<T>(this IQueryable<T> query, int pageNumber, int pageSize)
-		{
-			var result = new Pagination<T>
-			{
-				PageNumber = Math.Max(1, pageNumber),
-				PageSize = pageSize,
-			};
-
-			if (pageSize == -1)
-			{
-				result.List = query.ToList();
-				result.TotalItems = result.List.Count;
-				return result;
-			}
-
-			result.TotalItems = query.Count();
-			if (result.TotalItems == 0)
-			{
-				result.List = new List<T>();
-				return result;
-			}
-
-			if (result.PageSize <= 0) { result.PageSize = DefaultPageSize; }
-			int totalPages = (int)Math.Ceiling(((double)result.TotalItems) / result.PageSize);
-			result.PageNumber = Math.Min(result.PageNumber, totalPages);
-
-			int skip = (result.PageNumber - 1) * result.PageSize;
-			result.List = query.Skip(skip).Take(result.PageSize).ToList();
-
-			return result;
-		}
+        /// <summary>取得換頁泛型物件</summary>
+        public static Pagination<T> AsPagination<T>(this IEnumerable<T> source, int pageNumber, int pageSize)
+        {
+            IQueryable<T> query = source.AsQueryable();
+            return AsPagination(query, pageNumber, pageSize);
+        }
 
 
+        /// <summary>取得換頁泛型物件</summary>
+        public static Pagination<T> AsPagination<T>(this IQueryable<T> query, int pageNumber, int pageSize)
+        {
+            var result = new Pagination<T>
+            {
+                PageNumber = Math.Max(1, pageNumber),
+                PageSize = pageSize,
+            };
 
-		/// <summary>將 Pagination 的 List Member Projection 後，再次傳回 Pagination</summary>
-		public static Pagination<TResult> As<TSource, TResult>(this Pagination<TSource> src, Func<TSource, TResult> selector)
-		{
-			var pagination = new Pagination<TResult>
-			{
-				List = src.List.Select(selector).ToList(),
-				PageNumber = src.PageNumber,
-				PageSize = src.PageSize,
-				TotalItems = src.TotalItems
-			};
+            if (pageSize == -1)
+            {
+                result.List = query.ToList();
+                result.TotalItems = result.List.Count;
+                return result;
+            }
 
-			return pagination;
-		}
+            result.TotalItems = query.Count();
+            if (result.TotalItems == 0)
+            {
+                result.List = new List<T>();
+                return result;
+            }
+
+            if (result.PageSize <= 0) { result.PageSize = DefaultPageSize; }
+            int totalPages = (int)Math.Ceiling(((double)result.TotalItems) / result.PageSize);
+            result.PageNumber = Math.Min(result.PageNumber, totalPages);
+
+            int skip = (result.PageNumber - 1) * result.PageSize;
+            result.List = query.Skip(skip).Take(result.PageSize).ToList();
+
+            return result;
+        }
 
 
 
+        /// <summary>將 Pagination 的 List Member Projection 後，再次傳回 Pagination</summary>
+        public static Pagination<TResult> As<TSource, TResult>(this Pagination<TSource> src, Func<TSource, TResult> selector)
+        {
+            var pagination = new Pagination<TResult>
+            {
+                List = src.List.Select(selector).ToList(),
+                PageNumber = src.PageNumber,
+                PageSize = src.PageSize,
+                TotalItems = src.TotalItems
+            };
 
-		/// <summary>PageParams 如果為 null 就回傳不限制分頁 Unlimited</summary>
-		public static PageParams<T> NullToUnlimited<T>(this PageParams<T> source)
-		{
-			return source ?? new PageParams<T> { PageSize = -1 };
-		}
+            return pagination;
+        }
 
 
 
 
 
-	}
+    }
 }

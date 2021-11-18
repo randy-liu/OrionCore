@@ -1,7 +1,7 @@
 ﻿
 using System.Collections.Generic;
 
-namespace OrionCore.Mvc.UI
+namespace Orion.Mvc.UI
 {
 	/// <summary></summary>
 	public interface IBreadcrumb

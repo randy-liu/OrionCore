@@ -3,7 +3,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace OrionCore.API
+namespace Orion.Api
 {
 	/// <summary>SHA256 Tools</summary>
 	public class PasswordSHA256Handle : IPasswordHandle

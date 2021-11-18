@@ -1,5 +1,5 @@
 ﻿
-namespace OrionCore.API
+namespace Orion.Api
 {
 	/// <summary>IPasswordHandle 介面</summary>
 	public interface IPasswordHandle

@@ -17,7 +17,7 @@ namespace CodeGenerator.Templates.Test
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Test\ServiceTestTemplate.tt"
+    #line 1 "..\CodeGenerator\Templates\Test\ServiceTestTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
     public partial class ServiceTestTemplate : CodeGenerator.Templates.TemplateBase
     {
@@ -28,7 +28,7 @@ namespace CodeGenerator.Templates.Test
         public override string TransformText()
         {
             
-            #line 4 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Test\ServiceTestTemplate.tt"
+            #line 4 "..\CodeGenerator\Templates\Test\ServiceTestTemplate.tt"
  
 	string className = TableMeta.Name + "ServiceTests";
 	FilePath = TableMeta.NameSpace + ".Tests/Service/Impl/" + className + ".cs";
@@ -36,39 +36,39 @@ namespace CodeGenerator.Templates.Test
             
             #line default
             #line hidden
-            this.Write("using OrionCore.API;\r\nusing Moq;\r\nusing System;\r\nusing System.Collections.Generic" +
+            this.Write("using Orion.Api;\r\nusing Moq;\r\nusing System;\r\nusing System.Collections.Generic" +
                     ";\r\nusing System.Linq;\r\nusing System.Text;\r\nusing System.Threading.Tasks;\r\nusing " +
                     "");
             
-            #line 15 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Test\ServiceTestTemplate.tt"
+            #line 15 "..\CodeGenerator\Templates\Test\ServiceTestTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.NameSpace));
             
             #line default
             #line hidden
             this.Write(".Dao;\r\nusing ");
             
-            #line 16 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Test\ServiceTestTemplate.tt"
+            #line 16 "..\CodeGenerator\Templates\Test\ServiceTestTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.NameSpace));
             
             #line default
             #line hidden
             this.Write(".Domain;\r\nusing ");
             
-            #line 17 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Test\ServiceTestTemplate.tt"
+            #line 17 "..\CodeGenerator\Templates\Test\ServiceTestTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.NameSpace));
             
             #line default
             #line hidden
             this.Write(".Enums;\r\nusing Xunit;\r\n\r\nnamespace ");
             
-            #line 20 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Test\ServiceTestTemplate.tt"
+            #line 20 "..\CodeGenerator\Templates\Test\ServiceTestTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.NameSpace));
             
             #line default
             #line hidden
             this.Write(".Service.Impl.Tests\r\n{\r\n\tpublic class ");
             
-            #line 22 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Test\ServiceTestTemplate.tt"
+            #line 22 "..\CodeGenerator\Templates\Test\ServiceTestTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(className));
             
             #line default
@@ -76,35 +76,35 @@ namespace CodeGenerator.Templates.Test
             this.Write("\r\n\t{\r\n\r\n\t\tpublic static IEnumerable<object[]> Save_ValidationTest_Data\r\n\t\t{\r\n\t\t\tg" +
                     "et\r\n\t\t\t{\r\n\t\t\t\tyield return new object[] { new ");
             
-            #line 29 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Test\ServiceTestTemplate.tt"
+            #line 29 "..\CodeGenerator\Templates\Test\ServiceTestTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
             #line hidden
             this.Write("Domain(){\r\n\t\t\t\t//TODO 程式產生未完成\r\n");
             
-            #line 31 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Test\ServiceTestTemplate.tt"
+            #line 31 "..\CodeGenerator\Templates\Test\ServiceTestTemplate.tt"
  foreach(var col in TableMeta.Columns) { 
             
             #line default
             #line hidden
             this.Write("\t\t\t\t\t");
             
-            #line 32 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Test\ServiceTestTemplate.tt"
+            #line 32 "..\CodeGenerator\Templates\Test\ServiceTestTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.Name));
             
             #line default
             #line hidden
             this.Write(" = default(");
             
-            #line 32 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Test\ServiceTestTemplate.tt"
+            #line 32 "..\CodeGenerator\Templates\Test\ServiceTestTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.CodeType));
             
             #line default
             #line hidden
             this.Write("),\r\n");
             
-            #line 33 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Test\ServiceTestTemplate.tt"
+            #line 33 "..\CodeGenerator\Templates\Test\ServiceTestTemplate.tt"
  } 
             
             #line default
@@ -112,35 +112,35 @@ namespace CodeGenerator.Templates.Test
             this.Write("\t\t\t\t}};\r\n\t\t\t}\r\n\t\t}\r\n\r\n\r\n\t\t[Theory]\r\n\t\t[MemberData(\"Save_ValidationTest_Data\")]\r\n\t" +
                     "\tpublic void Save_ValidationTest(");
             
-            #line 41 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Test\ServiceTestTemplate.tt"
+            #line 41 "..\CodeGenerator\Templates\Test\ServiceTestTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
             #line hidden
             this.Write("Domain domain)\r\n\t\t{\r\n\t\t\tvar mock = new Mock<I");
             
-            #line 43 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Test\ServiceTestTemplate.tt"
+            #line 43 "..\CodeGenerator\Templates\Test\ServiceTestTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
             #line hidden
             this.Write("Dao>();\r\n\t\t\tvar ");
             
-            #line 44 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Test\ServiceTestTemplate.tt"
+            #line 44 "..\CodeGenerator\Templates\Test\ServiceTestTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Variable));
             
             #line default
             #line hidden
             this.Write("Service = new ");
             
-            #line 44 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Test\ServiceTestTemplate.tt"
+            #line 44 "..\CodeGenerator\Templates\Test\ServiceTestTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
             #line hidden
             this.Write("Service(mock.Object);\r\n\t\t\tAssert.Throws<OrionException>(() => ");
             
-            #line 45 "..\Dropbox\Case-Project\NugetProject\Orion\CodeGenerator\Templates\Test\ServiceTestTemplate.tt"
+            #line 45 "..\CodeGenerator\Templates\Test\ServiceTestTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Variable));
             
             #line default

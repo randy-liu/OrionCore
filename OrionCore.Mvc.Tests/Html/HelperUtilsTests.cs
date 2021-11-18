@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace OrionCore.Mvc.Html.Tests
+namespace Orion.Mvc.Html.Tests
 {
 	public class HelperUtilsTests
 	{

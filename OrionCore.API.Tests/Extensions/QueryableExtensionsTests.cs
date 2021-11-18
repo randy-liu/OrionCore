@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
-using OrionCore.API.Tests;
+using Orion.Api.Tests;
 using Xunit;
 using Microsoft.EntityFrameworkCore;
 
 
-namespace OrionCore.API.Extensions.Tests
+namespace Orion.Api.Extensions.Tests
 {
 	public class QueryableExtensionsTests
 	{

@@ -3,7 +3,7 @@ using System.Collections.Concurrent;
 using System.Linq;
 using System.Reflection;
 
-namespace OrionCore.API.Extensions
+namespace Orion.Api.Extensions
 {
     /// <summary></summary>
     public static class DeclareExtensions

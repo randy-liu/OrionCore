@@ -1,24 +1,19 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text.Encodings.Web;
-using System.Web;
 using System.Xml.Linq;
 using Microsoft.AspNetCore.Html;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using OrionCore.API;
-using OrionCore.API.Extensions;
+using Orion.Api.Extensions;
 
-namespace OrionCore.Mvc.Html
+namespace Orion.Mvc.Html
 {
 
-	/// <summary></summary>
-	public static class HelperUtils
+    /// <summary></summary>
+    public static class HelperUtils
 	{ 
 
 		/// <summary>是否為民國曆</summary>

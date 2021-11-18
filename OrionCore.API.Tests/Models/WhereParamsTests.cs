@@ -1,11 +1,11 @@
-﻿using OrionCore.API.Extensions;
-using OrionCore.API.Models;
+﻿using Orion.Api.Extensions;
+using Orion.Api.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
-namespace OrionCore.API.Models.Tests
+namespace Orion.Api.Models.Tests
 {
 
 
@@ -34,7 +34,7 @@ namespace OrionCore.API.Models.Tests
 		[Fact]
 		public void SetValues_IntTest1()
 		{
-			IWhereParams param = WhereParams.CreateByObject(new InvoiceIssueDomain());
+			WhereParams param = WhereParams.CreateByObject(new InvoiceIssueDomain());
 			param.SetValues("ProductQty", WhereOperator.In, new[] { 1, 2, 3, 4 });
 
 			var values = param.GetValues("ProductQty");
@@ -88,7 +88,7 @@ namespace OrionCore.API.Models.Tests
 		[Fact]
 		public void SetValues_StringTest1()
 		{
-			IWhereParams param = WhereParams.CreateByObject(new InvoiceIssueDomain());
+			WhereParams param = WhereParams.CreateByObject(new InvoiceIssueDomain());
 			param.SetValues("InvoicePrefix", WhereOperator.In, new[] { "1222" });
 			var values = param.GetValues("InvoicePrefix");
 			Assert.NotEmpty(values);

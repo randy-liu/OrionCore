@@ -11,7 +11,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
-using OrionCore.API.Models;
+using Orion.Api.Models;
 using <#= TableMeta.NameSpace #>.Enums;
 
 namespace <#= TableMeta.NameSpace #>.WebApp.Models 

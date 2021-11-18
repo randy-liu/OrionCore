@@ -1,24 +1,21 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Data;
+using System.IO;
+using System.Web;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using OrionCore.API;
-using OrionCore.API.Extensions;
-using OrionCore.API.Models;
-using OrionCore.Mvc.Extensions;
-using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Web;
 using Microsoft.Extensions.DependencyInjection;
+using Orion.Api;
+using Orion.Api.Extensions;
+using Orion.Api.Models;
+using Orion.Mvc.Extensions;
 
-
-namespace OrionCore.Mvc.Html
+namespace Orion.Mvc.Html
 {
 
 	/// <summary></summary>
@@ -40,11 +37,30 @@ namespace OrionCore.Mvc.Html
 
 
 
-		/// <summary></summary>
-		public static string DisplayName(this IHtmlHelper html, Enum enumValue)
+
+
+		private static string readFileContent(IHtmlHelper helper, string contentPath)
 		{
-			return enumValue.GetDisplayName();
+			var env = helper.ViewContext.HttpContext.RequestServices.GetService<IWebHostEnvironment>();
+
+			string filePath = env.MapPath(contentPath.TrimStart('~'));
+			return File.ReadAllText(filePath);
 		}
+
+		/// <summary>將 Content 的內容輸出到畫面</summary>
+		public static IHtmlContent Content(this IHtmlHelper helper, string contentPath)
+		{
+			return new HtmlString(readFileContent(helper, contentPath));
+		}
+
+
+		/// <summary>將 Content 的內容輸出到畫面</summary>
+		public static void RenderContent(this IHtmlHelper helper, string contentPath)
+		{
+			helper.ViewContext.Writer.Write(readFileContent(helper, contentPath));
+		}
+
+
 
 
 
@@ -79,19 +95,44 @@ namespace OrionCore.Mvc.Html
 
 
 
-
-
 		/*#############################################################*/
 
-		private static IHtmlContent getShowItem<TEnum>(TEnum enumValue, string tag = null)
+		/// <summary></summary>
+		public static IHtmlContent ShowItem<TEnum>(this IEnumerable<TEnum> enumValues) where TEnum : struct
+		{
+			if (enumValues == null) { return HtmlString.Empty; }
+
+			var cb = new HtmlContentBuilder();
+			foreach (var enumValue in enumValues)
+			{
+				cb.AppendHtml(buildShowItem(enumValue));
+				cb.AppendHtml(" ");
+			}
+
+			return cb;
+		}
+		/// <summary></summary>
+		public static IHtmlContent ShowItem<TEnum>(this TEnum? enumValue) where TEnum : struct
+		{
+			if (!enumValue.HasValue) { return HtmlString.Empty; }
+			return buildShowItem(enumValue.Value);
+		}
+
+		/// <summary></summary>
+		public static IHtmlContent ShowItem(this Enum enumValue)
 		{
 			if (enumValue == null) { return HtmlString.Empty; }
-			if (tag.NoText()) { tag = "span"; }
+			return buildShowItem(enumValue);
+		}
+
+		private static IHtmlContent buildShowItem<TEnum>(TEnum enumValue)
+		{
+			if (enumValue == null) { return HtmlString.Empty; }
 
 			string text = enumValue.ToString();
 			if (enumValue is Enum) { text = OrionUtils.GetEnumDisplayName(enumValue); }
 
-			var tb = new TagBuilder(tag);
+			var tb = new TagBuilder("span");
 			tb.AddCssClass("item-" + enumValue);
 			tb.InnerHtml.Append(text);
 
@@ -99,86 +140,23 @@ namespace OrionCore.Mvc.Html
 		}
 
 
-		/// <summary></summary>
-		public static IHtmlContent ShowItem<TEnum>(this IHtmlHelper helper, IEnumerable<TEnum> enumValues, string tag) where TEnum : struct
-		{
-			if (enumValues == null) { return HtmlString.Empty; }
 
-			var cb = new HtmlContentBuilder();
-			foreach (var enumValue in enumValues)
-			{
-				cb.AppendHtml(getShowItem(enumValue, tag));
-				cb.AppendHtml(" ");
-			}
 
-			return cb;
-		}
-		/// <summary></summary>
-		public static IHtmlContent ShowItem<TEnum>(this IHtmlHelper helper, IEnumerable<TEnum> enumValues) where TEnum : struct
-		{
-			return ShowItem(helper, enumValues, null);
-		}
+
+
+
+		/*##############################################################################*/
 
 
 		/// <summary></summary>
-		public static IHtmlContent ShowItem<TEnum>(this IHtmlHelper helper, TEnum? enumValue) where TEnum : struct
-		{
-			if (!enumValue.HasValue) { return HtmlString.Empty; }
-			return getShowItem(enumValue.Value);
-		}
-		/// <summary></summary>
-		public static IHtmlContent ShowItem<TEnum>(this IHtmlHelper helper, TEnum? enumValue, string tag) where TEnum : struct
-		{
-			if (!enumValue.HasValue) { return HtmlString.Empty; }
-			return getShowItem(enumValue.Value, tag);
-		}
-
-
-		/// <summary></summary>
-		public static IHtmlContent ShowItem(this IHtmlHelper helper, Enum enumValue)
-		{
-			return ShowItem(helper, enumValue, null);
-		}
-		/// <summary></summary>
-		public static IHtmlContent ShowItem(this IHtmlHelper helper, Enum enumValue, string tag)
-		{
-			if (enumValue == null) { return HtmlString.Empty; }
-			return getShowItem(enumValue, tag);
-		}
-
-
-
-
-
-
-		private static IHtmlContent getShowItem<K, V>(K value, IDictionary<K, V> selectList, string tag = null)
-		{
-			if (value == null) { return HtmlString.Empty; }
-			if (tag.NoText()) { tag = "span"; }
-
-			string text = selectList.ContainsKey(value) ? selectList[value].ToString() : value.ToString();
-
-			var tb = new TagBuilder(tag);
-			tb.AddCssClass("item-" + value);
-			tb.InnerHtml.Append(text);
-
-			return tb;
-		}
-
-		/// <summary></summary>
-		public static IHtmlContent ShowItem<K, V>(this IHtmlHelper helper, IEnumerable<K> values, IDictionary<K, V> selectList)
-		{
-			return ShowItem(helper, values, selectList, null);
-		}
-		/// <summary></summary>
-		public static IHtmlContent ShowItem<K, V>(this IHtmlHelper helper, IEnumerable<K> values, IDictionary<K, V> selectList, string tag)
+		public static IHtmlContent ShowItem<K, V>(this IEnumerable<K> values, IDictionary<K, V> selectList)
 		{
 			if (values == null) { return HtmlString.Empty; }
 
 			var cb = new HtmlContentBuilder();
 			foreach (var value in values)
 			{
-				cb.AppendHtml(getShowItem(value, selectList, tag));
+				cb.AppendHtml(buildShowItem(value, selectList));
 				cb.AppendHtml(" ");
 			}
 
@@ -187,145 +165,149 @@ namespace OrionCore.Mvc.Html
 
 
 		/// <summary></summary>
-		public static IHtmlContent ShowItem<K, V>(this IHtmlHelper helper, K? value, IDictionary<K, V> selectList) where K : struct
+		public static IHtmlContent ShowItem<K, V>(this K? value, IDictionary<K, V> selectList) where K : struct
 		{
 			if (!value.HasValue) { return HtmlString.Empty; }
-			return getShowItem(value.Value, selectList);
-		}
-		/// <summary></summary>
-		public static IHtmlContent ShowItem<K, V>(this IHtmlHelper helper, K? value, IDictionary<K, V> selectList, string tag) where K : struct
-		{
-			if (!value.HasValue) { return HtmlString.Empty; }
-			return getShowItem(value.Value, selectList, tag);
+			return buildShowItem(value.Value, selectList);
 		}
 
 
+
 		/// <summary></summary>
-		public static IHtmlContent ShowItem<K, V>(this IHtmlHelper helper, K value, IDictionary<K, V> selectList)
+		public static IHtmlContent ShowItem<K, V>(this K value, IDictionary<K, V> selectList)
 		{
 			if (value == null) { return HtmlString.Empty; }
-			return getShowItem(value, selectList);
+			return buildShowItem(value, selectList);
 		}
-		/// <summary></summary>
-		public static IHtmlContent ShowItem<K, V>(this IHtmlHelper helper, K value, IDictionary<K, V> selectList, string tag)
+
+
+
+		private static IHtmlContent buildShowItem<K, V>(K value, IDictionary<K, V> selectList)
 		{
 			if (value == null) { return HtmlString.Empty; }
-			return getShowItem(value, selectList, tag);
+
+			string text = selectList.ContainsKey(value) ? selectList[value].ToString() : value.ToString();
+
+			var tb = new TagBuilder("span");
+			tb.AddCssClass("item-" + value);
+			tb.InnerHtml.Append(text);
+
+			return tb;
 		}
 
 
 
 
-		private static string readFileContent(IHtmlHelper helper, string contentPath)
+		public static IHtmlContent ShowItem(this object obj, IDictionary<string, string> selectList)
 		{
-			var env = helper.ViewContext.HttpContext.RequestServices.GetService<IWebHostEnvironment>();
-
-			string filePath = env.MapPath(contentPath.TrimStart('~'));
-			return File.ReadAllText(filePath);
+			return buildShowItem(obj, selectList);
 		}
 
-		/// <summary>將 Content 的內容輸出到畫面</summary>
-		public static IHtmlContent Content(this IHtmlHelper helper, string contentPath)
+		private static IHtmlContent buildShowItem(object obj, IDictionary<string, string> selectList)
 		{
-			return new HtmlString(readFileContent(helper, contentPath));
+			if (obj == null) { return HtmlString.Empty; }
+
+			if (obj is IEnumerable && !(obj is string))
+			{
+				var cb = new HtmlContentBuilder();
+
+				foreach (var item in (obj as IEnumerable))
+				{ cb.AppendLine(buildShowItem(item, selectList)); }
+
+				return cb;
+			}
+			else
+			{
+				string value = "" + obj;
+				string text = selectList.ContainsKey(value) ? selectList[value] : value;
+
+				var tb = new TagBuilder("span");
+				tb.AddCssClass("item-" + obj);
+				tb.InnerHtml.Append(text);
+
+				return tb;
+			}
 		}
 
 
-		/// <summary>將 Content 的內容輸出到畫面</summary>
-		public static void RenderContent(this IHtmlHelper helper, string contentPath)
+
+
+
+		/*##############################################################################*/
+
+
+		public static IHtmlContent ShowItemAndKey(this object obj, IDictionary<string, string> selectList)
 		{
-			helper.ViewContext.Writer.Write(readFileContent(helper, contentPath));
+			return buildShowItemAndKey(obj, selectList);
 		}
 
-
-
-
-
-		/*#############################################################*/
-
-
-		private static string getLiveTime(TimeSpan diffTime, int diffYear)
+		private static IHtmlContent buildShowItemAndKey(object obj, IDictionary<string, string> selectList)
 		{
-			if (diffTime.TotalSeconds < 60) { return $"{diffTime.TotalSeconds:0} 秒前"; }
-			if (diffTime.TotalMinutes < 60) { return $"{diffTime.TotalMinutes:0} 分鐘前"; }
-			if (diffTime.TotalHours < 24) { return $"{diffTime.TotalHours:0} 小時前"; }
-			if (diffTime.TotalDays < 30) { return $"{diffTime.TotalDays:0} 天前"; }
-			if (diffTime.TotalDays < 360) { return $"{(diffTime.TotalDays / 30):0} 個月前"; }
+			if (obj == null) { return HtmlString.Empty; }
 
-			return diffYear + " 年前";
+
+			if (obj is IEnumerable && !(obj is string))
+			{
+				var cb = new HtmlContentBuilder();
+
+				foreach (var item in (obj as IEnumerable))
+				{ cb.AppendLine(buildShowItemAndKey(item, selectList)); }
+
+				return cb;
+			}
+			else
+			{
+				string text = "" + obj;
+				if (selectList.ContainsKey(text)) { text += " " + selectList[text]; }
+
+				var tb = new TagBuilder("span");
+				tb.AddCssClass("item-" + obj);
+				tb.InnerHtml.Append(text);
+
+				return tb;
+			}
 		}
 
 
-		/// <summary>顯示日期</summary>
-		public static string ShowDate(this IHtmlHelper helper, DateTime? data)
+
+
+
+
+		/*##############################################################################*/
+
+		/// <summary>將 object 轉換為 JsonRaw</summary>
+		public static IHtmlContent ToJsonRaw(this object obj)
 		{
-			return data?.ToString("d");
+			return new HtmlString(ObjectExtensions.ToJson(obj));
 		}
 
 
 
-		/// <summary>顯示時間</summary>
-		public static string ShowTime(this IHtmlHelper helper, DateTime? data)
+		/// <summary>將 object 轉換為縮排格式化的 JsonRaw</summary>
+		public static IHtmlContent ToFormatJsonRaw(this object obj)
 		{
-			return data?.ToString("t");
+			return new HtmlString(ObjectExtensions.ToFormatJson(obj));
 		}
 
-
-
-
-		/// <summary>顯示活動時間</summary>
-		public static string ShowLiveTime(this IHtmlHelper helper, DateTime? datatime)
+		/// <summary>將 DataRow 轉換為 JsonRaw</summary>
+		public static IHtmlContent ToJsonRaw(this DataRow obj)
 		{
-			if (datatime == null) { return null; }
-
-			string liveTime = getLiveTime(
-				DateTime.Now - datatime.Value,
-				DateTime.Now.Year - datatime.Value.Year
-			);
-			return liveTime;
+			return new HtmlString(ObjectExtensions.ToJson(obj));
 		}
 
 
 
 
 
-		/*#############################################################*/
+		/*##############################################################################*/
 
-		/// <summary>顯示日期</summary>
-		public static string ShowDateTime(this IHtmlHelper helper, DateTimeOffset? data)
+
+		/// <summary></summary>
+		public static IHtmlContent CommaWrap(this object value)
 		{
-			return ThreadTimeZone.ConvertZone(data)?.ToString("f");
+			var formated = ObjectExtensions.Comma(value);
+			return new HtmlString($"<span raw=\"{value}\">{formated}</span>");
 		}
-
-
-		/// <summary>顯示日期</summary>
-		public static string ShowDate(this IHtmlHelper helper, DateTimeOffset? data)
-		{
-			return ThreadTimeZone.ConvertZone(data)?.ToString("d");
-		}
-
-		
-		/// <summary>顯示時間</summary>
-		public static string ShowTime(this IHtmlHelper helper, DateTimeOffset? data)
-		{
-			return ThreadTimeZone.ConvertZone(data)?.ToString("t");
-		}
-
-			   
-		/// <summary>顯示活動時間</summary>
-		public static string ShowLiveTime(this IHtmlHelper helper, DateTimeOffset? datatime)
-		{
-			if (datatime == null) { return null; }
-
-			string liveTime = getLiveTime(
-				DateTimeOffset.Now - datatime.Value,
-				DateTimeOffset.Now.Year - datatime.Value.Year
-			);
-			return liveTime;
-		}
-
-
-
 
 
 

@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace OrionCore.API.Extensions.Tests
+namespace OrionCore.Api.Extensions.Tests
 {
     public class NumberCommaExtensionsTests
     {

@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using OrionCore.API.Models;
+using Orion.Api.Models;
 using Xunit;
 
-namespace OrionCore.API.Extensions.Tests
+namespace Orion.Api.Extensions.Tests
 {
 	public class DateTimeSectionExtensionsTests
 	{

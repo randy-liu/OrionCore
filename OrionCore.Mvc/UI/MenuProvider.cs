@@ -1,21 +1,21 @@
-﻿using OrionCore.API.Extensions;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Resources;
 using System.Security.Principal;
+using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Schema;
-using System.Resources;
-using System.Text.RegularExpressions;
+using Orion.Api.Extensions;
 
-namespace OrionCore.Mvc.UI
+namespace Orion.Mvc.UI
 {
 
-	/// <summary>選單提供者</summary>
-	public interface IMenuProvider
+    /// <summary>選單提供者</summary>
+    public interface IMenuProvider
 	{
 		/// <summary></summary>
 		string AreaName { get; }
@@ -81,7 +81,7 @@ namespace OrionCore.Mvc.UI
 
 
 			/* 用 XSD 驗證 */
-			Stream xsdStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("OrionCore.Mvc.UI.menus.xsd");
+			Stream xsdStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Orion.Mvc.UI.menus.xsd");
 			var schemas = new XmlSchemaSet();
 			schemas.Add("", XmlReader.Create(xsdStream));
 			doc.Validate(schemas, (o, e) => { throw new XmlException(e.Message); });
@@ -100,7 +100,7 @@ namespace OrionCore.Mvc.UI
                     Name = attr(menu, "name"),
                     Url = attr(menu, "url"),
                     Target = attr(menu, "target"),
-                    ACT = attr(menu, "act"),
+                    ACT = attr(menu, "act").ToIdsList<string>(","),
                     Icon = attr(menu, "icon"),
                     Pattern = attr(menu, "pattern"),
 
@@ -152,7 +152,7 @@ namespace OrionCore.Mvc.UI
 			if (_resource == null) { return result; }
 
             /* 多語轉換 */
-            foreach (var item in result.Traverse(x => x.SubItems))
+            foreach (var item in result.Traversal(x => x.SubItems))
             {
                 item.Name = _resource.GetString(item.Name) ?? item.Name;
             }
@@ -171,7 +171,7 @@ namespace OrionCore.Mvc.UI
             {
                 var main = item.Clone();
                 main.SubItems = cloneListByRole(item.SubItems, user, currentUrl);
-                main.CanAccess = (main.ACT == null || user.IsInRole(main.ACT));
+				main.CanAccess = (main.ACT.Count == 0 || main.ACT.Any(x => user.IsInRole(x)));
                 main.IsActive = isContainsPath(currentUrl, main);
 
                 if (main.HasSubItems)

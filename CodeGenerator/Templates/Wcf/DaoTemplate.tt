@@ -5,9 +5,9 @@
 	string className = TableMeta.Name + "Dao";
 	FilePath = TableMeta.NameSpace + ".Dao/Impl/" + className + ".cs";
 #>
-using OrionCore.API;
-using OrionCore.API.Extensions;
-using OrionCore.API.Models;
+using Orion.Api;
+using Orion.Api.Extensions;
+using Orion.Api.Models;
 using <#= TableMeta.NameSpace #>.Dao.Database;
 using <#= TableMeta.NameSpace #>.Domain;
 using <#= TableMeta.NameSpace #>.Enums;

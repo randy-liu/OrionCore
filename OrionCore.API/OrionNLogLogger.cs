@@ -1,7 +1,8 @@
 ﻿using System;
 
-namespace OrionCore.API
-{
+
+namespace Orion.Api
+{ 
 
 	/// <summary>nLog Tools</summary>
 	public class OrionNLogLogger : IOrionLogger

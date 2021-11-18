@@ -2,9 +2,9 @@
 using System.Linq;
 using System.Collections.Generic;
 using Xunit;
-using OrionCore.API.Models;
+using Orion.Api.Models;
 
-namespace OrionCore.API.Tests
+namespace Orion.Api.Tests
 {
     public class OrionUtilsTests
     {
@@ -77,55 +77,55 @@ namespace OrionCore.API.Tests
 
         /*=======================================================*/
 
-        [Theory]
-        [InlineData(null, 0)]
-        [InlineData("", 0)]
-        [InlineData("1, 2, 3", 3)]
-        public void ToIdsList_Test(string value, int length)
-        {
-            var list = OrionUtils.ToIdsList<string>(value);
-            Assert.Equal(list.Count, length);
-        }
+  //      [Theory]
+  //      [InlineData(null, 0)]
+  //      [InlineData("", 0)]
+  //      [InlineData("1, 2, 3", 3)]
+  //      public void ToIdsList_Test(string value, int length)
+  //      {
+  //          var list = OrionUtils.ToIdsList<string>(value);
+  //          Assert.Equal(list.Count, length);
+  //      }
 
 
-        [Theory]
-        [InlineData(null, 0)]
-        [InlineData("", 0)]
-        [InlineData("1,2,3", 3)]
-        [InlineData("1,2,3,3,3", 3)]
-        [InlineData("1,2,3,sss,ffff", 3)]
-        public void ToIdsList_IntTest(string value, int length)
-        {
-            var list = OrionUtils.ToIdsList<int>(value);
-            Assert.Equal(list.Count, length);
-        }
+  //      [Theory]
+  //      [InlineData(null, 0)]
+  //      [InlineData("", 0)]
+  //      [InlineData("1,2,3", 3)]
+  //      [InlineData("1,2,3,3,3", 3)]
+  //      [InlineData("1,2,3,sss,ffff", 3)]
+  //      public void ToIdsList_IntTest(string value, int length)
+  //      {
+  //          var list = OrionUtils.ToIdsList<int>(value);
+  //          Assert.Equal(list.Count, length);
+  //      }
 
-		[Theory]
-		[InlineData(null, 0)]
-		[InlineData("", 0)]
-		[InlineData("F1,F2,F3", 3)]
-		[InlineData("F1,F2,F3,F3,F3", 3)]
-		[InlineData("F1,F2,F3,sss,ffff", 3)]
-		public void ToIdsList_EnumTest(string value, int length)
-		{
-			var list = OrionUtils.ToIdsList<Floor>(value);
-			Assert.Equal(list.Count, length);
-		}
-
-
+		//[Theory]
+		//[InlineData(null, 0)]
+		//[InlineData("", 0)]
+		//[InlineData("F1,F2,F3", 3)]
+		//[InlineData("F1,F2,F3,F3,F3", 3)]
+		//[InlineData("F1,F2,F3,sss,ffff", 3)]
+		//public void ToIdsList_EnumTest(string value, int length)
+		//{
+		//	var list = OrionUtils.ToIdsList<Floor>(value);
+		//	Assert.Equal(list.Count, length);
+		//}
 
 
-        /*=======================================================*/
 
-        [Fact]
-        public void ToIdsString_Test()
-        {
-            Assert.Equal("",    OrionUtils.ToIdsString((string[])null));
-            Assert.Equal("",    OrionUtils.ToIdsString(new string[] { }));
-            Assert.Equal("",    OrionUtils.ToIdsString(new int[] { }));
-            Assert.Equal("1,2", OrionUtils.ToIdsString(new string[] { "1", "2", "2" }));
-            Assert.Equal("1,2", OrionUtils.ToIdsString(new int[] { 1, 2, 2 }));
-        }
+
+  //      /*=======================================================*/
+
+  //      [Fact]
+  //      public void ToIdsString_Test()
+  //      {
+  //          Assert.Equal("",    OrionUtils.ToIdsString((string[])null));
+  //          Assert.Equal("",    OrionUtils.ToIdsString(new string[] { }));
+  //          Assert.Equal("",    OrionUtils.ToIdsString(new int[] { }));
+  //          Assert.Equal("1,2", OrionUtils.ToIdsString(new string[] { "1", "2", "2" }));
+  //          Assert.Equal("1,2", OrionUtils.ToIdsString(new int[] { 1, 2, 2 }));
+  //      }
 
 
 

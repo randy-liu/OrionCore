@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace OrionCore.API
+namespace Orion.Api
 {
     /// <summary></summary>
     public class NotifiMonitor

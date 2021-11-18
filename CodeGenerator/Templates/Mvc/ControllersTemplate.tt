@@ -7,12 +7,12 @@
 #>
 using System;
 using System.Net;
-using OrionCore.API;
-using OrionCore.API.Extensions;
-using OrionCore.API.Models;
-using OrionCore.Mvc.Attributes;
-using OrionCore.Mvc.Security;
-using OrionCore.Mvc.Extensions;
+using Orion.Api;
+using Orion.Api.Extensions;
+using Orion.Api.Models;
+using Orion.Mvc.Attributes;
+using Orion.Mvc.Security;
+using Orion.Mvc.Extensions;
 using System.Collections.Generic;
 using System.Web.Mvc;
 using <#= TableMeta.NameSpace #>.Service;

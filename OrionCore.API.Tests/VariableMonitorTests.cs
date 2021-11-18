@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace OrionCore.API.Tests
+namespace Orion.Api.Tests
 {
     public class VariableMonitorTests
     {

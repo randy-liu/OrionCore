@@ -6,13 +6,13 @@ using System.Linq.Expressions;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using OrionCore.API;
+using Orion.Api;
 
-namespace OrionCore.Mvc.Html
+namespace Orion.Mvc.Html
 {
 
-	/// <summary></summary>
-	public static class CheckboxRadioExtensions 
+    /// <summary></summary>
+    public static class CheckboxRadioExtensions 
 	{
 
 

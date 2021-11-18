@@ -1,4 +1,4 @@
-namespace OrionCore.Mvc
+namespace Orion.Mvc
 {
     public class Program
     {

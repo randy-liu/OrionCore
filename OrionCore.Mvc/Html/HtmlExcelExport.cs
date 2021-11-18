@@ -9,13 +9,13 @@ using System.Web;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using OrionCore.API.Extensions;
+using Orion.Api.Extensions;
 
-namespace OrionCore.Mvc.Html
+namespace Orion.Mvc.Html
 {
 
-	/// <summary></summary>
-	public static class HtmlExcelExportExtensions
+    /// <summary></summary>
+    public static class HtmlExcelExportExtensions
 	{
 		/// <summary></summary>
 		public static HtmlExcelExport<T> ExcelExport<T>(this IHtmlHelper helper, IEnumerable<T> dataSource) where T : class

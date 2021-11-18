@@ -6,18 +6,18 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Primitives;
-using OrionCore.API;
-using OrionCore.API.Extensions;
-using OrionCore.API.Models;
-using OrionCore.Mvc.Extensions;
+using Orion.Api;
+using Orion.Api.Extensions;
+using Orion.Api.Models;
+using Orion.Mvc.Extensions;
 
 
-namespace OrionCore.Mvc.ModelBinder
+namespace Orion.Mvc.ModelBinder
 {
     /// <summary></summary>
     public class WhereParamsModelBinderProvider : IModelBinderProvider
     {
-        private readonly Type _type = typeof(IWhereParams);
+        private readonly Type _type = typeof(WhereParams);
         private readonly WhereParamsModelBinder _binder = new WhereParamsModelBinder();
 
 
@@ -50,9 +50,18 @@ namespace OrionCore.Mvc.ModelBinder
 
             requestParams.Add(toNameValueCollection(bindingContext.HttpContext.Request.Query));
 
-            Type type = bindingContext.ModelType.GetGenericArguments()[0];
-            object model = CreateWhereParams(type, requestParams, bindingContext.ModelState);
-            bindingContext.Result = ModelBindingResult.Success(model);
+            if (bindingContext.ModelType.IsGenericType) 
+            {
+                Type type = bindingContext.ModelType.GetGenericArguments()[0];
+                object model = CreateWhereParams(type, requestParams, bindingContext.ModelState);
+                bindingContext.Result = ModelBindingResult.Success(model);
+            }
+            else 
+            {
+                object model = CreateWhereParams(requestParams, bindingContext.ModelState);
+                bindingContext.Result = ModelBindingResult.Success(model);
+            }
+
 
             return Task.CompletedTask;
         }
@@ -71,11 +80,42 @@ namespace OrionCore.Mvc.ModelBinder
         }
 
 
+
+
+        /// <summary></summary>
+        public object CreateWhereParams(NameValueCollection data, ModelStateDictionary modelState)
+        {
+            var param = new WhereParams();
+
+            foreach (string key in data.Keys)
+            {
+                string strValue = data.GetValues(key)?.FirstOrDefault();
+                if (string.IsNullOrWhiteSpace(strValue)) { continue; }
+
+                try
+                {
+                    var res = parseStringValue(typeof(string), strValue.Trim());
+                    if (res.Values.Length == 0) { continue; }
+
+                    param.SetValues(key, res.Operator, res.Values);
+                }
+                catch (InvalidCastException ex)
+                {
+                    modelState.AddModelError(nameof(WhereParams) + "." + key, ex.Message);
+                }
+            }
+
+
+            return param;
+        }
+
+
+
         /// <summary></summary>
         public object CreateWhereParams(Type type, NameValueCollection data, ModelStateDictionary modelState)
         {
             Type makeme = typeof(WhereParams<>).MakeGenericType(type);
-            var param = (IWhereParams)Activator.CreateInstance(makeme);
+            var param = (WhereParams)Activator.CreateInstance(makeme);
 
             foreach (var prop in type.GetProperties())
             {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace OrionCore.API
+namespace Orion.Api
 {
 
     /// <summary></summary>

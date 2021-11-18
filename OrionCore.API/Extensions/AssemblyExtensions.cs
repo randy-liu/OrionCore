@@ -2,9 +2,9 @@
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using OrionCore.API.Models;
+using Orion.Api.Models;
 
-namespace OrionCore.API.Extensions
+namespace Orion.Api.Extensions
 {
 
 	/// <summary>定義 Assembly 的 Extension</summary>

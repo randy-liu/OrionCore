@@ -6,7 +6,7 @@ using System.Text;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 
-namespace OrionCore.API.Tests
+namespace Orion.Api.Tests
 {
 	public class OrionApiDbContext : DbContext
 	{

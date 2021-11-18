@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace OrionCore.API
+namespace Orion.Api
 {
 	/// <summary>
 	/// 資料檢查器
@@ -21,10 +21,10 @@ namespace OrionCore.API
 
 
 		/// <summary>檢查有資料</summary>
-		public static void Has(object value, string errorMessage) 
+		public static void Has(object value, string errorMessage)
 		{
 			if (OrionUtils.HasValue(value)) { return; }
-			throwException(errorMessage, value); 
+			throwException(errorMessage, value);
 		}
 
 		/// <summary>檢查是否等於指定值</summary>
@@ -57,7 +57,7 @@ namespace OrionCore.API
 		/*===============================================================*/
 
 		/// <summary>檢查value是否符合最小限制</summary>
-		public static void Min(int value, int min, string errorMessage) 
+		public static void Min(int value, int min, string errorMessage)
 		{
 			if (value >= min) { return; }
 			throwException(errorMessage, value, min);
@@ -80,19 +80,19 @@ namespace OrionCore.API
 			if (value >= min) { return; }
 			throwException(errorMessage, value, min);
 		}
-        /// <summary>檢查value是否符合最小限制</summary>
-        public static void Min(DateTimeOffset value, DateTimeOffset min, string errorMessage)
-        {
-            if (value >= min) { return; }
-            throwException(errorMessage, value, min);
-        }
-
-
-
-        /// <summary>檢查value是否符合最小限制</summary>
-        public static void Min(int? value, int min, string errorMessage)
+		/// <summary>檢查value是否符合最小限制</summary>
+		public static void Min(DateTimeOffset value, DateTimeOffset min, string errorMessage)
 		{
-			if(value == null) { return; }
+			if (value >= min) { return; }
+			throwException(errorMessage, value, min);
+		}
+
+
+
+		/// <summary>檢查value是否符合最小限制</summary>
+		public static void Min(int? value, int min, string errorMessage)
+		{
+			if (value == null) { return; }
 			Min(value.Value, min, errorMessage);
 		}
 		/// <summary>檢查value是否符合最小限制</summary>
@@ -113,12 +113,12 @@ namespace OrionCore.API
 			if (value == null) { return; }
 			Min(value.Value, min, errorMessage);
 		}
-        /// <summary>檢查value是否符合最小限制</summary>
-        public static void Min(DateTimeOffset? value, DateTimeOffset min, string errorMessage)
-        {
-            if (value == null) { return; }
-            Min(value.Value, min, errorMessage);
-        }
+		/// <summary>檢查value是否符合最小限制</summary>
+		public static void Min(DateTimeOffset? value, DateTimeOffset min, string errorMessage)
+		{
+			if (value == null) { return; }
+			Min(value.Value, min, errorMessage);
+		}
 
 
 
@@ -126,8 +126,8 @@ namespace OrionCore.API
 
 
 
-        /// <summary>檢查value是否符合最大限制</summary>
-        public static void Max(int value, int max, string errorMessage)
+		/// <summary>檢查value是否符合最大限制</summary>
+		public static void Max(int value, int max, string errorMessage)
 		{
 			if (value <= max) { return; }
 			throwException(errorMessage, value, max);
@@ -150,16 +150,16 @@ namespace OrionCore.API
 			if (value <= max) { return; }
 			throwException(errorMessage, value, max);
 		}
-        /// <summary>檢查value是否符合最大限制</summary>
-        public static void Max(DateTimeOffset value, DateTimeOffset max, string errorMessage)
-        {
-            if (value <= max) { return; }
-            throwException(errorMessage, value, max);
-        }
+		/// <summary>檢查value是否符合最大限制</summary>
+		public static void Max(DateTimeOffset value, DateTimeOffset max, string errorMessage)
+		{
+			if (value <= max) { return; }
+			throwException(errorMessage, value, max);
+		}
 
 
-        /// <summary>檢查value是否符合最大限制</summary>
-        public static void Max(int? value, int max, string errorMessage)
+		/// <summary>檢查value是否符合最大限制</summary>
+		public static void Max(int? value, int max, string errorMessage)
 		{
 			if (value == null) { return; }
 			Max(value.Value, max, errorMessage);
@@ -182,21 +182,21 @@ namespace OrionCore.API
 			if (value == null) { return; }
 			Max(value.Value, max, errorMessage);
 		}
-        /// <summary>檢查value是否符合最大限制</summary>
-        public static void Max(DateTimeOffset? value, DateTimeOffset max, string errorMessage)
-        {
-            if (value == null) { return; }
-            Max(value.Value, max, errorMessage);
-        }
+		/// <summary>檢查value是否符合最大限制</summary>
+		public static void Max(DateTimeOffset? value, DateTimeOffset max, string errorMessage)
+		{
+			if (value == null) { return; }
+			Max(value.Value, max, errorMessage);
+		}
 
 
 
 
 
-        /*===============================================================*/
+		/*===============================================================*/
 
-        /// <summary>檢查value是否大於最小限制</summary>
-        public static void Greater(int value, int min, string errorMessage)
+		/// <summary>檢查value是否大於最小限制</summary>
+		public static void Greater(int value, int min, string errorMessage)
 		{
 			if (value > min) { return; }
 			throwException(errorMessage, value, min);
@@ -219,16 +219,16 @@ namespace OrionCore.API
 			if (value > min) { return; }
 			throwException(errorMessage, value, min);
 		}
-        /// <summary>檢查value是否大於最小限制</summary>
-        public static void Greater(DateTimeOffset value, DateTimeOffset min, string errorMessage)
-        {
-            if (value > min) { return; }
-            throwException(errorMessage, value, min);
-        }
+		/// <summary>檢查value是否大於最小限制</summary>
+		public static void Greater(DateTimeOffset value, DateTimeOffset min, string errorMessage)
+		{
+			if (value > min) { return; }
+			throwException(errorMessage, value, min);
+		}
 
 
-        /// <summary>檢查value是否大於最小限制</summary>
-        public static void Greater(int? value, int min, string errorMessage)
+		/// <summary>檢查value是否大於最小限制</summary>
+		public static void Greater(int? value, int min, string errorMessage)
 		{
 			if (value == null) { return; }
 			Greater(value.Value, min, errorMessage);
@@ -251,18 +251,18 @@ namespace OrionCore.API
 			if (value == null) { return; }
 			Greater(value.Value, min, errorMessage);
 		}
-        /// <summary>檢查value是否大於最小限制</summary>
-        public static void Greater(DateTimeOffset? value, DateTimeOffset min, string errorMessage)
-        {
-            if (value == null) { return; }
-            Greater(value.Value, min, errorMessage);
-        }
+		/// <summary>檢查value是否大於最小限制</summary>
+		public static void Greater(DateTimeOffset? value, DateTimeOffset min, string errorMessage)
+		{
+			if (value == null) { return; }
+			Greater(value.Value, min, errorMessage);
+		}
 
 
 
 
-        /// <summary>檢查value是否小於最大限制</summary>
-        public static void Less(int value, int max, string errorMessage)
+		/// <summary>檢查value是否小於最大限制</summary>
+		public static void Less(int value, int max, string errorMessage)
 		{
 			if (value < max) { return; }
 			throwException(errorMessage, value, max);
@@ -285,16 +285,16 @@ namespace OrionCore.API
 			if (value < max) { return; }
 			throwException(errorMessage, value, max);
 		}
-        /// <summary>檢查value是否小於最大限制</summary>
-        public static void Less(DateTimeOffset value, DateTimeOffset max, string errorMessage)
-        {
-            if (value < max) { return; }
-            throwException(errorMessage, value, max);
-        }
+		/// <summary>檢查value是否小於最大限制</summary>
+		public static void Less(DateTimeOffset value, DateTimeOffset max, string errorMessage)
+		{
+			if (value < max) { return; }
+			throwException(errorMessage, value, max);
+		}
 
 
-        /// <summary>檢查value是否小於最大限制</summary>
-        public static void Less(int? value, int max, string errorMessage)
+		/// <summary>檢查value是否小於最大限制</summary>
+		public static void Less(int? value, int max, string errorMessage)
 		{
 			if (value == null) { return; }
 			Less(value.Value, max, errorMessage);
@@ -317,12 +317,12 @@ namespace OrionCore.API
 			if (value == null) { return; }
 			Less(value.Value, max, errorMessage);
 		}
-        /// <summary>檢查value是否小於最大限制</summary>
-        public static void Less(DateTimeOffset? value, DateTimeOffset max, string errorMessage)
-        {
-            if (value == null) { return; }
-            Less(value.Value, max, errorMessage);
-        }
+		/// <summary>檢查value是否小於最大限制</summary>
+		public static void Less(DateTimeOffset? value, DateTimeOffset max, string errorMessage)
+		{
+			if (value == null) { return; }
+			Less(value.Value, max, errorMessage);
+		}
 
 
 
@@ -345,10 +345,10 @@ namespace OrionCore.API
 
 
 
-        /*===============================================================*/
+		/*===============================================================*/
 
-        /// <summary>檢查數值範圍</summary>
-        public static void Range(int value, int min, int max, string errorMessage)
+		/// <summary>檢查數值範圍</summary>
+		public static void Range(int value, int min, int max, string errorMessage)
 		{
 			if (value >= min && value <= max) { return; }
 			throwException(errorMessage, value, min, max);
@@ -371,16 +371,16 @@ namespace OrionCore.API
 			if (value >= min && value <= max) { return; }
 			throwException(errorMessage, value, min, max);
 		}
-        /// <summary>檢查數值範圍</summary>
-        public static void Range(DateTimeOffset value, DateTimeOffset min, DateTimeOffset max, string errorMessage)
-        {
-            if (value >= min && value <= max) { return; }
-            throwException(errorMessage, value, min, max);
-        }
+		/// <summary>檢查數值範圍</summary>
+		public static void Range(DateTimeOffset value, DateTimeOffset min, DateTimeOffset max, string errorMessage)
+		{
+			if (value >= min && value <= max) { return; }
+			throwException(errorMessage, value, min, max);
+		}
 
 
-        /// <summary>檢查數值範圍</summary>
-        public static void Range(int? value, int min, int max, string errorMessage)
+		/// <summary>檢查數值範圍</summary>
+		public static void Range(int? value, int min, int max, string errorMessage)
 		{
 			if (value == null) { return; }
 			Range(value.Value, min, max, errorMessage);
@@ -403,21 +403,21 @@ namespace OrionCore.API
 			if (value == null) { return; }
 			Range(value.Value, min, max, errorMessage);
 		}
-        /// <summary>檢查數值範圍</summary>
-        public static void Range(DateTimeOffset? value, DateTimeOffset min, DateTimeOffset max, string errorMessage)
-        {
-            if (value == null) { return; }
-            Range(value.Value, min, max, errorMessage);
-        }
+		/// <summary>檢查數值範圍</summary>
+		public static void Range(DateTimeOffset? value, DateTimeOffset min, DateTimeOffset max, string errorMessage)
+		{
+			if (value == null) { return; }
+			Range(value.Value, min, max, errorMessage);
+		}
 
 
 
 
 
-        /*===============================================================*/
+		/*===============================================================*/
 
-        /// <summary>檢查最小長度</summary>
-        public static void MinLength(string value, int minLength, string errorMessage) 
+		/// <summary>檢查最小長度</summary>
+		public static void MinLength(string value, int minLength, string errorMessage)
 		{
 			if (value == null) { return; }
 			if (value.Length >= minLength) { return; }
@@ -536,9 +536,19 @@ namespace OrionCore.API
 		{
 			return args.Contains(value);
 		}
+		/// <summary>是否在清單中</summary>
+		public static bool IsIn<T>(this T value, IEnumerable<T> args)
+		{
+			return args.Contains(value);
+		}
 
 		/// <summary>是否不在清單中</summary>
 		public static bool NotIn<T>(this T value, params T[] args)
+		{
+			return !args.Contains(value);
+		}
+		/// <summary>是否不在清單中</summary>
+		public static bool NotIn<T>(this T value, IEnumerable<T> args)
 		{
 			return !args.Contains(value);
 		}

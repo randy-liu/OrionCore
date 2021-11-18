@@ -4,9 +4,9 @@
     <!-- 專案會在建置後產生 NuGet 包 -->
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.0.0</Version>
-    <AssemblyVersion>1.0.0.0</AssemblyVersion>
-    <FileVersion>1.0.0.0</FileVersion>
+    <Version>1.0.3</Version>
+    <AssemblyVersion>$(Version).0</AssemblyVersion>
+    <FileVersion>$(Version).0</FileVersion>
     <AssemblyName>OrionCore.Mvc</AssemblyName>
     <PackageId>OrionCore.Mvc</PackageId>
     <Authors>Jax Hu</Authors>
@@ -14,9 +14,10 @@
     <Product>OrionCore.Mvc</Product>
     <Description>Orion for ASP.NET Core</Description>
     <Copyright>Copyright © 2020 Jax Hu Information Co.</Copyright>
-    <RootNamespace>OrionCore.Mvc</RootNamespace>
+    <RootNamespace>Orion.Mvc</RootNamespace>
     <OutputType>Library</OutputType>
     <IsPackable>true</IsPackable>
+    <PackageIcon>orion_logo.png</PackageIcon>
   </PropertyGroup>
 
 
@@ -28,6 +29,10 @@
   <ItemGroup>
     <None Remove="OCR-b.ttf" />
     <None Remove="UI\menus.xsd" />
+    <None Include="orion_logo.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
@@ -40,7 +45,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\OrionCore.API\OrionCore.API.csproj" />
+    <ProjectReference Include="..\OrionCore.Api\OrionCore.Api.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\" />
   </ItemGroup>
 
 </Project>

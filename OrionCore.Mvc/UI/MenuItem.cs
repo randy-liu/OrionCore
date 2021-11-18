@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace OrionCore.Mvc.UI
+namespace Orion.Mvc.UI
 {
 	/// <summary></summary>
 	public class MenuItem 
@@ -15,7 +15,7 @@ namespace OrionCore.Mvc.UI
 		public string Target { get; set; }
 
 		/// <summary></summary>
-		public string ACT { get; set; }
+		public List<string> ACT { get; set; }
 
 		/// <summary></summary>
 		public string Icon { get; set; }
