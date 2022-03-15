@@ -97,8 +97,19 @@ namespace Orion.Mvc.Html
 
 		/*#############################################################*/
 
+		private static IHtmlContent buildShowItem(Enum enumValue) 
+		{
+			string text = enumValue.GetDisplayName();
+
+			var tb = new TagBuilder("span");
+			tb.AddCssClass("item-" + enumValue);
+			tb.InnerHtml.Append(text);
+
+			return tb;
+		}
+
 		/// <summary></summary>
-		public static IHtmlContent ShowItem<TEnum>(this IEnumerable<TEnum> enumValues) where TEnum : struct
+		public static IHtmlContent ShowItem<TEnum>(this IEnumerable<TEnum> enumValues) where TEnum : struct, Enum
 		{
 			if (enumValues == null) { return HtmlString.Empty; }
 
@@ -112,33 +123,13 @@ namespace Orion.Mvc.Html
 			return cb;
 		}
 		/// <summary></summary>
-		public static IHtmlContent ShowItem<TEnum>(this TEnum? enumValue) where TEnum : struct
-		{
-			if (!enumValue.HasValue) { return HtmlString.Empty; }
-			return buildShowItem(enumValue.Value);
-		}
-
-		/// <summary></summary>
-		public static IHtmlContent ShowItem(this Enum enumValue)
+		public static IHtmlContent ShowItem(this Enum enumValue) 
 		{
 			if (enumValue == null) { return HtmlString.Empty; }
 			return buildShowItem(enumValue);
 		}
 
-		private static IHtmlContent buildShowItem<TEnum>(TEnum enumValue)
-		{
-			if (enumValue == null) { return HtmlString.Empty; }
-
-			string text = enumValue.ToString();
-			if (enumValue is Enum) { text = OrionUtils.GetEnumDisplayName(enumValue); }
-
-			var tb = new TagBuilder("span");
-			tb.AddCssClass("item-" + enumValue);
-			tb.InnerHtml.Append(text);
-
-			return tb;
-		}
-
+ 
 
 
 
@@ -198,6 +189,7 @@ namespace Orion.Mvc.Html
 
 
 
+		/// <summary></summary>
 		public static IHtmlContent ShowItem(this object obj, IDictionary<string, string> selectList)
 		{
 			return buildShowItem(obj, selectList);
@@ -236,6 +228,7 @@ namespace Orion.Mvc.Html
 		/*##############################################################################*/
 
 
+		/// <summary></summary>
 		public static IHtmlContent ShowItemAndKey(this object obj, IDictionary<string, string> selectList)
 		{
 			return buildShowItemAndKey(obj, selectList);
@@ -296,13 +289,35 @@ namespace Orion.Mvc.Html
 
 		/*##############################################################################*/
 
-
 		/// <summary></summary>
-		public static IHtmlContent CommaWrap(this object value)
+		public static IHtmlContent CommaWrap<T>(this T value) where T : struct
 		{
 			var formated = ObjectExtensions.Comma(value);
 			return new HtmlString($"<span raw=\"{value}\">{formated}</span>");
 		}
+
+		/// <summary></summary>
+		public static IHtmlContent CommaWrap<T>(this T? value) where T : struct
+		{
+			if(value == null) { return HtmlString.Empty; }
+			return CommaWrap(value.Value);
+		}
+
+
+		/// <summary></summary>
+		public static IHtmlContent CommaWrap<T>(this T value, int digits) where T : struct
+		{
+			var formated = ObjectExtensions.Comma(value, digits);
+			return new HtmlString($"<span raw=\"{value}\">{formated}</span>");
+		}
+
+		/// <summary></summary>
+		public static IHtmlContent CommaWrap<T>(this T? value, int digits) where T : struct
+		{
+			if (value == null) { return HtmlString.Empty; }
+			return CommaWrap(value.Value, digits);
+		}
+
 
 
 

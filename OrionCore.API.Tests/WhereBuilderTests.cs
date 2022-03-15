@@ -11,8 +11,6 @@ using System.Linq.Expressions;
 namespace Orion.Api.Tests
 {
 
-
-
 	public class WhereBuilderTests
 	{
 
@@ -20,8 +18,30 @@ namespace Orion.Api.Tests
 
 		public WhereBuilderTests()
 		{
-			_dc = OrionApiDbContext.CreateUseNpgsql();
+			_dc = OrionApiDbContext.CreateUseSqlite();
 		}
+
+
+
+
+		public class InvoiceIssueDomain
+		{
+			public int? ProductQty { get; set; }
+			public decimal Sum { get; set; }
+			public string InvoicePrefix { get; set; }
+			public UseStatus UseStatus { get; set; }
+			public int ModifyBy { get; set; }
+			public DateTime ModifyDate { get; set; }
+			public List<int> RoleIds { get; set; }
+
+			public DateTimeOffset ModifyDate2 { get; set; }
+
+		}
+
+
+		/// <summary>New Case 新增案例</summary>
+		private static object[] n(params object[] values) { return values; }
+
 
 
 
@@ -50,23 +70,23 @@ namespace Orion.Api.Tests
 
 		/*===========================================================================*/
 
-		public static IEnumerable<object[]> StringValueTest_Data
+		public static IEnumerable<object[]> StringValueTest_Data()
 		{
-			get
-			{
-				yield return new object[] { WhereOperator.In, " IN (" };
-				yield return new object[] { WhereOperator.NotIn, " NOT IN (" };
-				yield return new object[] { WhereOperator.Equals, " = " };
-				yield return new object[] { WhereOperator.NotEquals, " <> " };
-				yield return new object[] { WhereOperator.Contains, " STRPOS" };
-				yield return new object[] { WhereOperator.StartsWith, " LIKE " };
-				yield return new object[] { WhereOperator.EndsWith, " LIKE " };
-				yield return new object[] { WhereOperator.LessThan, " < " };
-				yield return new object[] { WhereOperator.LessEquals, " <= " };
-				yield return new object[] { WhereOperator.GreaterThan, " > " };
-				yield return new object[] { WhereOperator.GreaterEquals, " >= " };
-				yield return new object[] { WhereOperator.Between, " i\r\nORDER" };
-			}
+			return new[]
+			{ 
+				n( WhereOperator.In, " IN (" ),
+				n( WhereOperator.NotIn, " NOT IN (" ),
+				n( WhereOperator.Equals, " = " ),
+				n( WhereOperator.NotEquals, " <> " ),
+				n( WhereOperator.Contains, "instr" ),
+				n( WhereOperator.StartsWith, " LIKE " ),
+				n( WhereOperator.EndsWith, " LIKE " ),
+				n( WhereOperator.LessThan, " < " ),
+				n( WhereOperator.LessEquals, " <= " ),
+				n( WhereOperator.GreaterThan, " > " ),
+				n( WhereOperator.GreaterEquals, " >= " ),
+				n( WhereOperator.Between, " i\r\nORDER" ),
+			};
 		}
 
 
@@ -92,23 +112,23 @@ namespace Orion.Api.Tests
 
 		/*===========================================================================*/
 
-		public static IEnumerable<object[]> IntValueTest_Data
+		public static IEnumerable<object[]> IntValueTest_Data()
 		{
-			get
+			return new[]
 			{
-				yield return new object[] { WhereOperator.In, "IN (" };
-				yield return new object[] { WhereOperator.NotIn, " NOT IN (" };
-				yield return new object[] { WhereOperator.Equals, " = " };
-				yield return new object[] { WhereOperator.NotEquals, " <> " };
-				yield return new object[] { WhereOperator.Contains, " i\r\nORDER" };
-				yield return new object[] { WhereOperator.StartsWith, " i\r\nORDER" };
-				yield return new object[] { WhereOperator.EndsWith, " i\r\nORDER" };
-				yield return new object[] { WhereOperator.LessThan, " < " };
-				yield return new object[] { WhereOperator.LessEquals, " <= " };
-				yield return new object[] { WhereOperator.GreaterThan, " > " };
-				yield return new object[] { WhereOperator.GreaterEquals, " >= " };
-				yield return new object[] { WhereOperator.Between, " >= " };
-			}
+				n( WhereOperator.In, "IN (" ),
+				n( WhereOperator.NotIn, " NOT IN (" ),
+				n( WhereOperator.Equals, " = " ),
+				n( WhereOperator.NotEquals, " <> " ),
+				n( WhereOperator.Contains, " i\r\nORDER" ),
+				n( WhereOperator.StartsWith, " i\r\nORDER" ),
+				n( WhereOperator.EndsWith, " i\r\nORDER" ),
+				n( WhereOperator.LessThan, " < " ),
+				n( WhereOperator.LessEquals, " <= " ),
+				n( WhereOperator.GreaterThan, " > " ),
+				n( WhereOperator.GreaterEquals, " >= " ),
+				n( WhereOperator.Between, " >= " ),
+			};
 		}
 
 
@@ -137,23 +157,23 @@ namespace Orion.Api.Tests
 
 
 
-		public static IEnumerable<object[]> DateTimeValueTest_Data
+		public static IEnumerable<object[]> DateTimeValueTest_Data()
 		{
-			get
+			return new[]
 			{
-				yield return new object[] { WhereOperator.In, " IN (" };
-				yield return new object[] { WhereOperator.NotIn, " NOT IN (" };
-				yield return new object[] { WhereOperator.Equals, " = " };
-				yield return new object[] { WhereOperator.NotEquals, " <> " };
-				yield return new object[] { WhereOperator.Contains, " i\r\nORDER" };
-				yield return new object[] { WhereOperator.StartsWith, " i\r\nORDER" };
-				yield return new object[] { WhereOperator.EndsWith, " i\r\nORDER" };
-				yield return new object[] { WhereOperator.LessThan, " < " };
-				yield return new object[] { WhereOperator.LessEquals, " <= " };
-				yield return new object[] { WhereOperator.GreaterThan, " > " };
-				yield return new object[] { WhereOperator.GreaterEquals, " >= " };
-				yield return new object[] { WhereOperator.Between, " >= " };
-			}
+				n( WhereOperator.In, " IN (" ),
+				n( WhereOperator.NotIn, " NOT IN (" ),
+				n( WhereOperator.Equals, " = " ),
+				n( WhereOperator.NotEquals, " <> " ),
+				n( WhereOperator.LessThan, " < " ),
+				n( WhereOperator.LessEquals, " <= " ),
+				n( WhereOperator.GreaterThan, " > " ),
+				n( WhereOperator.GreaterEquals, " >= " ),
+				n( WhereOperator.Between, " >= " ),
+				n( WhereOperator.Contains, " i\r\nORDER" ),
+				n( WhereOperator.StartsWith, " i\r\nORDER" ),
+				n( WhereOperator.EndsWith, " i\r\nORDER" ),
+			};
 		}
 
 
@@ -192,23 +212,23 @@ namespace Orion.Api.Tests
 
 		/*===========================================================================*/
 
-		public static IEnumerable<object[]> DecimalValueTest_Data
+		public static IEnumerable<object[]> DecimalValueTest_Data()
 		{
-			get
+			return new[]
 			{
-				yield return new object[] { WhereOperator.In, " IN (" };
-				yield return new object[] { WhereOperator.NotIn, " NOT IN (" };
-				yield return new object[] { WhereOperator.Equals, " = " };
-				yield return new object[] { WhereOperator.NotEquals, " <> " };
-				yield return new object[] { WhereOperator.Contains, " i\r\nORDER" };
-				yield return new object[] { WhereOperator.StartsWith, " i\r\nORDER" };
-				yield return new object[] { WhereOperator.EndsWith, " i\r\nORDER" };
-				yield return new object[] { WhereOperator.LessThan, " < " };
-				yield return new object[] { WhereOperator.LessEquals, " <= " };
-				yield return new object[] { WhereOperator.GreaterThan, " > " };
-				yield return new object[] { WhereOperator.GreaterEquals, " >= " };
-				yield return new object[] { WhereOperator.Between, " >= " };
-			}
+				n( WhereOperator.In, " IN (" ),
+				n( WhereOperator.NotIn, " NOT IN (" ),
+				n( WhereOperator.Equals, " = " ),
+				n( WhereOperator.NotEquals, " <> " ),
+				n( WhereOperator.Contains, " i\r\nORDER" ),
+				n( WhereOperator.StartsWith, " i\r\nORDER" ),
+				n( WhereOperator.EndsWith, " i\r\nORDER" ),
+				n( WhereOperator.LessThan, " < " ),
+				n( WhereOperator.LessEquals, " <= " ),
+				n( WhereOperator.GreaterThan, " > " ),
+				n( WhereOperator.GreaterEquals, " >= " ),
+				n( WhereOperator.Between, " >= " ),
+			};
 		}
 
 
@@ -219,11 +239,10 @@ namespace Orion.Api.Tests
 			var param = new WhereParams<InvoiceIssueDomain>();
 			param.SetValues(x => x.Sum, oper, 1.0m, 3.0m);
 
-			var build = new WhereQueryableBuilder<InvoiceIssue, InvoiceIssueDomain>(_dc.InvoiceIssue, param);
+            var build = new WhereQueryableBuilder<InvoiceIssue, InvoiceIssueDomain>(_dc.InvoiceIssue, param);
+            build.WhereBind(f => f.Sum, t => t.Total);
 
-			build.WhereBind(x => x.Sum, y => y.Total);
-
-			var query = build.Build();
+            var query = build.Build();
 			var sql = query.OrderBy(x => x.CreateBy).ToSql();
 
 			Assert.Contains(expected, sql);
@@ -235,23 +254,23 @@ namespace Orion.Api.Tests
 
 		/*===========================================================================*/
 
-		public static IEnumerable<object[]> SubQueryTest_Data
+		public static IEnumerable<object[]> SubQueryTest_Data()
 		{
-			get
+			return new[]
 			{
-				yield return new object[] { WhereOperator.In, "IN (" };
-				yield return new object[] { WhereOperator.NotIn, " IN (" };
-				yield return new object[] { WhereOperator.Equals, "EXISTS (" };
-				yield return new object[] { WhereOperator.NotEquals, "NOT (EXISTS (" };
-				yield return new object[] { WhereOperator.Contains, " i\r\nORDER" };
-				yield return new object[] { WhereOperator.StartsWith, " i\r\nORDER" };
-				yield return new object[] { WhereOperator.EndsWith, " i\r\nORDER" };
-				yield return new object[] { WhereOperator.LessThan, " < " };
-				yield return new object[] { WhereOperator.LessEquals, " <= " };
-				yield return new object[] { WhereOperator.GreaterThan, " > " };
-				yield return new object[] { WhereOperator.GreaterEquals, " >= " };
-				yield return new object[] { WhereOperator.Between, " >= " };
-			}
+				n( WhereOperator.In, "IN (" ),
+				n( WhereOperator.NotIn, " IN (" ),
+				n( WhereOperator.Equals, "EXISTS (" ),
+				n( WhereOperator.NotEquals, "NOT (EXISTS (" ),
+				n( WhereOperator.Contains, " i\r\nORDER" ),
+				n( WhereOperator.StartsWith, " i\r\nORDER" ),
+				n( WhereOperator.EndsWith, " i\r\nORDER" ),
+				n( WhereOperator.LessThan, " < " ),
+				n( WhereOperator.LessEquals, " <= " ),
+				n( WhereOperator.GreaterThan, " > " ),
+				n( WhereOperator.GreaterEquals, " >= " ),
+				n( WhereOperator.Between, " >= " ),
+			};
 		}
 
 
@@ -405,24 +424,6 @@ namespace Orion.Api.Tests
             Assert.True(true);
         }
 
-
-
-
-		/*===========================================================================*/
-
-		public class InvoiceIssueDomain
-		{
-			public int? ProductQty { get; set; }
-			public decimal Sum { get; set; }
-			public string InvoicePrefix { get; set; }
-			public UseStatus UseStatus { get; set; }
-			public int ModifyBy { get; set; }
-			public DateTime ModifyDate { get; set; }
-			public List<int> RoleIds { get; set; }
-
-			public DateTimeOffset ModifyDate2 { get; set; }
-
-		}
 
 
 

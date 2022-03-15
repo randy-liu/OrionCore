@@ -44,7 +44,7 @@ namespace Orion.Mvc.Extensions
         public static int GetUserId(this IPrincipal user)
         {
             Claim claim = GetClaim(user, OrionUser.UserId);
-            return OrionUtils.ConvertType<int>(claim?.Value);
+            return (claim?.Value).ConvertTo<int>();
         }
 
         /// <summary></summary>

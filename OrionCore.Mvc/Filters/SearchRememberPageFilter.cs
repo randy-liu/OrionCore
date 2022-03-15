@@ -12,6 +12,7 @@ using Orion.Mvc.Attributes;
 
 namespace Orion.Mvc.Filters
 {
+    /// <summary></summary>
     public class SearchRememberPageFilter : AbstractPageFilter
     {
         private readonly ConcurrentDictionary<MethodInfo, SearchRememberAttribute> _cache = new ConcurrentDictionary<MethodInfo, SearchRememberAttribute>();
@@ -19,12 +20,14 @@ namespace Orion.Mvc.Filters
         private readonly string _storeName = "sr";
         private readonly string[] _skipKey;
 
+        /// <summary></summary>
         public SearchRememberPageFilter(string[] skipKey)
         {
             _skipKey = skipKey;
         }
 
 
+        /// <summary></summary>
         public override void OnPageHandlerExecuting(PageHandlerExecutingContext context)
         {
             if (context.HandlerMethod == null) { return; }

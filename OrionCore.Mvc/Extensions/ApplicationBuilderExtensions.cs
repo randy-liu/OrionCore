@@ -10,11 +10,13 @@ using Microsoft.Extensions.DependencyInjection;
 namespace Orion.Mvc.Extensions
 {
 
+    /// <summary></summary>
     public static class ApplicationBuilderExtensions
     {
         /// <summary>使用 FormData 給路由 handler</summary>
         public static IApplicationBuilder UseFormDataToRouteHandler(this IApplicationBuilder app)
         {
+            /* 增加 Middlewave */
             app.Use((context, next) =>
             {
                 HttpRequest req = context.Request;
@@ -41,6 +43,7 @@ namespace Orion.Mvc.Extensions
                 logPath = env.ContentRootFileProvider.GetFileInfo(logPath.Substring(1)).PhysicalPath;
             }
 
+            /* 增加 Middlewave */
             app.Use(async (context, next) =>
             {
                 try

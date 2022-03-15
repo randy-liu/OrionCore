@@ -20,9 +20,7 @@ namespace Orion.Mvc.Extensions
         private static FontFamily _fontFamily;
         private static string _baseChars = "2345789ABCDEFGHJKLMNPRSTUVWXYZ";
         private static string _storeName = "CaptchaStore";
-
-        public static int Length { get; set; } = 5;
-
+ 
 
 
         /// <summary>載入字型檔</summary>
@@ -119,7 +117,7 @@ namespace Orion.Mvc.Extensions
             FontFamily fontFamily = ensureFontFamily();
 
             using var brush = new SolidBrush(color);
-            int width = 30 * Length;
+            int width = 30 * code.Length;
             int height = 34;
 
             var stream = new MemoryStream();

@@ -122,7 +122,7 @@ namespace Orion.Mvc.Html
 
             var span = new TagBuilder("span");
             span.AddCssClass("input-group-btn");
-            span.Attributes["onclick"] = "$(this).prev().val('')";
+            span.Attributes["onclick"] = "$(this).prev().val('').trigger('change')";
             span.InnerHtml.AppendHtml(b);
 
             var div = new TagBuilder("div");

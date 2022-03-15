@@ -1,10 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
-namespace Orion.Api.Tests.Migrations
+namespace Orion.API.Tests.Migrations
 {
-    public partial class Init : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,7 +12,7 @@ namespace Orion.Api.Tests.Migrations
                 columns: table => new
                 {
                     InventoryId = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     MaterialCode = table.Column<string>(maxLength: 32, nullable: false),
                     BranchFactory = table.Column<string>(maxLength: 32, nullable: false),
                     ZoneCode = table.Column<string>(maxLength: 32, nullable: false),
@@ -31,7 +30,7 @@ namespace Orion.Api.Tests.Migrations
                 columns: table => new
                 {
                     InvoiceId = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     InvoicePrefix = table.Column<string>(maxLength: 2, nullable: false),
                     InvoiceNum = table.Column<int>(nullable: true),
                     InvoiceDate = table.Column<DateTime>(nullable: false),
@@ -53,7 +52,7 @@ namespace Orion.Api.Tests.Migrations
                 columns: table => new
                 {
                     ItemId = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     InvoiceId = table.Column<int>(nullable: false),
                     DeliveryNum = table.Column<string>(maxLength: 20, nullable: false),
                     PurchaseNum = table.Column<string>(maxLength: 15, nullable: true),

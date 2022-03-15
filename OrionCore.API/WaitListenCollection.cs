@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using Orion.Api.Extensions;
 
@@ -11,17 +10,19 @@ namespace Orion.Api
     /// <summary></summary>
     public class WaitListenCollection
     {
-
-        private readonly object _lockFlag = new object();
-        private readonly List<TriggerInfo> _triggerList = new List<TriggerInfo>();
+        private readonly object _listLock = new object();
         private readonly List<IWaitListen> _listenList = new List<IWaitListen>();
+        private readonly List<Type> _waitTypes = new List<Type>();
 
-        private bool _isCheckTimeout = false;
 
-
-        private DateTime getEffectTime()
+        private bool containsType(Func<Type, bool> match)
         {
-            return DateTime.Now.AddMilliseconds(-600);
+            /* 使用一般的 for 去規避線程安全 */
+            for (int i = 0; i < _waitTypes.Count; i++)
+            {
+                if (match(_waitTypes[i])) { return true; }
+            }
+            return false;
         }
 
 
@@ -29,175 +30,113 @@ namespace Orion.Api
         public Task<T> Add<T>(int timeoutSec, Func<T, bool> condition)
         {
             var listen = new WaitListen<T>(timeoutSec, condition);
+            Task<T> task = listen.Start();
 
-            lock (_lockFlag)
+            lock (_listLock)
             {
-                DateTime effect = getEffectTime();
-                TriggerInfo info = _triggerList
-                    .TakeWhile(x => x.Time >= effect)
-                    .Where(x => listen.IsMatch(x.Type, x.Model))
-                    .FirstOrDefault();
-
-                if (info != null)
-                {
-                    listen.Invoke(info.Model);
-                    return listen.Task;
-                }
-
-
+                _listenList.RemoveAll(x => x.IsCompleted);
                 _listenList.Add(listen);
-
-                if (!_isCheckTimeout)
-                {
-                    _isCheckTimeout = true;
-
-                    var thread = new Thread(checkTimeout);
-                    thread.SetApartmentState(ApartmentState.MTA);
-                    thread.IsBackground = true;
-                    thread.Start();
-                }
             }
-            return listen.Task;
+
+            Type type = typeof(T);
+            if (!containsType(t => t == type)) { _waitTypes.Add(type); }
+
+            return task;
         }
-
-
 
 
         /// <summary></summary>
         public void Trigger(Type type, object model)
         {
+            if (_listenList.Count == 0) { return; }
+
+            /* 檢查是否有等待的類型，降低 lock 時間  */
+            if (!containsType(t => t.IsAssignableFrom(type))) { return; }
+
+
             List<IWaitListen> list;
 
-            lock (_lockFlag)
+            lock (_listLock)
             {
-                DateTime effect = getEffectTime();
-                _triggerList.RemoveAll(x => x.Time < effect);
-                _triggerList.Insert(0, new TriggerInfo(type, model));
-
-                list = _listenList
-                    .Where(x => !x.IsCompleted)
-                    .Where(x => x.IsMatch(type, model))
-                    .ToList();
+                /* 複製一份，降低 lock 時間 */
+                list = _listenList.ToList();
             }
 
-            list.ForEach(x => x.Invoke(model));
+            list.Where(x => !x.IsCompleted)
+                .Where(x => x.IsMatch(type, model))
+                .ForEach(x => x.Invoke(model));
         }
 
 
-        private void checkTimeout()
+
+
+        /*======================================================*/
+
+        internal interface IWaitListen
         {
-            while (true)
+            bool IsCompleted { get; }
+            bool IsMatch(Type type, object model);
+            void Invoke(object model);
+        }
+
+
+        internal class WaitListen<TResult> : IWaitListen
+        {
+            private Type _target;
+            private DateTime _timeoutLimit;
+            private Func<TResult, bool> _condition;
+
+            private bool _hasResult = false;
+            private TResult _result;
+            private Task<TResult> _task;
+
+
+            public bool IsCompleted { get { return _task.IsCompleted; } }
+
+
+            public WaitListen(int timeoutSec, Func<TResult, bool> condition)
             {
-                Thread.Sleep(883);
+                _target = typeof(TResult);
+                _timeoutLimit = DateTime.Now.AddSeconds(timeoutSec);
+                _condition = condition ?? (x => true);
+            }
 
-                IWaitListen[] list;
 
-                lock (_lockFlag)
+            private async Task<TResult> resultHandle()
+            {
+                while (_timeoutLimit >= DateTime.Now)
                 {
-                    if (_listenList.Count == 0)
-                    {
-                        _isCheckTimeout = false;
-                        return;
-                    }
-
-                    _listenList.RemoveAll(x => x.IsCompleted);
-                    if (_listenList.Count == 0) { continue; }
-
-                    list = _listenList.ToArray();
+                    await Task.Delay(240);
+                    if (_hasResult) { return _result; }
                 }
 
-                list.ForEach(x => x.CheckTimeout());
+                throw new TimeoutException($"{typeof(TResult).Name} 等待逾時");
             }
-        }
 
 
-        class TriggerInfo
-        {
-            public DateTime Time;
-            public Type Type;
-            public object Model;
-
-            public TriggerInfo(Type type, object model)
+            public Task<TResult> Start()
             {
-                Time = DateTime.Now;
-                Type = type;
-                Model = model;
+                _task = resultHandle();
+                return _task;
             }
-        }
-    }
 
-
-    internal interface IWaitListen
-    {
-        bool IsTimeout { get; }
-        bool IsCompleted { get; }
-        bool IsMatch(Type type, object model);
-        void Invoke(object model);
-        void CheckTimeout();
-    }
-
-
-    internal class WaitListen<TResult> : IWaitListen
-    {
-        private object _invokeLock = new object();
-
-        private TResult _result;
-        private DateTime _timeoutLimit;
-        private Func<TResult, bool> _condition;
-
-        public bool IsTimeout { get; private set; }
-        public bool IsCompleted { get { return Task.IsCompleted; } }
-        public Task<TResult> Task { get; private set; }
-
-
-        public WaitListen(int timeoutSec, Func<TResult, bool> condition)
-        {
-            _timeoutLimit = DateTime.Now.AddSeconds(timeoutSec);
-            _condition = condition ?? (x => true);
-            Task = new Task<TResult>(resultHandle);
-        }
-
-
-        private TResult resultHandle()
-        {
-            if (!IsTimeout) { return _result; }
-
-            throw new TimeoutException($"{typeof(TResult).Name} 等待逾時");
-        }
-
-
-        public bool IsMatch(Type type, object model)
-        {
-            if (!typeof(TResult).IsAssignableFrom(type)) { return false; }
-            return (bool)_condition.DynamicInvoke(model);
-        }
-
-
-        public void Invoke(object model)
-        {
-            if (model is TResult) { _result = (TResult)model; }
-
-            lock (_invokeLock)
+            public bool IsMatch(Type type, object model)
             {
-                if (!Task.IsCompleted) { Task.RunSynchronously(); }
+                if (!_target.IsAssignableFrom(type)) { return false; }
+                return (bool)_condition.DynamicInvoke(model);
             }
-        }
 
-
-        public void CheckTimeout()
-        {
-            if (Task.IsCompleted) { return; }
-            if (_timeoutLimit > DateTime.Now) { return; }
-
-            lock (_invokeLock)
+            public void Invoke(object model)
             {
-                if (Task.IsCompleted) { return; }
-                IsTimeout = true;
-                Task.RunSynchronously();
+                if (model is TResult)
+                {
+                    _result = (TResult)model;
+                    _hasResult = true;
+                }
             }
         }
+
 
     }
-
 
 }

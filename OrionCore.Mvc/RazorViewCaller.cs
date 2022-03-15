@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Routing;
 
 namespace Orion.Mvc
 {
+    /// <summary></summary>
     public class RazorViewCaller
     {
         private readonly IRazorViewEngine _viewEngine;
@@ -21,6 +22,7 @@ namespace Orion.Mvc
         private readonly IServiceProvider _serviceProvider;
 
 
+        /// <summary></summary>
         public RazorViewCaller(
             IRazorViewEngine viewEngine,
             ITempDataProvider tempDataProvider,
@@ -61,8 +63,9 @@ namespace Orion.Mvc
             }
         }
 
-         
 
+
+        /// <summary></summary>
         public string Render<TModel>(string viewPath, TModel model)
         {
             Task<string> task = renderAsync(viewPath, model);

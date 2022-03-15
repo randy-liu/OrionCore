@@ -9,10 +9,37 @@ namespace Orion.Api.Extensions.Tests
 {
 	public class StringExtensionsTests
 	{
+		public enum JobStatus
+		{
+			Create,
+			Execute,
+		}
+
+		public enum Floor
+		{
+			None,
+			F1,
+			F2,
+			F3,
+			F4,
+		}
+
+
+		/// <summary>New Case 新增案例</summary>
+		private static object[] n(params object[] values) { return values; }
+
+
+
+		/*=======================================================*/
+
+
 		public static IEnumerable<object[]> ToEnum_Test_Data()
 		{
-			yield return new object[] { "Create", JobStatus.Create };
-			yield return new object[] { "Execute", JobStatus.Execute };
+			return new[] 
+			{
+				n( "Create", JobStatus.Create ),
+				n( "Execute", JobStatus.Execute ),
+			};
 		}
 
 		[Theory]
@@ -26,9 +53,12 @@ namespace Orion.Api.Extensions.Tests
 
 		public static IEnumerable<object[]> ToEnum_FailTest_Data()
 		{
-			yield return new object[] { "Creates" };
-			yield return new object[] { "SSSS" };
-			yield return new object[] { null };
+			return new[] 
+			{
+				n( "Creates" ),
+				n( "SSSS" ),
+				n( (string)null ),
+			};
 		}
 
 		[Theory]
@@ -43,10 +73,13 @@ namespace Orion.Api.Extensions.Tests
 
 		public static IEnumerable<object[]> ToEnumOrDefault_Test_Data()
 		{
-			yield return new object[] { null, JobStatus.Create };
-			yield return new object[] { "SSSS", JobStatus.Create };
-			yield return new object[] { "Create", JobStatus.Create };
-			yield return new object[] { "Execute", JobStatus.Execute };
+			return new[] 
+			{
+				n( null, JobStatus.Create ),
+				n( "SSSS", JobStatus.Create ),
+				n( "Create", JobStatus.Create ),
+				n( "Execute", JobStatus.Execute ),
+			};
 		}
 
 		[Theory]
@@ -60,15 +93,49 @@ namespace Orion.Api.Extensions.Tests
 
 
 
-	}
+        /*=======================================================*/
+
+        [Theory]
+        [InlineData(null, 0)]
+        [InlineData("", 0)]
+        [InlineData("1, 2, 3", 3)]
+        public void ToIdsList_Test(string value, int length)
+        {
+            var list = value.ToIdsList<string>();
+            Assert.Equal(list.Count, length);
+        }
+
+
+        [Theory]
+        [InlineData(null, 0)]
+        [InlineData("", 0)]
+        [InlineData("1,2,3", 3)]
+        [InlineData("1,2,3,3,3", 3)]
+        [InlineData("1,2,3,sss,ffff", 3)]
+        public void ToIdsList_IntTest(string value, int length)
+        {
+            var list = value.ToIdsList<int>();
+            Assert.Equal(list.Count, length);
+        }
+
+        [Theory]
+        [InlineData(null, 0)]
+        [InlineData("", 0)]
+        [InlineData("F1,F2,F3", 3)]
+        [InlineData("F1,F2,F3,F3,F3", 3)]
+        [InlineData("F1,F2,F3,sss,ffff", 3)]
+        public void ToIdsList_EnumTest(string value, int length)
+        {
+            var list = value.ToIdsList<Floor>();
+            Assert.Equal(list.Count, length);
+        }
 
 
 
-	public enum JobStatus
-	{
-		Create,
-		Execute,
-	}
+		 
+
+    }
+
 
 
 }

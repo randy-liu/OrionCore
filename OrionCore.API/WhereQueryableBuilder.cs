@@ -156,10 +156,10 @@ namespace Orion.Api
 				case WhereOperator.Between: /* x >= values[0] && x <= values[1] */
 					if (values.Length < 2) { return Expression.GreaterThanOrEqual(parameter, valueExpr); } /* x >= value */
 
-					var value1Expr = Expression.Convert(Expression.Constant(values[1]), typeof(T));
+					var value2Expr = Expression.Convert(Expression.Constant(values[1]), typeof(T));
 					return Expression.AndAlso(
 						Expression.GreaterThanOrEqual(parameter, valueExpr),
-						Expression.LessThanOrEqual(parameter, value1Expr)
+						Expression.LessThanOrEqual(parameter, value2Expr)
 					);
 			}
 

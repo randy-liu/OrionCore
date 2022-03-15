@@ -1,0 +1,2367 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>OrionCore.Api</name>
+    </assembly>
+    <members>
+        <member name="T:Orion.Api.AssemblyUtils">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.AssemblyUtils.GetName(System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.AssemblyUtils.GetName(System.Type)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.AssemblyUtils.GetName(System.Reflection.Assembly)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.AssemblyUtils.GetTitle(System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.AssemblyUtils.GetTitle(System.Type)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.AssemblyUtils.GetTitle(System.Reflection.Assembly)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.AssemblyUtils.GetVersion(System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.AssemblyUtils.GetVersion(System.Type)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.AssemblyUtils.GetVersion(System.Reflection.Assembly)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.AssemblyUtils.GetDescription(System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.AssemblyUtils.GetDescription(System.Type)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.AssemblyUtils.GetDescription(System.Reflection.Assembly)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.AssemblyUtils.GetMeta(System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.AssemblyUtils.GetMeta(System.Type)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.AssemblyUtils.GetMeta(System.Reflection.Assembly)">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Api.Checker">
+            <summary>
+            資料檢查器
+            </summary>
+        </member>
+        <member name="M:Orion.Api.Checker.Has(System.Object,System.String)">
+            <summary>檢查有資料</summary>
+        </member>
+        <member name="M:Orion.Api.Checker.Is``1(``0,``0,System.String)">
+            <summary>檢查是否等於指定值</summary>
+        </member>
+        <member name="M:Orion.Api.Checker.In``1(System.Nullable{``0},System.Collections.Generic.IEnumerable{``0},System.String)">
+            <summary>檢查是否在指定清單內</summary>
+        </member>
+        <member name="M:Orion.Api.Checker.In``1(``0,System.Collections.Generic.IEnumerable{``0},System.String)">
+            <summary>檢查是否在指定清單內</summary>
+        </member>
+        <member name="M:Orion.Api.Checker.Min(System.Int32,System.Int32,System.String)">
+            <summary>檢查value是否符合最小限制</summary>
+        </member>
+        <member name="M:Orion.Api.Checker.Min(System.Single,System.Single,System.String)">
+            <summary>檢查value是否符合最小限制</summary>
+        </member>
+        <member name="M:Orion.Api.Checker.Min(System.Double,System.Double,System.String)">
+            <summary>檢查value是否符合最小限制</summary>
+        </member>
+        <member name="M:Orion.Api.Checker.Min(System.Decimal,System.Decimal,System.String)">
+            <summary>檢查value是否符合最小限制</summary>
+        </member>
+        <member name="M:Orion.Api.Checker.Min(System.DateTimeOffset,System.DateTimeOffset,System.String)">
+            <summary>檢查value是否符合最小限制</summary>
+        </member>
+        <member name="M:Orion.Api.Checker.Min(System.Nullable{System.Int32},System.Int32,System.String)">
+            <summary>檢查value是否符合最小限制</summary>
+        </member>
+        <member name="M:Orion.Api.Checker.Min(System.Nullable{System.Single},System.Single,System.String)">
+            <summary>檢查value是否符合最小限制</summary>
+        </member>
+        <member name="M:Orion.Api.Checker.Min(System.Nullable{System.Double},System.Double,System.String)">
+            <summary>檢查value是否符合最小限制</summary>
+        </member>
+        <member name="M:Orion.Api.Checker.Min(System.Nullable{System.Decimal},System.Decimal,System.String)">
+            <summary>檢查value是否符合最小限制</summary>
+        </member>
+        <member name="M:Orion.Api.Checker.Min(System.Nullable{System.DateTimeOffset},System.DateTimeOffset,System.String)">
+            <summary>檢查value是否符合最小限制</summary>
+        </member>
+        <member name="M:Orion.Api.Checker.Max(System.Int32,System.Int32,System.String)">
+            <summary>檢查value是否符合最大限制</summary>
+        </member>
+        <member name="M:Orion.Api.Checker.Max(System.Single,System.Single,System.String)">
+            <summary>檢查value是否符合最大限制</summary>
+        </member>
+        <member name="M:Orion.Api.Checker.Max(System.Double,System.Double,System.String)">
+            <summary>檢查value是否符合最大限制</summary>
+        </member>
+        <member name="M:Orion.Api.Checker.Max(System.Decimal,System.Decimal,System.String)">
+            <summary>檢查value是否符合最大限制</summary>
+        </member>
+        <member name="M:Orion.Api.Checker.Max(System.DateTimeOffset,System.DateTimeOffset,System.String)">
+            <summary>檢查value是否符合最大限制</summary>
+        </member>
+        <member name="M:Orion.Api.Checker.Max(System.Nullable{System.Int32},System.Int32,System.String)">
+            <summary>檢查value是否符合最大限制</summary>
+        </member>
+        <member name="M:Orion.Api.Checker.Max(System.Nullable{System.Single},System.Single,System.String)">
+            <summary>檢查value是否符合最大限制</summary>
+        </member>
+        <member name="M:Orion.Api.Checker.Max(System.Nullable{System.Double},System.Double,System.String)">
+            <summary>檢查value是否符合最大限制</summary>
+        </member>
+        <member name="M:Orion.Api.Checker.Max(System.Nullable{System.Decimal},System.Decimal,System.String)">
+            <summary>檢查value是否符合最大限制</summary>
+        </member>
+        <member name="M:Orion.Api.Checker.Max(System.Nullable{System.DateTimeOffset},System.DateTimeOffset,System.String)">
+            <summary>檢查value是否符合最大限制</summary>
+        </member>
+        <member name="M:Orion.Api.Checker.Greater(System.Int32,System.Int32,System.String)">
+            <summary>檢查value是否大於最小限制</summary>
+        </member>
+        <member name="M:Orion.Api.Checker.Greater(System.Single,System.Single,System.String)">
+            <summary>檢查value是否大於最小限制</summary>
+        </member>
+        <member name="M:Orion.Api.Checker.Greater(System.Double,System.Double,System.String)">
+            <summary>檢查value是否大於最小限制</summary>
+        </member>
+        <member name="M:Orion.Api.Checker.Greater(System.Decimal,System.Decimal,System.String)">
+            <summary>檢查value是否大於最小限制</summary>
+        </member>
+        <member name="M:Orion.Api.Checker.Greater(System.DateTimeOffset,System.DateTimeOffset,System.String)">
+            <summary>檢查value是否大於最小限制</summary>
+        </member>
+        <member name="M:Orion.Api.Checker.Greater(System.Nullable{System.Int32},System.Int32,System.String)">
+            <summary>檢查value是否大於最小限制</summary>
+        </member>
+        <member name="M:Orion.Api.Checker.Greater(System.Nullable{System.Single},System.Single,System.String)">
+            <summary>檢查value是否大於最小限制</summary>
+        </member>
+        <member name="M:Orion.Api.Checker.Greater(System.Nullable{System.Double},System.Double,System.String)">
+            <summary>檢查value是否大於最小限制</summary>
+        </member>
+        <member name="M:Orion.Api.Checker.Greater(System.Nullable{System.Decimal},System.Decimal,System.String)">
+            <summary>檢查value是否大於最小限制</summary>
+        </member>
+        <member name="M:Orion.Api.Checker.Greater(System.Nullable{System.DateTimeOffset},System.DateTimeOffset,System.String)">
+            <summary>檢查value是否大於最小限制</summary>
+        </member>
+        <member name="M:Orion.Api.Checker.Less(System.Int32,System.Int32,System.String)">
+            <summary>檢查value是否小於最大限制</summary>
+        </member>
+        <member name="M:Orion.Api.Checker.Less(System.Single,System.Single,System.String)">
+            <summary>檢查value是否小於最大限制</summary>
+        </member>
+        <member name="M:Orion.Api.Checker.Less(System.Double,System.Double,System.String)">
+            <summary>檢查value是否小於最大限制</summary>
+        </member>
+        <member name="M:Orion.Api.Checker.Less(System.Decimal,System.Decimal,System.String)">
+            <summary>檢查value是否小於最大限制</summary>
+        </member>
+        <member name="M:Orion.Api.Checker.Less(System.DateTimeOffset,System.DateTimeOffset,System.String)">
+            <summary>檢查value是否小於最大限制</summary>
+        </member>
+        <member name="M:Orion.Api.Checker.Less(System.Nullable{System.Int32},System.Int32,System.String)">
+            <summary>檢查value是否小於最大限制</summary>
+        </member>
+        <member name="M:Orion.Api.Checker.Less(System.Nullable{System.Single},System.Single,System.String)">
+            <summary>檢查value是否小於最大限制</summary>
+        </member>
+        <member name="M:Orion.Api.Checker.Less(System.Nullable{System.Double},System.Double,System.String)">
+            <summary>檢查value是否小於最大限制</summary>
+        </member>
+        <member name="M:Orion.Api.Checker.Less(System.Nullable{System.Decimal},System.Decimal,System.String)">
+            <summary>檢查value是否小於最大限制</summary>
+        </member>
+        <member name="M:Orion.Api.Checker.Less(System.Nullable{System.DateTimeOffset},System.DateTimeOffset,System.String)">
+            <summary>檢查value是否小於最大限制</summary>
+        </member>
+        <member name="M:Orion.Api.Checker.Range(System.Int32,System.Int32,System.Int32,System.String)">
+            <summary>檢查數值範圍</summary>
+        </member>
+        <member name="M:Orion.Api.Checker.Range(System.Single,System.Single,System.Single,System.String)">
+            <summary>檢查數值範圍</summary>
+        </member>
+        <member name="M:Orion.Api.Checker.Range(System.Double,System.Double,System.Double,System.String)">
+            <summary>檢查數值範圍</summary>
+        </member>
+        <member name="M:Orion.Api.Checker.Range(System.Decimal,System.Decimal,System.Decimal,System.String)">
+            <summary>檢查數值範圍</summary>
+        </member>
+        <member name="M:Orion.Api.Checker.Range(System.DateTimeOffset,System.DateTimeOffset,System.DateTimeOffset,System.String)">
+            <summary>檢查數值範圍</summary>
+        </member>
+        <member name="M:Orion.Api.Checker.Range(System.Nullable{System.Int32},System.Int32,System.Int32,System.String)">
+            <summary>檢查數值範圍</summary>
+        </member>
+        <member name="M:Orion.Api.Checker.Range(System.Nullable{System.Single},System.Single,System.Single,System.String)">
+            <summary>檢查數值範圍</summary>
+        </member>
+        <member name="M:Orion.Api.Checker.Range(System.Nullable{System.Double},System.Double,System.Double,System.String)">
+            <summary>檢查數值範圍</summary>
+        </member>
+        <member name="M:Orion.Api.Checker.Range(System.Nullable{System.Decimal},System.Decimal,System.Decimal,System.String)">
+            <summary>檢查數值範圍</summary>
+        </member>
+        <member name="M:Orion.Api.Checker.Range(System.Nullable{System.DateTimeOffset},System.DateTimeOffset,System.DateTimeOffset,System.String)">
+            <summary>檢查數值範圍</summary>
+        </member>
+        <member name="M:Orion.Api.Checker.MinLength(System.String,System.Int32,System.String)">
+            <summary>檢查最小長度</summary>
+        </member>
+        <member name="M:Orion.Api.Checker.MinLength``1(System.Collections.Generic.IEnumerable{``0},System.Int32,System.String)">
+            <summary>檢查最小長度</summary>
+        </member>
+        <member name="M:Orion.Api.Checker.MaxLength(System.String,System.Int32,System.String)">
+            <summary>檢查最大長度</summary>
+        </member>
+        <member name="M:Orion.Api.Checker.MaxLength``1(System.Collections.Generic.IEnumerable{``0},System.Int32,System.String)">
+            <summary>檢查最大長度</summary>
+        </member>
+        <member name="M:Orion.Api.Checker.RangeLength(System.String,System.Int32,System.Int32,System.String)">
+            <summary>檢查長度範圍</summary>
+        </member>
+        <member name="M:Orion.Api.Checker.RangeLength``1(System.Collections.Generic.IEnumerable{``0},System.Int32,System.Int32,System.String)">
+            <summary>檢查長度範圍</summary>
+        </member>
+        <member name="M:Orion.Api.Checker.Contains(System.String,System.String,System.String)">
+            <summary>檢查是否在清單中</summary>
+        </member>
+        <member name="M:Orion.Api.Checker.Contains(System.String,System.Collections.Generic.IEnumerable{System.String},System.String)">
+            <summary>檢查是否在清單中</summary>
+        </member>
+        <member name="M:Orion.Api.Checker.Contains``1(``0,System.Collections.Generic.IEnumerable{``0},System.String)">
+            <summary>檢查是否在清單中</summary>
+        </member>
+        <member name="M:Orion.Api.Checker.Pattern(System.String,System.String,System.String)">
+            <summary>檢查是否符合 Pattern</summary>
+        </member>
+        <member name="M:Orion.Api.Checker.StatusRule``2(``0,``0,System.Collections.Generic.IDictionary{``0,``1},System.String)">
+            <summary>檢查是否符合狀態轉換規則</summary>
+        </member>
+        <member name="M:Orion.Api.Checker.IsIn``1(``0,``0[])">
+            <summary>是否在清單中</summary>
+        </member>
+        <member name="M:Orion.Api.Checker.IsIn``1(``0,System.Collections.Generic.IEnumerable{``0})">
+            <summary>是否在清單中</summary>
+        </member>
+        <member name="M:Orion.Api.Checker.NotIn``1(``0,``0[])">
+            <summary>是否不在清單中</summary>
+        </member>
+        <member name="M:Orion.Api.Checker.NotIn``1(``0,System.Collections.Generic.IEnumerable{``0})">
+            <summary>是否不在清單中</summary>
+        </member>
+        <member name="T:Orion.Api.EnumAttributeProvider`2">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.EnumAttributeProvider`2.#ctor">
+            <summary></summary>
+        </member>
+        <member name="P:Orion.Api.EnumAttributeProvider`2.Item(`0)">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Api.ExceptionCatcher">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.ExceptionCatcher.Create">
+            <summary></summary>
+        </member>
+        <member name="P:Orion.Api.ExceptionCatcher.Errors">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.ExceptionCatcher.Try(System.Action)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.ExceptionCatcher.Try(System.Func{System.Threading.Tasks.Task})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.ExceptionCatcher.Throw``1(System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.ExceptionCatcher.Throw``1(System.Func{System.Collections.Generic.List{System.Exception},System.String})">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Api.Extensions.AssemblyExtensions">
+            <summary>定義 Assembly 的 Extension</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.AssemblyExtensions.GetMeta(System.Reflection.Assembly)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.AssemblyExtensions.GetManifestResourceStreamByPath(System.Reflection.Assembly,System.String)">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Api.Extensions.AutofacExtensions">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.AutofacExtensions.RegisterServiceContext``1(Autofac.ContainerBuilder)">
+            <summary>註冊 ServiceContext</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.AutofacExtensions.GetterCacheWrap``3(Autofac.Builder.IRegistrationBuilder{``0,``1,``2})">
+            <summary>啟用 Getter 快取包裝</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.AutofacExtensions.RegisterOrionNotifier(Autofac.ContainerBuilder)">
+            <summary>註冊單例 Notifier, INotifier </summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.AutofacExtensions.RegisterOrionLogger(Autofac.ContainerBuilder)">
+            <summary>註冊 Orion Logger</summary>
+        </member>
+        <member name="T:Orion.Api.Extensions.AutofacExtensions.OrionLoggerModule">
+            <summary>Autofac NLog 模組，會根據 class Type 配置 log name</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.AutofacExtensions.OrionLoggerModule.Load(Autofac.ContainerBuilder)">
+            <summary>在模組載入後註冊類別到 ContainerBuilder</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.AutofacExtensions.OrionLoggerModule.AttachToComponentRegistration(Autofac.Core.Registration.IComponentRegistryBuilder,Autofac.Core.IComponentRegistration)">
+            <summary>配置 Resolve 事件，可以在物件解析建構子 Parameter 時，取得被注入的類別</summary>
+        </member>
+        <member name="T:Orion.Api.Extensions.CommandExtensions">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.CommandExtensions.ParamPrefix(System.Data.Common.DbCommand)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.CommandExtensions.AddParameter(System.Data.Common.DbCommand,System.String,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.CommandExtensions.IsDataExists(System.Data.Common.DbCommand)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.CommandExtensions.AddCommand(System.Data.Common.DbCommand,System.FormattableString)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.CommandExtensions.WhereAnd(System.Data.Common.DbCommand,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.CommandExtensions.WhereAnd(System.Data.Common.DbCommand,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.CommandExtensions.WhereAnd(System.Data.Common.DbCommand,System.String,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.CommandExtensions.WhereAndHas(System.Data.Common.DbCommand,System.String,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.CommandExtensions.WhereAndHas(System.Data.Common.DbCommand,System.String,System.Object,System.Data.DbType)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.CommandExtensions.OrderBy(System.Data.Common.DbCommand,System.String,System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.CommandExtensions.FetchDataTable(System.Data.Common.DbCommand)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.CommandExtensions.FetchDataRow(System.Data.Common.DbCommand)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.CommandExtensions.FetchOne``1(System.Data.Common.DbCommand)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.CommandExtensions.FetchList``1(System.Data.Common.DbCommand)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.CommandExtensions.FetchModel``1(System.Data.Common.DbCommand)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.CommandExtensions.FetchPagination(System.Data.Common.DbCommand,System.Int32,System.Int32)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.CommandExtensions.AsEnumerable(Orion.Api.Models.DataTablePagination)">
+            <summary>列舉 DataRow</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.CommandExtensions.BuildInsert(System.Data.Common.DbCommand,System.String,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.CommandExtensions.BuildUpdate(System.Data.Common.DbCommand,System.String,System.Object,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.CommandExtensions.BuildDelete(System.Data.Common.DbCommand,System.String,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.CommandExtensions.BuildProcedure(System.Data.Common.DbCommand,System.String,System.Object[])">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.CommandExtensions.WhereBuilder(System.Data.Common.DbCommand,Orion.Api.Models.WhereParams)">
+            <summary>
+            query = query.WhereBuilder(param)<para/>
+                .Mapping(x =&gt; x.InvoicePrefix,  y =&gt; y.InvoicePrefix)<para/>
+                .Mapping(x =&gt; x.Sum,            y =&gt; y.Total)<para/>
+                .Mapping(x =&gt; x.ProductQty,     y =&gt; y.InvoiceIssueItems.Select(z =&gt; (int?)z.Qty))<para/>
+                .Build();<para/>
+            </summary>
+        </member>
+        <member name="T:Orion.Api.Extensions.OracleParameterExtensions">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.OracleParameterExtensions.String(System.Data.Common.DbParameter)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.OracleParameterExtensions.Bool(System.Data.Common.DbParameter)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.OracleParameterExtensions.Int(System.Data.Common.DbParameter)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.OracleParameterExtensions.Long(System.Data.Common.DbParameter)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.OracleParameterExtensions.Decimal(System.Data.Common.DbParameter)">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Api.Extensions.ConnectionExtensions">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.ConnectionExtensions.tx(System.Data.Common.DbConnection,System.Data.IsolationLevel)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.ConnectionExtensions.TxSerializable(System.Data.Common.DbConnection)">
+            <summary>v0: 在交易期間可以讀取 Volatile (易失性)資料，但無法修改該資料，且不能加入新資料。</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.ConnectionExtensions.TxRepeatableRead(System.Data.Common.DbConnection)">
+            <summary>v1: 在交易期間可以讀取 Volatile (易失性)資料，但無法修改該資料。 在交易期間可以加入新資料。</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.ConnectionExtensions.TxReadCommitted(System.Data.Common.DbConnection)">
+            <summary>v2: 在交易期間無法讀取 Volatile (易失性)資料，但可以修改該資料。</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.ConnectionExtensions.TxReadUncommitted(System.Data.Common.DbConnection)">
+            <summary>v3: 在交易期間可以讀取和修改 Volatile (易失性)資料。[髒讀]</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.ConnectionExtensions.CreateCommandRaw(System.Data.Common.DbConnection,System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.ConnectionExtensions.CreateCommand(System.Data.Common.DbConnection,System.FormattableString)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.ConnectionExtensions.ExecuteCommand(System.Data.Common.DbConnection,System.FormattableString)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.ConnectionExtensions.IsDataExists(System.Data.Common.DbConnection,System.FormattableString)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.ConnectionExtensions.FetchOne``1(System.Data.Common.DbConnection,System.FormattableString)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.ConnectionExtensions.FetchDataTable(System.Data.Common.DbConnection,System.FormattableString)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.ConnectionExtensions.FetchDataRow(System.Data.Common.DbConnection,System.FormattableString)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.ConnectionExtensions.FetchList``1(System.Data.Common.DbConnection,System.FormattableString)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.ConnectionExtensions.FetchModel``1(System.Data.Common.DbConnection,System.FormattableString)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.ConnectionExtensions.Insert(System.Data.Common.DbConnection,System.String,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.ConnectionExtensions.Update(System.Data.Common.DbConnection,System.String,System.Object,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.ConnectionExtensions.Delete(System.Data.Common.DbConnection,System.String,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.ConnectionExtensions.Procedure(System.Data.Common.DbConnection,System.String,System.Object[])">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.ConnectionExtensions.OutBoolean(System.Data.Common.DbConnection)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.ConnectionExtensions.OutInt32(System.Data.Common.DbConnection)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.ConnectionExtensions.OutDecimal(System.Data.Common.DbConnection)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.ConnectionExtensions.OutString(System.Data.Common.DbConnection)">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Api.Extensions.DataRowExtensions">
+            <summary>定義 DataRow 的 Extension</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.DataRowExtensions.ToDictionary(System.Data.DataRow)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.DataRowExtensions.String(System.Data.DataRow,System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.DataRowExtensions.Int(System.Data.DataRow,System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.DataRowExtensions.Double(System.Data.DataRow,System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.DataRowExtensions.Decimal(System.Data.DataRow,System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.DataRowExtensions.DateTime(System.Data.DataRow,System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.DataRowExtensions.DateTimeN(System.Data.DataRow,System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.DataRowExtensions.ContainsColumn(System.Data.DataRow,System.String)">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Api.Extensions.DataTableExtensions">
+            <summary>定義 DataTable 的 Extension</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.DataTableExtensions.ToDictionary``2(System.Data.DataTable,System.Func{System.Data.DataRow,``0},System.Func{System.Data.DataRow,``1})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.DataTableExtensions.FirstOrDefault(System.Data.DataTable)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.DataTableExtensions.FirstOrDefault(System.Data.DataTable,System.Func{System.Data.DataRow,System.Boolean})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.DataTableExtensions.Select``1(System.Data.DataTable,System.Func{System.Data.DataRow,``0})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.DataTableExtensions.Where(System.Data.DataTable,System.Func{System.Data.DataRow,System.Boolean})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.DataTableExtensions.Any(System.Data.DataTable)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.DataTableExtensions.Any(System.Data.DataTable,System.Func{System.Data.DataRow,System.Boolean})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.DataTableExtensions.ToList``1(System.Data.DataTable,System.Func{System.Data.DataRow,``0})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.DataTableExtensions.ToHashSet``1(System.Data.DataTable,System.Func{System.Data.DataRow,``0})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.DataTableExtensions.ToModel``1(System.Data.DataTable)">
+            <summary>將 DataRow 與 POCO Mapping，回傳 IEnumerable of POCO</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.DataTableExtensions.ToDataTable``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>將 IEnumerable of POCO 回傳 DataTable</summary>
+        </member>
+        <member name="T:Orion.Api.Extensions.DateTimeExtensions">
+            <summary>日期時間區段 的 Extension</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.DateTimeExtensions.FirstDateOfMonth(System.DateTime)">
+            <summary>當月第一天</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.DateTimeExtensions.LastDateOfMonth(System.DateTime)">
+            <summary>當月最後一天</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.DateTimeExtensions.getLiveTime(System.TimeSpan,System.Int32)">
+            *#############################################################*/
+        </member>
+        <member name="M:Orion.Api.Extensions.DateTimeExtensions.ToLiveTime(System.DateTime)">
+            <summary>顯示活動時間</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.DateTimeExtensions.ToLiveTime(System.Nullable{System.DateTime})">
+            <summary>顯示活動時間</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.DateTimeExtensions.ToLiveTime(System.DateTimeOffset)">
+            <summary>顯示活動時間</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.DateTimeExtensions.ToLiveTime(System.Nullable{System.DateTimeOffset})">
+            <summary>顯示活動時間</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.DateTimeExtensions.ShowDate(System.DateTime)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.DateTimeExtensions.ShowDateTime(System.DateTime)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.DateTimeExtensions.ShowTime(System.DateTime)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.DateTimeExtensions.ShowDate(System.Nullable{System.DateTime})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.DateTimeExtensions.ShowDateTime(System.Nullable{System.DateTime})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.DateTimeExtensions.ShowTime(System.Nullable{System.DateTime})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.DateTimeExtensions.ShowDate(System.DateTimeOffset)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.DateTimeExtensions.ShowDateTime(System.DateTimeOffset)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.DateTimeExtensions.ShowTime(System.DateTimeOffset)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.DateTimeExtensions.ShowDate(System.Nullable{System.DateTimeOffset})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.DateTimeExtensions.ShowDateTime(System.Nullable{System.DateTimeOffset})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.DateTimeExtensions.ShowTime(System.Nullable{System.DateTimeOffset})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.DateTimeExtensions.PatchZone(System.DateTimeOffset,System.TimeZoneInfo)">
+            <summary>修補 DateTimeOffset 的時區到當前時區</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.DateTimeExtensions.PatchZone(System.Nullable{System.DateTimeOffset},System.TimeZoneInfo)">
+            <summary>修補 DateTimeOffset 的時區到當前時區</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.DateTimeExtensions.ConvertZone(System.DateTimeOffset,System.TimeZoneInfo)">
+            <summary>轉換 DateTimeOffset 到當前時區</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.DateTimeExtensions.ConvertZone(System.Nullable{System.DateTimeOffset},System.TimeZoneInfo)">
+            <summary>轉換 DateTimeOffset 到當前時區</summary>
+        </member>
+        <member name="T:Orion.Api.Extensions.DateTimeSectionExtensions">
+            <summary>日期時間區段 的 Extension</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.DateTimeSectionExtensions.Overlap(Orion.Api.Models.DateTimeSection,Orion.Api.Models.DateTimeSection)">
+            <summary>取得重疊日期時間區段</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.DateTimeSectionExtensions.InvertSection(System.Collections.Generic.IEnumerable{Orion.Api.Models.DateTimeSection})">
+            <summary>將日期時間區段清單反轉成空缺區段</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.DateTimeSectionExtensions.IntersectSection(System.Collections.Generic.IEnumerable{Orion.Api.Models.DateTimeSection},System.Collections.Generic.IEnumerable{Orion.Api.Models.DateTimeSection})">
+            <summary>取得日期時間區段清單的交集</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.DateTimeSectionExtensions.UnionSection(System.Collections.Generic.IEnumerable{Orion.Api.Models.DateTimeSection},System.Collections.Generic.IEnumerable{Orion.Api.Models.DateTimeSection})">
+            <summary>取得日期時間區段清單的聯集</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.DateTimeSectionExtensions.ExceptSection(System.Collections.Generic.IEnumerable{Orion.Api.Models.DateTimeSection},System.Collections.Generic.IEnumerable{Orion.Api.Models.DateTimeSection})">
+            <summary>取得日期時間區段清單的差集</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.DateTimeSectionExtensions.SumDuration(System.Collections.Generic.IEnumerable{Orion.Api.Models.DateTimeSection})">
+            <summary>統計日期時間區段長度</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.DateTimeSectionExtensions.CheckOverlap(System.Collections.Generic.IEnumerable{Orion.Api.Models.DateTimeSection})">
+            <summary>檢查日期時間區段是否重疊</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.DateTimeSectionExtensions.JoinOverlap(System.Collections.Generic.IEnumerable{Orion.Api.Models.DateTimeSection})">
+            <summary>連接日期時間區段的重疊</summary>
+        </member>
+        <member name="T:Orion.Api.Extensions.DeclareExtensions">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.DeclareExtensions.GetDeclareName(System.Type)">
+            <summary>取得類型的宣告名稱</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.DeclareExtensions.GetDeclareName(System.Reflection.MethodInfo)">
+            <summary>取得方法的宣告名稱</summary>
+        </member>
+        <member name="T:Orion.Api.Extensions.DisplayNameExtensions">
+            <summary>用於取得 Display、Description Attribute 設定名稱或描述 </summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.DisplayNameExtensions.GetDisplayName(System.Reflection.MemberInfo)">
+            <summary>取得 Method | Property | Field  DisplayAttribute、DescriptionAttribute 中的字串</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.DisplayNameExtensions.GetDisplayName(System.Enum)">
+            <summary>取得 Method | Property | Field  DisplayAttribute 中的字串</summary>
+        </member>
+        <member name="T:Orion.Api.Extensions.EnumerableExtensions">
+            <summary>定義 IEnumerable 與泛型 IEnumerable 的 Extension</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.EnumerableExtensions.Append``1(System.Collections.Generic.IEnumerable{``0},``0[])">
+            <summary>附加 Item 到 IEnumerable 的最後面</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.EnumerableExtensions.ToList``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
+            <summary>從 IEnumerable 建立 List</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.EnumerableExtensions.ToList``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,System.Int32,``1})">
+            <summary>從 IEnumerable 建立 List</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.EnumerableExtensions.ToArray``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
+            <summary>從 IEnumerable 建立 List</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.EnumerableExtensions.ToArray``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,System.Int32,``1})">
+            <summary>從 IEnumerable 建立 List</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.EnumerableExtensions.ToQueue``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>從 IEnumerable 建立 Queue</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.EnumerableExtensions.ToQueue``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
+            <summary>從 IEnumerable 建立 Queue</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.EnumerableExtensions.ToQueue``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,System.Int32,``1})">
+            <summary>從 IEnumerable 建立 Queue</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.EnumerableExtensions.NullToEmpty``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>source 如果為 null 就回傳 Empty</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.EnumerableExtensions.AddRangeTo(System.Collections.IEnumerable,System.Collections.IList)">
+            <summary>加入項目到 IList</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.EnumerableExtensions.AddRangeTo``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.ICollection{``0})">
+            <summary>加入項目到 ICollection&lt;T&gt;</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.EnumerableExtensions.ForEach``1(System.Collections.Generic.IEnumerable{``0},System.Action{``0})">
+            <summary> 賦予 IEnumerable ForEach Method</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.EnumerableExtensions.ForEach``1(System.Collections.Generic.IEnumerable{``0},System.Action{``0,System.Int32})">
+            <summary> 賦予 IEnumerable ForEach Method</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.EnumerableExtensions.Each``1(System.Collections.Generic.IEnumerable{``0},System.Action{``0})">
+            <summary> 賦予 IEnumerable Each Method</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.EnumerableExtensions.Each``1(System.Collections.Generic.IEnumerable{``0},System.Action{``0,System.Int32})">
+            <summary> 賦予 IEnumerable Each Method</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.EnumerableExtensions.JoinBy``1(System.Collections.Generic.IEnumerable{``0},System.String)">
+            <summary> 到 string.Join, 輸入 null 則回傳 null</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.EnumerableExtensions.ToHashSet``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
+            <summary>從 IEnumerable 建立 HashSet</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.EnumerableExtensions.ToHashSet``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,System.Int32,``1})">
+            <summary>從 IEnumerable 建立 HashSet</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.EnumerableExtensions.OrderBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1},System.Boolean)">
+            <summary> OrderBy 擴充，使用 bool 指定 descending， true Asc ; false Desc</summary>
+            <typeparam name="TSource">來源型態</typeparam>
+            <typeparam name="TKey">選擇欄位型態</typeparam>
+            <param name="source">Extension Method this</param>
+            <param name="keySelector">選擇排序欄位的 Delegate</param>
+            <param name="descending">正反排序</param>
+            <returns>IOrderedEnumerable&lt;TSource&gt;</returns>
+            <example>
+            <code>
+            	var list = new List&lt;int&gt;(){2,5,1,3,7,4};
+            	IEnumerableExtensions.OrderBy&lt;int, int&gt;(list, x =&gt; x, true);
+            	list.OrderBy&lt;int, int&gt;(x =&gt; x, true);
+            </code>
+            </example>
+        </member>
+        <member name="M:Orion.Api.Extensions.EnumerableExtensions.ThenBy``2(System.Linq.IOrderedEnumerable{``0},System.Func{``0,``1},System.Boolean)">
+            <summary> ThenBy 擴充，使用 bool 指定 descending， true Asc ; false Desc</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.EnumerableExtensions.OrderBy``1(System.Collections.Generic.IEnumerable{``0},System.Enum,System.Boolean)">
+            <summary> OrderBy 擴充，可直接使用 Enum Field 排序，Field Name 必須與 Column Name 一致</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.EnumerableExtensions.OrderBy``1(System.Collections.Generic.IEnumerable{``0},System.String,System.Boolean)">
+            <summary> OrderBy 擴充</summary>
+            <param name="source"></param>
+            <param name="keySelector">field Name, propertyName</param>
+            <param name="descending">true Asc; false Desc</param>
+            <returns></returns>
+        </member>
+        <member name="M:Orion.Api.Extensions.EnumerableExtensions.MaxOrDefault``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>傳回最大的結果值；如果找不到則傳回預設值。</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.EnumerableExtensions.MaxOrDefault``2(System.Collections.Generic.IEnumerable{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+            <summary>傳回最大的結果值；如果找不到則傳回預設值。</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.EnumerableExtensions.MinOrDefault``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>傳回最小的結果值；如果找不到則傳回預設值。</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.EnumerableExtensions.MinOrDefault``2(System.Collections.Generic.IEnumerable{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+            <summary>傳回最小的結果值；如果找不到則傳回預設值。</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.EnumerableExtensions.SumOrDefault(System.Collections.Generic.IEnumerable{System.Int32})">
+            <summary>計算數值序列的總和；空集合則傳回預設值。</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.EnumerableExtensions.SumOrDefault(System.Collections.Generic.IEnumerable{System.Int64})">
+            <summary>計算數值序列的總和；空集合則傳回預設值。</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.EnumerableExtensions.SumOrDefault(System.Collections.Generic.IEnumerable{System.Single})">
+            <summary>計算數值序列的總和；空集合則傳回預設值。</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.EnumerableExtensions.SumOrDefault(System.Collections.Generic.IEnumerable{System.Double})">
+            <summary>計算數值序列的總和；空集合則傳回預設值。</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.EnumerableExtensions.SumOrDefault(System.Collections.Generic.IEnumerable{System.Decimal})">
+            <summary>計算數值序列的總和；空集合則傳回預設值。</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.EnumerableExtensions.SumOrDefault``1(System.Collections.Generic.IEnumerable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Int32}})">
+            <summary>計算數值序列的總和；空集合則傳回預設值。</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.EnumerableExtensions.SumOrDefault``1(System.Collections.Generic.IEnumerable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Int64}})">
+            <summary>計算數值序列的總和；空集合則傳回預設值。</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.EnumerableExtensions.SumOrDefault``1(System.Collections.Generic.IEnumerable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Single}})">
+            <summary>計算數值序列的總和；空集合則傳回預設值。</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.EnumerableExtensions.SumOrDefault``1(System.Collections.Generic.IEnumerable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Double}})">
+            <summary>計算數值序列的總和；空集合則傳回預設值。</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.EnumerableExtensions.SumOrDefault``1(System.Collections.Generic.IEnumerable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Decimal}})">
+            <summary>計算數值序列的總和；空集合則傳回預設值。</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.EnumerableExtensions.AverageOrDefault(System.Collections.Generic.IEnumerable{System.Int32})">
+            <summary>計算序列的平均值；空集合則傳回預設值。</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.EnumerableExtensions.AverageOrDefault(System.Collections.Generic.IEnumerable{System.Int64})">
+            <summary>計算序列的平均值；空集合則傳回預設值。</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.EnumerableExtensions.AverageOrDefault(System.Collections.Generic.IEnumerable{System.Single})">
+            <summary>計算序列的平均值；空集合則傳回預設值。</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.EnumerableExtensions.AverageOrDefault(System.Collections.Generic.IEnumerable{System.Double})">
+            <summary>計算序列的平均值；空集合則傳回預設值。</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.EnumerableExtensions.AverageOrDefault(System.Collections.Generic.IEnumerable{System.Decimal})">
+            <summary>計算序列的平均值；空集合則傳回預設值。</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.EnumerableExtensions.AverageOrDefault``1(System.Collections.Generic.IEnumerable{``0},System.Func{``0,System.Int32})">
+            <summary>計算序列的平均值；空集合則傳回預設值。</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.EnumerableExtensions.AverageOrDefault``1(System.Collections.Generic.IEnumerable{``0},System.Func{``0,System.Int64})">
+            <summary>計算序列的平均值；空集合則傳回預設值。</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.EnumerableExtensions.AverageOrDefault``1(System.Collections.Generic.IEnumerable{``0},System.Func{``0,System.Single})">
+            <summary>計算序列的平均值；空集合則傳回預設值。</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.EnumerableExtensions.AverageOrDefault``1(System.Collections.Generic.IEnumerable{``0},System.Func{``0,System.Double})">
+            <summary>計算序列的平均值；空集合則傳回預設值。</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.EnumerableExtensions.AverageOrDefault``1(System.Collections.Generic.IEnumerable{``0},System.Func{``0,System.Decimal})">
+            <summary>計算序列的平均值；空集合則傳回預設值。</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.EnumerableExtensions.Convert``1(System.Collections.IEnumerable)">
+            <summary>根據泛型參數轉型，若失敗則拋棄</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.EnumerableExtensions.Convert(System.Collections.IEnumerable,System.Type)">
+            <summary>根據 type 參數轉型，若失敗則拋棄</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.EnumerableExtensions.Bulk``1(System.Collections.Generic.IEnumerable{``0},System.Int32)">
+            <summary>將資料依數量分區段</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.EnumerableExtensions.BulkToList``1(System.Collections.Generic.IEnumerable{``0},System.Int32)">
+            <summary>將資料依數量分區段</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.EnumerableExtensions.Traversal``1(System.Collections.Generic.IEnumerable{``0},System.Func{``0,System.Collections.Generic.IEnumerable{``0}})">
+            <summary>尋訪所有節點，廣度優先</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.EnumerableExtensions.PrepareList``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
+            <summary>準備資料 List</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.EnumerableExtensions.PrepareList``3(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1},System.Func{``0,``2})">
+            <summary>準備資料 List</summary>
+        </member>
+        <member name="T:Orion.Api.Extensions.EqualityComparerExtensions">
+            <summary>對於需要實作 IEqualityComparer 的 Extension Method 進行的 Extension 定義</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.EqualityComparerExtensions.Contains``1(System.Collections.Generic.IEnumerable{``0},``0,System.Func{``0,``0,System.Boolean})">
+            <summary> 擴充 Contains， 加入 IEqualityComparer 實作&lt;TSource&gt;</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.EqualityComparerExtensions.Distinct``1(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``0,System.Boolean})">
+            <summary> 擴充 Distinct， 加入 IEqualityComparer 實作&lt;TSource&gt;</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.EqualityComparerExtensions.Except``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0},System.Func{``0,``0,System.Boolean})">
+            <summary> 擴充  Except， 加入 IEqualityComparer 實作&lt;TSource&gt;</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.EqualityComparerExtensions.Intersect``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0},System.Func{``0,``0,System.Boolean})">
+            <summary> 擴充 Intersect， 加入 IEqualityComparer 實作&lt;TSource&gt;</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.EqualityComparerExtensions.Union``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0},System.Func{``0,``0,System.Boolean})">
+            <summary> 擴充 Union， 加入 IEqualityComparer 實作&lt;TSource&gt;</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.EqualityComparerExtensions.Contains``1(System.Linq.IQueryable{``0},``0,System.Func{``0,``0,System.Boolean})">
+            <summary> 擴充 Contains， 加入 IEqualityComparer 實作&lt;TSource&gt;</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.EqualityComparerExtensions.Distinct``1(System.Linq.IQueryable{``0},System.Func{``0,``0,System.Boolean})">
+            <summary> 擴充 Distinct， 加入 IEqualityComparer 實作&lt;TSource&gt;</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.EqualityComparerExtensions.Except``1(System.Linq.IQueryable{``0},System.Collections.Generic.IEnumerable{``0},System.Func{``0,``0,System.Boolean})">
+            <summary> 擴充 Except， 加入 IEqualityComparer 實作&lt;TSource&gt;</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.EqualityComparerExtensions.Intersect``1(System.Linq.IQueryable{``0},System.Collections.Generic.IEnumerable{``0},System.Func{``0,``0,System.Boolean})">
+            <summary> 擴充 Intersect， 加入 IEqualityComparer 實作&lt;TSource&gt;</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.EqualityComparerExtensions.Union``1(System.Linq.IQueryable{``0},System.Collections.Generic.IEnumerable{``0},System.Func{``0,``0,System.Boolean})">
+            <summary> 擴充 Union， 加入 IEqualityComparer 實作&lt;TSource&gt;</summary>
+        </member>
+        <member name="T:Orion.Api.Extensions.EqualityComparerExtensions.LambdaComparer`1">
+            <summary>
+            外面不需要知道這個類的存在，就算提供也不好用。
+            </summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.EqualityComparerExtensions.Contains``2(System.Collections.Generic.IEnumerable{``0},``0,System.Func{``0,``1})">
+            <summary> 擴充 Contains， 加入 IEqualityComparer 實作&lt;TSource&gt;</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.EqualityComparerExtensions.Distinct``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
+            <summary> 擴充 Distinct， 加入 IEqualityComparer 實作&lt;TSource&gt;</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.EqualityComparerExtensions.Except``2(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
+            <summary> 擴充  Except， 加入 IEqualityComparer 實作&lt;TSource&gt;</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.EqualityComparerExtensions.Intersect``2(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
+            <summary> 擴充 Intersect， 加入 IEqualityComparer 實作&lt;TSource&gt;</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.EqualityComparerExtensions.Union``2(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
+            <summary> 擴充 Union， 加入 IEqualityComparer 實作&lt;TSource&gt;</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.EqualityComparerExtensions.Contains``2(System.Linq.IQueryable{``0},``0,System.Func{``0,``1})">
+            <summary> 擴充 Contains， 加入 IEqualityComparer 實作&lt;TSource&gt;</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.EqualityComparerExtensions.Distinct``2(System.Linq.IQueryable{``0},System.Func{``0,``1})">
+            <summary> 擴充 Distinct， 加入 IEqualityComparer 實作&lt;TSource&gt;</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.EqualityComparerExtensions.Except``2(System.Linq.IQueryable{``0},System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
+            <summary> 擴充 Except， 加入 IEqualityComparer 實作&lt;TSource&gt;</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.EqualityComparerExtensions.Intersect``2(System.Linq.IQueryable{``0},System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
+            <summary> 擴充 Intersect， 加入 IEqualityComparer 實作&lt;TSource&gt;</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.EqualityComparerExtensions.Union``2(System.Linq.IQueryable{``0},System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
+            <summary> 擴充 Union， 加入 IEqualityComparer 實作&lt;TSource&gt;</summary>
+        </member>
+        <member name="T:Orion.Api.Extensions.EqualityComparerExtensions.LambdaComparer`2">
+            <summary>
+            外面不需要知道這個類的存在，就算提供也不好用。
+            </summary>
+        </member>
+        <member name="T:Orion.Api.Extensions.LambdaExtensions">
+            <summary>定義 Lambda Expression 的 Extension</summary>
+        </member>
+        <member name="T:Orion.Api.Extensions.LambdaExtensions.ExpressionFinder`1">
+            <summary>搜尋造訪者</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.LambdaExtensions.FindByType``1(System.Linq.Expressions.Expression)">
+            <summary>尋找 Lambda Expression tree 中指定類型</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.LambdaExtensions.GetMember(System.Linq.Expressions.LambdaExpression)">
+            <summary>尋找 Lambda Expression tree 中的 MemberInfo</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.LambdaExtensions.GetProperty(System.Linq.Expressions.LambdaExpression)">
+            <summary>尋找 Lambda Expression tree 中的 PropertyInfo</summary>
+        </member>
+        <member name="T:Orion.Api.Extensions.LambdaExtensions.ExpressionReplacer">
+            <summary>參數替換造訪者</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.LambdaExtensions.Replace(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)">
+            <summary>Expression 節點替換</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.LambdaExtensions.And``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.LambdaExtensions.Or``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary>Expression Or 串接</summary>
+        </member>
+        <member name="T:Orion.Api.Extensions.ListExtensions">
+            <summary>定義 IList 的 Extension</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.ListExtensions.Shift``1(System.Collections.Generic.IList{``0})">
+            <summary>將 List 賦予先進先出的功能，取回並刪除第一筆資料</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.ListExtensions.TakeOut``1(System.Collections.Generic.IList{``0},System.Func{``0,System.Boolean})">
+            <summary>將 List 賦予取出的功能，取回並刪除資料</summary>
+        </member>
+        <member name="T:Orion.Api.Extensions.MarshalExtensions">
+            <summary>struct 擴充方法</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.MarshalExtensions.ToByteArray``1(``0)">
+            <summary>取得 struct 的 byte array</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.MarshalExtensions.ToStruct``1(System.Byte[])">
+            <summary>取得 struct 的 byte array</summary>
+        </member>
+        <member name="T:Orion.Api.Extensions.NotifyPropertyExtensions">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.NotifyPropertyExtensions.TriggerChanged``2(``0,System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Api.Extensions.ObjectExtensions">
+            <summary>定義 Object 的 Extension</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.ObjectExtensions.preJson(System.Object)">
+            <summary>Json 轉換的前置處裡 </summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.ObjectExtensions.ToJson(System.Object)">
+            <summary>將 object 轉換為 Json</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.ObjectExtensions.ToFormatJson(System.Object)">
+            <summary>將 object 轉換為縮排格式化的 Json</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.ObjectExtensions.JsonToObject``1(System.String)">
+            <summary>將 json string 轉換為 Object</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.ObjectExtensions.Comma``1(``0)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.ObjectExtensions.Comma``1(System.Nullable{``0})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.ObjectExtensions.Comma``1(``0,System.Int32)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.ObjectExtensions.Comma``1(System.Nullable{``0},System.Int32)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.ObjectExtensions.ConvertTo``1(System.Object,System.String[])">
+            <summary>根據 T 將 value 轉型，若轉型失敗則回傳預設值</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.ObjectExtensions.ConvertTo(System.Object,System.Type,System.String[])">
+            <summary>根據 type 將 value 轉型，若轉型失敗則回傳 null</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.ObjectExtensions.AnonymousToDictionary(System.Object)">
+            <summary>將匿名物件轉換成 Dictionary</summary>
+        </member>
+        <member name="T:Orion.Api.Extensions.PaginationExtensions">
+            <summary>定義 Pagination&lt;TSource&gt; 的 Extension</summary>
+        </member>
+        <member name="P:Orion.Api.Extensions.PaginationExtensions.DefaultPageSize">
+            <summary>預設換頁大小</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.PaginationExtensions.AsPagination``1(System.Collections.Generic.IEnumerable{``0},System.Int32,System.Int32)">
+            <summary>取得換頁泛型物件</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.PaginationExtensions.AsPagination``1(System.Linq.IQueryable{``0},System.Int32,System.Int32)">
+            <summary>取得換頁泛型物件</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.PaginationExtensions.As``2(Orion.Api.Models.Pagination{``0},System.Func{``0,``1})">
+            <summary>將 Pagination 的 List Member Projection 後，再次傳回 Pagination</summary>
+        </member>
+        <member name="T:Orion.Api.Extensions.PrintDocumentExtensions">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.PrintDocumentExtensions.ToBitmap(System.Drawing.Printing.PrintDocument)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.PrintDocumentExtensions.ToImageStream(System.Drawing.Printing.PrintDocument,System.Drawing.Imaging.ImageFormat)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.PrintDocumentExtensions.ToJpegStream(System.Drawing.Printing.PrintDocument)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.PrintDocumentExtensions.ToPngStream(System.Drawing.Printing.PrintDocument)">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Api.Extensions.QueryableExtensions">
+            <summary>定義 IQueryable&lt;TSource&gt; 的 Extension</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.QueryableExtensions.ToList``2(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+            <summary>從 IQueryable 建立 List</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.QueryableExtensions.ToArray``2(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+            <summary>從 IQueryable 建立 List</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.QueryableExtensions.OrderBy``2(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Boolean)">
+            <summary> OrderBy 擴充，使用 bool 指定 descending， true Asc ; false Desc</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.QueryableExtensions.ThenBy``2(System.Linq.IOrderedQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Boolean)">
+            <summary> ThenBy 擴充，使用 bool 指定 descending， true Asc ; false Desc</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.QueryableExtensions.OrderBy``1(System.Linq.IQueryable{``0},System.Enum,System.Boolean)">
+            <summary> OrderBy 擴充，可直接使用 Enum Field 排序，Field Name 必須與 Column Name 一致</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.QueryableExtensions.OrderBy``1(System.Linq.IQueryable{``0},System.String,System.Boolean)">
+            <summary> OrderBy 擴充</summary>
+            <param name="source"></param>
+            <param name="keySelector">field Name, propertyName</param>
+            <param name="descending">true Asc; false Desc</param>
+            <returns></returns>
+        </member>
+        <member name="M:Orion.Api.Extensions.QueryableExtensions.AdvancedOrderBy``1(System.Linq.IQueryable{``0},System.String)">
+            <summary> OrderBy 擴充</summary>
+            <param name="source"></param>
+            <param name="keySelector">field Name, propertyName</param>
+            <returns></returns>
+        </member>
+        <member name="M:Orion.Api.Extensions.QueryableExtensions.WhereIn``2(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IEnumerable{``1},System.Int32)">
+            <summary>避免 SqlParameter 參數數量超過 2100 個，將查詢 IN 分次執行。</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.QueryableExtensions.MaxOrDefault``1(System.Linq.IQueryable{``0})">
+            <summary>傳回最大的結果值；空集合則傳回預設值。</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.QueryableExtensions.MaxOrDefault``2(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+            <summary>傳回最大的結果值；空集合則傳回預設值。</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.QueryableExtensions.MinOrDefault``1(System.Linq.IQueryable{``0})">
+            <summary>傳回最小的結果值；空集合則傳回預設值。</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.QueryableExtensions.MinOrDefault``2(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+            <summary>傳回最小的結果值；空集合則傳回預設值。</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.QueryableExtensions.SumOrDefault(System.Linq.IQueryable{System.Int32})">
+            <summary>計算數值序列的總和；空集合則傳回預設值。</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.QueryableExtensions.SumOrDefault(System.Linq.IQueryable{System.Int64})">
+            <summary>計算數值序列的總和；空集合則傳回預設值。</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.QueryableExtensions.SumOrDefault(System.Linq.IQueryable{System.Single})">
+            <summary>計算數值序列的總和；空集合則傳回預設值。</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.QueryableExtensions.SumOrDefault(System.Linq.IQueryable{System.Double})">
+            <summary>計算數值序列的總和；空集合則傳回預設值。</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.QueryableExtensions.SumOrDefault(System.Linq.IQueryable{System.Decimal})">
+            <summary>計算數值序列的總和；空集合則傳回預設值。</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.QueryableExtensions.SumOrDefault``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Int32}})">
+            <summary>計算數值序列的總和；空集合則傳回預設值。</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.QueryableExtensions.SumOrDefault``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Int64}})">
+            <summary>計算數值序列的總和；空集合則傳回預設值。</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.QueryableExtensions.SumOrDefault``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Single}})">
+            <summary>計算數值序列的總和；空集合則傳回預設值。</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.QueryableExtensions.SumOrDefault``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Double}})">
+            <summary>計算數值序列的總和；空集合則傳回預設值。</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.QueryableExtensions.SumOrDefault``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Decimal}})">
+            <summary>計算數值序列的總和；空集合則傳回預設值。</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.QueryableExtensions.AverageOrDefault(System.Linq.IQueryable{System.Int32})">
+            <summary>計算序列的平均值；空集合則傳回預設值。</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.QueryableExtensions.AverageOrDefault(System.Linq.IQueryable{System.Int64})">
+            <summary>計算序列的平均值；空集合則傳回預設值。</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.QueryableExtensions.AverageOrDefault(System.Linq.IQueryable{System.Single})">
+            <summary>計算序列的平均值；空集合則傳回預設值。</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.QueryableExtensions.AverageOrDefault(System.Linq.IQueryable{System.Double})">
+            <summary>計算序列的平均值；空集合則傳回預設值。</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.QueryableExtensions.AverageOrDefault(System.Linq.IQueryable{System.Decimal})">
+            <summary>計算序列的平均值；空集合則傳回預設值。</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.QueryableExtensions.AverageOrDefault``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Int32}})">
+            <summary>計算序列的平均值；空集合則傳回預設值。</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.QueryableExtensions.AverageOrDefault``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Int64}})">
+            <summary>計算序列的平均值；空集合則傳回預設值。</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.QueryableExtensions.AverageOrDefault``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Single}})">
+            <summary>計算序列的平均值；空集合則傳回預設值。</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.QueryableExtensions.AverageOrDefault``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Double}})">
+            <summary>計算序列的平均值；空集合則傳回預設值。</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.QueryableExtensions.AverageOrDefault``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Decimal}})">
+            <summary>計算序列的平均值；空集合則傳回預設值。</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.QueryableExtensions.WhereBuilder``2(System.Linq.IQueryable{``0},Orion.Api.Models.WhereParams{``1})">
+            <summary>
+            query = query.WhereBuilder(param)<para/>
+                .Mapping(x =&gt; x.InvoicePrefix,  y =&gt; y.InvoicePrefix)<para/>
+                .Mapping(x =&gt; x.Sum,            y =&gt; y.Total)<para/>
+                .Mapping(x =&gt; x.ProductQty,     y =&gt; y.InvoiceIssueItems.Select(z =&gt; (int?)z.Qty))<para/>
+                .Build();<para/>
+            </summary>
+        </member>
+        <member name="T:Orion.Api.Extensions.QueueExtensions">
+            <summary>定義 Queue, ConcurrentQueue 的 Extension</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.QueueExtensions.EnumerateDequeue``1(System.Collections.Generic.Queue{``0})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.QueueExtensions.EnumerateDequeue``1(System.Collections.Concurrent.ConcurrentQueue{``0})">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Api.Extensions.SocketExtensions">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.SocketExtensions.SendEncrypt(System.Net.Sockets.Socket,System.Security.Cryptography.SymmetricAlgorithm,System.Byte[])">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.SocketExtensions.ReceiveDecrypt(System.Net.Sockets.Socket,System.Security.Cryptography.SymmetricAlgorithm)">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Api.Extensions.StringExtensions">
+            <summary>定義 String 的 Extension</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.StringExtensions.HasText(System.String)">
+            <summary>檢查 string 是否有文字</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.StringExtensions.NoText(System.String)">
+            <summary>檢查 string 是否沒有文字</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.StringExtensions.IsMatch(System.String,System.String)">
+            <summary>Regex IsMatch 忽略大小寫</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.StringExtensions.IsMatch(System.String,System.String,System.Text.RegularExpressions.RegexOptions)">
+            <summary>Regex IsMatch</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.StringExtensions.LimitLength(System.String,System.Int32)">
+            <summary>限制字串長度</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.StringExtensions.Repeat(System.String,System.Int32)">
+            <summary>字串重複</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.StringExtensions.Repeat(System.String,System.Int32,System.String)">
+            <summary>字串重複</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.StringExtensions.EqualsIgnoreCase(System.String,System.String)">
+            <summary>將 string 忽略大小寫後比較是否相等</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.StringExtensions.ToEnum``1(System.String)">
+            <summary>將 string 轉換為 Enum，若失敗則拋出 Exception</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.StringExtensions.ToEnum``1(System.String,``0)">
+            <summary>將 string 轉換為 Enum，若失敗則回傳指定 Default Enum</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.StringExtensions.TrimStringPropertys``1(``0)">
+            <summary>將 model 中所有 string type 的 properties 去除空白</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.StringExtensions.ToIdsList``1(System.String,System.String)">
+            <summary>將字串根據,分隔轉為List&lt;T&gt; 若轉型失敗則拋棄</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.StringExtensions.ToIdsList``1(System.String)">
+            <summary>將字串根據,分隔轉為List&lt;T&gt; 若轉型失敗則拋棄</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.StringExtensions.ToIdsArray``1(System.String,System.String)">
+            <summary>將字串根據,分隔轉為 T[] 若轉型失敗則拋棄</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.StringExtensions.ToIdsArray``1(System.String)">
+            <summary>將字串根據,分隔轉為 T[] 若轉型失敗則拋棄</summary>
+        </member>
+        <member name="T:Orion.Api.Extensions.TextReaderExtensions">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.TextReaderExtensions.Lines(System.IO.TextReader)">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Api.Extensions.Utils">
+            <summary>Initialization Extension Utility</summary>
+        </member>
+        <member name="T:Orion.Api.Extensions.WhereHasExtensions">
+            <summary>定義 IEnumerable&lt;TSource&gt; 的 Extension</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.WhereHasExtensions.WhereHas``1(System.Collections.Generic.IEnumerable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary>判斷是否有值後進行 where 篩選</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.WhereHasExtensions.WhereHas``1(System.Collections.Generic.IEnumerable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Int32,System.Boolean}})">
+            <summary>判斷是否有值後進行 where 篩選</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.WhereHasExtensions.WhereHas``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary>判斷是否有值後進行 where 篩選</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.WhereHasExtensions.WhereHas``1(System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Int32,System.Boolean}})">
+            <summary>判斷是否有值後進行 where 篩選</summary>
+        </member>
+        <member name="T:Orion.Api.GetterCacheWrapper">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.GetterCacheWrapper.Wrap``1(``0)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.GetterCacheWrapper.Invoke(System.Reflection.MethodInfo,System.Object[])">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Api.IOrionJob">
+            <summary>排程工作</summary>
+        </member>
+        <member name="M:Orion.Api.IOrionJob.Execute">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Api.IOrionLogger">
+            <summary>IJwLogger 介面</summary>
+        </member>
+        <member name="M:Orion.Api.IOrionLogger.Debug(System.String,System.Exception)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.IOrionLogger.Error(System.String,System.Exception)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.IOrionLogger.Fatal(System.String,System.Exception)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.IOrionLogger.Info(System.String,System.Exception)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.IOrionLogger.Trace(System.String,System.Exception)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.IOrionLogger.Warn(System.String,System.Exception)">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Api.OrionLogLevel">
+            <summary></summary>
+        </member>
+        <member name="F:Orion.Api.OrionLogLevel.Trace">
+            <summary></summary>
+        </member>
+        <member name="F:Orion.Api.OrionLogLevel.Debug">
+            <summary></summary>
+        </member>
+        <member name="F:Orion.Api.OrionLogLevel.Info">
+            <summary></summary>
+        </member>
+        <member name="F:Orion.Api.OrionLogLevel.Warn">
+            <summary></summary>
+        </member>
+        <member name="F:Orion.Api.OrionLogLevel.Error">
+            <summary></summary>
+        </member>
+        <member name="F:Orion.Api.OrionLogLevel.Fatal">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Api.IOrionLoggerFactory">
+            <summary>IJwLogger 介面</summary>
+        </member>
+        <member name="M:Orion.Api.IOrionLoggerFactory.Create">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.IOrionLoggerFactory.Create(System.Type)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.IOrionLoggerFactory.Create(System.String)">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Api.IPasswordHandle">
+            <summary>IPasswordHandle 介面</summary>
+        </member>
+        <member name="M:Orion.Api.IPasswordHandle.Validate(System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.IPasswordHandle.Encrypt(System.String)">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Api.LambdaUtils">
+            <summary>定義 Lambda Expression 的 Extension</summary>
+        </member>
+        <member name="M:Orion.Api.LambdaUtils.GetMethod``1(System.Linq.Expressions.Expression{System.Action{``0}})">
+            <summary>尋找 Lambda Expression tree 中的 MethodInfo</summary>
+        </member>
+        <member name="M:Orion.Api.LambdaUtils.GetMethod(System.Linq.Expressions.Expression{System.Action})">
+            <summary>尋找 Lambda Expression tree 中的 MethodInfo</summary>
+        </member>
+        <member name="M:Orion.Api.LambdaUtils.getMethod(System.Linq.Expressions.Expression)">
+            <summary>尋找 Lambda Expression tree 中的 MethodInfo</summary>
+        </member>
+        <member name="M:Orion.Api.LambdaUtils.GetGenericMethodDefinition``1(System.Linq.Expressions.Expression{System.Action{``0}})">
+            <summary>尋找 Lambda Expression tree 中的 Generic Definition MethodInfo</summary>
+        </member>
+        <member name="M:Orion.Api.LambdaUtils.GetGenericMethodDefinition(System.Linq.Expressions.Expression{System.Action})">
+            <summary>尋找 Lambda Expression tree 中的 Generic Definition MethodInfo</summary>
+        </member>
+        <member name="M:Orion.Api.LambdaUtils.getGenericMethodDefinition(System.Linq.Expressions.Expression)">
+            <summary>尋找 Lambda Expression tree 中的 Generic Definition MethodInfo</summary>
+        </member>
+        <member name="M:Orion.Api.LambdaUtils.True``1">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.LambdaUtils.False``1">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Api.Models.AssemblyMeta">
+            <summary>Assembly Meta 資訊</summary>
+        </member>
+        <member name="P:Orion.Api.Models.AssemblyMeta.Name">
+            <summary></summary>
+        </member>
+        <member name="P:Orion.Api.Models.AssemblyMeta.Title">
+            <summary></summary>
+        </member>
+        <member name="P:Orion.Api.Models.AssemblyMeta.Description">
+            <summary></summary>
+        </member>
+        <member name="P:Orion.Api.Models.AssemblyMeta.Configuration">
+            <summary></summary>
+        </member>
+        <member name="P:Orion.Api.Models.AssemblyMeta.Company">
+            <summary></summary>
+        </member>
+        <member name="P:Orion.Api.Models.AssemblyMeta.Product">
+            <summary></summary>
+        </member>
+        <member name="P:Orion.Api.Models.AssemblyMeta.Copyright">
+            <summary></summary>
+        </member>
+        <member name="P:Orion.Api.Models.AssemblyMeta.Trademark">
+            <summary></summary>
+        </member>
+        <member name="P:Orion.Api.Models.AssemblyMeta.Culture">
+            <summary></summary>
+        </member>
+        <member name="P:Orion.Api.Models.AssemblyMeta.Guid">
+            <summary></summary>
+        </member>
+        <member name="P:Orion.Api.Models.AssemblyMeta.Version">
+            <summary></summary>
+        </member>
+        <member name="P:Orion.Api.Models.AssemblyMeta.FileVersion">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Api.Models.CalendarParams">
+            <summary>日曆參數</summary>
+        </member>
+        <member name="M:Orion.Api.Models.CalendarParams.#ctor">
+            <summary></summary>
+        </member>
+        <member name="P:Orion.Api.Models.CalendarParams.Year">
+            <summary>年</summary>
+        </member>
+        <member name="P:Orion.Api.Models.CalendarParams.Month">
+            <summary>月</summary>
+        </member>
+        <member name="P:Orion.Api.Models.CalendarParams.WeekDayFirst">
+            <summary>每周第一天</summary>
+        </member>
+        <member name="P:Orion.Api.Models.CalendarParams.WeekDayLast">
+            <summary>每周最後一天</summary>
+        </member>
+        <member name="P:Orion.Api.Models.CalendarParams.FirstDate">
+            <summary>當月第一天</summary>
+        </member>
+        <member name="P:Orion.Api.Models.CalendarParams.LastDate">
+            <summary>當月最後一天</summary>
+        </member>
+        <member name="P:Orion.Api.Models.CalendarParams.PadFirstDate">
+            <summary>補齊行事曆第一天</summary>
+        </member>
+        <member name="P:Orion.Api.Models.CalendarParams.PadLastDate">
+            <summary>補齊行事曆最後一天</summary>
+        </member>
+        <member name="P:Orion.Api.Models.CalendarParams.PreviousMonth">
+            <summary>上個月</summary>
+        </member>
+        <member name="P:Orion.Api.Models.CalendarParams.NextMonth">
+            <summary>下個月</summary>
+        </member>
+        <member name="P:Orion.Api.Models.CalendarParams.WeekNameItems">
+            <summary>以指定起始星期為基礎，產生本周星期清單</summary>
+        </member>
+        <member name="M:Orion.Api.Models.CalendarParams.GetYearItems(System.Int32)">
+            <summary>取得從 (目前年份-10) 開始，往後取(目前年份 + 9)數量 的陣列</summary>
+        </member>
+        <member name="M:Orion.Api.Models.CalendarParams.GetMonthItems">
+            <summary>取得月份的陣列</summary>
+        </member>
+        <member name="M:Orion.Api.Models.CalendarParams.IsToday(System.DateTime)">
+            <summary>是否為今天</summary>
+        </member>
+        <member name="M:Orion.Api.Models.CalendarParams.IsWeekend(System.DateTime)">
+            <summary>是否為周末</summary>
+        </member>
+        <member name="M:Orion.Api.Models.CalendarParams.IsInMonth(System.DateTime)">
+            <summary>是否於當月區間</summary>
+        </member>
+        <member name="M:Orion.Api.Models.CalendarParams.IsWeekDayFirst(System.DateTime)">
+            <summary>是否為每周第一天</summary>
+        </member>
+        <member name="M:Orion.Api.Models.CalendarParams.IsWeekDayLast(System.DateTime)">
+            <summary>是否為每周最後一天</summary>
+        </member>
+        <member name="M:Orion.Api.Models.CalendarParams.EnumerateDates">
+            <summary>列舉行事曆的每一天</summary>
+        </member>
+        <member name="M:Orion.Api.Models.CalendarParams.EnumeratePadDates">
+            <summary>列舉補齊行事曆的每一天</summary>
+        </member>
+        <member name="T:Orion.Api.Models.DateTimeSection">
+            <summary>日期時間區段</summary>
+        </member>
+        <member name="P:Orion.Api.Models.DateTimeSection.Start">
+            <summary>開始日期時間</summary>
+        </member>
+        <member name="P:Orion.Api.Models.DateTimeSection.End">
+            <summary>結束日期時間</summary>
+        </member>
+        <member name="P:Orion.Api.Models.DateTimeSection.Duration">
+            <summary>日期時間長度</summary>
+        </member>
+        <member name="M:Orion.Api.Models.DateTimeSection.#ctor">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Models.DateTimeSection.#ctor(Orion.Api.Models.DateTimeSection)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Models.DateTimeSection.#ctor(System.DateTimeOffset,System.DateTimeOffset)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Models.DateTimeSection.#ctor(System.String,System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Models.DateTimeSection.Equals(System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Models.DateTimeSection.Equals(Orion.Api.Models.DateTimeSection)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Models.DateTimeSection.GetHashCode">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Models.DateTimeSection.ToString">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Models.DateTimeSection.op_Equality(Orion.Api.Models.DateTimeSection,Orion.Api.Models.DateTimeSection)">
+            <summary>覆寫等於運算子</summary>
+        </member>
+        <member name="M:Orion.Api.Models.DateTimeSection.op_Inequality(Orion.Api.Models.DateTimeSection,Orion.Api.Models.DateTimeSection)">
+            <summary>覆寫不等於運算子</summary>
+        </member>
+        <member name="T:Orion.Api.Models.PageParams">
+            <summary>分頁參數</summary>
+        </member>
+        <member name="P:Orion.Api.Models.PageParams.PageIndex">
+            <summary></summary>
+        </member>
+        <member name="P:Orion.Api.Models.PageParams.PageSize">
+            <summary></summary>
+        </member>
+        <member name="P:Orion.Api.Models.PageParams.OrderField">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Api.Models.PageParamsExtensions">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Models.PageParamsExtensions.NullToUnlimited(Orion.Api.Models.PageParams)">
+            <summary>PageParams 如果為 null 就回傳不限制分頁 Unlimited</summary>
+        </member>
+        <member name="M:Orion.Api.Models.PageParamsExtensions.SetOrderField(Orion.Api.Models.PageParams,System.String,System.Boolean)">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Api.Models.IPagination">
+            <summary>分頁 Interface</summary>
+        </member>
+        <member name="P:Orion.Api.Models.IPagination.PageNumber">
+            <summary>當前頁號</summary>
+        </member>
+        <member name="P:Orion.Api.Models.IPagination.PageSize">
+            <summary>每頁大小</summary>
+        </member>
+        <member name="P:Orion.Api.Models.IPagination.TotalItems">
+            <summary>總筆數</summary>
+        </member>
+        <member name="P:Orion.Api.Models.IPagination.FirstItem">
+            <summary>當頁第一筆編號</summary>
+        </member>
+        <member name="P:Orion.Api.Models.IPagination.HasNextPage">
+            <summary>是否有下一頁</summary>
+        </member>
+        <member name="P:Orion.Api.Models.IPagination.HasPreviousPage">
+            <summary>是否有前一頁</summary>
+        </member>
+        <member name="P:Orion.Api.Models.IPagination.LastItem">
+            <summary>當頁最後一筆編號</summary>
+        </member>
+        <member name="P:Orion.Api.Models.IPagination.TotalPages">
+            <summary>總共頁數</summary>
+        </member>
+        <member name="T:Orion.Api.Models.Pagination`1">
+            <summary>分頁 Class</summary>
+        </member>
+        <member name="M:Orion.Api.Models.Pagination`1.Empty">
+            <summary>取得空的分頁</summary>
+        </member>
+        <member name="P:Orion.Api.Models.Pagination`1.List">
+            <summary>資料清單</summary>
+        </member>
+        <member name="P:Orion.Api.Models.Pagination`1.PageNumber">
+            <summary>當前頁號</summary>
+        </member>
+        <member name="P:Orion.Api.Models.Pagination`1.PageSize">
+            <summary>每頁大小</summary>
+        </member>
+        <member name="P:Orion.Api.Models.Pagination`1.TotalItems">
+            <summary>總筆數</summary>
+        </member>
+        <member name="P:Orion.Api.Models.Pagination`1.FirstItem">
+            <summary>當頁第一筆編號</summary>
+        </member>
+        <member name="P:Orion.Api.Models.Pagination`1.HasNextPage">
+            <summary>是否有下一頁</summary>
+        </member>
+        <member name="P:Orion.Api.Models.Pagination`1.HasPreviousPage">
+            <summary>是否有前一頁</summary>
+        </member>
+        <member name="P:Orion.Api.Models.Pagination`1.LastItem">
+            <summary>當頁最後一筆編號</summary>
+        </member>
+        <member name="P:Orion.Api.Models.Pagination`1.TotalPages">
+            <summary>總共頁數</summary>
+        </member>
+        <member name="T:Orion.Api.Models.DataTablePagination">
+            <summary>分頁 Class</summary>
+        </member>
+        <member name="M:Orion.Api.Models.DataTablePagination.Empty">
+            <summary>取得空的分頁</summary>
+        </member>
+        <member name="P:Orion.Api.Models.DataTablePagination.DataTable">
+            <summary>資料清單</summary>
+        </member>
+        <member name="P:Orion.Api.Models.DataTablePagination.PageNumber">
+            <summary>當前頁號</summary>
+        </member>
+        <member name="P:Orion.Api.Models.DataTablePagination.PageSize">
+            <summary>每頁大小</summary>
+        </member>
+        <member name="P:Orion.Api.Models.DataTablePagination.TotalItems">
+            <summary>總筆數</summary>
+        </member>
+        <member name="P:Orion.Api.Models.DataTablePagination.FirstItem">
+            <summary>當頁第一筆編號</summary>
+        </member>
+        <member name="P:Orion.Api.Models.DataTablePagination.HasNextPage">
+            <summary>是否有下一頁</summary>
+        </member>
+        <member name="P:Orion.Api.Models.DataTablePagination.HasPreviousPage">
+            <summary>是否有前一頁</summary>
+        </member>
+        <member name="P:Orion.Api.Models.DataTablePagination.LastItem">
+            <summary>當頁最後一筆編號</summary>
+        </member>
+        <member name="P:Orion.Api.Models.DataTablePagination.TotalPages">
+            <summary>總共頁數</summary>
+        </member>
+        <member name="T:Orion.Api.Models.TableInfo">
+            <summary></summary>
+        </member>
+        <member name="P:Orion.Api.Models.TableInfo.Schema">
+            <summary></summary>
+        </member>
+        <member name="P:Orion.Api.Models.TableInfo.Name">
+            <summary></summary>
+        </member>
+        <member name="P:Orion.Api.Models.TableInfo.TotalRows">
+            <summary></summary>
+        </member>
+        <member name="P:Orion.Api.Models.TableInfo.TotalBytes">
+            <summary></summary>
+        </member>
+        <member name="P:Orion.Api.Models.TableInfo.TableBytes">
+            <summary></summary>
+        </member>
+        <member name="P:Orion.Api.Models.TableInfo.IndexBytes">
+            <summary></summary>
+        </member>
+        <member name="P:Orion.Api.Models.TableInfo.UnusedBytes">
+            <summary></summary>
+        </member>
+        <member name="P:Orion.Api.Models.TableInfo.ToastBytes">
+            <summary>超大屬性存儲技術 (The Oversized-Attribute Storage Technique)</summary>
+        </member>
+        <member name="T:Orion.Api.Models.UseStatus">
+            <summary>使用狀態</summary>
+        </member>
+        <member name="F:Orion.Api.Models.UseStatus.Enable">
+            <summary>啟用</summary>
+        </member>
+        <member name="F:Orion.Api.Models.UseStatus.Disable">
+            <summary>停用</summary>
+        </member>
+        <member name="T:Orion.Api.Models.WhereOperator">
+            <summary>查詢方式的定義</summary>
+        </member>
+        <member name="F:Orion.Api.Models.WhereOperator.In">
+            <summary>In</summary>
+        </member>
+        <member name="F:Orion.Api.Models.WhereOperator.NotIn">
+            <summary>!In</summary>
+        </member>
+        <member name="F:Orion.Api.Models.WhereOperator.Equals">
+            <summary>=</summary>
+        </member>
+        <member name="F:Orion.Api.Models.WhereOperator.NotEquals">
+            <summary>!=</summary>
+        </member>
+        <member name="F:Orion.Api.Models.WhereOperator.Contains">
+            <summary>保含</summary>
+        </member>
+        <member name="F:Orion.Api.Models.WhereOperator.NotContains">
+            <summary>不保含</summary>
+        </member>
+        <member name="F:Orion.Api.Models.WhereOperator.StartsWith">
+            <summary>開頭等於</summary>
+        </member>
+        <member name="F:Orion.Api.Models.WhereOperator.NotStartsWith">
+            <summary>不開頭等於</summary>
+        </member>
+        <member name="F:Orion.Api.Models.WhereOperator.EndsWith">
+            <summary>結尾等於</summary>
+        </member>
+        <member name="F:Orion.Api.Models.WhereOperator.NotEndsWith">
+            <summary>不結尾等於</summary>
+        </member>
+        <member name="F:Orion.Api.Models.WhereOperator.LessThan">
+            <summary>&lt;</summary>
+        </member>
+        <member name="F:Orion.Api.Models.WhereOperator.LessEquals">
+            <summary>&lt;=</summary>
+        </member>
+        <member name="F:Orion.Api.Models.WhereOperator.GreaterThan">
+            <summary>&gt;</summary>
+        </member>
+        <member name="F:Orion.Api.Models.WhereOperator.GreaterEquals">
+            <summary>&gt;=</summary>
+        </member>
+        <member name="F:Orion.Api.Models.WhereOperator.Between">
+            <summary>在之間</summary>
+        </member>
+        <member name="F:Orion.Api.Models.WhereOperator.Undefined">
+            <summary>未定義</summary>
+        </member>
+        <member name="F:Orion.Api.Models.WhereOperator.NotValue">
+            <summary>沒有值</summary>
+        </member>
+        <member name="T:Orion.Api.Models.WhereParams">
+            <summary>WhereBuilder 的查詢參數</summary>
+        </member>
+        <member name="M:Orion.Api.Models.WhereParams.CreateByObject``1(``0)">
+            <summary>根據物件建立 WhereParams</summary>
+        </member>
+        <member name="P:Orion.Api.Models.WhereParams.Source">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Models.WhereParams.SetValues``1(System.String,Orion.Api.Models.WhereOperator,``0[])">
+            <summary>設定欄位值與查詢條件</summary>
+        </member>
+        <member name="M:Orion.Api.Models.WhereParams.SetOperator(System.String,Orion.Api.Models.WhereOperator)">
+            <summary>設定欄位值與查詢條件</summary>
+        </member>
+        <member name="M:Orion.Api.Models.WhereParams.Remove(System.String)">
+            <summary>移除欄位值與查詢條件</summary>
+        </member>
+        <member name="M:Orion.Api.Models.WhereParams.GetOperator(System.String)">
+            <summary>取得查詢條件</summary>
+        </member>
+        <member name="M:Orion.Api.Models.WhereParams.GetValues(System.String)">
+            <summary>取得欄位數值清單</summary>
+        </member>
+        <member name="T:Orion.Api.Models.WhereParams`1">
+            <summary>WhereBuilder 的查詢參數</summary>
+            <typeparam name="TParams">POCO Model Type</typeparam>
+        </member>
+        <member name="M:Orion.Api.Models.WhereParams`1.As``1">
+            <summary>轉換類型</summary>
+        </member>
+        <member name="M:Orion.Api.Models.WhereParams`1.setValues``1(System.Linq.Expressions.LambdaExpression,Orion.Api.Models.WhereOperator,``0[])">
+            <summary>設定欄位值與查詢條件</summary>
+        </member>
+        <member name="M:Orion.Api.Models.WhereParams`1.SetValues``1(System.Linq.Expressions.Expression{System.Func{`0,System.Collections.Generic.IEnumerable{``0}}},Orion.Api.Models.WhereOperator,``0[])">
+            <summary>設定欄位值與查詢條件</summary>
+        </member>
+        <member name="M:Orion.Api.Models.WhereParams`1.SetValues``1(System.Linq.Expressions.Expression{System.Func{`0,System.Collections.Generic.List{``0}}},Orion.Api.Models.WhereOperator,``0[])">
+            <summary>設定欄位值與查詢條件</summary>
+        </member>
+        <member name="M:Orion.Api.Models.WhereParams`1.SetValues``1(System.Linq.Expressions.Expression{System.Func{`0,``0[]}},Orion.Api.Models.WhereOperator,``0[])">
+            <summary>設定欄位值與查詢條件</summary>
+        </member>
+        <member name="M:Orion.Api.Models.WhereParams`1.SetValues``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},Orion.Api.Models.WhereOperator,``0[])">
+            <summary>設定欄位值與查詢條件</summary>
+        </member>
+        <member name="M:Orion.Api.Models.WhereParams`1.SetOperator``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},Orion.Api.Models.WhereOperator)">
+            <summary>設定欄位值與查詢條件</summary>
+        </member>
+        <member name="M:Orion.Api.Models.WhereParams`1.Remove``1(System.Linq.Expressions.Expression{System.Func{`0,``0}})">
+            <summary>移除欄位值與查詢條件</summary>
+        </member>
+        <member name="M:Orion.Api.Models.WhereParams`1.GetOperator``1(System.Linq.Expressions.Expression{System.Func{`0,``0}})">
+            <summary>取得查詢條件</summary>
+        </member>
+        <member name="M:Orion.Api.Models.WhereParams`1.GetValues(System.String)">
+            <summary>取得欄位數值清單</summary>
+        </member>
+        <member name="M:Orion.Api.Models.WhereParams`1.GetValues``1(System.Linq.Expressions.Expression{System.Func{`0,System.Collections.Generic.IEnumerable{``0}}})">
+            <summary>取得欄位數值清單</summary>
+        </member>
+        <member name="M:Orion.Api.Models.WhereParams`1.GetValues``1(System.Linq.Expressions.Expression{System.Func{`0,System.Collections.Generic.List{``0}}})">
+            <summary>取得欄位數值清單</summary>
+        </member>
+        <member name="M:Orion.Api.Models.WhereParams`1.GetValues``1(System.Linq.Expressions.Expression{System.Func{`0,``0[]}})">
+            <summary>取得欄位數值清單</summary>
+        </member>
+        <member name="M:Orion.Api.Models.WhereParams`1.GetValues``1(System.Linq.Expressions.Expression{System.Func{`0,``0}})">
+            <summary>取得欄位數值清單</summary>
+        </member>
+        <member name="M:Orion.Api.Models.WhereParams`1.Assign(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
+            <summary>設定欄位值與查詢條件</summary>
+        </member>
+        <member name="T:Orion.Api.Models.WhereParamsPair">
+            <summary></summary>
+        </member>
+        <member name="P:Orion.Api.Models.WhereParamsPair.Operator">
+            <summary></summary>
+        </member>
+        <member name="P:Orion.Api.Models.WhereParamsPair.Values">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Models.WhereParamsPair.#ctor">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Models.WhereParamsPair.#ctor(Orion.Api.Models.WhereOperator,System.String[])">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Api.NotifiAttribute">
+            <summary>通知 Attribute</summary>
+        </member>
+        <member name="P:Orion.Api.NotifiAttribute.Async">
+            <summary>非同步執行</summary>
+        </member>
+        <member name="P:Orion.Api.NotifiAttribute.OnlyOne">
+            <summary>唯一執行</summary>
+        </member>
+        <member name="M:Orion.Api.NotifiAttribute.GetName">
+            <summary>通知名稱</summary>
+        </member>
+        <member name="M:Orion.Api.NotifiAttribute.GetParamLimit">
+            <summary>參數數量</summary>
+        </member>
+        <member name="T:Orion.Api.OnInitAttribute">
+            <summary>初始</summary>
+        </member>
+        <member name="M:Orion.Api.OnInitAttribute.GetParamLimit">
+            <summary>參數數量 0</summary>
+        </member>
+        <member name="T:Orion.Api.OnCloseAttribute">
+            <summary>關閉</summary>
+        </member>
+        <member name="M:Orion.Api.OnCloseAttribute.GetParamLimit">
+            <summary>參數數量 0</summary>
+        </member>
+        <member name="T:Orion.Api.OnCycleAttribute">
+            <summary>週期</summary>
+        </member>
+        <member name="M:Orion.Api.OnCycleAttribute.GetParamLimit">
+            <summary>參數數量 0</summary>
+        </member>
+        <member name="T:Orion.Api.OnChangeAttribute">
+            <summary>改變</summary>
+        </member>
+        <member name="M:Orion.Api.OnChangeAttribute.GetParamLimit">
+            <summary>參數數量 1</summary>
+        </member>
+        <member name="T:Orion.Api.OnTimeoutAttribute">
+            <summary>逾時</summary>
+        </member>
+        <member name="M:Orion.Api.OnTimeoutAttribute.GetParamLimit">
+            <summary>參數數量 1</summary>
+        </member>
+        <member name="T:Orion.Api.OnFailureAttribute">
+            <summary>失敗</summary>
+        </member>
+        <member name="M:Orion.Api.OnFailureAttribute.GetParamLimit">
+            <summary>參數數量 1</summary>
+        </member>
+        <member name="T:Orion.Api.OnCompleteAttribute">
+            <summary>完成</summary>
+        </member>
+        <member name="M:Orion.Api.OnCompleteAttribute.GetParamLimit">
+            <summary>參數數量 1</summary>
+        </member>
+        <member name="T:Orion.Api.NotifierLog">
+            <summary></summary>
+        </member>
+        <member name="F:Orion.Api.NotifierLog.Debug">
+            <summary></summary>
+        </member>
+        <member name="F:Orion.Api.NotifierLog.Error">
+            <summary></summary>
+        </member>
+        <member name="F:Orion.Api.NotifierLog.Fatal">
+            <summary></summary>
+        </member>
+        <member name="F:Orion.Api.NotifierLog.Info">
+            <summary></summary>
+        </member>
+        <member name="F:Orion.Api.NotifierLog.Trace">
+            <summary></summary>
+        </member>
+        <member name="F:Orion.Api.NotifierLog.Warn">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Api.INotifier">
+            <summary>事件通知者</summary>
+        </member>
+        <member name="P:Orion.Api.INotifier.Monitors">
+            <summary>監看清單</summary>
+        </member>
+        <member name="M:Orion.Api.INotifier.RegisterListen(System.Object)">
+            <summary>註冊監聽，建立 async method 時回傳型態請用 Task，這樣 Notifier 才有辦法攔截 Exception</summary>
+        </member>
+        <member name="M:Orion.Api.INotifier.TriggerInit">
+            <summary>觸發初始</summary>
+        </member>
+        <member name="M:Orion.Api.INotifier.TriggerInit(Orion.Api.NotifierLog)">
+            <summary>觸發初始</summary>
+        </member>
+        <member name="M:Orion.Api.INotifier.TriggerClose">
+            <summary>觸發關閉</summary>
+        </member>
+        <member name="M:Orion.Api.INotifier.TriggerClose(Orion.Api.NotifierLog)">
+            <summary>觸發關閉</summary>
+        </member>
+        <member name="M:Orion.Api.INotifier.TriggerCycle">
+            <summary>觸發週期</summary>
+        </member>
+        <member name="M:Orion.Api.INotifier.TriggerCycle(Orion.Api.NotifierLog)">
+            <summary>觸發週期</summary>
+        </member>
+        <member name="M:Orion.Api.INotifier.TriggerChange``1(``0)">
+            <summary>觸發改變</summary>
+        </member>
+        <member name="M:Orion.Api.INotifier.TriggerChange``1(``0,Orion.Api.NotifierLog)">
+            <summary>觸發改變</summary>
+        </member>
+        <member name="M:Orion.Api.INotifier.TriggerTimeout``1(``0)">
+            <summary>觸發逾時</summary>
+        </member>
+        <member name="M:Orion.Api.INotifier.TriggerTimeout``1(``0,Orion.Api.NotifierLog)">
+            <summary>觸發逾時</summary>
+        </member>
+        <member name="M:Orion.Api.INotifier.TriggerFailure``1(``0)">
+            <summary>觸發失敗</summary>
+        </member>
+        <member name="M:Orion.Api.INotifier.TriggerFailure``1(``0,Orion.Api.NotifierLog)">
+            <summary>觸發失敗</summary>
+        </member>
+        <member name="M:Orion.Api.INotifier.TriggerComplete``1(``0)">
+            <summary>觸發完成</summary>
+        </member>
+        <member name="M:Orion.Api.INotifier.TriggerComplete``1(``0,Orion.Api.NotifierLog)">
+            <summary>觸發完成</summary>
+        </member>
+        <member name="M:Orion.Api.INotifier.Wait``1(System.Func{``0,System.Boolean})">
+            <summary>等待通知</summary>
+        </member>
+        <member name="M:Orion.Api.INotifier.Wait``1(System.Int32,System.Func{``0,System.Boolean})">
+            <summary>等待通知</summary>
+        </member>
+        <member name="T:Orion.Api.Notifier">
+            <summary>事件通知者</summary>
+        </member>
+        <member name="P:Orion.Api.Notifier.WaitTimeout">
+            <summary>等待逾時秒數</summary>
+        </member>
+        <member name="P:Orion.Api.Notifier.Monitors">
+            <summary>監看清單</summary>
+        </member>
+        <member name="M:Orion.Api.Notifier.#ctor(Orion.Api.IOrionLoggerFactory)">
+            <summary>事件通知者</summary>
+        </member>
+        <member name="M:Orion.Api.Notifier.RegisterListen(System.Object)">
+            <summary>註冊監聽，建立 async method 時回傳型態請用 Task，這樣 Notifier 才有辦法攔截 Exception</summary>
+        </member>
+        <member name="M:Orion.Api.Notifier.TriggerInit">
+            <summary>觸發初始</summary>
+        </member>
+        <member name="M:Orion.Api.Notifier.TriggerInit(Orion.Api.NotifierLog)">
+            <summary>觸發初始</summary>
+        </member>
+        <member name="M:Orion.Api.Notifier.TriggerClose">
+            <summary>觸發關閉</summary>
+        </member>
+        <member name="M:Orion.Api.Notifier.TriggerClose(Orion.Api.NotifierLog)">
+            <summary>觸發關閉</summary>
+        </member>
+        <member name="M:Orion.Api.Notifier.TriggerCycle">
+            <summary>觸發週期</summary>
+        </member>
+        <member name="M:Orion.Api.Notifier.TriggerCycle(Orion.Api.NotifierLog)">
+            <summary>觸發週期</summary>
+        </member>
+        <member name="M:Orion.Api.Notifier.TriggerChange``1(``0)">
+            <summary>觸發改變</summary>
+        </member>
+        <member name="M:Orion.Api.Notifier.TriggerChange``1(``0,Orion.Api.NotifierLog)">
+            <summary>觸發改變</summary>
+        </member>
+        <member name="M:Orion.Api.Notifier.TriggerTimeout``1(``0)">
+            <summary>觸發逾時</summary>
+        </member>
+        <member name="M:Orion.Api.Notifier.TriggerTimeout``1(``0,Orion.Api.NotifierLog)">
+            <summary>觸發逾時</summary>
+        </member>
+        <member name="M:Orion.Api.Notifier.TriggerFailure``1(``0)">
+            <summary>觸發失敗</summary>
+        </member>
+        <member name="M:Orion.Api.Notifier.TriggerFailure``1(``0,Orion.Api.NotifierLog)">
+            <summary>觸發失敗</summary>
+        </member>
+        <member name="M:Orion.Api.Notifier.TriggerComplete``1(``0)">
+            <summary>觸發完成</summary>
+        </member>
+        <member name="M:Orion.Api.Notifier.TriggerComplete``1(``0,Orion.Api.NotifierLog)">
+            <summary>觸發完成</summary>
+        </member>
+        <member name="M:Orion.Api.Notifier.StartCycle(System.Int32)">
+            <summary>啟動週期</summary>
+        </member>
+        <member name="M:Orion.Api.Notifier.StopCycle">
+            <summary>停止週期</summary>
+        </member>
+        <member name="M:Orion.Api.Notifier.Wait``1(System.Func{``0,System.Boolean})">
+            <summary>等待通知，逾時會 throw System.TimeoutException</summary>
+        </member>
+        <member name="M:Orion.Api.Notifier.Wait``1(System.Int32,System.Func{``0,System.Boolean})">
+            <summary>等待通知，逾時會 throw System.TimeoutException</summary>
+        </member>
+        <member name="T:Orion.Api.Notifier.NormalListen">
+            <summary>針對普通 method 的調用</summary>
+        </member>
+        <member name="T:Orion.Api.Notifier.NormalAsyncListen">
+            <summary>針對普通 method 非同步的調用</summary>
+        </member>
+        <member name="T:Orion.Api.Notifier.NormalOnlyOneListen">
+            <summary>針對普通 method 非同步單一執行的調用</summary>
+        </member>
+        <member name="T:Orion.Api.Notifier.AsyncListen">
+            <summary>針對 async method 的呼叫</summary>
+        </member>
+        <member name="T:Orion.Api.Notifier.AsyncOnlyOneListen">
+            <summary>針對普通 method 非同步單一執行的調用</summary>
+        </member>
+        <member name="T:Orion.Api.NotifiMonitor">
+            <summary></summary>
+        </member>
+        <member name="P:Orion.Api.NotifiMonitor.Handle">
+            <summary>執行對象</summary>
+        </member>
+        <member name="P:Orion.Api.NotifiMonitor.HandleType">
+            <summary>執行對象類型</summary>
+        </member>
+        <member name="P:Orion.Api.NotifiMonitor.Method">
+            <summary>執行方法</summary>
+        </member>
+        <member name="P:Orion.Api.NotifiMonitor.RunCount">
+            <summary>執行總數</summary>
+        </member>
+        <member name="P:Orion.Api.NotifiMonitor.LastBegin">
+            <summary>最後一次的開始時間</summary>
+        </member>
+        <member name="P:Orion.Api.NotifiMonitor.LastEnd">
+            <summary>最後一次的結束時間</summary>
+        </member>
+        <member name="P:Orion.Api.NotifiMonitor.LastSeconds">
+            <summary>最後一次的執行時間</summary>
+        </member>
+        <member name="P:Orion.Api.NotifiMonitor.MaxBegin">
+            <summary>最大的開始時間</summary>
+        </member>
+        <member name="P:Orion.Api.NotifiMonitor.MaxSeconds">
+            <summary>最大執行時間</summary>
+        </member>
+        <member name="P:Orion.Api.NotifiMonitor.ConsumeBegin">
+            <summary>超過一秒的開始時間</summary>
+        </member>
+        <member name="P:Orion.Api.NotifiMonitor.ConsumeAvg">
+            <summary>超過一秒執行平均</summary>
+        </member>
+        <member name="P:Orion.Api.NotifiMonitor.ConsumeCount">
+            <summary>超過一秒的總數</summary>
+        </member>
+        <member name="P:Orion.Api.NotifiMonitor.ConsumePercent">
+            <summary>超過一秒的百分比</summary>
+        </member>
+        <member name="M:Orion.Api.NotifiMonitor.#ctor(System.Object,System.Reflection.MethodInfo)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.NotifiMonitor.Add(System.DateTime,System.DateTime)">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Api.NotifiStatus">
+            <summary>事件類型</summary>
+        </member>
+        <member name="F:Orion.Api.NotifiStatus.None">
+            <summary>無</summary>
+        </member>
+        <member name="F:Orion.Api.NotifiStatus.Change">
+            <summary>更新</summary>
+        </member>
+        <member name="F:Orion.Api.NotifiStatus.Timeout">
+            <summary>逾時</summary>
+        </member>
+        <member name="F:Orion.Api.NotifiStatus.Failure">
+            <summary>失敗</summary>
+        </member>
+        <member name="F:Orion.Api.NotifiStatus.Complete">
+            <summary>完成</summary>
+        </member>
+        <member name="T:Orion.Api.INotifiStatusable">
+            <summary>可設定事件類型</summary>
+        </member>
+        <member name="M:Orion.Api.INotifiStatusable.SetNotifiStatus(Orion.Api.NotifiStatus)">
+            <summary>設定事件類型</summary>
+        </member>
+        <member name="T:Orion.Api.OrionEventLogger">
+            <summary>nLog Tools</summary>
+        </member>
+        <member name="E:Orion.Api.OrionEventLogger.Event">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.OrionEventLogger.Trace(System.String,System.Exception)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.OrionEventLogger.Debug(System.String,System.Exception)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.OrionEventLogger.Info(System.String,System.Exception)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.OrionEventLogger.Warn(System.String,System.Exception)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.OrionEventLogger.Error(System.String,System.Exception)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.OrionEventLogger.Fatal(System.String,System.Exception)">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Api.OrionNLogLogger">
+            <summary>nLog Tools</summary>
+        </member>
+        <member name="M:Orion.Api.OrionNLogLogger.#ctor">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.OrionNLogLogger.#ctor(System.Type)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.OrionNLogLogger.#ctor(System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.OrionNLogLogger.Trace(System.String,System.Exception)">
+            <summary>nlog Trace</summary>
+        </member>
+        <member name="M:Orion.Api.OrionNLogLogger.Debug(System.String,System.Exception)">
+            <summary>nlog Debug</summary>
+        </member>
+        <member name="M:Orion.Api.OrionNLogLogger.Info(System.String,System.Exception)">
+            <summary>nlog Info</summary>
+        </member>
+        <member name="M:Orion.Api.OrionNLogLogger.Warn(System.String,System.Exception)">
+            <summary>nlog Warn</summary>
+        </member>
+        <member name="M:Orion.Api.OrionNLogLogger.Error(System.String,System.Exception)">
+            <summary>nlog Error</summary>
+        </member>
+        <member name="M:Orion.Api.OrionNLogLogger.Fatal(System.String,System.Exception)">
+            <summary>nlog Fatal</summary>
+        </member>
+        <member name="T:Orion.Api.OrionNLogLoggerFactory">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.OrionNLogLoggerFactory.Create">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.OrionNLogLoggerFactory.Create(System.Type)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.OrionNLogLoggerFactory.Create(System.String)">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Api.OrionUtils">
+            <summary>Utility Tools</summary>
+        </member>
+        <member name="F:Orion.Api.OrionUtils.ValidDate">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.OrionUtils.HasValue(System.Object)">
+            <summary>判斷 value( Enum, string, DateTime, DateTimeOffset, IEnumerable, decimal ) 是否有值 </summary>
+        </member>
+        <member name="M:Orion.Api.OrionUtils.tx(System.Transactions.IsolationLevel)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.OrionUtils.TxSerializable">
+            <summary>v0: 在交易期間可以讀取 Volatile (易失性)資料，但無法修改該資料，且不能加入新資料。</summary>
+        </member>
+        <member name="M:Orion.Api.OrionUtils.TxRepeatableRead">
+            <summary>v1: 在交易期間可以讀取 Volatile (易失性)資料，但無法修改該資料。 在交易期間可以加入新資料。</summary>
+        </member>
+        <member name="M:Orion.Api.OrionUtils.TxReadCommitted">
+            <summary>v2: 在交易期間無法讀取 Volatile (易失性)資料，但可以修改該資料。</summary>
+        </member>
+        <member name="M:Orion.Api.OrionUtils.TxReadUncommitted">
+            <summary>v3: 在交易期間可以讀取和修改 Volatile (易失性)資料。[髒讀]</summary>
+        </member>
+        <member name="M:Orion.Api.OrionUtils.EnumToDictionary``1">
+            <summary>將 enum 轉為 dictionary&lt;string,string&gt;</summary>
+        </member>
+        <member name="M:Orion.Api.OrionUtils.EnumToDictionary(System.Type)">
+            <summary>將 enum 轉為 dictionary&lt;string,string&gt;</summary>
+        </member>
+        <member name="M:Orion.Api.OrionUtils.GetEnumValues``1">
+            <summary>取得所有 enum 的值</summary>
+        </member>
+        <member name="M:Orion.Api.OrionUtils.EnumerateRange(System.Int32,System.Int32)">
+            <summary>迭代指定範圍，可以 [小到大] 或 [大到小]</summary>
+        </member>
+        <member name="M:Orion.Api.OrionUtils.EnumerateRange(System.DateTime,System.DateTime)">
+            <summary>迭代指定範圍，可以 [小到大] 或 [大到小]</summary>
+        </member>
+        <member name="M:Orion.Api.OrionUtils.GetSolarDay(System.Nullable{System.DateTime})">
+            <summary>取得太陽日</summary>
+        </member>
+        <member name="M:Orion.Api.OrionUtils.ParseSolarDay(System.Nullable{System.Int32})">
+            <summary>解析太陽日</summary>
+        </member>
+        <member name="M:Orion.Api.OrionUtils.ParseCnDate(System.String)">
+            <summary>解析民國日期</summary>
+        </member>
+        <member name="M:Orion.Api.OrionUtils.ParseCnDateTime(System.String)">
+            <summary>解析民國日期</summary>
+        </member>
+        <member name="M:Orion.Api.OrionUtils.Min(System.DateTime,System.DateTime)">
+            <summary>傳回兩個日期中較小的一個</summary>
+        </member>
+        <member name="M:Orion.Api.OrionUtils.Max(System.DateTime,System.DateTime)">
+            <summary>傳回兩個日期中較大的一個</summary>
+        </member>
+        <member name="M:Orion.Api.OrionUtils.Min(System.DateTimeOffset,System.DateTimeOffset)">
+            <summary>傳回兩個日期中較小的一個</summary>
+        </member>
+        <member name="M:Orion.Api.OrionUtils.Max(System.DateTimeOffset,System.DateTimeOffset)">
+            <summary>傳回兩個日期中較大的一個</summary>
+        </member>
+        <member name="M:Orion.Api.OrionUtils.Min(System.TimeSpan,System.TimeSpan)">
+            <summary>傳回兩個時間中較小的一個</summary>
+        </member>
+        <member name="M:Orion.Api.OrionUtils.Max(System.TimeSpan,System.TimeSpan)">
+            <summary>傳回兩個時間中較大的一個</summary>
+        </member>
+        <member name="M:Orion.Api.OrionUtils.IsLockedProcessId(System.String)">
+            <summary>是否鎖定中 Process Id</summary>
+        </member>
+        <member name="M:Orion.Api.OrionUtils.LockProcessId(System.String)">
+            <summary>鎖定 Process Id</summary>
+        </member>
+        <member name="M:Orion.Api.OrionUtils.UnlockProcessId(System.String)">
+            <summary>解鎖 Process Id</summary>
+        </member>
+        <member name="M:Orion.Api.OrionUtils.Md5String(System.String)">
+            <summary>MD5 輸入字串</summary>
+        </member>
+        <member name="M:Orion.Api.OrionUtils.Md5File(System.String)">
+            <summary>MD5 檔案</summary>
+        </member>
+        <member name="M:Orion.Api.OrionUtils.Md5File(System.IO.Stream)">
+            <summary>MD5 檔案</summary>
+        </member>
+        <member name="M:Orion.Api.OrionUtils.Md5File(System.Byte[])">
+            <summary>MD5 檔案</summary>
+        </member>
+        <member name="M:Orion.Api.OrionUtils.AllotHashPath(System.String,System.Int32)">
+            <summary>分配雜湊路徑 /ed/a0/123</summary>
+        </member>
+        <member name="M:Orion.Api.OrionUtils.AllotPath(System.Int32)">
+            <summary>分配路徑 /000/000/123</summary>
+        </member>
+        <member name="T:Orion.Api.PasswordSHA256Handle">
+            <summary>SHA256 Tools</summary>
+        </member>
+        <member name="M:Orion.Api.PasswordSHA256Handle.Validate(System.String)">
+            <summary>驗證 SHA256 字串是否由 a-z 加 A-Z 加 0-9 組成</summary>
+        </member>
+        <member name="M:Orion.Api.PasswordSHA256Handle.Encrypt(System.String)">
+            <summary>將 string to SHA256 to Base64 </summary>
+        </member>
+        <member name="T:Orion.Api.ServiceContextGenerator">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.ServiceContextGenerator.Create``1(Autofac.IComponentContext)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.ServiceContextGenerator.Invoke(System.Reflection.MethodInfo,System.Object[])">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Api.ThreadTimeZone">
+            <summary>Thread 的時區</summary>
+        </member>
+        <member name="P:Orion.Api.ThreadTimeZone.Current">
+            <summary>當前 Thread 的時區</summary>
+        </member>
+        <member name="M:Orion.Api.ThreadTimeZone.PatchZone(System.DateTimeOffset)">
+            <summary>修補 DateTimeOffset 的時區到當前時區</summary>
+        </member>
+        <member name="M:Orion.Api.ThreadTimeZone.PatchZone(System.Nullable{System.DateTimeOffset})">
+            <summary>修補 DateTimeOffset 的時區到當前時區</summary>
+        </member>
+        <member name="M:Orion.Api.ThreadTimeZone.ConvertZone(System.DateTimeOffset)">
+            <summary>轉換 DateTimeOffset 到當前時區</summary>
+        </member>
+        <member name="M:Orion.Api.ThreadTimeZone.ConvertZone(System.Nullable{System.DateTimeOffset})">
+            <summary>轉換 DateTimeOffset 到當前時區</summary>
+        </member>
+        <member name="T:Orion.Api.UserException">
+            <summary>Custom Exception</summary>
+        </member>
+        <member name="M:Orion.Api.UserException.#ctor(System.String)">
+            <summary>Custom Exception That Just One Parm</summary>
+        </member>
+        <member name="M:Orion.Api.UserException.#ctor(System.String,System.Exception)">
+            <summary>Custom Exception That Just Two Parms</summary>
+        </member>
+        <member name="M:Orion.Api.UserException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>Custom Exception 須遵守嚴格的安全性稽核，以確保其可在安全的執行環境中使用</summary>
+        </member>
+        <member name="T:Orion.Api.UserNoDataException">
+            <summary>Custom No Data Exception</summary>
+        </member>
+        <member name="M:Orion.Api.UserNoDataException.#ctor(System.String)">
+            <summary>Custom No Data Exception That Just One Parm</summary>
+        </member>
+        <member name="M:Orion.Api.UserNoDataException.#ctor(System.String,System.Exception)">
+            <summary>Custom No Data Exception That Just Two Parms</summary>
+        </member>
+        <member name="M:Orion.Api.UserNoDataException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>Custom No Data Exception 須遵守嚴格的安全性稽核，以確保其可在安全的執行環境中使用</summary>
+        </member>
+        <member name="T:Orion.Api.VariableMonitor">
+            <summary>變數監看</summary>
+        </member>
+        <member name="M:Orion.Api.VariableMonitor.Add``1(System.Linq.Expressions.Expression{System.Func{``0}})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.VariableMonitor.Add``1(System.Linq.Expressions.Expression{System.Func{``0}},System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.VariableMonitor.Get">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Api.VariableMonitor.Collector">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.VariableMonitor.Collector.Add``1(System.Linq.Expressions.Expression{System.Func{``0}})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.VariableMonitor.Collector.Add``1(System.Linq.Expressions.Expression{System.Func{``0}},System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.VariableMonitor.Collector.Get">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Api.WaitListenCollection">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.WaitListenCollection.Add``1(System.Int32,System.Func{``0,System.Boolean})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.WaitListenCollection.Trigger(System.Type,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Api.WhereCommandBuilder">
+            <summary>Where Command Build Tools</summary>
+        </member>
+        <member name="M:Orion.Api.WhereCommandBuilder.#ctor(System.Data.Common.DbCommand,Orion.Api.Models.WhereParams)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.WhereCommandBuilder.Bind(System.String,System.String)">
+            <summary>綁定查詢欄位</summary>
+        </member>
+        <member name="T:Orion.Api.WhereQueryableBuilder`2">
+            <summary>WhereBuild Tools</summary>
+        </member>
+        <member name="M:Orion.Api.WhereQueryableBuilder`2.#ctor(System.Linq.IQueryable{`0},Orion.Api.Models.WhereParams{`1})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.WhereQueryableBuilder`2.WhereBind``1(System.Linq.Expressions.Expression{System.Func{`1,System.Collections.Generic.IEnumerable{``0}}},System.Linq.Expressions.Expression{System.Func{`0,System.Collections.Generic.IEnumerable{``0}}})">
+            <summary>綁定查詢欄位</summary>
+        </member>
+        <member name="M:Orion.Api.WhereQueryableBuilder`2.WhereBind``1(System.Linq.Expressions.Expression{System.Func{`1,``0}},System.Linq.Expressions.Expression{System.Func{`0,System.Collections.Generic.IEnumerable{``0}}})">
+            <summary>綁定查詢欄位</summary>
+        </member>
+        <member name="M:Orion.Api.WhereQueryableBuilder`2.WhereBind``1(System.Linq.Expressions.Expression{System.Func{`1,``0}},System.Linq.Expressions.Expression{System.Func{`0,``0}})">
+            <summary>綁定查詢欄位</summary>
+        </member>
+        <member name="M:Orion.Api.WhereQueryableBuilder`2.WhereBind(System.Linq.Expressions.Expression{System.Func{`1,System.Enum}},System.Linq.Expressions.Expression{System.Func{`0,System.String}})">
+            <summary>綁定查詢欄位</summary>
+        </member>
+        <member name="M:Orion.Api.WhereQueryableBuilder`2.Build">
+            <summary></summary>
+        </member>
+    </members>
+</doc>

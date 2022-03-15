@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -23,14 +24,13 @@ namespace Orion.Api.Extensions
         /// <summary>Json 轉換的前置處裡 </summary>
         private static object preJson(this object obj)
         {
-            if(obj is DataRow row) 
+            if (obj is DataTable table)
             {
-                var dict = new Dictionary<string, object>();
-
-                foreach (DataColumn col in row.Table.Columns)
-                { dict[col.ColumnName] = row[col]; }
-
-                return dict;
+                return table.ToList(r => r.ToDictionary());
+            }
+            if (obj is DataRow row) 
+            {
+                return row.ToDictionary(); 
             }
 
             return obj;
@@ -86,52 +86,60 @@ namespace Orion.Api.Extensions
 
 
 
+
+
         /*####################################################################*/
 
-        public static string Comma(this object value)
+        private static readonly ConcurrentDictionary<int, string> _formats = new ConcurrentDictionary<int, string>();
+
+        private static string getFormat(int digits)
         {
-            if (value == null) { return null; }
+            return _formats.GetOrAdd(digits, x =>
+            {
+                if (digits == 0) { return "{0:#,##0}"; }
 
-            var valueSplit = value.ToString().Split('.');
-            valueSplit[0] = Regex.Replace(valueSplit[0], @"(\d)(?=(\d{3})+(?!\d))", "$1,");
+                string digitFmt = "";
+                if (digits == -1)
+                { digitFmt = new string('#', 10); }
+                else if (digits > 0)
+                { digitFmt = "0".PadLeft(digits, '#'); }
 
-            if (valueSplit.Length > 1) { valueSplit[1] = valueSplit[1].TrimEnd('0'); }
-
-            return string.Join(".", valueSplit);
+                return "{0:#,##0." + digitFmt + "}";
+            });
         }
 
 
-
-
-        public static string ShowDate(this object value)
+        /// <summary></summary>
+        public static string Comma<T>(this T value) where T : struct
         {
-            if (value == null) { return null; }
-            if (value is DBNull) { return null; }
-            if (value is DateTime date) { return date.ToString("yyyy-MM-dd"); }
-
-            return Regex.Replace(value.ToString(), @"(\d{4})(\d{2})(\d{2})", "$1-$2-$3");
+            var fmt = getFormat(-1);
+            return string.Format(fmt, value);
         }
-
-        public static string ShowDateTime(this object value)
+        /// <summary></summary>
+        public static string Comma<T>(this T? value) where T : struct
         {
             if (value == null) { return null; }
-            if (value is DBNull) { return null; }
-            if (value is DateTime date) { return date.ToString("yyyy-MM-dd HH:mm:ss"); }
-
-            return Regex.Replace(value.ToString(), @"(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})", "$1-$2-$3 $4:$5:$6");
+            return Comma(value.Value);
         }
 
 
-        public static string ShowTime(this object value)
+        /// <summary></summary>
+        public static string Comma<T>(this T value, int digits) where T : struct
+        {
+            if (digits < 0) { throw new ArgumentOutOfRangeException(nameof(digits), "進位數不可以小於0"); }
+
+            decimal num = Convert.ToDecimal(value);
+            num = Math.Round(num, digits);
+
+            var fmt = getFormat(digits);
+            return string.Format(fmt, num);
+        }
+        /// <summary></summary>
+        public static string Comma<T>(this T? value, int digits) where T : struct
         {
             if (value == null) { return null; }
-            if (value is DBNull) { return null; }
-            if (value is DateTime date) { return date.ToString("HH:mm"); }
-
-            string str = value.ToString().PadLeft(4, '0');
-            return Regex.Replace(str, @"(\d{2})(\d{2})", "$1:$2");
+            return Comma(value.Value, digits);
         }
-
 
 
 
@@ -149,6 +157,7 @@ namespace Orion.Api.Extensions
             if (result == null && type.IsValueType) { result = Activator.CreateInstance(type); }
             return (T)result;
         }
+
 
 
         /// <summary>根據 type 將 value 轉型，若轉型失敗則回傳 null</summary>
@@ -177,14 +186,18 @@ namespace Orion.Api.Extensions
                 }
                 else if (type == typeof(DateTime))
                 {
-                    if (value is DateTime) { return value; }
-                    if (formats.Length == 0) { formats = new[] { "yyyyMMdd", "yyyy-MM-dd" }; }
+                    if (formats.Length == 0) { formats = new[] { "yyyyMMdd", "yyyy-MM-dd", "yyyy-MM-dd HH:mm:ss" }; }
                     return DateTime.ParseExact(value.ToString(), formats, null);
+                }
+                else if (type == typeof(DateTimeOffset))
+                {
+                    var result = DateTimeOffset.Parse(value.ToString());
+                    result = ThreadTimeZone.PatchZone(result);
+                    return result;
                 }
                 else if (type == typeof(TimeSpan))
                 {
-                    if (value is TimeSpan) { return value; }
-                    if (formats.Length == 0) { formats = new[] { "hmm", "hhmm", "hh:mm" }; }
+                    if (formats.Length == 0) { formats = new[] { "hmm", "hhmm", "hh\\:mm", "hh\\:mm\\:ss" }; }
                     return TimeSpan.ParseExact(value.ToString(), formats, null);
                 }
                 else
@@ -204,6 +217,7 @@ namespace Orion.Api.Extensions
 
         /*############################################################################*/
 
+		/// <summary>將匿名物件轉換成 Dictionary</summary>
         public static Dictionary<string, object> AnonymousToDictionary(this object anonymousObj)
         {
             var result = new Dictionary<string, object>();

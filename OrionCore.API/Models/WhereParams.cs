@@ -10,7 +10,6 @@ namespace Orion.Api.Models
 {
 
     /// <summary>WhereBuilder 的查詢參數</summary>
-    /// <typeparam name="TParams">POCO Model Type</typeparam>
     public class WhereParams
     {
         /// <summary>根據物件建立 WhereParams</summary>
@@ -158,9 +157,7 @@ namespace Orion.Api.Models
         public WhereParams<TParams> SetOperator<TProperty>(Expression<Func<TParams, TProperty>> column, WhereOperator oper)
         {
             string name = getPropertyName(column);
-            if (!Source.ContainsKey(name)) { return this; }
-
-            Source[name].Operator = oper;
+            SetOperator(name, oper);
             return this;
         }
 
@@ -170,7 +167,7 @@ namespace Orion.Api.Models
         public WhereParams<TParams> Remove<TProperty>(Expression<Func<TParams, TProperty>> column)
         {
             string name = getPropertyName(column);
-            Source.Remove(name);
+            Remove(name);
             return this;
         }
 
@@ -179,7 +176,7 @@ namespace Orion.Api.Models
         public WhereOperator GetOperator<TProperty>(Expression<Func<TParams, TProperty>> column)
         {
             string name = getPropertyName(column);
-            return Source.ContainsKey(name) ? Source[name].Operator : WhereOperator.NotValue;
+            return GetOperator(name);
         }
 
 
@@ -205,15 +202,14 @@ namespace Orion.Api.Models
                 type = type.GenericTypeArguments.First();
             }
 
-            return Source[name].Values.Select(x => OrionUtils.ConvertType(x, type)).ToArray();
+            return Source[name].Values.Select(x => x.ConvertTo(type)).ToArray();
         }
 
 
         private TProperty[] getValues<TProperty>(LambdaExpression lambdaExpr)
         {
             string name = getPropertyName(lambdaExpr);
-            if (!Source.ContainsKey(name)) { return new TProperty[] { }; }
-            return Source[name].Values.Select(x => OrionUtils.ConvertType<TProperty>(x)).ToArray();
+            return GetValues(name).Select(x => x.ConvertTo<TProperty>()).ToArray();
         }
 
 
@@ -331,8 +327,8 @@ namespace Orion.Api.Models
 
             string[] values = enumerable
                 .Cast<object>()
-                .Select(x => OrionUtils.ConvertType(x, type))
-                .Select(x => OrionUtils.ConvertType<string>(x))
+                .Select(x => x.ConvertTo(type))
+                .Select(x => x.ConvertTo<string>())
                 .ToArray();
 
             return values;

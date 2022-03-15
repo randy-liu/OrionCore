@@ -8,8 +8,10 @@ using Orion.Mvc.Extensions;
 namespace Orion.Mvc.Filters
 {
 
+    /// <summary></summary>
     public class ExceptionMessagePageFilter : AbstractPageFilter
     {
+        /// <summary></summary>
         public override void OnPageHandlerExecuted(PageHandlerExecutedContext context)
         {
             if (context.ExceptionHandled) { return; }

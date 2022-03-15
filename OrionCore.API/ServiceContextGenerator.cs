@@ -11,6 +11,7 @@ namespace Orion.Api
     public class ServiceContextGenerator : DispatchProxy
     {
 
+        /// <summary></summary>
         public static T Create<T>(IComponentContext resolver)
         {
             object proxy = Create<T, ServiceContextGenerator>();

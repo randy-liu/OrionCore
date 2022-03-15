@@ -3,10 +3,9 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Orion.Api.Tests;
 
-namespace Orion.Api.Tests.Migrations
+namespace Orion.API.Tests.Migrations
 {
     [DbContext(typeof(OrionApiDbContext))]
     partial class OrionApiDbContextModelSnapshot : ModelSnapshot
@@ -15,41 +14,38 @@ namespace Orion.Api.Tests.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn)
-                .HasAnnotation("ProductVersion", "3.1.1")
-                .HasAnnotation("Relational:MaxIdentifierLength", 63);
+                .HasAnnotation("ProductVersion", "3.1.2");
 
-            modelBuilder.Entity("OrionCore.Api.Tests.InventoryTemp", b =>
+            modelBuilder.Entity("Orion.Api.Tests.InventoryTemp", b =>
                 {
                     b.Property<int>("InventoryId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("BatchCode")
                         .IsRequired()
-                        .HasColumnType("character varying(32)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(32);
 
                     b.Property<string>("BranchFactory")
                         .IsRequired()
-                        .HasColumnType("character varying(32)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(32);
 
                     b.Property<string>("MaterialCode")
                         .IsRequired()
-                        .HasColumnType("character varying(32)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(32);
 
                     b.Property<DateTime>("ModifyDate")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("TEXT");
 
                     b.Property<decimal>("Quantity")
-                        .HasColumnType("numeric");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("ZoneCode")
                         .IsRequired()
-                        .HasColumnType("character varying(32)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(32);
 
                     b.HasKey("InventoryId");
@@ -57,81 +53,79 @@ namespace Orion.Api.Tests.Migrations
                     b.ToTable("InventoryTemp");
                 });
 
-            modelBuilder.Entity("OrionCore.Api.Tests.InvoiceIssue", b =>
+            modelBuilder.Entity("Orion.Api.Tests.InvoiceIssue", b =>
                 {
                     b.Property<int>("InvoiceId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("CreateBy")
-                        .HasColumnType("integer");
+                        .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("CreateDate")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("DeliveryCustCode")
                         .IsRequired()
-                        .HasColumnType("character varying(24)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(24);
 
                     b.Property<string>("DeliveryCustName")
                         .IsRequired()
-                        .HasColumnType("character varying(128)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(128);
 
                     b.Property<DateTime>("InvoiceDate")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("TEXT");
 
                     b.Property<int?>("InvoiceNum")
-                        .HasColumnType("integer");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("InvoicePrefix")
                         .IsRequired()
-                        .HasColumnType("character varying(2)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(2);
 
                     b.Property<int>("ModifyBy")
-                        .HasColumnType("integer");
+                        .HasColumnType("INTEGER");
 
                     b.Property<DateTime?>("ModifyDate")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("TEXT");
 
                     b.Property<decimal?>("Total")
-                        .HasColumnType("numeric");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("InvoiceId");
 
                     b.ToTable("InvoiceIssue");
                 });
 
-            modelBuilder.Entity("OrionCore.Api.Tests.InvoiceIssueItems", b =>
+            modelBuilder.Entity("Orion.Api.Tests.InvoiceIssueItems", b =>
                 {
                     b.Property<int>("ItemId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("DeliveryNum")
                         .IsRequired()
-                        .HasColumnType("character varying(20)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(20);
 
                     b.Property<int>("InvoiceId")
-                        .HasColumnType("integer");
+                        .HasColumnType("INTEGER");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("numeric");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("PurchaseNum")
-                        .HasColumnType("character varying(15)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(15);
 
                     b.Property<int>("Qty")
-                        .HasColumnType("integer");
+                        .HasColumnType("INTEGER");
 
                     b.Property<decimal>("TotalPrice")
-                        .HasColumnType("numeric");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("ItemId");
 
@@ -140,9 +134,9 @@ namespace Orion.Api.Tests.Migrations
                     b.ToTable("InvoiceIssueItems");
                 });
 
-            modelBuilder.Entity("OrionCore.Api.Tests.InvoiceIssueItems", b =>
+            modelBuilder.Entity("Orion.Api.Tests.InvoiceIssueItems", b =>
                 {
-                    b.HasOne("OrionCore.Api.Tests.InvoiceIssue", "InvoiceIssue")
+                    b.HasOne("Orion.Api.Tests.InvoiceIssue", "InvoiceIssue")
                         .WithMany("InvoiceIssueItems")
                         .HasForeignKey("InvoiceId")
                         .OnDelete(DeleteBehavior.Cascade)

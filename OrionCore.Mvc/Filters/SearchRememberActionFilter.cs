@@ -21,7 +21,8 @@ namespace Orion.Mvc.Filters
 		private static string _storeName = "sr";
 		private static string[] _skipKey;
 
-        public SearchRememberActionFilter(string[] skipKey)
+		/// <summary></summary>
+		public SearchRememberActionFilter(string[] skipKey)
 		{
 			_skipKey = skipKey;
 		}

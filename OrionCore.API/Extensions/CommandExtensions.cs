@@ -10,22 +10,23 @@ using Orion.Api.Models;
 namespace Orion.Api.Extensions
 {
 
-
+	/// <summary></summary>
 	public static class CommandExtensions
 	{
 
-		public static string GetPrefix(this DbCommand command)
+		/// <summary></summary>
+		public static string ParamPrefix(this DbCommand command)
 		{
 			string prefix = command.GetType().Name.Contains("Oracle") ? ":" : "@";
 			return prefix;
 		}
 
 
+		/// <summary></summary>
 		public static DbParameter AddParameter(this DbCommand command, string name, object value)
 		{
 			DbParameter param = command.CreateParameter();
-			param.ParameterName = name;
-			param.Value = value;
+			param.ParameterName = name;			
 			command.Parameters.Add(param);
 
 
@@ -35,10 +36,16 @@ namespace Orion.Api.Extensions
 			if (value is bool boolean)
 			{ param.Value = boolean ? 1 : 0; return param; }
 
+			if (value is Enum @enum)
+			{ param.Value = @enum.ToString(); return param; }
+
+
 			var booleanN = value as bool?;
 			if (booleanN != null)
 			{ param.Value = booleanN.Value ? 1 : 0; return param; }
 
+
+			param.Value = value;
 			return param;
 		}
 
@@ -97,6 +104,7 @@ namespace Orion.Api.Extensions
 
 
 
+		/// <summary></summary>
 		public static bool IsDataExists(this DbCommand command)
 		{
 			if (!command.Connection.State.HasFlag(ConnectionState.Open))
@@ -113,9 +121,10 @@ namespace Orion.Api.Extensions
 
 
 
+		/// <summary></summary>
 		public static DbCommand AddCommand(this DbCommand command, FormattableString commandText)
 		{
-			string prefix = command.GetPrefix();
+			string prefix = command.ParamPrefix();
 
 			DbParameterCollection cmdParams = command.Parameters;
 			object[] args = commandText.GetArguments();
@@ -163,14 +172,16 @@ namespace Orion.Api.Extensions
 
 
 
+		/// <summary></summary>
 		public static DbCommand WhereAnd(this DbCommand command, object whereValues)
 		{
 			return WhereAnd(command, toDictionary(whereValues));
 		}
 
+		/// <summary></summary>
 		public static DbCommand WhereAnd(this DbCommand command, IDictionary<string, object> whereValues)
 		{
-			string prefix = command.GetPrefix();
+			string prefix = command.ParamPrefix();
 
 			string whereCondition = whereValues.Keys.Select(x => $"{x} = {prefix}{x}").JoinBy(" AND ");
 			command.CommandText += " AND " + whereCondition;
@@ -182,10 +193,11 @@ namespace Orion.Api.Extensions
 		}
 
 
+		/// <summary></summary>
 		public static DbCommand WhereAnd(this DbCommand command, string whereSql, object value)
 		{
-			string prefix = command.GetPrefix();
-			string name = Regex.Match(whereSql, @$"(?<={prefix})\w+").Value;
+			string prefix = command.ParamPrefix();
+			string name = Regex.Match(whereSql, $@"(?<={prefix})\w+").Value;
 
 			if (value is IEnumerable && !(value is string))
 			{
@@ -216,6 +228,7 @@ namespace Orion.Api.Extensions
 
 
 
+		/// <summary></summary>
 		public static DbCommand WhereAndHas(this DbCommand command, string whereSql, object value)
 		{
 			if (!OrionUtils.HasValue(value)) { return command; }
@@ -224,12 +237,13 @@ namespace Orion.Api.Extensions
 
 
 
+		/// <summary></summary>
 		public static DbCommand WhereAndHas(this DbCommand command, string whereSql, object value, DbType dbType)
 		{
 			if (!OrionUtils.HasValue(value)) { return command; }
 
-			string prefix = command.GetPrefix();
-			string name = Regex.Match(whereSql, @$"(?<={prefix})\w+").Value;
+			string prefix = command.ParamPrefix();
+			string name = Regex.Match(whereSql, $@"(?<={prefix})\w+").Value;
 			AddParameter(command, prefix + name, value).DbType = dbType;
 			command.CommandText += " AND " + whereSql;
 
@@ -237,6 +251,7 @@ namespace Orion.Api.Extensions
 		}
 
 
+		/// <summary></summary>
 		public static DbCommand OrderBy(this DbCommand command, string fields, string defaultFields = null)
 		{
 			if (fields.NoText()) { fields = defaultFields; }
@@ -257,6 +272,7 @@ namespace Orion.Api.Extensions
 
 		/*############################################################################*/
 
+		/// <summary></summary>
 		public static DataTable FetchDataTable(this DbCommand command)
 		{
 			using DbDataAdapter adapter = DbProviderFactories.GetFactory(command.Connection).CreateDataAdapter();
@@ -269,6 +285,7 @@ namespace Orion.Api.Extensions
 
 
 
+		/// <summary></summary>
 		public static DataRow FetchDataRow(this DbCommand command)
 		{
 			string commandText = command.CommandText;
@@ -281,6 +298,7 @@ namespace Orion.Api.Extensions
 		}
 
 
+		/// <summary></summary>
 		public static T FetchOne<T>(this DbCommand command)
 		{
 			DataRow row = FetchDataRow(command);
@@ -291,6 +309,7 @@ namespace Orion.Api.Extensions
 		}
 
 
+		/// <summary></summary>
 		public static List<TModel> FetchList<TModel>(this DbCommand command) where TModel : new()
 		{
 			DataTable dataTable = command.FetchDataTable();
@@ -298,6 +317,7 @@ namespace Orion.Api.Extensions
 		}
 
 
+		/// <summary></summary>
 		public static TModel FetchModel<TModel>(this DbCommand command) where TModel : new()
 		{
 			string commandText = command.CommandText;
@@ -313,6 +333,7 @@ namespace Orion.Api.Extensions
 
 
 
+		/// <summary></summary>
 		public static DataTablePagination FetchPagination(this DbCommand command, int pageNumber, int pageSize)
 		{
 			string commandText = command.CommandText;
@@ -403,9 +424,10 @@ namespace Orion.Api.Extensions
 
 		/*#[Insert]###########################################################################*/
 
+		/// <summary></summary>
 		public static DbCommand BuildInsert(this DbCommand command, string tableName, object nameValues)
 		{
-			string prefix = command.GetPrefix();
+			string prefix = command.ParamPrefix();
 			IDictionary<string, object> nameValuesDict = toDictionary(nameValues);
 
 			string columns = nameValuesDict.Keys.JoinBy(", ");
@@ -427,9 +449,10 @@ namespace Orion.Api.Extensions
 
 		/*#[Update]###########################################################################*/
 
+		/// <summary></summary>
 		public static DbCommand BuildUpdate(this DbCommand command, string tableName, object setValues, object whereValues)
 		{
-			string prefix = command.GetPrefix();
+			string prefix = command.ParamPrefix();
 			IDictionary<string, object> setValuesDict = toDictionary(setValues);
 			IDictionary<string, object> whereValuesDict = toDictionary(whereValues);
 
@@ -457,9 +480,10 @@ namespace Orion.Api.Extensions
 
 		/*#[Delete]###########################################################################*/
 
+		/// <summary></summary>
 		public static DbCommand BuildDelete(this DbCommand command, string tableName, object whereValues)
 		{
-			string prefix = command.GetPrefix();
+			string prefix = command.ParamPrefix();
 			IDictionary<string, object> whereValuesDict = toDictionary(whereValues);
 
 			if (whereValuesDict == null) { whereValuesDict = new Dictionary<string, object>(); }
@@ -480,9 +504,10 @@ namespace Orion.Api.Extensions
 
 		/*#[Procedure]###########################################################################*/
 
+		/// <summary></summary>
 		public static DbCommand BuildProcedure(this DbCommand command, string procedureName, params object[] parameters)
 		{
-			string prefix = command.GetPrefix();
+			string prefix = command.ParamPrefix();
 			command.CommandType = CommandType.StoredProcedure;
 			command.CommandText = procedureName;
 
@@ -523,33 +548,11 @@ namespace Orion.Api.Extensions
 
 
 
-	}
+	} 
 
 
 
-	//public static class DbOut
-	//{
-	//private static DbParameter create(DbType type, int size = 0)
-	//{
-	//	return new DbParameter
-	//	{ 
-	//		Size = size,
-	//		OracleDbType = type, 
-	//		Direction = ParameterDirection.Output 
-	//	};
-	//}
-
-	//public static DbParameter Boolean() { return create(DbType.Boolean); }
-	//public static DbParameter Int32() { return create(DbType.Int32); }
-	//public static DbParameter Decimal() { return create(DbType.Decimal); }
-	//public static DbParameter Varchar2() { return create(DbType.String, 256); }
-	//public static OracleParameter Int64() { return create(OracleDbType.Int64); }
-	//public static OracleParameter Double() { return create(OracleDbType.Double); }
-	//public static OracleParameter NVarchar2() { return create(OracleDbType.NVarchar2, 256); }
-	//}
-
-
-
+	/// <summary></summary>
 	public static class OracleParameterExtensions
 	{
 
@@ -578,26 +581,31 @@ namespace Orion.Api.Extensions
 		}
 
 
+		/// <summary></summary>
 		public static string String(this DbParameter parameter)
 		{
 			return getValue<string>(parameter, null);
 		}
 
+		/// <summary></summary>
 		public static bool Bool(this DbParameter parameter)
 		{
 			return getValue<bool>(parameter, false);
 		}
 
+		/// <summary></summary>
 		public static int Int(this DbParameter parameter)
 		{
 			return getValue<int>(parameter, 0);
 		}
 
+		/// <summary></summary>
 		public static long Long(this DbParameter parameter)
 		{
 			return getValue<long>(parameter, 0);
 		}
 
+		/// <summary></summary>
 		public static decimal Decimal(this DbParameter parameter)
 		{
 			return getValue<decimal>(parameter, 0m);
