@@ -2,9 +2,16 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Reflection;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Orion.Api.Extensions;
+
 
 namespace Orion.Api.Tests
 {
@@ -18,13 +25,19 @@ namespace Orion.Api.Tests
 			return new OrionApiDbContext(builder.Options);
 		}
 
-		public static OrionApiDbContext CreateUseNpgsql() 
+		//public static OrionApiDbContext CreateUseNpgsql() 
+		//{
+		//	var builder = new DbContextOptionsBuilder<OrionApiDbContext>();
+		//	builder.UseNpgsql("Host=localhost;Database=Orion_API_Tests;Username=postgres;Password=p@ssw0rd");
+		//	return new OrionApiDbContext(builder.Options);
+		//}
+
+		public static OrionApiDbContext CreateUseSqlite()
 		{
 			var builder = new DbContextOptionsBuilder<OrionApiDbContext>();
-			builder.UseNpgsql("Host=localhost;Database=Orion_API_Tests;Username=postgres;Password=p@ssw0rd");
+			builder.UseSqlite("Data Source=DB.sqlite");
 			return new OrionApiDbContext(builder.Options);
 		}
-
 
 
 		/*-----------------------------------------------------*/
@@ -42,6 +55,27 @@ namespace Orion.Api.Tests
 		{
 			base.OnModelCreating(modelBuilder);
 
+			//modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+			if (Database.ProviderName == "Microsoft.EntityFrameworkCore.Sqlite")
+			{
+				foreach (IMutableEntityType entityType in modelBuilder.Model.GetEntityTypes())
+				{
+					EntityTypeBuilder entityBuilder = modelBuilder.Entity(entityType.Name);
+					PropertyInfo[] props = entityType.ClrType.GetProperties();
+
+
+					foreach (var prop in props.Where(p => p.PropertyType == typeof(decimal)))
+					{ entityBuilder.Property(prop.Name).HasConversion<double>(); }
+
+					foreach (var prop in props.Where(p => p.PropertyType == typeof(decimal?)))
+					{ entityBuilder.Property(prop.Name).HasConversion<double?>(); }
+
+					foreach (var prop in props.Where(p => p.PropertyType == typeof(DateTimeOffset)))
+					{ entityBuilder.Property(prop.Name).HasConversion(new DateTimeOffsetToBinaryConverter()); }
+				}
+			}
+
 		}
 	}
 
@@ -50,7 +84,7 @@ namespace Orion.Api.Tests
 	{
 		public OrionApiDbContext CreateDbContext(string[] args)
 		{
-			return OrionApiDbContext.CreateUseNpgsql();
+			return OrionApiDbContext.CreateUseSqlite();
 		}
 	}
 

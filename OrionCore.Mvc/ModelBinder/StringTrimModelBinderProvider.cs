@@ -7,8 +7,10 @@ using Microsoft.Extensions.Logging;
 
 namespace Orion.Mvc.ModelBinder
 {
+    /// <summary></summary>
     public class StringTrimModelBinderProvider : IModelBinderProvider
     {
+        /// <summary></summary>
         public IModelBinder GetBinder(ModelBinderProviderContext context)
         {
             if (context == null) { throw new ArgumentNullException(nameof(context)); }
@@ -24,16 +26,19 @@ namespace Orion.Mvc.ModelBinder
 
 
 
+    /// <summary></summary>
     public class StringTrimModelBinder : IModelBinder
     {
         private readonly IModelBinder _fallbackBinder;
 
+        /// <summary></summary>
         public StringTrimModelBinder(IModelBinder fallbackBinder)
         {
             _fallbackBinder = fallbackBinder;
         }
 
 
+        /// <summary></summary>
         public Task BindModelAsync(ModelBindingContext bindingContext)
         {
             if (bindingContext == null) { throw new ArgumentNullException(nameof(bindingContext)); }

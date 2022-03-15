@@ -7,8 +7,10 @@ using System.Reflection;
 
 namespace Orion.Api.Extensions
 {
+    /// <summary></summary>
     public static class PrintDocumentExtensions
     {
+        /// <summary></summary>
         public static Bitmap ToBitmap(this PrintDocument doc)
         {
             PageSettings settings = doc.DefaultPageSettings;
@@ -30,6 +32,7 @@ namespace Orion.Api.Extensions
         }
 
 
+        /// <summary></summary>
         public static Stream ToImageStream(this PrintDocument doc, ImageFormat format)
         {
             using Bitmap bitmap = ToBitmap(doc);
@@ -41,11 +44,13 @@ namespace Orion.Api.Extensions
             return stream;
         }
 
+        /// <summary></summary>
         public static Stream ToJpegStream(this PrintDocument doc)
         {
             return ToImageStream(doc, ImageFormat.Jpeg);
         }
 
+        /// <summary></summary>
         public static Stream ToPngStream(this PrintDocument doc)
         {
             return ToImageStream(doc, ImageFormat.Png);

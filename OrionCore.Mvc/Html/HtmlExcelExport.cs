@@ -14,8 +14,8 @@ using Orion.Api.Extensions;
 namespace Orion.Mvc.Html
 {
 
-    /// <summary></summary>
-    public static class HtmlExcelExportExtensions
+	/// <summary></summary>
+	public static class HtmlExcelExportExtensions
 	{
 		/// <summary></summary>
 		public static HtmlExcelExport<T> ExcelExport<T>(this IHtmlHelper helper, IEnumerable<T> dataSource) where T : class
@@ -39,7 +39,9 @@ namespace Orion.Mvc.Html
 
 		private string _headerStyle = "color: #fff; background: #2d6da3;";
 
+		/// <summary></summary>
 		public ViewContext ViewContext { get; private set; }
+		/// <summary></summary>
 		public HttpContext HttpContext { get; private set; }
 
 		/// <summary></summary>

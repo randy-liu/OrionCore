@@ -23,7 +23,7 @@ namespace Orion.Api
 			_command = command;
 			_param = param;
 
-			_prefix = command.GetPrefix();
+			_prefix = command.ParamPrefix();
 		}
 
 

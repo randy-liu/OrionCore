@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Orion.Mvc.Filters
 {
+    /// <summary></summary>
     public class PageModelInjectFilter : AbstractPageFilter
     {
         /// <summary>注入器的快取</summary>

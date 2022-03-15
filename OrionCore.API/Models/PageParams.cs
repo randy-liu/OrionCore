@@ -19,7 +19,8 @@ namespace Orion.Api.Models
 	}
 
 
-	public static class PageParamsExtensions 
+    /// <summary></summary>
+	public static class PageParamsExtensions
 	{
 		/// <summary>PageParams 如果為 null 就回傳不限制分頁 Unlimited</summary>
 		public static PageParams NullToUnlimited(this PageParams source)

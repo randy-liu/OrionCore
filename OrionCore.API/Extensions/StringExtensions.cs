@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -76,32 +77,58 @@ namespace Orion.Api.Extensions
 
 
         /// <summary>將 string 轉換為 Enum，若失敗則拋出 Exception</summary>
-        public static TEnum ToEnum<TEnum>(this string enumStr)
+        public static TEnum ToEnum<TEnum>(this string enumStr) where TEnum : struct, Enum
         {
-            try
-            {
-                return (TEnum)Enum.Parse(typeof(TEnum), enumStr);
-            }
-            catch (ArgumentException ex)
-            {
-                throw new ArgumentException("無法轉換 " + enumStr + " 到 Enum " + typeof(TEnum).Name, ex);
-            }
+            //if(enumStr == null) { throw new ArgumentException("無法轉換 null 到 Enum " + typeof(TEnum).Name); }
+
+            bool succ = Enum.TryParse(enumStr, true, out TEnum result);
+            if (succ) { return result; }
+            throw new ArgumentException("無法轉換 " + enumStr + " 到 Enum " + typeof(TEnum).Name);
         }
 
         /// <summary>將 string 轉換為 Enum，若失敗則回傳指定 Default Enum</summary>
-        public static TEnum ToEnum<TEnum>(this string enumStr, TEnum defaultValue)
+        public static TEnum ToEnum<TEnum>(this string enumStr, TEnum defaultValue) where TEnum : struct, Enum
         {
             try
-            {
-                return ToEnum<TEnum>(enumStr);
-            }
+            { return ToEnum<TEnum>(enumStr); }
             catch
-            {
-                return defaultValue;
-            }
+            { return defaultValue; }
         }
 
 
+
+
+        /*####################################################################*/
+
+        private static ConcurrentDictionary<Type, Action<object>> _stringPropTrimMap = new ConcurrentDictionary<Type, Action<object>>();
+
+        private static Action<object> makeStringPropTrim(Type type)
+        {
+            Action<object> trims = (model => { });
+
+            var propInfos = type.GetProperties()
+                .Where(x => x.CanRead && x.CanWrite)
+                .Where(x => x.PropertyType == typeof(string));
+
+            foreach (var prop in propInfos)
+            {
+                trims += model =>
+                {
+                    var value = prop.GetValue(model) as string;
+                    if (value != null) { prop.SetValue(model, value.Trim()); }
+                };
+            }
+
+            return trims;
+        }
+
+
+        /// <summary>將 model 中所有 string type 的 properties 去除空白</summary>
+        public static void TrimStringPropertys<TModel>(this TModel model) where TModel : class
+        {
+            Action<object> trims = _stringPropTrimMap.GetOrAdd(typeof(TModel), makeStringPropTrim);
+            trims(model);
+        }
 
 
 

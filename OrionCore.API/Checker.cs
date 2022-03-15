@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text.RegularExpressions;
+using Orion.Api.Extensions;
 
 namespace Orion.Api
 {
@@ -517,6 +519,21 @@ namespace Orion.Api
 
 
 
+
+
+		/*===============================================================*/
+
+
+		private static string getEnumDisplayName(object enumValue)
+		{
+			if (enumValue == null) { return null; }
+
+			string enumString = enumValue.ToString();
+			FieldInfo fi = enumValue.GetType().GetField(enumString);
+			return fi.GetDisplayName() ?? enumString;
+		}
+
+
 		/// <summary>檢查是否符合狀態轉換規則</summary>
 		public static void StatusRule<T, Allow>(T fromStatus, T toStatus, IDictionary<T, Allow> rule, string errorMessage) where Allow : IEnumerable<T>
 		{
@@ -524,12 +541,17 @@ namespace Orion.Api
 			if (rule.ContainsKey(fromStatus)) { allow = rule[fromStatus]; }
 			if (allow.Contains(toStatus)) { return; }
 
-			string fromStatusStr = OrionUtils.GetEnumDisplayName(fromStatus) ?? fromStatus.ToString();
-			string toStatusStr = OrionUtils.GetEnumDisplayName(toStatus) ?? toStatus.ToString();
+			string fromStatusStr = getEnumDisplayName(fromStatus);
+			string toStatusStr = getEnumDisplayName(toStatus);
+
 			throwException(errorMessage, fromStatusStr, toStatusStr);
 		}
 
 
+
+
+
+		/*===============================================================*/
 
 		/// <summary>是否在清單中</summary>
 		public static bool IsIn<T>(this T value, params T[] args)

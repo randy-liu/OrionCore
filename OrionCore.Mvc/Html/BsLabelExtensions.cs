@@ -48,23 +48,23 @@ namespace Orion.Mvc.Html
         /*==================================================== */
 
         /// <summary></summary>
-        public static IHtmlContent BsLabel<TEnum>(this IHtmlHelper htmlHelper, TEnum expression) where TEnum : struct, Enum
+        public static IHtmlContent BsLabel(this IHtmlHelper htmlHelper, Enum enumValue)
         {
-            return BsLabel(htmlHelper, expression, null);
+            return BsLabel(htmlHelper, enumValue, null);
         }
         /// <summary></summary>
-        public static IHtmlContent BsLabel<TEnum>(this IHtmlHelper htmlHelper, TEnum expression, object htmlAttributes) where TEnum : struct, Enum
+        public static IHtmlContent BsLabel(this IHtmlHelper htmlHelper, Enum enumValue, object htmlAttributes)
         {
-            return BsLabel(htmlHelper, expression, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+            return BsLabel(htmlHelper, enumValue, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
         }
         /// <summary></summary>
-        public static IHtmlContent BsLabel<TEnum>(this IHtmlHelper htmlHelper, TEnum expression, IDictionary<string, object> htmlAttributes) where TEnum : struct, Enum
+        public static IHtmlContent BsLabel(this IHtmlHelper htmlHelper, Enum enumValue, IDictionary<string, object> htmlAttributes) 
         {
             if (htmlAttributes == null) { htmlAttributes = new Dictionary<string, object>(); }
 
             HelperUtils.AddCssClass(htmlAttributes, "control-label");
-            string labelText = expression.GetDisplayName();
-            return htmlHelper.Label(expression.ToString(), labelText, htmlAttributes);
+            string labelText = enumValue.GetDisplayName();
+            return htmlHelper.Label(enumValue.ToString(), labelText, htmlAttributes);
         }
 
 

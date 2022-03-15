@@ -22,6 +22,7 @@ namespace Orion.Mvc.Filters
 		}
 
 
+		/// <summary></summary>
 		public override void OnPageHandlerExecuting(PageHandlerExecutingContext context)
 		{
 			PageParams pageParams = context.HandlerArguments.Values.OfType<PageParams>().FirstOrDefault();

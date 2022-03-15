@@ -11,40 +11,20 @@ namespace Orion.Api.Tests
 	public class LambdaUtilsTests
 	{
 
-		public static IEnumerable<object[]> RunTest_Data
+		public class UserModel
 		{
-			get
-			{
-				var find = new UserModel{ Name = "OK" };
+			public int UserId { get; set; }
+			public string Name { get; set; }
+			public DateTime CreateDate { get; set; }
+			public List<string> Column { get; set; }
+			public List<UserItemModel> Items { get; set; }
+			public DbSet<UserItemModel> EntitySet { get; set; }
 
-				yield return new object[] {
-					(Expression<Func<UserModel, string>>)(x => x.Name)
-				};
-				yield return new object[] {
-					(Expression<Func<UserModel, string>>)(x => x.Name.Length.ToString())
-				};
-				yield return new object[] {
-					(Expression<Func<UserModel, string>>)(x => x.Name == find.Name ? x.Name : "dd")
-				};
-				yield return new object[] {
-					(Expression<Func<UserModel, string>>)(x => (string)Convert.ChangeType(x.UserId, typeof(string)))
-				};
-				yield return new object[] {
-					(Expression<Func<UserModel, bool>>)(x => x.Name == find.Name)
-				};
-				yield return new object[] {
-					(Expression<Func<UserModel, bool>>)(x => x.Name == "dd")
-				};
-
-			}
 		}
 
-		[Theory]
-		[MemberData(nameof(RunTest_Data))]
-		public void FindByType_RunTest(LambdaExpression expr)
+		public class UserItemModel
 		{
-			var list = LambdaUtils.FindByType<MemberExpression>(expr);
-			Assert.True(list.Count > 0);
+			public string Name { get; set; }
 		}
 
 
@@ -98,24 +78,6 @@ namespace Orion.Api.Tests
 			Assert.NotNull(method);
 		}
 
-
-
-
-		public class UserModel
-		{
-			public int UserId { get; set; }
-			public string Name { get; set; }
-			public DateTime CreateDate { get; set; }
-			public List<string> Column { get; set; }
-			public List<UserItemModel> Items { get; set; }
-			public DbSet<UserItemModel> EntitySet { get; set; }
-
-		}
-
-		public class UserItemModel
-		{
-			public string Name { get; set; }
-		}
 
 	}
 

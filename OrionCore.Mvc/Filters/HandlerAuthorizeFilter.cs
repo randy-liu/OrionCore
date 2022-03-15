@@ -8,10 +8,12 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace Orion.Mvc.Filters
 {
+	/// <summary></summary>
 	public class HandlerAuthorizeFilter : AbstractPageFilter
 	{
 		private ConcurrentDictionary<MethodInfo, AuthorizeAttribute> _cache = new ConcurrentDictionary<MethodInfo, AuthorizeAttribute>();
 
+		/// <summary></summary>
 		public override void OnPageHandlerExecuting(PageHandlerExecutingContext context)
 		{
 			if(context.HandlerMethod == null) { return; }

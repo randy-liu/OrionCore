@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Reflection;
 
 namespace Orion.Api.Extensions
 {
@@ -9,6 +10,7 @@ namespace Orion.Api.Extensions
 	public static class DataTableExtensions
 	{
 
+        /// <summary></summary>
         public static Dictionary<TKey, TElement> ToDictionary<TKey, TElement>(this DataTable table, Func<DataRow, TKey> keySelector, Func<DataRow, TElement> elementSelector)
         {
             if (table == null) { return new Dictionary<TKey, TElement>(); }
@@ -16,41 +18,50 @@ namespace Orion.Api.Extensions
         }
 
 
+        /// <summary></summary>
         public static DataRow FirstOrDefault(this DataTable table)
         {
             return table.AsEnumerable().FirstOrDefault();
         }
+        /// <summary></summary>
         public static DataRow FirstOrDefault(this DataTable table, Func<DataRow, bool> predicate)
         {
             return table.AsEnumerable().FirstOrDefault(predicate);
         }
 
 
+        /// <summary></summary>
         public static IEnumerable<T> Select<T>(this DataTable table, Func<DataRow, T> selector)
         {
             return table.AsEnumerable().Select(selector);
         }
 
+        /// <summary></summary>
         public static IEnumerable<DataRow> Where(this DataTable table, Func<DataRow, bool> predicate)
         {
             return table.AsEnumerable().Where(predicate);
         }
 
+        /// <summary></summary>
         public static bool Any(this DataTable table)
         {
-            return table.AsEnumerable().Any();
+            return table.AsEnumerable().Any();            
         }
 
+        /// <summary></summary>
         public static bool Any(this DataTable table, Func<DataRow, bool> predicate)
         {
             return table.AsEnumerable().Any(predicate);
         }
 
 
+        /// <summary></summary>
         public static List<T> ToList<T>(this DataTable table, Func<DataRow, T> selector)
         {
             return table.AsEnumerable().ToList(selector);
         }
+
+        /// <summary></summary>
         public static HashSet<T> ToHashSet<T>(this DataTable table, Func<DataRow, T> selector)
         {
             return table.AsEnumerable().ToHashSet(selector);
@@ -67,23 +78,28 @@ namespace Orion.Api.Extensions
             if (table == null) { throw new ArgumentNullException("table", "不可以為 Null"); }
             if (table.Rows.Count == 0) { return Enumerable.Empty<TModel>(); }
 
-
             Action<DataRow, TModel> mapping = (row, model) => { };
 
-            foreach (var prop in typeof(TModel).GetProperties())
-            {
-                if (!prop.CanWrite) { continue; }
-                if (!table.Columns.Contains(prop.Name)) { continue; }
+            Dictionary<string, PropertyInfo> props = typeof(TModel).GetProperties().ToDictionary(p => p.Name.ToUpper());
 
+            foreach (DataColumn col in table.Columns)
+            {
+                string colName = col.ColumnName;
+                PropertyInfo prop = props.GetValueOrDefault(colName.ToUpper());
+
+                if (prop == null) { throw new ArgumentException($"缺少 {col.ColumnName} 的 Property"); }
+                if (!prop.CanWrite) { throw new ArgumentException($"{col.ColumnName} 的 Property 不可寫入"); }
+ 
                 mapping += (row, model) =>
                 {
-                    object value = row[prop.Name].ConvertTo(prop.PropertyType);
+                    object value = row[colName].ConvertTo(prop.PropertyType);
                     if (value == null) { return; }
 
                     prop.SetValue(model, value);
                 };
             }
 
+ 
             return table.AsEnumerable().Select(row =>
             {
                 var model = new TModel();

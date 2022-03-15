@@ -7,12 +7,23 @@ using Xunit;
 
 namespace Orion.Api.Models.Tests
 {
-
-
-
 	public class WhereParamsTests
 	{
-	 
+
+		public class InvoiceIssueDomain
+		{
+			public List<int> ProductQtys { get; set; }
+			public int? ProductQty { get; set; }
+			public Guid? GroupCode { get; set; }
+			public decimal? Sum { get; set; }
+			public string InvoicePrefix { get; set; }
+			public UseStatus? UseStatus { get; set; }
+			public int? ModifyBy { get; set; }
+			public DateTime? ModifyDate { get; set; }
+		}
+
+
+
 
 		[Fact]
 		public void CreateByObject_Test()
@@ -228,17 +239,5 @@ namespace Orion.Api.Models.Tests
 
 	}
 
-
-	public class InvoiceIssueDomain
-	{
-		public List<int> ProductQtys { get; set; }
-		public int? ProductQty { get; set; }
-		public Guid? GroupCode { get; set; }
-		public decimal? Sum { get; set; }
-		public string InvoicePrefix { get; set; }
-		public UseStatus? UseStatus { get; set; }
-		public int? ModifyBy { get; set; }
-		public DateTime? ModifyDate { get; set; }
-	}
 
 }

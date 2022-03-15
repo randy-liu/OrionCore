@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -109,20 +108,19 @@ namespace Orion.Api
 	/// <summary>事件通知者</summary>
 	public class Notifier : INotifier
 	{
-		private readonly Type _anyType = typeof(Notifier);
+		private static readonly Type _noneType = typeof(Notifier);
 
-		private readonly ConcurrentDictionary<string, bool> _runFlag = new ConcurrentDictionary<string, bool>();
 		private readonly List<NotifiMonitor> _monitorList = new List<NotifiMonitor>();
 		private readonly HashSet<object> _registeredListen = new HashSet<object>();
 
 
-		private readonly ListenCollection _initListen = new ListenCollection();
-		private readonly ListenCollection _closeListen = new ListenCollection();
-		private readonly ListenCollection _cycleListen = new ListenCollection();
-		private readonly ListenCollection _changeListen = new ListenCollection();
-		private readonly ListenCollection _timeoutListen = new ListenCollection();
-		private readonly ListenCollection _failureListen = new ListenCollection();
-		private readonly ListenCollection _completeListen = new ListenCollection();
+		private readonly List<IListen> _initListen = new List<IListen>();
+		private readonly List<IListen> _closeListen = new List<IListen>();
+		private readonly List<IListen> _cycleListen = new List<IListen>();
+		private readonly List<IListen> _changeListen = new List<IListen>();
+		private readonly List<IListen> _timeoutListen = new List<IListen>();
+		private readonly List<IListen> _failureListen = new List<IListen>();
+		private readonly List<IListen> _completeListen = new List<IListen>();
 		private readonly WaitListenCollection _waitListen = new WaitListenCollection();
 
 		private readonly IOrionLoggerFactory _logFactory;
@@ -157,41 +155,36 @@ namespace Orion.Api
 
 			foreach (MethodInfo method in handle.GetType().GetMethods())
 			{
-				if (method.GetCustomAttributes<AsyncStateMachineAttribute>().Any() && !typeof(Task).IsAssignableFrom(method.ReturnType))
-				{
-					var fullName = method.DeclaringType.FullName + "." + method.Name;
-					throw new ArgumentException(fullName, "async 的 return type 必須是 Task");
-				}
-
 				var attrs = method.GetCustomAttributes<NotifiAttribute>();
 				if (!attrs.Any()) { continue; }
 
-				var monitor = new NotifiMonitor(handle, method);
-				_monitorList.Add(monitor);
+				bool useAsync = attrs.Any(x => x.Async);
+				bool onlyOne = attrs.Any(x => x.OnlyOne);
 
-				var paramType = method.GetParameters().Select(x => x.ParameterType).FirstOrDefault();
+				IListen listen = makeListen(handle, method, useAsync, onlyOne);
+				_monitorList.Add(listen.Monitor);
+
 
 				var initAttr = method.GetCustomAttribute<OnInitAttribute>();
-				if (initAttr != null) { add(_initListen, _anyType, initAttr, handle, method, monitor); }
+				if (initAttr != null) { add(_initListen, initAttr, method, listen); }
 
 				var closeAttr = method.GetCustomAttribute<OnCloseAttribute>();
-				if (closeAttr != null) { add(_closeListen, _anyType, closeAttr, handle, method, monitor); }
+				if (closeAttr != null) { add(_closeListen, closeAttr, method, listen); }
 
 				var cycleAttr = method.GetCustomAttribute<OnCycleAttribute>();
-				if (cycleAttr != null) { add(_cycleListen, _anyType, cycleAttr, handle, method, monitor); }
+				if (cycleAttr != null) { add(_cycleListen, cycleAttr, method, listen); }
 
 				var changeAttr = method.GetCustomAttribute<OnChangeAttribute>();
-				if (changeAttr != null) { add(_changeListen, paramType, changeAttr, handle, method, monitor); }
+				if (changeAttr != null) { add(_changeListen, changeAttr, method, listen); }
 
 				var timeoutAttr = method.GetCustomAttribute<OnTimeoutAttribute>();
-				if (timeoutAttr != null) { add(_timeoutListen, paramType, timeoutAttr, handle, method, monitor); }
+				if (timeoutAttr != null) { add(_timeoutListen, timeoutAttr, method, listen); }
 
 				var failureAttr = method.GetCustomAttribute<OnFailureAttribute>();
-				if (failureAttr != null) { add(_failureListen, paramType, failureAttr, handle, method, monitor); }
+				if (failureAttr != null) { add(_failureListen, failureAttr, method, listen); }
 
 				var completeAttr = method.GetCustomAttribute<OnCompleteAttribute>();
-				if (completeAttr != null) { add(_completeListen, paramType, completeAttr, handle, method, monitor); }
-
+				if (completeAttr != null) { add(_completeListen, completeAttr, method, listen); }
 			}
 
 		}
@@ -200,7 +193,37 @@ namespace Orion.Api
 
 
 
-		private void add(ListenCollection listenCollection, Type type, NotifiAttribute attr, object handle, MethodInfo method, NotifiMonitor monitor)
+		private IListen makeListen(object handle, MethodInfo method, bool useAsync, bool onlyOne)
+		{
+			bool asyncMethod = method.GetCustomAttributes<AsyncStateMachineAttribute>().Any();
+
+			if (asyncMethod && !typeof(Task).IsAssignableFrom(method.ReturnType))
+			{
+				var fullName = method.DeclaringType.FullName + "." + method.Name;
+				throw new ArgumentException(fullName, "async 的 return type 必須是 Task");
+			}
+
+
+			IOrionLogger handleLog = _logFactory.Create(handle.GetType().Name);
+
+			IListen listen;
+
+			if (asyncMethod && onlyOne)
+			{ listen = new AsyncOnlyOneListen(handle, method, handleLog); }
+			else if (asyncMethod)
+			{ listen = new AsyncListen(handle, method, handleLog); }
+			else if (useAsync && onlyOne)
+			{ listen = new NormalOnlyOneListen(handle, method, handleLog); }
+			else if (useAsync)
+			{ listen = new NormalAsyncListen(handle, method, handleLog); }
+			else
+			{ listen = new NormalListen(handle, method, handleLog); }
+
+			return listen;
+		}
+
+
+		private void add(List<IListen> listenList, NotifiAttribute attr, MethodInfo method, IListen listen)
 		{
 			var fullName = method.DeclaringType.FullName + "." + method.Name;
 			int paramLimit = attr.GetParamLimit();
@@ -208,67 +231,16 @@ namespace Orion.Api
 			_log.Info("Register " + attr.GetName() + " " + fullName);
 
 			if (method.GetParameters().Length != paramLimit)
-			{
-				throw new ArgumentOutOfRangeException(fullName, " 參數只能有" + paramLimit + " 個");
-			}
+			{ throw new ArgumentOutOfRangeException(fullName, " 參數只能有" + paramLimit + " 個"); }
 
-			Action<object> listen = makeListen(attr, handle, method, monitor);
-			listenCollection.Add(type, listen, attr.Async);
+			listenList.Add(listen);
 		}
 
 
 
 
-		private Action<object> makeListen(NotifiAttribute attr, object handle, MethodInfo method, NotifiMonitor monitor)
-		{
-			IOrionLogger handleLog = _logFactory.Create(handle.GetType().Name);
-			string execName = attr.GetName() + " " + method.DeclaringType.FullName + "." + method.Name;
-			bool hasParam = (attr.GetParamLimit() == 1);
-			
-			Action<object> listen = (x =>
-			{
-				var beginTime = DateTime.Now;
 
-				object[] parameters = null;
-				try
-				{
-					/* 執行 Method */
-					parameters = hasParam ? new object[] { x } : new object[] { };
 
-					Task result = method.Invoke(handle, parameters) as Task;
-					if (result != null){ result.Wait(); }
-				}
-				catch (AggregateException ex)
-				{
-					string msg = string.Format("Error {0} params: {1}", execName, parameters.ToJson());
-					foreach (var inner in ex.InnerExceptions) { handleLog.Error(msg, inner); }
-				}
-				catch (Exception ex)
-				{
-					string msg = string.Format("Error {0} params: {1}", execName, parameters.ToJson());
-					handleLog.Error(msg, ex);
-				}
-				finally
-				{
-					monitor.Add(beginTime, DateTime.Now);
-				}
-			});
-
-			if (!attr.OnlyOne) { return listen; }
-			
-
-			string runKey = handle.GetHashCode() + "_" + method.Name;
-			_runFlag[runKey] = false;
-
-			return x =>
-			{
-				if (_runFlag[runKey]) { return; }
-
-				_runFlag[runKey] = true;
-				listen(x);
-				_runFlag[runKey] = false; 
-			};
-		}
 
 
 
@@ -284,9 +256,9 @@ namespace Orion.Api
 		private void setEventType(object model, NotifiStatus type)
 		{
 			var setable = model as INotifiStatusable;
-			if (setable != null) { setable.SetNotifiStatus(type); }			
+			if (setable != null) { setable.SetNotifiStatus(type); }
 		}
-		
+
 
 
 		private void logTrigger<T>(string triggerName, T value)
@@ -309,7 +281,19 @@ namespace Orion.Api
 			}
 		}
 
-		
+
+		private void trigger(List<IListen> listenList, Type type, object model)
+		{
+			IEnumerable<IListen> list = listenList;
+			if (type != _noneType) { list = list.Where(l => l.IsMatch(type)); }
+
+			list.ForEach(l => l.Invoke(model));
+		}
+
+
+
+
+
 
 		/// <summary>觸發初始</summary>
 		public void TriggerInit()
@@ -320,7 +304,7 @@ namespace Orion.Api
 		public void TriggerInit(NotifierLog level)
 		{
 			addLog(level, nameof(TriggerInit));
-			_initListen.Trigger(_anyType, null);
+			trigger(_initListen, _noneType, null);
 		}
 
 
@@ -335,7 +319,7 @@ namespace Orion.Api
 		public void TriggerClose(NotifierLog level)
 		{
 			addLog(level, nameof(TriggerClose));
-			_closeListen.Trigger(_anyType, null);
+			trigger(_closeListen, _noneType, null);
 		}
 
 
@@ -350,7 +334,7 @@ namespace Orion.Api
 		public void TriggerCycle(NotifierLog level)
 		{
 			addLog(level, nameof(TriggerCycle));
-			_cycleListen.Trigger(_anyType, null);
+			trigger(_cycleListen, _noneType, null);
 		}
 
 
@@ -367,7 +351,7 @@ namespace Orion.Api
 
 			setEventType(value, NotifiStatus.Change);
 			addLog(level, nameof(TriggerChange) + " " + type.Name + " " + value.ToJson());
-			_changeListen.Trigger(type, value);
+			trigger(_changeListen, type, value);
 			_waitListen.Trigger(type, value);
 		}
 
@@ -386,7 +370,7 @@ namespace Orion.Api
 
 			setEventType(value, NotifiStatus.Timeout);
 			addLog(level, nameof(TriggerTimeout) + " " + type.Name + " " + value.ToJson());
-			_timeoutListen.Trigger(type, value);
+			trigger(_timeoutListen, type, value);
 			_waitListen.Trigger(type, value);
 		}
 
@@ -405,7 +389,7 @@ namespace Orion.Api
 
 			setEventType(value, NotifiStatus.Failure);
 			addLog(level, nameof(TriggerFailure) + " " + type.Name + " " + value.ToJson());
-			_failureListen.Trigger(type, value);
+			trigger(_failureListen, type, value);
 			_waitListen.Trigger(type, value);
 		}
 
@@ -424,13 +408,13 @@ namespace Orion.Api
 
 			setEventType(value, NotifiStatus.Complete);
 			addLog(level, nameof(TriggerComplete) + " " + type.Name + " " + value.ToJson());
-			_completeListen.Trigger(type, value);
+			trigger(_completeListen, type, value);
 			_waitListen.Trigger(type, value);
 		}
 
 
 
-		
+
 		/*=====================================================*/
 
 		/// <summary>啟動週期</summary>
@@ -443,8 +427,16 @@ namespace Orion.Api
 			{
 				while (_beginCycle)
 				{
+					var nextBegin = DateTime.Now.AddMilliseconds(cycleMilliseconds);
+
 					TriggerCycle();
-					Thread.Sleep(cycleMilliseconds);
+
+					/* Sleep 直到下一次開始 */
+					while (DateTime.Now < nextBegin)
+					{
+						if (!_beginCycle) { return; }
+						Thread.Sleep(100); /* 分段 Sleep 可以讓程式比較快關閉 */
+					}
 				}
 			});
 			thread.SetApartmentState(ApartmentState.MTA);
@@ -475,54 +467,190 @@ namespace Orion.Api
 			return _waitListen.Add(timeoutSec, condition);
 		}
 
-	}
 
 
 
 
-	/*########################################################*/
+		/*##########################################################################*/
 
-	internal class ListenCollection
-	{
-
-		private Dictionary<Type, Action<object>> _listenMap = new Dictionary<Type, Action<object>>();
-		private Dictionary<Type, Action<object>> _listenMapAsync = new Dictionary<Type, Action<object>>();
-
-
-		public void Add(Type type, Action<object> callback, bool isAsync)
+		internal interface IListen
 		{
-			var target = isAsync ? _listenMapAsync : _listenMap;
+			NotifiMonitor Monitor { get; }
 
-			if (target.ContainsKey(type))
-			{ target[type] += callback; }
-			else
-			{ target[type] = callback; }
+			bool IsMatch(Type type);
+			void Invoke(object model);
 		}
 
 
-		public void Trigger(Type type, object model)
-		{
-			foreach (var pair in _listenMapAsync)
-			{
-				if (!pair.Key.IsAssignableFrom(type)) { continue; }
 
-				foreach (Delegate listen in pair.Value.GetInvocationList())
+		/// <summary>針對普通 method 的調用</summary>
+		internal class NormalListen : IListen
+		{
+			protected readonly object Handle;
+			protected readonly MethodInfo Method;
+			protected readonly IOrionLogger Log;
+
+			protected readonly string ExecName;
+			protected readonly bool HasParam;
+
+			private readonly Type _target;
+
+
+			public NotifiMonitor Monitor { get; private set; }
+
+			public NormalListen(object handle, MethodInfo method, IOrionLogger log)
+			{
+				Handle = handle;
+				Method = method;
+				Log = log;
+
+				Monitor = new NotifiMonitor(handle, method);
+
+				ParameterInfo[] parames = method.GetParameters();
+				_target = parames.Select(x => x.ParameterType).DefaultIfEmpty(_noneType).First();
+				ExecName = method.DeclaringType.FullName + "." + method.Name;
+				HasParam = parames.Length > 0;
+			}
+
+
+			public bool IsMatch(Type type)
+			{
+				return _target.IsAssignableFrom(type);
+			}
+
+
+			public virtual void Invoke(object model)
+			{
+				var beginTime = DateTime.Now;
+
+				object[] parameters = HasParam ? new object[] { model } : new object[] { };
+				try
 				{
-					ThreadPool.QueueUserWorkItem(m => { listen.DynamicInvoke(m); }, model);
+					/* 執行 Method */
+					Method.Invoke(Handle, parameters);
 				}
+				catch (AggregateException ex)
+				{
+					string msg = string.Format("Error {0} params: {1}", ExecName, parameters.ToJson());
+					foreach (var inner in ex.InnerExceptions) { Log.Error(msg, inner); }
+				}
+				catch (Exception ex)
+				{
+					string msg = string.Format("Error {0} params: {1}", ExecName, parameters.ToJson());
+					Log.Error(msg, ex);
+				}
+
+				Monitor.Add(beginTime, DateTime.Now);
 			}
 
-			foreach (var pair in _listenMap)
-			{
-				if (!pair.Key.IsAssignableFrom(type)) { continue; }
 
-				pair.Value.DynamicInvoke(model);
+		}
+
+
+		/// <summary>針對普通 method 非同步的調用</summary>
+		internal class NormalAsyncListen : NormalListen
+		{
+			public NormalAsyncListen(object handle, MethodInfo method, IOrionLogger log) : base(handle, method, log) { }
+
+
+			public override void Invoke(object model)
+			{
+				Task.Run(() => { base.Invoke(model); });
 			}
 		}
+
+
+		/// <summary>針對普通 method 非同步單一執行的調用</summary>
+		internal class NormalOnlyOneListen : NormalListen
+		{
+			public NormalOnlyOneListen(object handle, MethodInfo method, IOrionLogger log) : base(handle, method, log) { }
+
+
+			private bool _runFlag = false;
+
+			public override void Invoke(object model)
+			{
+				if (_runFlag) { return; }
+				_runFlag = true;
+
+				Task.Run(() =>
+				{
+					base.Invoke(model);
+					_runFlag = false;
+				});
+			}
+		}
+
+
+
+		/*======================================================*/
+
+		/// <summary>針對 async method 的呼叫</summary>
+		internal class AsyncListen : NormalListen
+		{
+			public AsyncListen(object handle, MethodInfo method, IOrionLogger log) : base(handle, method, log) { }
+
+
+			public override void Invoke(object model)
+			{
+				_ = InvokeAsync(model);
+			}
+
+			protected virtual async Task InvokeAsync(object model)
+			{
+				var beginTime = DateTime.Now;
+
+				object[] parameters = HasParam ? new object[] { model } : new object[] { };
+				try
+				{
+					/* 執行 Method */
+					await (Task)Method.Invoke(Handle, parameters);
+				}
+				catch (AggregateException ex)
+				{
+					string msg = string.Format("Error {0} params: {1}", ExecName, parameters.ToJson());
+					foreach (var inner in ex.InnerExceptions) { Log.Error(msg, inner); }
+				}
+				catch (Exception ex)
+				{
+					string msg = string.Format("Error {0} params: {1}", ExecName, parameters.ToJson());
+					Log.Error(msg, ex);
+				}
+
+				Monitor.Add(beginTime, DateTime.Now);
+			}
+		}
+
+
+		/// <summary>針對普通 method 非同步單一執行的調用</summary>
+		internal class AsyncOnlyOneListen : AsyncListen
+		{
+			public AsyncOnlyOneListen(object handle, MethodInfo method, IOrionLogger log) : base(handle, method, log) { }
+
+
+			private bool _runFlag = false;
+
+
+			public override void Invoke(object model)
+			{
+				if (_runFlag) { return; }
+				_runFlag = true;
+				_ = InvokeAsync(model);
+			}
+
+			protected override async Task InvokeAsync(object model)
+			{
+				await base.InvokeAsync(model);
+				_runFlag = false;
+			}
+
+		}
+
+
+
+
 	}
 
-
-	 
 
 
 }

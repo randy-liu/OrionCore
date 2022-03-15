@@ -279,7 +279,7 @@ namespace Orion.Mvc.ModelBinder
                 .Where(x => x.HasText())
                 .Select(x =>
                 {
-                    object result = OrionUtils.ConvertType(x, propType);
+                    object result = x.ConvertTo(propType);
                     if (result == null) { throw new InvalidCastException(x + " 不是有效的查詢條件"); }
                     return result;
                 })

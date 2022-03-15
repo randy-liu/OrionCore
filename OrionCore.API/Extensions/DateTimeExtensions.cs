@@ -82,6 +82,92 @@ namespace Orion.Api.Extensions
 
 
 
+
+		/*#############################################################*/
+
+		/// <summary></summary>
+		public static string ShowDate(this DateTime date)
+		{
+			return date.ToString("d");
+			//return date.ToString("yyyy-MM-dd");
+		}
+		/// <summary></summary>
+		public static string ShowDateTime(this DateTime date)
+		{
+			return date.ToString();
+			//return date.ToString("yyyy-MM-dd HH:mm:ss");
+		}
+		/// <summary></summary>
+		public static string ShowTime(this DateTime date)
+		{
+			return date.ToString("t");
+			//return date.ToString("HH:mm:ss");
+		}
+
+		/// <summary></summary>
+		public static string ShowDate(this DateTime? date)
+		{
+			if (date == null) { return null; }
+			return ShowDate(date.Value);
+		}
+		/// <summary></summary>
+		public static string ShowDateTime(this DateTime? date)
+		{
+			if (date == null) { return null; }
+			return ShowDateTime(date.Value);
+		}
+		/// <summary></summary>
+		public static string ShowTime(this DateTime? date)
+		{
+			if (date == null) { return null; }
+			return ShowTime(date.Value);
+		}
+
+
+
+
+
+		/*#############################################################*/
+
+		/// <summary></summary>
+		public static string ShowDate(this DateTimeOffset date)
+		{
+			return ShowDate(date.DateTime);
+		}
+		/// <summary></summary>
+		public static string ShowDateTime(this DateTimeOffset date)
+		{
+			return ShowDateTime(date.DateTime);
+		}
+		/// <summary></summary>
+		public static string ShowTime(this DateTimeOffset date)
+		{
+			return ShowTime(date.DateTime);
+		}
+
+		/// <summary></summary>
+		public static string ShowDate(this DateTimeOffset? date)
+		{
+			if (date == null) { return null; }
+			return ShowDate(date.Value.DateTime);
+		}
+		/// <summary></summary>
+		public static string ShowDateTime(this DateTimeOffset? date)
+		{
+			if (date == null) { return null; }
+			return ShowDateTime(date.Value.DateTime);
+		}
+		/// <summary></summary>
+		public static string ShowTime(this DateTimeOffset? date)
+		{
+			if (date == null) { return null; }
+			return ShowTime(date.Value.DateTime);
+		}
+
+
+
+
+
 		/// <summary>修補 DateTimeOffset 的時區到當前時區</summary>
 		public static DateTimeOffset PatchZone(this DateTimeOffset value, TimeZoneInfo zone)
 		{

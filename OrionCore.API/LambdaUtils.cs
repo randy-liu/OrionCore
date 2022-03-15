@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using Orion.Api.Extensions;
 
 namespace Orion.Api
 {
@@ -11,102 +11,32 @@ namespace Orion.Api
     public static class LambdaUtils
     {
 
-        /// <summary>搜尋造訪者</summary>
-        internal class ExpressionFinder<TFind> : ExpressionVisitor where TFind : Expression
-        {
-            public List<TFind> List { get; private set; }
-
-            public ExpressionFinder(Expression expr)
-            {
-                List = new List<TFind>();
-                Visit(expr);
-            }
-
-            public override Expression Visit(Expression expr)
-            {
-                var target = expr as TFind;
-                if (target != null) { List.Add(target); }
-
-                return base.Visit(expr);
-            }
-        }
-
-
-        /// <summary>尋找 Lambda Expression tree 中指定類型</summary>
-        public static List<T> FindByType<T>(Expression expr) where T : Expression
-        {
-            var finder = new ExpressionFinder<T>(expr);
-            return finder.List;
-        }
-
-
-        /// <summary>尋找 Lambda Expression tree 中的 MemberInfo</summary>
-        public static MemberInfo GetMember(LambdaExpression expr)
-        {
-            var paramType = expr.Parameters[0].Type;
-
-            return FindByType<MemberExpression>(expr)
-                .Where(x => x.Expression.Type == paramType)
-                .Select(x => x.Member)
-                .FirstOrDefault();
-        }
-
-
-        /// <summary>尋找 Lambda Expression tree 中的 PropertyInfo</summary>
-        public static PropertyInfo GetProperty(LambdaExpression expr)
-        {
-            var paramType = expr.Parameters[0].Type;
-
-            return FindByType<MemberExpression>(expr)
-                .Where(x => x.Expression.Type == paramType)
-                .Select(x => x.Member)
-                .OfType<PropertyInfo>()
-                .FirstOrDefault();
-        }
-
-
-        /// <summary>尋找 Lambda Expression tree 中的 PropertyInfo</summary>
-        public static PropertyInfo[] GetCustomProperties(LambdaExpression expr)
-        {
-            return FindByType<MemberExpression>(expr)
-                .Select(x => x.Member)
-                .OfType<PropertyInfo>()
-                .Where(p => p.DeclaringType.Namespace?.StartsWith("System") != true)
-                .Reverse()
-                .ToArray();
-        }
-
-
-
-
-        /*=========================================================*/
-
 
         /// <summary>尋找 Lambda Expression tree 中的 MethodInfo</summary>
-        public static MethodInfo GetMethod<T1>(Expression<Action<T1>> expr) { return GetMethod((LambdaExpression)expr); }
+        public static MethodInfo GetMethod<T1>(Expression<Action<T1>> expr) { return getMethod(expr); }
 
         /// <summary>尋找 Lambda Expression tree 中的 MethodInfo</summary>
-        public static MethodInfo GetMethod(Expression<Action> expr) { return GetMethod((LambdaExpression)expr); }
+        public static MethodInfo GetMethod(Expression<Action> expr) { return getMethod(expr); }
 
         /// <summary>尋找 Lambda Expression tree 中的 MethodInfo</summary>
-        public static MethodInfo GetMethod(Expression expr)
+        private static MethodInfo getMethod(Expression expr)
         {
-            return FindByType<MethodCallExpression>(expr)
+            return expr.FindByType<MethodCallExpression>()
                 .Select(x => x.Method)
                 .FirstOrDefault();
         }
 
 
         /// <summary>尋找 Lambda Expression tree 中的 Generic Definition MethodInfo</summary>
-        public static MethodInfo GetGenericMethodDefinition<T1>(Expression<Action<T1>> expr) { return GetGenericMethodDefinition((LambdaExpression)expr); }
+        public static MethodInfo GetGenericMethodDefinition<T1>(Expression<Action<T1>> expr) { return getGenericMethodDefinition(expr); }
 
         /// <summary>尋找 Lambda Expression tree 中的 Generic Definition MethodInfo</summary>
-        public static MethodInfo GetGenericMethodDefinition(Expression<Action> expr) { return GetGenericMethodDefinition((LambdaExpression)expr); }
+        public static MethodInfo GetGenericMethodDefinition(Expression<Action> expr) { return getGenericMethodDefinition(expr); }
 
         /// <summary>尋找 Lambda Expression tree 中的 Generic Definition MethodInfo</summary>
-        public static MethodInfo GetGenericMethodDefinition(Expression expr)
+        private static MethodInfo getGenericMethodDefinition(Expression expr)
         {
-            MethodInfo method = GetMethod(expr);
+            MethodInfo method = getMethod(expr);
             if (method == null) { return null; }
 
             if (method.IsGenericMethod && !method.IsGenericMethodDefinition)
@@ -118,6 +48,12 @@ namespace Orion.Api
 
 
         /*=========================================================*/
+
+        /// <summary></summary>
+        public static Expression<Func<T, bool>> True<T>()
+        {
+            return (T f) => true;
+        }
 
         /// <summary></summary>
         public static Expression<Func<T, bool>> False<T>()

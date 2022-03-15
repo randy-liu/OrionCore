@@ -4,7 +4,7 @@
     <!-- 專案會在建置後產生 NuGet 包 -->
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.0.4</Version>
+    <Version>1.0.5</Version>
     <AssemblyVersion>$(Version).0</AssemblyVersion>
     <FileVersion>$(Version).0</FileVersion>
     <AssemblyName>OrionCore.Mvc</AssemblyName>
@@ -18,14 +18,21 @@
     <OutputType>Library</OutputType>
     <IsPackable>true</IsPackable>
     <PackageIcon>orion_logo.png</PackageIcon>
+    <IncludeSymbols>true</IncludeSymbols>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>D:\Jax-Work\Dropbox\NugetProject\OrionCore\OrionCore.Mvc\OrionCore.Mvc.xml</DocumentationFile>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
 
 
   <ItemGroup>
     <Compile Remove="ModelBinder\DateTimeOffsetModelBinder.cs" />
   </ItemGroup>
-  
-  
+
+
   <ItemGroup>
     <None Remove="OCR-b.ttf" />
     <None Remove="UI\menus.xsd" />
@@ -51,5 +58,21 @@
   <ItemGroup>
     <Folder Include="Properties\" />
   </ItemGroup>
+
+
+ 
+  <Target Name="NugetPublish" AfterTargets="GenerateNuspec" Condition=" '$(Configuration)' == 'Release' ">
+    <ItemGroup>
+      <SymbolFiles Include="$(TargetDir)\..\*.symbols.nupkg" />
+    </ItemGroup>    
+    <Move SourceFiles="%(SymbolFiles.FullPath)" DestinationFiles="@(SymbolFiles -> Replace('.symbols.nupkg', '.nupkg'))" />
+
+    <ItemGroup>
+      <NupkgFiles Include="$(TargetDir)\..\*.nupkg" />
+    </ItemGroup>
+    <Move SourceFiles="%(NupkgFiles.FullPath)" DestinationFolder="D:\Jax-Work\Dropbox\NugetArchive" OverwriteReadOnlyFiles="True" />
+
+    <Message Text="##################################################################" />
+  </Target>
 
 </Project>

@@ -12,15 +12,18 @@ using Orion.Api.Extensions;
 namespace Orion.Mvc.Filters
 {
 
+    /// <summary></summary>
     public class ConfigureSessionAuthentication : IPostConfigureOptions<CookieAuthenticationOptions>
     {
         private readonly IMemoryCache _cache;
 
+        /// <summary></summary>
         public ConfigureSessionAuthentication(IMemoryCache cache)
         {
             _cache = cache;
         }
 
+        /// <summary></summary>
         public void PostConfigure(string name, CookieAuthenticationOptions options)
         {
             options.SessionStore = new DictionaryStore();
@@ -33,6 +36,7 @@ namespace Orion.Mvc.Filters
 
 
 
+    /// <summary></summary>
     public class DictionaryStore : ITicketStore
     {
         private static readonly ConcurrentDictionary<string, AuthenticationTicket> _cache = new ConcurrentDictionary<string, AuthenticationTicket>();
@@ -40,6 +44,7 @@ namespace Orion.Mvc.Filters
         private const string _keyPrefix = "AuthSessionStore";
 
 
+        /// <summary></summary>
         public DictionaryStore() { }
 
 
@@ -55,6 +60,7 @@ namespace Orion.Mvc.Filters
         }
 
 
+        /// <summary></summary>
         public async Task<string> StoreAsync(AuthenticationTicket ticket)
         {
             /* 刪除過期的 Ticket */
@@ -66,6 +72,7 @@ namespace Orion.Mvc.Filters
         }
 
 
+        /// <summary></summary>
         public Task RenewAsync(string key, AuthenticationTicket ticket)
         {
             _cache[key] = ticket;
@@ -73,6 +80,7 @@ namespace Orion.Mvc.Filters
         }
 
 
+        /// <summary></summary>
         public Task<AuthenticationTicket> RetrieveAsync(string key)
         {
             AuthenticationTicket ticket;
@@ -81,6 +89,7 @@ namespace Orion.Mvc.Filters
         }
 
 
+        /// <summary></summary>
         public Task RemoveAsync(string key)
         {
             _cache.TryRemove(key, out AuthenticationTicket ticket);
@@ -98,17 +107,20 @@ namespace Orion.Mvc.Filters
 
     /*====================================================*/
 
+    /// <summary></summary>
     public class MemoryCacheStore : ITicketStore
     {
         private const string _keyPrefix = "AuthSessionStore";
 
         private readonly IMemoryCache _cache;
 
+        /// <summary></summary>
         public MemoryCacheStore(IMemoryCache cache)
         {
             _cache = cache;
         }
 
+        /// <summary></summary>
         public async Task<string> StoreAsync(AuthenticationTicket ticket)
         {
             var key = _keyPrefix + Guid.NewGuid();
@@ -117,6 +129,7 @@ namespace Orion.Mvc.Filters
         }
 
 
+        /// <summary></summary>
         public Task RenewAsync(string key, AuthenticationTicket ticket)
         {
             var options = new MemoryCacheEntryOptions
@@ -137,6 +150,7 @@ namespace Orion.Mvc.Filters
         }
 
 
+        /// <summary></summary>
         public Task<AuthenticationTicket> RetrieveAsync(string key)
         {
             AuthenticationTicket ticket;
@@ -145,6 +159,7 @@ namespace Orion.Mvc.Filters
         }
 
 
+        /// <summary></summary>
         public Task RemoveAsync(string key)
         {
             _cache.Remove(key);

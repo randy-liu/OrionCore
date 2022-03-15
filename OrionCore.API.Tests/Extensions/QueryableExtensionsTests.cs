@@ -16,27 +16,27 @@ namespace Orion.Api.Extensions.Tests
 
         public QueryableExtensionsTests()
         {
-			_dc = OrionApiDbContext.CreateUseNpgsql();
+			_dc = OrionApiDbContext.CreateUseSqlite();
         }
 
          
 
-        [Fact]
-        public void AdvancedOrderBy_RunTest()
+		[Theory]
+        [InlineData(
+            "-InvoiceId", 
+            "ORDER BY i.InvoiceId DESC"
+        )]
+        [InlineData(
+            "InvoiceId,-InvoicePrefix,InvoiceDate",
+            "ORDER BY i.InvoiceId, i.InvoicePrefix DESC, i.InvoiceDate"
+        )]
+        public void AdvancedOrderBy_RunTest(string orderField, string expected)
         {
-            var sqlA = _dc.InvoiceIssue
-                .AdvancedOrderBy("InvoiceId")
+            var sql = _dc.InvoiceIssue
+                .AdvancedOrderBy(orderField)
                 .ToSql();
 
-            Assert.Contains("ORDER BY i.\"InvoiceId\" DESC", sqlA);
-
-
-            var sqlB = _dc.InvoiceIssue
-                .AdvancedOrderBy("InvoiceId,-InvoicePrefix,InvoiceDate")
-                .ToSql();
-
-            Assert.Contains("ORDER BY i.\"InvoiceId\", i.\"InvoicePrefix\" DESC, i.\"InvoiceDate\"", sqlB);
-            
+            Assert.Contains(expected, sql);
         }
 
 

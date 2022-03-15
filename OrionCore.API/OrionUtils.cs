@@ -67,160 +67,45 @@ namespace Orion.Api
         }
 
 
-        /// <summary>判斷型態是否可為 Null</summary>
-        public static bool IsNullable(Type type)
-        {
-            if (!type.IsValueType) { return true; } /* ref-type */
-            if (Nullable.GetUnderlyingType(type) != null) { return true; } /* Nullable<T> */
-            return false; /* value-type */
-        }
-
-
-
-        /// <summary>根據 T 將 value 轉型，若轉型失敗則回傳預設值</summary>
-        public static T ConvertType<T>(object value)
-        {
-            Type type = typeof(T);
-            object result = ConvertType(value, type);
-            if (result == null && type.IsValueType) { result = Activator.CreateInstance(type); }
-            return (T)result;
-        }
-
-
-        /// <summary>根據 type 將 value 轉型，若轉型失敗則回傳 null</summary>
-        public static object ConvertType(object value, Type type)
-        {
-            if (value == null) { return null; }
-
-            try
-            {
-                if (type == typeof(string)) { return value.ToString(); }
-
-                var nullType = Nullable.GetUnderlyingType(type);
-                if (nullType != null) { type = nullType; }
-
-                if (type.IsEnum)
-                {
-                    return Enum.Parse(type, value.ToString());
-                }
-                else if (type == typeof(Guid))
-                {
-                    return Guid.Parse(value.ToString());
-                }
-                else if (type == typeof(TimeSpan))
-                {
-                    return TimeSpan.Parse(value.ToString());
-                }
-                else if (type == typeof(DateTimeOffset))
-                {
-                    var result = DateTimeOffset.Parse(value.ToString());
-                    result = ThreadTimeZone.PatchZone(result);
-                    return result;
-                }
-                else
-                {
-                    return Convert.ChangeType(value, type);
-                }
-            }
-            catch
-            {
-                return null;
-            }
-        }
+        ///// <summary>判斷型態是否可為 Null</summary>
+        //public static bool IsNullable(Type type)
+        //{
+        //    if (!type.IsValueType) { return true; } /* ref-type */
+        //    if (Nullable.GetUnderlyingType(type) != null) { return true; } /* Nullable<T> */
+        //    return false; /* value-type */
+        //}
 
 
 
 
-        private static ConcurrentDictionary<Type, Action<object>> _stringPropTrimMap = new ConcurrentDictionary<Type, Action<object>>();
 
-        private static Action<object> makeStringPropTrim(Type type)
-        {
-            Action<object> trims = (model => { });
-
-            var propInfos = type.GetProperties()
-                .Where(x => x.CanRead && x.CanWrite)
-                .Where(x => x.PropertyType == typeof(string));
-
-            foreach (var prop in propInfos)
-            {
-                trims += model =>
-                {
-                    var value = prop.GetValue(model) as string;
-                    if (value != null) { prop.SetValue(model, value.Trim()); }
-                };
-            }
-
-            return trims;
-        }
-
-
-        /// <summary>將 model 中所有 string type 的 properties 去除空白</summary>
-        public static void TrimStringPropertys<TModel>(TModel model) where TModel : class
-        {
-            Action<object> trims = _stringPropTrimMap.GetOrAdd(typeof(TModel), makeStringPropTrim);
-            trims(model);
-        }
-
-
-
-
-        /// <summary>ReadUncommitted</summary>
-        public static TransactionScope TransactionReadUncommitted()
+        /// <summary></summary>
+        private static TransactionScope tx(IsolationLevel level)
         {
             return new TransactionScope(TransactionScopeOption.Required, new TransactionOptions
             {
-                IsolationLevel = IsolationLevel.ReadUncommitted,
+                IsolationLevel = level,
             });
         }
 
+        /// <summary>v0: 在交易期間可以讀取 Volatile (易失性)資料，但無法修改該資料，且不能加入新資料。</summary>
+        public static TransactionScope TxSerializable() { return tx(IsolationLevel.Serializable); }
 
+        /// <summary>v1: 在交易期間可以讀取 Volatile (易失性)資料，但無法修改該資料。 在交易期間可以加入新資料。</summary>
+        public static TransactionScope TxRepeatableRead() { return tx(IsolationLevel.RepeatableRead); }
 
-        public static TransactionScope Transaction()
-        {
-            return new TransactionScope(TransactionScopeOption.Required, new TransactionOptions
-            {
-                IsolationLevel = IsolationLevel.ReadCommitted,
-            });
-        }
+        /// <summary>v2: 在交易期間無法讀取 Volatile (易失性)資料，但可以修改該資料。</summary>
+        public static TransactionScope TxReadCommitted() { return tx(IsolationLevel.ReadCommitted); }
+
+        /// <summary>v3: 在交易期間可以讀取和修改 Volatile (易失性)資料。[髒讀]</summary>
+        public static TransactionScope TxReadUncommitted() { return tx(IsolationLevel.ReadUncommitted); }
+
 
 
 
 
 
         /*####################################################################*/
-
-        /// <summary>取得 Method | Property | Field  DisplayAttribute、DescriptionAttribute 中的字串</summary>
-        public static string GetDisplayName(MemberInfo info)
-        {
-            if (info == null) { return null; }
-
-            var disAttr = info.GetCustomAttribute<DisplayAttribute>();
-            if (disAttr != null)
-            {
-                if (disAttr.ResourceType == null) { return disAttr.Name; }
-                return new ResourceManager(disAttr.ResourceType).GetString(disAttr.Name) ?? disAttr.Name;
-            }
-
-            var descAttr = info.GetCustomAttribute<DescriptionAttribute>();
-            if (descAttr != null) { return descAttr.Description; }
-
-            return null;
-        }
-
-
-
-        /// <summary>取得 Method | Property | Field  DisplayAttribute 中的字串</summary>
-        public static string GetEnumDisplayName(object enumValue)
-        {
-            if (enumValue == null) { return null; }
-            var fi = enumValue.GetType().GetField(enumValue.ToString());
-            if (fi == null) { return null; }
-
-            return GetDisplayName(fi);
-        }
-
-
-
 
 
         /// <summary>將 enum 轉為 dictionary&lt;string,string&gt;</summary>

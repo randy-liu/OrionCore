@@ -1,6 +1,7 @@
 ﻿namespace Orion.Api.Models
 {
 
+		/// <summary></summary>
 	public class TableInfo
 	{
 		/// <summary></summary>

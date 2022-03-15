@@ -72,7 +72,6 @@ namespace Orion.Api.Extensions
         /// <summary> OrderBy 擴充</summary>
         /// <param name="source"></param>
         /// <param name="keySelector">field Name, propertyName</param>
-        /// <param name="descending">true Asc; false Desc</param>
         /// <returns></returns>
         public static IOrderedQueryable<TSource> AdvancedOrderBy<TSource>(this IQueryable<TSource> source, string keySelector)
         {

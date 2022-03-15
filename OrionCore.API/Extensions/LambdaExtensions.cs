@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 
@@ -7,40 +8,75 @@ namespace Orion.Api.Extensions
 {
 
     /// <summary>定義 Lambda Expression 的 Extension</summary>
-    public static class ExpressionExtensions
+    public static class LambdaExtensions
     {
+
+        /// <summary>搜尋造訪者</summary>
+        internal class ExpressionFinder<TFind> : ExpressionVisitor where TFind : Expression
+        {
+            public List<TFind> List { get; private set; }
+
+            public ExpressionFinder(Expression expr)
+            {
+                List = new List<TFind>();
+                Visit(expr);
+            }
+
+            public override Expression Visit(Expression expr)
+            {
+                var target = expr as TFind;
+                if (target != null) { List.Add(target); }
+
+                return base.Visit(expr);
+            }
+        }
+
 
         /// <summary>尋找 Lambda Expression tree 中指定類型</summary>
         public static List<T> FindByType<T>(this Expression expr) where T : Expression
         {
-            return LambdaUtils.FindByType<T>(expr);
+            var finder = new ExpressionFinder<T>(expr);
+            return finder.List;
         }
+
+
+
 
         /// <summary>尋找 Lambda Expression tree 中的 MemberInfo</summary>
         public static MemberInfo GetMember(this LambdaExpression expr)
         {
-            return LambdaUtils.GetMember(expr);
+            var paramType = expr.Parameters[0].Type;
+
+            return FindByType<MemberExpression>(expr)
+                .Where(x => x.Expression.Type == paramType)
+                .Select(x => x.Member)
+                .FirstOrDefault();
         }
+
 
         /// <summary>尋找 Lambda Expression tree 中的 PropertyInfo</summary>
         public static PropertyInfo GetProperty(this LambdaExpression expr)
         {
-            return LambdaUtils.GetProperty(expr);
+            var paramType = expr.Parameters[0].Type;
+
+            return FindByType<MemberExpression>(expr)
+                .Where(x => x.Expression.Type == paramType)
+                .Select(x => x.Member)
+                .OfType<PropertyInfo>()
+                .FirstOrDefault();
         }
 
 
-        /// <summary>尋找 Lambda Expression tree 中的 MethodInfo</summary>
-        public static MethodInfo GetMethod(this Expression expr)
-        {
-            return LambdaUtils.GetMethod(expr);
-        }
-
-        /// <summary>尋找 Lambda Expression tree 中的 Generic Definition MethodInfo</summary>
-        public static MethodInfo GetGenericMethodDefinition(this Expression expr)
-        {
-            return LambdaUtils.GetGenericMethodDefinition(expr);
-        }
-
+        ///// <summary>尋找 Lambda Expression tree 中的 PropertyInfo</summary>
+        //public static PropertyInfo[] GetCustomProperties(this LambdaExpression expr)
+        //{
+        //    return FindByType<MemberExpression>(expr)
+        //        .Select(x => x.Member)
+        //        .OfType<PropertyInfo>()
+        //        .Where(p => p.DeclaringType.Namespace?.StartsWith("System") != true)
+        //        .Reverse()
+        //        .ToArray();
+        //}
 
 
 
@@ -75,6 +111,18 @@ namespace Orion.Api.Extensions
             var replacer = new ExpressionReplacer(oldExpr, newExpr);
             Expression expr = replacer.Visit(source);
             return expr;
+        }
+
+
+
+        /// <summary></summary>
+        public static Expression<Func<T, bool>> And<T>(this Expression<Func<T, bool>> first, Expression<Func<T, bool>> second)
+        {
+            /* 替換參數 */
+            Expression expr = Replace(second.Body, second.Parameters[0], first.Parameters[0]);
+
+            /* 組合成新的 LambdaExpression */
+            return Expression.Lambda<Func<T, bool>>(Expression.AndAlso(first.Body, expr), first.Parameters);
         }
 
 

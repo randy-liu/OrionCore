@@ -9,15 +9,18 @@ using Orion.Mvc.Extensions;
 
 namespace Orion.Mvc.Filters
 {
+    /// <summary></summary>
     public class DevelopAuthorizationFilter : IAuthorizationFilter
     {
         private readonly List<Claim> _claims;
 
+        /// <summary></summary>
         public DevelopAuthorizationFilter(List<Claim> claims)
         {
             _claims = claims;
         }
 
+        /// <summary></summary>
         public void OnAuthorization(AuthorizationFilterContext context)
         {
             if (context.HttpContext.User.Identity.IsAuthenticated) { return; }
@@ -30,11 +33,13 @@ namespace Orion.Mvc.Filters
 
 
 
+    /// <summary></summary>
     public class DevelopAuthorizationFilter<TActEnum> : IAuthorizationFilter
     {
         private bool _runOneFlag = false;
 
 
+        /// <summary></summary>
         public void OnAuthorization(AuthorizationFilterContext context)
         {
             if (_runOneFlag) { return; }

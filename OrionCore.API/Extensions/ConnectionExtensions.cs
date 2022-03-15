@@ -5,6 +5,7 @@ using System.Data.Common;
 
 namespace Orion.Api.Extensions
 {
+	/// <summary></summary>
     public static class ConnectionExtensions
     {
         private static DbCommand connectCommand(DbConnection cnt)
@@ -14,19 +15,32 @@ namespace Orion.Api.Extensions
         }
 
 
-        public static DbTransaction Transaction(this DbConnection cnt)
-        {
-            return Transaction(cnt, IsolationLevel.ReadCommitted);
-        }
-
-
-        public static DbTransaction Transaction(this DbConnection cnt, IsolationLevel isolationLevel)
+        /// <summary></summary>
+        private static DbTransaction tx(DbConnection cnt, IsolationLevel isolationLevel)
         {
             if (!cnt.State.HasFlag(ConnectionState.Open)) { cnt.Open(); }
             return cnt.BeginTransaction(isolationLevel);
         }
 
 
+        /// <summary>v0: 在交易期間可以讀取 Volatile (易失性)資料，但無法修改該資料，且不能加入新資料。</summary>
+        public static DbTransaction TxSerializable(this DbConnection cnt) { return tx(cnt, IsolationLevel.Serializable); }
+
+        /// <summary>v1: 在交易期間可以讀取 Volatile (易失性)資料，但無法修改該資料。 在交易期間可以加入新資料。</summary>
+        public static DbTransaction TxRepeatableRead(this DbConnection cnt) { return tx(cnt, IsolationLevel.RepeatableRead); }
+
+        /// <summary>v2: 在交易期間無法讀取 Volatile (易失性)資料，但可以修改該資料。</summary>
+        public static DbTransaction TxReadCommitted(this DbConnection cnt) { return tx(cnt, IsolationLevel.ReadCommitted); }
+
+        /// <summary>v3: 在交易期間可以讀取和修改 Volatile (易失性)資料。[髒讀]</summary>
+        public static DbTransaction TxReadUncommitted(this DbConnection cnt) { return tx(cnt, IsolationLevel.ReadUncommitted); }
+
+
+
+
+
+
+        /// <summary></summary>
         public static DbCommand CreateCommandRaw(this DbConnection cnt, string commandText)
         {
             DbCommand command = connectCommand(cnt);
@@ -35,6 +49,7 @@ namespace Orion.Api.Extensions
         }
 
 
+        /// <summary></summary>
         public static DbCommand CreateCommand(this DbConnection cnt, FormattableString commandText)
         {
             DbCommand command = connectCommand(cnt);
@@ -47,6 +62,7 @@ namespace Orion.Api.Extensions
 
 
 
+        /// <summary></summary>
         public static int ExecuteCommand(this DbConnection cnt, FormattableString commandText)
         {
             using DbCommand command = CreateCommand(cnt, commandText);
@@ -54,6 +70,7 @@ namespace Orion.Api.Extensions
         }
 
 
+        /// <summary></summary>
         public static bool IsDataExists(this DbConnection cnt, FormattableString commandText)
         {
             using DbCommand command = CreateCommand(cnt, commandText);
@@ -62,6 +79,7 @@ namespace Orion.Api.Extensions
 
 
 
+        /// <summary></summary>
         public static T FetchOne<T>(this DbConnection cnt, FormattableString commandText)
         {
             using DbCommand command = CreateCommand(cnt, commandText);
@@ -70,6 +88,7 @@ namespace Orion.Api.Extensions
 
 
 
+        /// <summary></summary>
         public static DataTable FetchDataTable(this DbConnection cnt, FormattableString commandText)
         {
             using DbCommand command = CreateCommand(cnt, commandText);
@@ -78,6 +97,7 @@ namespace Orion.Api.Extensions
 
 
 
+        /// <summary></summary>
         public static DataRow FetchDataRow(this DbConnection cnt, FormattableString commandText)
         {
             using DbCommand command = CreateCommand(cnt, commandText);
@@ -85,6 +105,7 @@ namespace Orion.Api.Extensions
         }
 
 
+        /// <summary></summary>
         public static List<TModel> FetchList<TModel>(this DbConnection cnt, FormattableString commandText) where TModel : new()
         {
             using DbCommand command = CreateCommand(cnt, commandText);
@@ -92,6 +113,7 @@ namespace Orion.Api.Extensions
         }
 
 
+        /// <summary></summary>
         public static TModel FetchModel<TModel>(this DbConnection cnt, FormattableString commandText) where TModel : new()
         {
             using DbCommand command = CreateCommand(cnt, commandText);
@@ -103,6 +125,7 @@ namespace Orion.Api.Extensions
 
         /*#[Insert]###########################################################################*/
 
+        /// <summary></summary>
         public static int Insert(this DbConnection cnt, string tableName, object nameValues)
         {
             using DbCommand command = connectCommand(cnt);
@@ -113,6 +136,7 @@ namespace Orion.Api.Extensions
 
         /*#[Update]###########################################################################*/
 
+        /// <summary></summary>
         public static int Update(this DbConnection cnt, string tableName, object setValues, object whereValues)
         {
             using DbCommand command = connectCommand(cnt);
@@ -123,6 +147,7 @@ namespace Orion.Api.Extensions
 
         /*#[Delete]###########################################################################*/
 
+        /// <summary></summary>
         public static int Delete(this DbConnection cnt, string tableName, object whereValues)
         {
             using DbCommand command = connectCommand(cnt);
@@ -133,6 +158,7 @@ namespace Orion.Api.Extensions
 
         /*#[Procedure]###########################################################################*/
 
+        /// <summary></summary>
         public static int Procedure(this DbConnection cnt, string procedureName, params object[] parameters)
         {
             using DbCommand command = connectCommand(cnt);
@@ -155,9 +181,13 @@ namespace Orion.Api.Extensions
 
             return parame;
         }
+        /// <summary></summary>
         public static DbParameter OutBoolean(this DbConnection cnt) { return createOut(cnt, DbType.Boolean); }
+        /// <summary></summary>
         public static DbParameter OutInt32(this DbConnection cnt) { return createOut(cnt, DbType.Int32); }
+        /// <summary></summary>
         public static DbParameter OutDecimal(this DbConnection cnt) { return createOut(cnt, DbType.Decimal); }
+        /// <summary></summary>
         public static DbParameter OutString(this DbConnection cnt) { return createOut(cnt, DbType.String, 256); }
 
 

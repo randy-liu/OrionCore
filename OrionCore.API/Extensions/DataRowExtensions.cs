@@ -9,6 +9,7 @@ namespace Orion.Api.Extensions
     public static class DataRowExtensions
     {
 
+        /// <summary></summary>
         public static Dictionary<string, object> ToDictionary(this DataRow row)
         {
             if (row == null) { return null; }
@@ -38,38 +39,45 @@ namespace Orion.Api.Extensions
         }
 
 
+        /// <summary></summary>
         public static string String(this DataRow row, string columnName)
         {
             return toType<string>(row, columnName, null);
         }
 
 
+        /// <summary></summary>
         public static int Int(this DataRow row, string columnName)
         {
             return toType<int>(row, columnName, 0);
         }
 
+        /// <summary></summary>
         public static double Double(this DataRow row, string columnName)
         {
             return toType<double>(row, columnName, 0d);
         }
 
+        /// <summary></summary>
         public static decimal Decimal(this DataRow row, string columnName)
         {
             return toType<decimal>(row, columnName, 0m);
         }
 
+        /// <summary></summary>
         public static DateTime DateTime(this DataRow row, string columnName)
         {
             return toType<DateTime>(row, columnName, System.DateTime.MinValue);
         }
 
+        /// <summary></summary>
         public static DateTime? DateTimeN(this DataRow row, string columnName)
         {
             return toType<DateTime?>(row, columnName, null);
         }
 
 
+        /// <summary></summary>
         public static bool ContainsColumn(this DataRow row, string column)
         {
             if (row == null) { return false; }

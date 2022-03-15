@@ -38,7 +38,7 @@ namespace Orion.Api.Extensions
 			IRelationalCommand command = relationalCommandCache.GetRelationalCommand(relationalQueryContext.ParameterValues);
 #pragma warning restore EF1001 // Internal EF Core API usage.
 
-			return command.CommandText;
+			return command.CommandText.Replace("\"", "");
 		}
 
 

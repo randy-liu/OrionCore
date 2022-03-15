@@ -7,14 +7,25 @@ namespace Orion.Api.Tests
 	public class CheckerTests
 	{
 
+		/// <summary>New Case 新增案例</summary>
+		private static object[] n(object values) { return new object[] { values }; }
+		private static object[] n(object values1, object values2) { return new object[] { values1, values2 }; }
+		
+		
+		
+		
+		/*===============================================================*/
 
 		public static IEnumerable<object[]> Has_Test_Data()
 		{
-			yield return new object[] { 1 };
-			yield return new object[] { DateTime.Now };
-			yield return new object[] { "ss" };
-			yield return new object[] { new string[] { "sss" } };
-			yield return new object[] { new List<string>() { "sss" } };
+			return new[] 
+			{
+				n( 1 ),
+				n( DateTime.Now ),
+				n( "ss" ),
+				n( new string[] { "sss" } ),
+				n( new List<string>() { "sss" } ),
+			};
 		}
 
 
@@ -29,11 +40,14 @@ namespace Orion.Api.Tests
 
 		public static IEnumerable<object[]> Has_FailTest_Data()
 		{
-			yield return new object[] { null };
-			yield return new object[] { 0 };
-			yield return new object[] { "" };
-			yield return new object[] { new string[] { } };
-			yield return new object[] { new List<string>() }; 
+			return new[] 
+			{
+				n( (string)null ),
+				n( 0 ),
+				n( "" ),
+				n( new string[] { } ),
+				n( new List<string>() ),
+			};
 		}
 
 		[Theory]
@@ -54,8 +68,11 @@ namespace Orion.Api.Tests
 
 		public static IEnumerable<object[]> Is_Test_Data()
 		{
-			yield return new object[] { (int?)1, 1 };
-			yield return new object[] { "1", "1" };
+			return new[]
+			{
+				n( (int?)1, 1 ),
+				n( "1", "1" ),
+			};
 		}
 
 
@@ -72,9 +89,12 @@ namespace Orion.Api.Tests
 
 		public static IEnumerable<object[]> Is_FailTest_Data()
 		{
-			yield return new object[] { (int?)null, 1 };
-			yield return new object[] { 2, 1 };
-			yield return new object[] { "", "1" };
+			return new[] 
+			{
+				n( null, 1 ),
+				n( 2, 1 ),
+				n( "", "1" ),
+			};
 		}
 
 		[Theory]

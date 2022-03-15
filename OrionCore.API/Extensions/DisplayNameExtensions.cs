@@ -32,8 +32,10 @@ namespace Orion.Api.Extensions
 
 
 		/// <summary>取得 Method | Property | Field  DisplayAttribute 中的字串</summary>
-		public static string GetDisplayName<TEnum>(this TEnum enumValue) where TEnum : struct, Enum
+		public static string GetDisplayName(this Enum enumValue) 
 		{
+			if (enumValue == null) { return null; }
+
 			var fi = enumValue.GetType().GetField(enumValue.ToString());
 			if (fi == null) { return null; }
 

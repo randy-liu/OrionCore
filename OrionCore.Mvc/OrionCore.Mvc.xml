@@ -1,0 +1,1894 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>OrionCore.Mvc</name>
+    </assembly>
+    <members>
+        <member name="T:Orion.Mvc.Attributes.ActAuthorizeAttribute">
+            <summary>ACT 驗證使用者權限</summary>
+        </member>
+        <member name="M:Orion.Mvc.Attributes.ActAuthorizeAttribute.#ctor">
+            <summary>ACT 驗證使用者權限</summary>
+        </member>
+        <member name="M:Orion.Mvc.Attributes.ActAuthorizeAttribute.#ctor(System.Object[])">
+            <summary>ACT 驗證使用者權限</summary>
+        </member>
+        <member name="T:Orion.Mvc.Attributes.SearchRememberAttribute">
+            <summary></summary>
+        </member>
+        <member name="P:Orion.Mvc.Attributes.SearchRememberAttribute.StoreKeyParam">
+            <summary>從 QueryString 取得要儲存在 cookie 的名稱 string storeName = qs[StoreKeyParam]</summary>
+        </member>
+        <member name="P:Orion.Mvc.Attributes.SearchRememberAttribute.StoreOnly">
+            <summary>只要儲存的 QueryString 參數</summary>
+        </member>
+        <member name="P:Orion.Mvc.Attributes.SearchRememberAttribute.Ignore">
+            <summary>要忽略的 QueryString 參數</summary>
+        </member>
+        <member name="T:Orion.Mvc.Attributes.UseViewPageAttribute">
+            <summary></summary>
+        </member>
+        <member name="P:Orion.Mvc.Attributes.UseViewPageAttribute.ViewName">
+            <summary></summary>
+        </member>
+        <member name="P:Orion.Mvc.Attributes.UseViewPageAttribute.Title">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Attributes.UseViewPageAttribute.#ctor(System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Attributes.UseViewPageAttribute.#ctor(System.String,System.String)">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Mvc.Extensions.ApplicationBuilderExtensions">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Extensions.ApplicationBuilderExtensions.UseFormDataToRouteHandler(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>使用 FormData 給路由 handler</summary>
+        </member>
+        <member name="M:Orion.Mvc.Extensions.ApplicationBuilderExtensions.UseElmahClear(Microsoft.AspNetCore.Builder.IApplicationBuilder,System.Int32,System.String)">
+            <summary>使用 Elmah 清除 XML 的舊紀錄</summary>
+        </member>
+        <member name="M:Orion.Mvc.Extensions.ApplicationBuilderExtensions.clearElmahOldXmlLog(System.Int32,System.String)">
+            <summary>清除 Elmah XML 的舊紀錄</summary>
+        </member>
+        <member name="T:Orion.Mvc.Extensions.CaptchaExtensions">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Extensions.CaptchaExtensions.ensureFontFamily">
+            <summary>載入字型檔</summary>
+        </member>
+        <member name="M:Orion.Mvc.Extensions.CaptchaExtensions.IsCaptchaValid(Microsoft.AspNetCore.Mvc.Controller,System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Extensions.CaptchaExtensions.CaptchaResult(Microsoft.AspNetCore.Mvc.Controller,System.Int32,System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Extensions.CaptchaExtensions.IsCaptchaValid(Microsoft.AspNetCore.Mvc.RazorPages.PageModel,System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Extensions.CaptchaExtensions.CaptchaResult(Microsoft.AspNetCore.Mvc.RazorPages.PageModel,System.Int32,System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Extensions.CaptchaExtensions.CreateCaptchaPng(System.String,System.String)">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Mvc.Extensions.ControllerExtensions">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Extensions.ControllerExtensions.SetStatusSuccess(Microsoft.AspNetCore.Mvc.Controller,System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Extensions.ControllerExtensions.SetStatusError(Microsoft.AspNetCore.Mvc.Controller,System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Extensions.ControllerExtensions.SetStatusSuccess(Microsoft.AspNetCore.Mvc.RazorPages.PageModel,System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Extensions.ControllerExtensions.SetStatusError(Microsoft.AspNetCore.Mvc.RazorPages.PageModel,System.String)">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Mvc.Extensions.EnvironmentExtensions">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Extensions.EnvironmentExtensions.MapPath(Microsoft.AspNetCore.Hosting.IWebHostEnvironment,System.String)">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Mvc.Extensions.IPrincipalExtensions">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Extensions.IPrincipalExtensions.AnyAct(System.Security.Principal.IPrincipal,System.Enum[])">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Extensions.IPrincipalExtensions.AllAct(System.Security.Principal.IPrincipal,System.Enum[])">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Extensions.IPrincipalExtensions.GetClaim(System.Security.Principal.IPrincipal,System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Extensions.IPrincipalExtensions.GetUserId(System.Security.Principal.IPrincipal)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Extensions.IPrincipalExtensions.GetUserName(System.Security.Principal.IPrincipal)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Extensions.IPrincipalExtensions.GetUserType(System.Security.Principal.IPrincipal)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Extensions.IPrincipalExtensions.GetAccount(System.Security.Principal.IPrincipal)">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Mvc.Extensions.ModelStateExtensions">
+            <summary>定義 ModelState 的 Extension</summary>
+        </member>
+        <member name="M:Orion.Mvc.Extensions.ModelStateExtensions.ThrowIfNotValid(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary)">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Mvc.Extensions.OrionUser">
+            <summary></summary>
+        </member>
+        <member name="F:Orion.Mvc.Extensions.OrionUser.UserId">
+            <summary></summary>
+        </member>
+        <member name="F:Orion.Mvc.Extensions.OrionUser.UserName">
+            <summary></summary>
+        </member>
+        <member name="F:Orion.Mvc.Extensions.OrionUser.UserType">
+            <summary></summary>
+        </member>
+        <member name="F:Orion.Mvc.Extensions.OrionUser.Account">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Mvc.Extensions.QueryStringExtensions">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Extensions.QueryStringExtensions.Set(Microsoft.AspNetCore.Http.QueryString,System.String,System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Extensions.QueryStringExtensions.Remove(Microsoft.AspNetCore.Http.QueryString,System.String)">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Mvc.Extensions.RequestExtensions">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Extensions.RequestExtensions.IsAjaxRequest(Microsoft.AspNetCore.Http.HttpRequest)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Extensions.RequestExtensions.IsGetMethod(Microsoft.AspNetCore.Http.HttpRequest)">
+            <summary>Method == "GET"</summary>
+        </member>
+        <member name="M:Orion.Mvc.Extensions.RequestExtensions.IsPostMethod(Microsoft.AspNetCore.Http.HttpRequest)">
+            <summary>Method == "POST"</summary>
+        </member>
+        <member name="T:Orion.Mvc.Filters.AbstractPageFilter">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Filters.AbstractPageFilter.OnPageHandlerSelected(Microsoft.AspNetCore.Mvc.Filters.PageHandlerSelectedContext)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Filters.AbstractPageFilter.OnPageHandlerExecuting(Microsoft.AspNetCore.Mvc.Filters.PageHandlerExecutingContext)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Filters.AbstractPageFilter.OnPageHandlerExecuted(Microsoft.AspNetCore.Mvc.Filters.PageHandlerExecutedContext)">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Mvc.Filters.ConfigureSessionAuthentication">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Filters.ConfigureSessionAuthentication.#ctor(Microsoft.Extensions.Caching.Memory.IMemoryCache)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Filters.ConfigureSessionAuthentication.PostConfigure(System.String,Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationOptions)">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Mvc.Filters.DictionaryStore">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Filters.DictionaryStore.#ctor">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Filters.DictionaryStore.clearExpires">
+            <summary>刪除過期的 Ticket</summary>
+        </member>
+        <member name="M:Orion.Mvc.Filters.DictionaryStore.StoreAsync(Microsoft.AspNetCore.Authentication.AuthenticationTicket)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Filters.DictionaryStore.RenewAsync(System.String,Microsoft.AspNetCore.Authentication.AuthenticationTicket)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Filters.DictionaryStore.RetrieveAsync(System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Filters.DictionaryStore.RemoveAsync(System.String)">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Mvc.Filters.MemoryCacheStore">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Filters.MemoryCacheStore.#ctor(Microsoft.Extensions.Caching.Memory.IMemoryCache)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Filters.MemoryCacheStore.StoreAsync(Microsoft.AspNetCore.Authentication.AuthenticationTicket)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Filters.MemoryCacheStore.RenewAsync(System.String,Microsoft.AspNetCore.Authentication.AuthenticationTicket)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Filters.MemoryCacheStore.RetrieveAsync(System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Filters.MemoryCacheStore.RemoveAsync(System.String)">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Mvc.Filters.DevelopAuthorizationFilter">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Filters.DevelopAuthorizationFilter.#ctor(System.Collections.Generic.List{System.Security.Claims.Claim})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Filters.DevelopAuthorizationFilter.OnAuthorization(Microsoft.AspNetCore.Mvc.Filters.AuthorizationFilterContext)">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Mvc.Filters.DevelopAuthorizationFilter`1">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Filters.DevelopAuthorizationFilter`1.OnAuthorization(Microsoft.AspNetCore.Mvc.Filters.AuthorizationFilterContext)">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Mvc.Filters.ExceptionMessageActionFilter">
+            <summary>例外訊息過濾器</summary>
+        </member>
+        <member name="M:Orion.Mvc.Filters.ExceptionMessageActionFilter.OnActionExecuting(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Filters.ExceptionMessageActionFilter.OnActionExecuted(Microsoft.AspNetCore.Mvc.Filters.ActionExecutedContext)">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Mvc.Filters.ExceptionMessagePageFilter">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Filters.ExceptionMessagePageFilter.OnPageHandlerExecuted(Microsoft.AspNetCore.Mvc.Filters.PageHandlerExecutedContext)">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Mvc.Filters.HandlerAuthorizeFilter">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Filters.HandlerAuthorizeFilter.OnPageHandlerExecuting(Microsoft.AspNetCore.Mvc.Filters.PageHandlerExecutingContext)">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Mvc.Filters.PageModelInjectFilter">
+            <summary></summary>
+        </member>
+        <member name="F:Orion.Mvc.Filters.PageModelInjectFilter._injecterCache">
+            <summary>注入器的快取</summary>
+        </member>
+        <member name="M:Orion.Mvc.Filters.PageModelInjectFilter.buildInjecter(System.Type)">
+            <summary>建構注入器</summary>
+        </member>
+        <member name="M:Orion.Mvc.Filters.PageModelInjectFilter.OnPageHandlerSelected(Microsoft.AspNetCore.Mvc.Filters.PageHandlerSelectedContext)">
+            <summary>在選取處理常式方法之後，但在進行模型系結之前呼叫。</summary>
+        </member>
+        <member name="T:Orion.Mvc.Filters.PageParamsActionFilter">
+            <summary>PageParams 的預設值 ActionFilter</summary>
+        </member>
+        <member name="M:Orion.Mvc.Filters.PageParamsActionFilter.#ctor(System.String,System.Int32)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Filters.PageParamsActionFilter.OnActionExecuting(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext)">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Mvc.Filters.PageParamsPageFilter">
+            <summary>PageParams 的預設值 ActionFilter</summary>
+        </member>
+        <member name="M:Orion.Mvc.Filters.PageParamsPageFilter.#ctor(System.String,System.Int32)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Filters.PageParamsPageFilter.OnPageHandlerExecuting(Microsoft.AspNetCore.Mvc.Filters.PageHandlerExecutingContext)">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Mvc.Filters.SearchRememberActionFilter">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Filters.SearchRememberActionFilter.#ctor(System.String[])">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Filters.SearchRememberActionFilter.OnActionExecuting(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext)">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Mvc.Filters.SearchRememberPageFilter">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Filters.SearchRememberPageFilter.#ctor(System.String[])">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Filters.SearchRememberPageFilter.OnPageHandlerExecuting(Microsoft.AspNetCore.Mvc.Filters.PageHandlerExecutingContext)">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Mvc.Filters.UseViewPageActionFilter">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Filters.UseViewPageActionFilter.OnActionExecuted(Microsoft.AspNetCore.Mvc.Filters.ActionExecutedContext)">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Mvc.Html.BsCheckboxRadioExtensions">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsCheckboxRadioExtensions.BsBoolRadioList(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsCheckboxRadioExtensions.BsBoolRadioList(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsCheckboxRadioExtensions.BsBoolRadioList(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.String,System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsCheckboxRadioExtensions.BsBoolRadioList(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.String,System.String,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsCheckboxRadioExtensions.BsRadioList(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IEnumerable{System.Int32})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsCheckboxRadioExtensions.BsRadioList(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IEnumerable{System.Int32},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsCheckboxRadioExtensions.BsRadioList(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IEnumerable{System.String})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsCheckboxRadioExtensions.BsRadioList(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IEnumerable{System.String},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsCheckboxRadioExtensions.BsRadioList``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IDictionary{``0,``1})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsCheckboxRadioExtensions.BsRadioList``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IDictionary{``0,``1},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsCheckboxRadioExtensions.BsRadioList(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IEnumerable{Microsoft.AspNetCore.Mvc.Rendering.SelectListItem})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsCheckboxRadioExtensions.BsRadioList(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IEnumerable{Microsoft.AspNetCore.Mvc.Rendering.SelectListItem},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsCheckboxRadioExtensions.BsBoolRadioList(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsCheckboxRadioExtensions.BsBoolRadioList(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.String,System.String,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsCheckboxRadioExtensions.BsRadioList(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IEnumerable{System.Int32},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsCheckboxRadioExtensions.BsRadioList(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsCheckboxRadioExtensions.BsRadioList``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IDictionary{``0,``1},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsCheckboxRadioExtensions.BsRadioList(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IEnumerable{Microsoft.AspNetCore.Mvc.Rendering.SelectListItem},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsCheckboxRadioExtensions.BsBoolRadioListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsCheckboxRadioExtensions.BsBoolRadioListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsCheckboxRadioExtensions.BsBoolRadioListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.String,System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsCheckboxRadioExtensions.BsBoolRadioListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.String,System.String,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsCheckboxRadioExtensions.BsEnumRadioListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsCheckboxRadioExtensions.BsEnumRadioListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsCheckboxRadioExtensions.BsRadioListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IEnumerable{System.Int32})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsCheckboxRadioExtensions.BsRadioListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IEnumerable{System.Int32},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsCheckboxRadioExtensions.BsRadioListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IEnumerable{System.String})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsCheckboxRadioExtensions.BsRadioListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IEnumerable{System.String},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsCheckboxRadioExtensions.BsRadioListFor``4(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IDictionary{``2,``3})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsCheckboxRadioExtensions.BsRadioListFor``4(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IDictionary{``2,``3},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsCheckboxRadioExtensions.BsRadioListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IEnumerable{Microsoft.AspNetCore.Mvc.Rendering.SelectListItem})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsCheckboxRadioExtensions.BsRadioListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IEnumerable{Microsoft.AspNetCore.Mvc.Rendering.SelectListItem},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsCheckboxRadioExtensions.BsBoolRadioListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsCheckboxRadioExtensions.BsBoolRadioListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.String,System.String,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsCheckboxRadioExtensions.BsEnumRadioListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsCheckboxRadioExtensions.BsRadioListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IEnumerable{System.Int32},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsCheckboxRadioExtensions.BsRadioListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsCheckboxRadioExtensions.BsRadioListFor``4(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IDictionary{``2,``3},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsCheckboxRadioExtensions.BsRadioListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IEnumerable{Microsoft.AspNetCore.Mvc.Rendering.SelectListItem},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsCheckboxRadioExtensions.BsCheckboxList(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IEnumerable{System.Int32})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsCheckboxRadioExtensions.BsCheckboxList(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IEnumerable{System.Int32},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsCheckboxRadioExtensions.BsCheckboxList(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IEnumerable{System.String})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsCheckboxRadioExtensions.BsCheckboxList(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IEnumerable{System.String},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsCheckboxRadioExtensions.BsCheckboxList``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IDictionary{``0,``1})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsCheckboxRadioExtensions.BsCheckboxList``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IDictionary{``0,``1},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsCheckboxRadioExtensions.BsCheckboxList(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IEnumerable{Microsoft.AspNetCore.Mvc.Rendering.SelectListItem})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsCheckboxRadioExtensions.BsCheckboxList(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IEnumerable{Microsoft.AspNetCore.Mvc.Rendering.SelectListItem},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsCheckboxRadioExtensions.BsCheckboxList(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IEnumerable{System.Int32},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsCheckboxRadioExtensions.BsCheckboxList(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsCheckboxRadioExtensions.BsCheckboxList``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IDictionary{``0,``1},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsCheckboxRadioExtensions.BsCheckboxList(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IEnumerable{Microsoft.AspNetCore.Mvc.Rendering.SelectListItem},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsCheckboxRadioExtensions.BsEnumCheckboxListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Collections.Generic.IEnumerable{``1}}})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsCheckboxRadioExtensions.BsEnumCheckboxListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Collections.Generic.IEnumerable{``1}}},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsCheckboxRadioExtensions.BsCheckboxListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IEnumerable{System.Int32})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsCheckboxRadioExtensions.BsCheckboxListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IEnumerable{System.Int32},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsCheckboxRadioExtensions.BsCheckboxListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IEnumerable{System.String})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsCheckboxRadioExtensions.BsCheckboxListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IEnumerable{System.String},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsCheckboxRadioExtensions.BsCheckboxListFor``4(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IDictionary{``2,``3})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsCheckboxRadioExtensions.BsCheckboxListFor``4(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IDictionary{``2,``3},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsCheckboxRadioExtensions.BsCheckboxListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IEnumerable{Microsoft.AspNetCore.Mvc.Rendering.SelectListItem})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsCheckboxRadioExtensions.BsCheckboxListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IEnumerable{Microsoft.AspNetCore.Mvc.Rendering.SelectListItem},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsCheckboxRadioExtensions.BsEnumCheckboxListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Collections.Generic.IEnumerable{``1}}},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsCheckboxRadioExtensions.BsCheckboxListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IEnumerable{System.Int32},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsCheckboxRadioExtensions.BsCheckboxListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsCheckboxRadioExtensions.BsCheckboxListFor``4(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IDictionary{``2,``3},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsCheckboxRadioExtensions.BsCheckboxListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IEnumerable{Microsoft.AspNetCore.Mvc.Rendering.SelectListItem},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Mvc.Html.BsDatetimeExtensions">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsDatetimeExtensions.BsDateBox(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsDatetimeExtensions.BsDateBox(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Object,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsDatetimeExtensions.BsDateBox(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Object,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsDatetimeExtensions.BsDateBoxFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsDatetimeExtensions.BsDateBoxFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsDatetimeExtensions.BsDateBoxFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsDatetimeExtensions.MBsDateBox(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsDatetimeExtensions.MBsDateBox(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Object,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsDatetimeExtensions.MBsDateBox(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Object,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsDatetimeExtensions.MBsDateBoxFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsDatetimeExtensions.MBsDateBoxFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsDatetimeExtensions.MBsDateBoxFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsDatetimeExtensions.warpDateBox(Microsoft.AspNetCore.Html.IHtmlContent,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsDatetimeExtensions.BsDateTimeBox(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsDatetimeExtensions.BsDateTimeBox(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Object,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsDatetimeExtensions.BsDateTimeBox(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Object,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsDatetimeExtensions.BsDateTimeBoxFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsDatetimeExtensions.BsDateTimeBoxFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsDatetimeExtensions.BsDateTimeBoxFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsDatetimeExtensions.BsTimeBox(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsDatetimeExtensions.BsTimeBox(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Object,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsDatetimeExtensions.BsTimeBox(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Object,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsDatetimeExtensions.BsTimeBoxFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsDatetimeExtensions.BsTimeBoxFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsDatetimeExtensions.BsTimeBoxFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Mvc.Html.BsInputExtensions">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsInputExtensions.BsStaticControl(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsInputExtensions.BsStaticControl(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsInputExtensions.BsStaticControl(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsInputExtensions.BsStaticControl(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Object,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsInputExtensions.BsStaticControl(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Object,System.String,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsInputExtensions.BsStaticControl(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Object,System.String,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsInputExtensions.BsStaticControlFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsInputExtensions.BsStaticControlFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsInputExtensions.BsStaticControlFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.String,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsInputExtensions.BsStaticControlFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsInputExtensions.BsStaticControlFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.String,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsInputExtensions.BsTextBox(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsInputExtensions.BsTextBox(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Object,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsInputExtensions.BsTextBox(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Object,System.String,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsInputExtensions.BsTextBox(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Object,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsInputExtensions.BsTextBox(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Object,System.String,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsInputExtensions.BsTextBoxFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsInputExtensions.BsTextBoxFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsInputExtensions.BsTextBoxFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.String,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsInputExtensions.BsTextBoxFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsInputExtensions.BsTextBoxFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.String,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Mvc.Html.BsLabelExtensions">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsLabelExtensions.BsLabel(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsLabelExtensions.BsLabel(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsLabelExtensions.BsLabel(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsLabelExtensions.BsLabel(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.String,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsLabelExtensions.BsLabel(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.String,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsLabelExtensions.BsLabel(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.Enum)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsLabelExtensions.BsLabel(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.Enum,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsLabelExtensions.BsLabel(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.Enum,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsLabelExtensions.BsLabelFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsLabelExtensions.BsLabelFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsLabelExtensions.BsLabelFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsLabelExtensions.BsLabelFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.String,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsLabelExtensions.BsLabelFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.String,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsLabelExtensions.BsLabelForModel(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsLabelExtensions.BsLabelForModel(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsLabelExtensions.BsLabelForModel(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsLabelExtensions.BsLabelForModel(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsLabelExtensions.BsLabelForModel(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Mvc.Html.BsSelectDictionaryExtensions">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsSelectDictionaryExtensions.BsDropDownList(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IEnumerable{System.Int32})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsSelectDictionaryExtensions.BsDropDownList(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IEnumerable{System.String})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsSelectDictionaryExtensions.BsDropDownList``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IDictionary{``0,``1})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsSelectDictionaryExtensions.BsDropDownList(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IEnumerable{System.Int32},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsSelectDictionaryExtensions.BsDropDownList(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IEnumerable{System.String},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsSelectDictionaryExtensions.BsDropDownList``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IDictionary{``0,``1},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsSelectDictionaryExtensions.BsDropDownList(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IEnumerable{System.Int32},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsSelectDictionaryExtensions.BsDropDownList(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsSelectDictionaryExtensions.BsDropDownList``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IDictionary{``0,``1},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsSelectDictionaryExtensions.BsDropDownList(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IEnumerable{System.Int32},System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsSelectDictionaryExtensions.BsDropDownList(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IEnumerable{System.String},System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsSelectDictionaryExtensions.BsDropDownList``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IDictionary{``0,``1},System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsSelectDictionaryExtensions.BsDropDownList(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IEnumerable{System.Int32},System.String,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsSelectDictionaryExtensions.BsDropDownList(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IEnumerable{System.String},System.String,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsSelectDictionaryExtensions.BsDropDownList``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IDictionary{``0,``1},System.String,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsSelectDictionaryExtensions.BsDropDownList(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IEnumerable{System.Int32},System.String,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsSelectDictionaryExtensions.BsDropDownList(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IEnumerable{System.String},System.String,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsSelectDictionaryExtensions.BsDropDownList``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IDictionary{``0,``1},System.String,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsSelectDictionaryExtensions.BsDropDownListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IEnumerable{System.Int32})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsSelectDictionaryExtensions.BsDropDownListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IEnumerable{System.String})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsSelectDictionaryExtensions.BsDropDownListFor``4(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IDictionary{``2,``3})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsSelectDictionaryExtensions.BsDropDownListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IEnumerable{System.Int32},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsSelectDictionaryExtensions.BsDropDownListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IEnumerable{System.String},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsSelectDictionaryExtensions.BsDropDownListFor``4(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IDictionary{``2,``3},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsSelectDictionaryExtensions.BsDropDownListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IEnumerable{System.Int32},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsSelectDictionaryExtensions.BsDropDownListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsSelectDictionaryExtensions.BsDropDownListFor``4(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IDictionary{``2,``3},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsSelectDictionaryExtensions.BsDropDownListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IEnumerable{System.Int32},System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsSelectDictionaryExtensions.BsDropDownListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IEnumerable{System.String},System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsSelectDictionaryExtensions.BsDropDownListFor``4(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IDictionary{``2,``3},System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsSelectDictionaryExtensions.BsDropDownListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IEnumerable{System.Int32},System.String,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsSelectDictionaryExtensions.BsDropDownListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IEnumerable{System.String},System.String,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsSelectDictionaryExtensions.BsDropDownListFor``4(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IDictionary{``2,``3},System.String,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsSelectDictionaryExtensions.BsDropDownListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IEnumerable{System.Int32},System.String,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsSelectDictionaryExtensions.BsDropDownListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IEnumerable{System.String},System.String,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsSelectDictionaryExtensions.BsDropDownListFor``4(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IDictionary{``2,``3},System.String,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Mvc.Html.BsSelectExtensions">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsSelectExtensions.BsDropDownList(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsSelectExtensions.BsDropDownList(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsSelectExtensions.BsDropDownList(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IEnumerable{Microsoft.AspNetCore.Mvc.Rendering.SelectListItem})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsSelectExtensions.BsDropDownList(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IEnumerable{Microsoft.AspNetCore.Mvc.Rendering.SelectListItem},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsSelectExtensions.BsDropDownList(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IEnumerable{Microsoft.AspNetCore.Mvc.Rendering.SelectListItem},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsSelectExtensions.BsDropDownList(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IEnumerable{Microsoft.AspNetCore.Mvc.Rendering.SelectListItem},System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsSelectExtensions.BsDropDownList(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IEnumerable{Microsoft.AspNetCore.Mvc.Rendering.SelectListItem},System.String,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsSelectExtensions.BsDropDownList(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IEnumerable{Microsoft.AspNetCore.Mvc.Rendering.SelectListItem},System.String,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsSelectExtensions.BsDropDownListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IEnumerable{Microsoft.AspNetCore.Mvc.Rendering.SelectListItem})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsSelectExtensions.BsDropDownListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IEnumerable{Microsoft.AspNetCore.Mvc.Rendering.SelectListItem},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsSelectExtensions.BsDropDownListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IEnumerable{Microsoft.AspNetCore.Mvc.Rendering.SelectListItem},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsSelectExtensions.BsDropDownListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IEnumerable{Microsoft.AspNetCore.Mvc.Rendering.SelectListItem},System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsSelectExtensions.BsDropDownListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IEnumerable{Microsoft.AspNetCore.Mvc.Rendering.SelectListItem},System.String,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsSelectExtensions.BsDropDownListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IEnumerable{Microsoft.AspNetCore.Mvc.Rendering.SelectListItem},System.String,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsSelectExtensions.BsEnumDropDownListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsSelectExtensions.BsEnumDropDownListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsSelectExtensions.BsEnumDropDownListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsSelectExtensions.BsEnumDropDownListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsSelectExtensions.BsEnumDropDownListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.String,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsSelectExtensions.BsEnumDropDownListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.String,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Mvc.Html.BsTextAreaExtensions">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsTextAreaExtensions.BsTextArea(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsTextAreaExtensions.BsTextArea(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsTextAreaExtensions.BsTextArea(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsTextAreaExtensions.BsTextArea(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsTextAreaExtensions.BsTextArea(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.String,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsTextAreaExtensions.BsTextArea(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.String,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsTextAreaExtensions.BsTextArea(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.String,System.Int32,System.Int32,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsTextAreaExtensions.BsTextArea(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.String,System.Int32,System.Int32,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsTextAreaExtensions.BsTextAreaFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsTextAreaExtensions.BsTextAreaFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsTextAreaExtensions.BsTextAreaFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsTextAreaExtensions.BsTextAreaFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Int32,System.Int32,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.BsTextAreaExtensions.BsTextAreaFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Int32,System.Int32,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Mvc.Html.CheckboxRadioExtensions">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.CheckboxRadioExtensions.BoolRadioList(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.CheckboxRadioExtensions.BoolRadioList(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.String,System.String,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.CheckboxRadioExtensions.RadioList(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IEnumerable{System.Int32},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.CheckboxRadioExtensions.RadioList(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IEnumerable{System.String},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.CheckboxRadioExtensions.RadioList``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IDictionary{``0,``1},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.CheckboxRadioExtensions.RadioList(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IEnumerable{Microsoft.AspNetCore.Mvc.Rendering.SelectListItem},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.CheckboxRadioExtensions.BoolRadioList(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.CheckboxRadioExtensions.BoolRadioList(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.String,System.String,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.CheckboxRadioExtensions.RadioList(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IEnumerable{System.Int32},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.CheckboxRadioExtensions.RadioList(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.CheckboxRadioExtensions.RadioList``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IDictionary{``0,``1},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.CheckboxRadioExtensions.RadioList(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IEnumerable{Microsoft.AspNetCore.Mvc.Rendering.SelectListItem},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.CheckboxRadioExtensions.BoolRadioListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.CheckboxRadioExtensions.BoolRadioListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.String,System.String,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.CheckboxRadioExtensions.EnumRadioListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.CheckboxRadioExtensions.RadioListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IEnumerable{System.Int32},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.CheckboxRadioExtensions.RadioListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IEnumerable{System.String},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.CheckboxRadioExtensions.RadioListFor``4(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IDictionary{``2,``3},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.CheckboxRadioExtensions.RadioListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IEnumerable{Microsoft.AspNetCore.Mvc.Rendering.SelectListItem},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.CheckboxRadioExtensions.BoolRadioListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.CheckboxRadioExtensions.BoolRadioListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.String,System.String,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.CheckboxRadioExtensions.EnumRadioListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.CheckboxRadioExtensions.RadioListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IEnumerable{System.Int32},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.CheckboxRadioExtensions.RadioListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.CheckboxRadioExtensions.RadioListFor``4(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IDictionary{``2,``3},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.CheckboxRadioExtensions.RadioListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IEnumerable{Microsoft.AspNetCore.Mvc.Rendering.SelectListItem},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.CheckboxRadioExtensions.CheckboxList(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IEnumerable{System.Int32},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.CheckboxRadioExtensions.CheckboxList(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IEnumerable{System.String},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.CheckboxRadioExtensions.CheckboxList``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IDictionary{``0,``1},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.CheckboxRadioExtensions.CheckboxList(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IEnumerable{Microsoft.AspNetCore.Mvc.Rendering.SelectListItem},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.CheckboxRadioExtensions.CheckboxList(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IEnumerable{System.Int32},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.CheckboxRadioExtensions.CheckboxList(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.CheckboxRadioExtensions.CheckboxList``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IDictionary{``0,``1},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.CheckboxRadioExtensions.CheckboxList(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IEnumerable{Microsoft.AspNetCore.Mvc.Rendering.SelectListItem},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.CheckboxRadioExtensions.EnumCheckboxListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.CheckboxRadioExtensions.CheckboxListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IEnumerable{System.Int32},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.CheckboxRadioExtensions.CheckboxListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IEnumerable{System.String},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.CheckboxRadioExtensions.CheckboxListFor``4(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IDictionary{``2,``3},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.CheckboxRadioExtensions.CheckboxListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IEnumerable{Microsoft.AspNetCore.Mvc.Rendering.SelectListItem},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.CheckboxRadioExtensions.EnumCheckboxListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.CheckboxRadioExtensions.CheckboxListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IEnumerable{System.Int32},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.CheckboxRadioExtensions.CheckboxListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.CheckboxRadioExtensions.CheckboxListFor``4(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IDictionary{``2,``3},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.CheckboxRadioExtensions.CheckboxListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IEnumerable{Microsoft.AspNetCore.Mvc.Rendering.SelectListItem},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Mvc.Html.ConditionTagHelper">
+            <summary></summary>
+        </member>
+        <member name="P:Orion.Mvc.Html.ConditionTagHelper.Condition">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.ConditionTagHelper.Process(Microsoft.AspNetCore.Razor.TagHelpers.TagHelperContext,Microsoft.AspNetCore.Razor.TagHelpers.TagHelperOutput)">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Mvc.Html.HelperExtensions">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.HelperExtensions.FilterQueryString(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String[])">
+            <summary>過濾 QueryString 中不要的變數</summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.HelperExtensions.Content(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String)">
+            <summary>將 Content 的內容輸出到畫面</summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.HelperExtensions.RenderContent(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String)">
+            <summary>將 Content 的內容輸出到畫面</summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.HelperExtensions.ModelHelper``1(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,``0)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.HelperExtensions.PropertyHelper``1(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.HelperExtensions.PropertyHelper``1(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.Collections.Generic.List{``0})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.HelperExtensions.PropertyHelper``1(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,Orion.Api.Models.Pagination{``0})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.HelperExtensions.ShowItem``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.HelperExtensions.ShowItem(System.Enum)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.HelperExtensions.ShowItem``2(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IDictionary{``0,``1})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.HelperExtensions.ShowItem``2(System.Nullable{``0},System.Collections.Generic.IDictionary{``0,``1})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.HelperExtensions.ShowItem``2(``0,System.Collections.Generic.IDictionary{``0,``1})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.HelperExtensions.ShowItem(System.Object,System.Collections.Generic.IDictionary{System.String,System.String})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.HelperExtensions.ShowItemAndKey(System.Object,System.Collections.Generic.IDictionary{System.String,System.String})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.HelperExtensions.ToJsonRaw(System.Object)">
+            <summary>將 object 轉換為 JsonRaw</summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.HelperExtensions.ToFormatJsonRaw(System.Object)">
+            <summary>將 object 轉換為縮排格式化的 JsonRaw</summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.HelperExtensions.CommaWrap``1(``0)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.HelperExtensions.CommaWrap``1(System.Nullable{``0})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.HelperExtensions.CommaWrap``1(``0,System.Int32)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.HelperExtensions.CommaWrap``1(System.Nullable{``0},System.Int32)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.HelperExtensions.EnumJson``1(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.HelperExtensions.EnumJson(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.Type)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.HelperExtensions.EnumJsonRaw``1(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.HelperExtensions.EnumJsonRaw(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.Type)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.HelperExtensions.BackUrl(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String)">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Mvc.Html.HelperUtils">
+            <summary></summary>
+        </member>
+        <member name="P:Orion.Mvc.Html.HelperUtils.IsTaiwanCalendar">
+            <summary>是否為民國曆</summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.HelperUtils.ToSelectListItem(System.Collections.Generic.IEnumerable{System.Int32})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.HelperUtils.ToSelectListItem(System.Collections.Generic.IEnumerable{System.String})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.HelperUtils.ToSelectListItem``2(System.Collections.Generic.IDictionary{``0,``1})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.HelperUtils.GetBoolSelectListItem">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.HelperUtils.GetBoolSelectListItem(System.String,System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.HelperUtils.GetString(Microsoft.AspNetCore.Html.IHtmlContent)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.HelperUtils.ParseSelectList(Microsoft.AspNetCore.Html.IHtmlContent)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.HelperUtils.IsEditable(System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>判斷是否為可編輯</summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.HelperUtils.ClearBoolAttribute(System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>清除 Bool = false 的 Html 屬性</summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.HelperUtils.StandardAttribute(System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>標準化 HTML 屬性</summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.HelperUtils.AddCssClass(System.Collections.Generic.IDictionary{System.String,System.Object},System.String)">
+            <summary>增加 css class</summary>
+        </member>
+        <member name="T:Orion.Mvc.Html.HtmlExcelExportExtensions">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.HtmlExcelExportExtensions.ExcelExport``1(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.Collections.Generic.IEnumerable{``0})">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Mvc.Html.HtmlExcelExport`1">
+            <summary></summary>
+        </member>
+        <member name="P:Orion.Mvc.Html.HtmlExcelExport`1.ViewContext">
+            <summary></summary>
+        </member>
+        <member name="P:Orion.Mvc.Html.HtmlExcelExport`1.HttpContext">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.HtmlExcelExport`1.#ctor(Microsoft.AspNetCore.Mvc.Rendering.ViewContext,System.Collections.Generic.IEnumerable{`0})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.HtmlExcelExport`1.HeaderStyle(System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.HtmlExcelExport`1.ColumnOrder(System.Collections.Generic.IEnumerable{System.String})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.HtmlExcelExport`1.Column``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.HtmlExcelExport`1.Column``1(System.String,System.String,System.Func{`0,``0})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.HtmlExcelExport`1.getColumnNames">
+            <summary>取得欄位顯示順序</summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.HtmlExcelExport`1.Render">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.HtmlExcelExport`1.ToString">
+            <summary>
+            Renders to the TextWriter, and returns null. 
+            This is by design so that it can be used with inline syntax in views.
+            </summary>
+        </member>
+        <member name="T:Orion.Mvc.Html.OrionHtmlHelper`1">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.OrionHtmlHelper`1.#ctor(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,`0)">
+            <summary></summary>
+        </member>
+        <member name="P:Orion.Mvc.Html.OrionHtmlHelper`1.ViewContext">
+            <summary></summary>
+        </member>
+        <member name="P:Orion.Mvc.Html.OrionHtmlHelper`1.ViewData">
+            <summary></summary>
+        </member>
+        <member name="P:Orion.Mvc.Html.OrionHtmlHelper`1.Html5DateRenderingMode">
+            <summary></summary>
+        </member>
+        <member name="P:Orion.Mvc.Html.OrionHtmlHelper`1.IdAttributeDotReplacement">
+            <summary></summary>
+        </member>
+        <member name="P:Orion.Mvc.Html.OrionHtmlHelper`1.MetadataProvider">
+            <summary></summary>
+        </member>
+        <member name="P:Orion.Mvc.Html.OrionHtmlHelper`1.ViewBag">
+            <summary></summary>
+        </member>
+        <member name="P:Orion.Mvc.Html.OrionHtmlHelper`1.TempData">
+            <summary></summary>
+        </member>
+        <member name="P:Orion.Mvc.Html.OrionHtmlHelper`1.UrlEncoder">
+            <summary></summary>
+        </member>
+        <member name="P:Orion.Mvc.Html.OrionHtmlHelper`1.Microsoft#AspNetCore#Mvc#Rendering#IHtmlHelper#ViewData">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.OrionHtmlHelper`1.ActionLink(System.String,System.String,System.String,System.String,System.String,System.String,System.Object,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.OrionHtmlHelper`1.AntiForgeryToken">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.OrionHtmlHelper`1.BeginForm(System.String,System.String,System.Object,Microsoft.AspNetCore.Mvc.Rendering.FormMethod,System.Nullable{System.Boolean},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.OrionHtmlHelper`1.BeginRouteForm(System.String,System.Object,Microsoft.AspNetCore.Mvc.Rendering.FormMethod,System.Nullable{System.Boolean},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.OrionHtmlHelper`1.CheckBox(System.String,System.Nullable{System.Boolean},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.OrionHtmlHelper`1.CheckBoxFor(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.OrionHtmlHelper`1.Display(System.String,System.String,System.String,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.OrionHtmlHelper`1.DisplayFor``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},System.String,System.String,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.OrionHtmlHelper`1.DisplayName(System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.OrionHtmlHelper`1.DisplayNameFor``1(System.Linq.Expressions.Expression{System.Func{`0,``0}})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.OrionHtmlHelper`1.DisplayNameForInnerType``2(System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.OrionHtmlHelper`1.DisplayText(System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.OrionHtmlHelper`1.DisplayTextFor``1(System.Linq.Expressions.Expression{System.Func{`0,``0}})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.OrionHtmlHelper`1.DropDownList(System.String,System.Collections.Generic.IEnumerable{Microsoft.AspNetCore.Mvc.Rendering.SelectListItem},System.String,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.OrionHtmlHelper`1.DropDownListFor``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},System.Collections.Generic.IEnumerable{Microsoft.AspNetCore.Mvc.Rendering.SelectListItem},System.String,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.OrionHtmlHelper`1.Editor(System.String,System.String,System.String,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.OrionHtmlHelper`1.EditorFor``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},System.String,System.String,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.OrionHtmlHelper`1.Encode(System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.OrionHtmlHelper`1.Encode(System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.OrionHtmlHelper`1.EndForm">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.OrionHtmlHelper`1.FormatValue(System.Object,System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.OrionHtmlHelper`1.GenerateIdFromName(System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.OrionHtmlHelper`1.GetEnumSelectList``1">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.OrionHtmlHelper`1.GetEnumSelectList(System.Type)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.OrionHtmlHelper`1.Hidden(System.String,System.Object,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.OrionHtmlHelper`1.HiddenFor``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.OrionHtmlHelper`1.Id(System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.OrionHtmlHelper`1.IdFor``1(System.Linq.Expressions.Expression{System.Func{`0,``0}})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.OrionHtmlHelper`1.Label(System.String,System.String,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.OrionHtmlHelper`1.LabelFor``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},System.String,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.OrionHtmlHelper`1.ListBox(System.String,System.Collections.Generic.IEnumerable{Microsoft.AspNetCore.Mvc.Rendering.SelectListItem},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.OrionHtmlHelper`1.ListBoxFor``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},System.Collections.Generic.IEnumerable{Microsoft.AspNetCore.Mvc.Rendering.SelectListItem},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.OrionHtmlHelper`1.Name(System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.OrionHtmlHelper`1.NameFor``1(System.Linq.Expressions.Expression{System.Func{`0,``0}})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.OrionHtmlHelper`1.PartialAsync(System.String,System.Object,Microsoft.AspNetCore.Mvc.ViewFeatures.ViewDataDictionary)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.OrionHtmlHelper`1.Password(System.String,System.Object,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.OrionHtmlHelper`1.PasswordFor``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.OrionHtmlHelper`1.RadioButton(System.String,System.Object,System.Nullable{System.Boolean},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.OrionHtmlHelper`1.RadioButtonFor``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},System.Object,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.OrionHtmlHelper`1.Raw(System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.OrionHtmlHelper`1.Raw(System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.OrionHtmlHelper`1.RenderPartialAsync(System.String,System.Object,Microsoft.AspNetCore.Mvc.ViewFeatures.ViewDataDictionary)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.OrionHtmlHelper`1.RouteLink(System.String,System.String,System.String,System.String,System.String,System.Object,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.OrionHtmlHelper`1.TextArea(System.String,System.String,System.Int32,System.Int32,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.OrionHtmlHelper`1.TextAreaFor``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},System.Int32,System.Int32,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.OrionHtmlHelper`1.TextBox(System.String,System.Object,System.String,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.OrionHtmlHelper`1.TextBoxFor``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},System.String,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.OrionHtmlHelper`1.ValidationMessage(System.String,System.String,System.Object,System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.OrionHtmlHelper`1.ValidationMessageFor``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},System.String,System.Object,System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.OrionHtmlHelper`1.ValidationSummary(System.Boolean,System.String,System.Object,System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.OrionHtmlHelper`1.Value(System.String,System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.OrionHtmlHelper`1.ValueFor``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},System.String)">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Mvc.Html.PaginationExtensions">
+            <summary></summary>
+        </member>
+        <member name="P:Orion.Mvc.Html.PaginationExtensions.IndexParam">
+            <summary></summary>
+        </member>
+        <member name="P:Orion.Mvc.Html.PaginationExtensions.SortParam">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.PaginationExtensions.PagerLinks(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,Orion.Api.Models.IPagination)">
+            <summary>換頁的頁面連結列</summary>
+            <param name="helper">The HTML Helper</param>
+            <param name="pagination">The datasource</param>
+        </member>
+        <member name="M:Orion.Mvc.Html.PaginationExtensions.PagerSortFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.PaginationExtensions.PagerSortFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.PaginationExtensions.PagerSort(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.String)">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Mvc.Html.SelectDictionaryExtensions">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.SelectDictionaryExtensions.DropDownList(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IEnumerable{System.Int32},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.SelectDictionaryExtensions.DropDownList(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.SelectDictionaryExtensions.DropDownList``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IDictionary{``0,``1},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.SelectDictionaryExtensions.DropDownList(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IEnumerable{System.Int32},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.SelectDictionaryExtensions.DropDownList(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IEnumerable{System.String},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.SelectDictionaryExtensions.DropDownList``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IDictionary{``0,``1},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.SelectDictionaryExtensions.DropDownList(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IEnumerable{System.Int32},System.String,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.SelectDictionaryExtensions.DropDownList(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IEnumerable{System.String},System.String,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.SelectDictionaryExtensions.DropDownList``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IDictionary{``0,``1},System.String,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.SelectDictionaryExtensions.DropDownList(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IEnumerable{System.Int32},System.String,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.SelectDictionaryExtensions.DropDownList(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IEnumerable{System.String},System.String,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.SelectDictionaryExtensions.DropDownList``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IDictionary{``0,``1},System.String,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.SelectDictionaryExtensions.DropDownListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IEnumerable{System.Int32},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.SelectDictionaryExtensions.DropDownListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.SelectDictionaryExtensions.DropDownListFor``4(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IDictionary{``2,``3},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.SelectDictionaryExtensions.DropDownListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IEnumerable{System.Int32},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.SelectDictionaryExtensions.DropDownListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IEnumerable{System.String},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.SelectDictionaryExtensions.DropDownListFor``4(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IDictionary{``2,``3},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.SelectDictionaryExtensions.DropDownListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IEnumerable{System.Int32},System.String,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.SelectDictionaryExtensions.DropDownListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IEnumerable{System.String},System.String,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.SelectDictionaryExtensions.DropDownListFor``4(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IDictionary{``2,``3},System.String,System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.SelectDictionaryExtensions.DropDownListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IEnumerable{System.Int32},System.String,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.SelectDictionaryExtensions.DropDownListFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IEnumerable{System.String},System.String,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.SelectDictionaryExtensions.DropDownListFor``4(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IDictionary{``2,``3},System.String,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.SelectDictionaryExtensions.ListBox(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IEnumerable{System.Int32},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.SelectDictionaryExtensions.ListBox(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IEnumerable{System.String},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.SelectDictionaryExtensions.ListBox``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IDictionary{``0,``1},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.SelectDictionaryExtensions.ListBox(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IEnumerable{System.Int32},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.SelectDictionaryExtensions.ListBox(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.SelectDictionaryExtensions.ListBox``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Collections.Generic.IDictionary{``0,``1},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.SelectDictionaryExtensions.ListBoxFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IEnumerable{System.Int32},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.SelectDictionaryExtensions.ListBoxFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IEnumerable{System.String},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.SelectDictionaryExtensions.ListBoxFor``4(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IDictionary{``2,``3},System.Object)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.SelectDictionaryExtensions.ListBoxFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IEnumerable{System.Int32},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.SelectDictionaryExtensions.ListBoxFor``2(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.SelectDictionaryExtensions.ListBoxFor``4(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0},System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Collections.Generic.IDictionary{``2,``3},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Mvc.Html.WhereBuilderHelperExtensions">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.WhereBuilderHelperExtensions.WhereBuilder``1(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.WhereBuilderHelperExtensions.WhereBuilder``1(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.Collections.Generic.List{``0})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.WhereBuilderHelperExtensions.WhereBuilder``1(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,Orion.Api.Models.Pagination{``0})">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Mvc.Html.WhereBuilderHelper`1">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.WhereBuilderHelper`1.#ctor(System.IO.TextWriter)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.WhereBuilderHelper`1.Divider">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.WhereBuilderHelper`1.Column(System.String,System.String,System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.WhereBuilderHelper`1.Column``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},System.String,System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.WhereBuilderHelper`1.Column(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.Boolean}}},System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.WhereBuilderHelper`1.Column(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.Int16}}},System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.WhereBuilderHelper`1.Column(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.Int32}}},System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.WhereBuilderHelper`1.Column(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.Int64}}},System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.WhereBuilderHelper`1.Column(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.Single}}},System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.WhereBuilderHelper`1.Column(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.Double}}},System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.WhereBuilderHelper`1.Column(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.Decimal}}},System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.WhereBuilderHelper`1.Column(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.TimeSpan}}},System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.WhereBuilderHelper`1.Column(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.DateTime}}},System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.WhereBuilderHelper`1.Column(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.DateTimeOffset}}},System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.WhereBuilderHelper`1.Column(System.Linq.Expressions.Expression{System.Func{`0,System.Enum}},System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.WhereBuilderHelper`1.Column(System.Linq.Expressions.Expression{System.Func{`0,System.String}},System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.WhereBuilderHelper`1.Column``2(System.Linq.Expressions.Expression{System.Func{`0,``0}},System.Collections.Generic.IDictionary{``0,``1},System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.WhereBuilderHelper`1.Column``2(System.Linq.Expressions.Expression{System.Func{`0,System.Collections.Generic.IEnumerable{``0}}},System.Collections.Generic.IDictionary{``0,``1},System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.WhereBuilderHelper`1.Column``2(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{``0}}},System.Collections.Generic.IDictionary{``0,``1},System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.WhereBuilderHelper`1.Column``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},System.Collections.Generic.IEnumerable{``0},System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.WhereBuilderHelper`1.Column``1(System.Linq.Expressions.Expression{System.Func{`0,System.Collections.Generic.IEnumerable{``0}}},System.Collections.Generic.IEnumerable{``0},System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.WhereBuilderHelper`1.Column``1(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{``0}}},System.Collections.Generic.IEnumerable{``0},System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.WhereBuilderHelper`1.Render">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.WhereBuilderHelper`1.ToString">
+            <summary>
+            Renders to the TextWriter, and returns null. 
+            This is by design so that it can be used with inline syntax in views.
+            </summary>
+        </member>
+        <member name="T:Orion.Mvc.HttpException">
+            <summary></summary>
+        </member>
+        <member name="P:Orion.Mvc.HttpException.StatusCode">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.HttpException.#ctor(System.Int32)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.HttpException.#ctor(System.Net.HttpStatusCode)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.HttpException.#ctor(System.Int32,System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.HttpException.#ctor(System.Net.HttpStatusCode,System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.HttpException.#ctor(System.Int32,System.String,System.Exception)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.HttpException.#ctor(System.Net.HttpStatusCode,System.String,System.Exception)">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Mvc.ModelBinder.StringTrimModelBinderProvider">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.ModelBinder.StringTrimModelBinderProvider.GetBinder(Microsoft.AspNetCore.Mvc.ModelBinding.ModelBinderProviderContext)">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Mvc.ModelBinder.StringTrimModelBinder">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.ModelBinder.StringTrimModelBinder.#ctor(Microsoft.AspNetCore.Mvc.ModelBinding.IModelBinder)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.ModelBinder.StringTrimModelBinder.BindModelAsync(Microsoft.AspNetCore.Mvc.ModelBinding.ModelBindingContext)">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Mvc.ModelBinder.WhereParamsModelBinderProvider">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.ModelBinder.WhereParamsModelBinderProvider.GetBinder(Microsoft.AspNetCore.Mvc.ModelBinding.ModelBinderProviderContext)">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Mvc.ModelBinder.WhereParamsModelBinder">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.ModelBinder.WhereParamsModelBinder.BindModelAsync(Microsoft.AspNetCore.Mvc.ModelBinding.ModelBindingContext)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.ModelBinder.WhereParamsModelBinder.CreateWhereParams(System.Collections.Specialized.NameValueCollection,Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.ModelBinder.WhereParamsModelBinder.CreateWhereParams(System.Type,System.Collections.Specialized.NameValueCollection,Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary)">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Mvc.Program">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Program.Main(System.String[])">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Mvc.RazorViewCaller">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.RazorViewCaller.#ctor(Microsoft.AspNetCore.Mvc.Razor.IRazorViewEngine,Microsoft.AspNetCore.Mvc.ViewFeatures.ITempDataProvider,System.IServiceProvider)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.RazorViewCaller.Render``1(System.String,``0)">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Mvc.UI.IBreadcrumbProvider">
+            <summary>麵包屑提供者</summary>
+        </member>
+        <member name="M:Orion.Mvc.UI.IBreadcrumbProvider.GetPathList(System.String)">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Mvc.UI.BreadcrumbProvider">
+            <summary>麵包屑提供者</summary>
+        </member>
+        <member name="M:Orion.Mvc.UI.BreadcrumbProvider.#ctor(System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.UI.BreadcrumbProvider.#ctor(System.String,System.Resources.ResourceManager)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.UI.BreadcrumbProvider.#ctor(System.IO.Stream)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.UI.BreadcrumbProvider.#ctor(System.IO.Stream,System.Resources.ResourceManager)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.UI.BreadcrumbProvider.GetPathList(System.String)">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Mvc.UI.IBreadcrumb">
+            <summary></summary>
+        </member>
+        <member name="P:Orion.Mvc.UI.IBreadcrumb.Name">
+            <summary></summary>
+        </member>
+        <member name="P:Orion.Mvc.UI.IBreadcrumb.Url">
+            <summary></summary>
+        </member>
+        <member name="P:Orion.Mvc.UI.IBreadcrumb.Icon">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Mvc.UI.MenuItem">
+            <summary></summary>
+        </member>
+        <member name="P:Orion.Mvc.UI.MenuItem.Name">
+            <summary></summary>
+        </member>
+        <member name="P:Orion.Mvc.UI.MenuItem.Url">
+            <summary></summary>
+        </member>
+        <member name="P:Orion.Mvc.UI.MenuItem.Target">
+            <summary></summary>
+        </member>
+        <member name="P:Orion.Mvc.UI.MenuItem.ACT">
+            <summary></summary>
+        </member>
+        <member name="P:Orion.Mvc.UI.MenuItem.Icon">
+            <summary></summary>
+        </member>
+        <member name="P:Orion.Mvc.UI.MenuItem.Pattern">
+            <summary></summary>
+        </member>
+        <member name="P:Orion.Mvc.UI.MenuItem.IsActive">
+            <summary></summary>
+        </member>
+        <member name="P:Orion.Mvc.UI.MenuItem.CanAccess">
+            <summary></summary>
+        </member>
+        <member name="P:Orion.Mvc.UI.MenuItem.HasUrl">
+            <summary></summary>
+        </member>
+        <member name="P:Orion.Mvc.UI.MenuItem.UseFirstSubUrl">
+            <summary></summary>
+        </member>
+        <member name="P:Orion.Mvc.UI.MenuItem.SubItems">
+            <summary></summary>
+        </member>
+        <member name="P:Orion.Mvc.UI.MenuItem.HasSubItems">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.UI.MenuItem.Clone">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Mvc.UI.IMenuProvider">
+            <summary>選單提供者</summary>
+        </member>
+        <member name="P:Orion.Mvc.UI.IMenuProvider.AreaName">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.UI.IMenuProvider.GetList(System.Security.Principal.IPrincipal,System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.UI.IMenuProvider.GetAllowList(System.Security.Principal.IPrincipal,System.String)">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Mvc.UI.MenuProvider">
+            <summary>選單提供者</summary>
+        </member>
+        <member name="P:Orion.Mvc.UI.MenuProvider.AreaName">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.UI.MenuProvider.#ctor(System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.UI.MenuProvider.#ctor(System.String,System.Resources.ResourceManager)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.UI.MenuProvider.#ctor(System.String,System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.UI.MenuProvider.#ctor(System.String,System.String,System.Resources.ResourceManager)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.UI.MenuProvider.#ctor(System.IO.Stream)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.UI.MenuProvider.#ctor(System.IO.Stream,System.Resources.ResourceManager)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.UI.MenuProvider.#ctor(System.String,System.IO.Stream)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.UI.MenuProvider.#ctor(System.String,System.IO.Stream,System.Resources.ResourceManager)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.UI.MenuProvider.init(System.String,System.IO.Stream,System.Resources.ResourceManager)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.UI.MenuProvider.GetList(System.Security.Principal.IPrincipal,System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.UI.MenuProvider.cloneListByRole(System.Collections.Generic.List{Orion.Mvc.UI.MenuItem},System.Security.Principal.IPrincipal,System.String)">
+            <summary>複製清單</summary>
+        </member>
+        <member name="M:Orion.Mvc.UI.MenuProvider.GetAllowList(System.Security.Principal.IPrincipal,System.String)">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Mvc.UI.IMenuManager">
+            <summary>選單提供者</summary>
+        </member>
+        <member name="M:Orion.Mvc.UI.IMenuManager.GetAreas">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.UI.IMenuManager.GetListByArea(System.String,System.Security.Principal.IPrincipal,System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.UI.IMenuManager.GetAllowListByArea(System.String,System.Security.Principal.IPrincipal,System.String)">
+            <summary></summary>
+        </member>
+        <member name="T:Orion.Mvc.UI.MenuManager">
+            <summary>選單管理者</summary>
+        </member>
+        <member name="P:Orion.Mvc.UI.MenuManager.Instance">
+            <summary>單例實體</summary>
+        </member>
+        <member name="M:Orion.Mvc.UI.MenuManager.Register(Orion.Mvc.UI.IMenuProvider)">
+            <summary></summary>
+        </member>
+        <member name="P:Orion.Mvc.UI.MenuManager.AreaName">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.UI.MenuManager.Add(Orion.Mvc.UI.IMenuProvider)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.UI.MenuManager.GetAreas">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.UI.MenuManager.GetList(System.Security.Principal.IPrincipal,System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.UI.MenuManager.GetAllowList(System.Security.Principal.IPrincipal,System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.UI.MenuManager.GetListByArea(System.String,System.Security.Principal.IPrincipal,System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.UI.MenuManager.GetAllowListByArea(System.String,System.Security.Principal.IPrincipal,System.String)">
+            <summary></summary>
+        </member>
+    </members>
+</doc>
