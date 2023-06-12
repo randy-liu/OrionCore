@@ -100,6 +100,7 @@ namespace Orion.Mvc.Html
 		private static IHtmlContent buildShowItem(Enum enumValue) 
 		{
 			string text = enumValue.GetDisplayName();
+			if (text.NoText()) { text = enumValue.ToString(); }
 
 			var tb = new TagBuilder("span");
 			tb.AddCssClass("item-" + enumValue);

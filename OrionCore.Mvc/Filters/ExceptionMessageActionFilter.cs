@@ -17,7 +17,6 @@ namespace Orion.Mvc.Filters
             /* 自動將 Action 的 Arguments 中的 ViewModel 賦予給 ViewData
 			 * 不然要自己在 Action 的第一行寫 ViewData.Model = domain;
 			 */
-
             var arguments = filterContext.ActionArguments.Values.Where(x => x != null);
 
             object model = arguments

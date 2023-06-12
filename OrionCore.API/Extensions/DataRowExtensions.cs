@@ -46,35 +46,58 @@ namespace Orion.Api.Extensions
         }
 
 
+
         /// <summary></summary>
         public static int Int(this DataRow row, string columnName)
         {
             return toType<int>(row, columnName, 0);
         }
+        /// <summary></summary>
+        public static int? IntN(this DataRow row, string columnName)
+        {
+            return toType<int?>(row, columnName, null);
+        }
+
+
 
         /// <summary></summary>
         public static double Double(this DataRow row, string columnName)
         {
             return toType<double>(row, columnName, 0d);
         }
+        /// <summary></summary>
+        public static double? DoubleN(this DataRow row, string columnName)
+        {
+            return toType<double?>(row, columnName, null);
+        }
+
+
 
         /// <summary></summary>
         public static decimal Decimal(this DataRow row, string columnName)
         {
             return toType<decimal>(row, columnName, 0m);
         }
+        /// <summary></summary>
+        public static decimal? DecimalN(this DataRow row, string columnName)
+        {
+            return toType<decimal?>(row, columnName, null);
+        }
+
+
 
         /// <summary></summary>
         public static DateTime DateTime(this DataRow row, string columnName)
         {
             return toType<DateTime>(row, columnName, System.DateTime.MinValue);
         }
-
         /// <summary></summary>
         public static DateTime? DateTimeN(this DataRow row, string columnName)
         {
             return toType<DateTime?>(row, columnName, null);
         }
+
+
 
 
         /// <summary></summary>
@@ -83,11 +106,6 @@ namespace Orion.Api.Extensions
             if (row == null) { return false; }
             return row.Table.Columns.Contains(column);
         }
-
-
-
-
-
 
 
     }
