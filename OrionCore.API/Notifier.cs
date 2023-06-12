@@ -108,7 +108,7 @@ namespace Orion.Api
 	/// <summary>事件通知者</summary>
 	public class Notifier : INotifier
 	{
-		private static readonly Type _noneType = typeof(Notifier);
+		internal static readonly Type _noneType = typeof(Notifier);
 
 		private readonly List<NotifiMonitor> _monitorList = new List<NotifiMonitor>();
 		private readonly HashSet<object> _registeredListen = new HashSet<object>();
@@ -158,88 +158,42 @@ namespace Orion.Api
 				var attrs = method.GetCustomAttributes<NotifiAttribute>();
 				if (!attrs.Any()) { continue; }
 
-				bool useAsync = attrs.Any(x => x.Async);
-				bool onlyOne = attrs.Any(x => x.OnlyOne);
-
-				IListen listen = makeListen(handle, method, useAsync, onlyOne);
-				_monitorList.Add(listen.Monitor);
-
+				IOrionLogger log = _logFactory.Create(handle.GetType().Name);
+				var meta = new MethodMeta(handle, method, log);
+				_monitorList.Add(meta.Monitor);
 
 				var initAttr = method.GetCustomAttribute<OnInitAttribute>();
-				if (initAttr != null) { add(_initListen, initAttr, method, listen); }
+				if (initAttr != null) { add(_initListen, initAttr, meta); }
 
 				var closeAttr = method.GetCustomAttribute<OnCloseAttribute>();
-				if (closeAttr != null) { add(_closeListen, closeAttr, method, listen); }
+				if (closeAttr != null) { add(_closeListen, closeAttr, meta); }
 
 				var cycleAttr = method.GetCustomAttribute<OnCycleAttribute>();
-				if (cycleAttr != null) { add(_cycleListen, cycleAttr, method, listen); }
+				if (cycleAttr != null) { add(_cycleListen, cycleAttr, meta); }
 
 				var changeAttr = method.GetCustomAttribute<OnChangeAttribute>();
-				if (changeAttr != null) { add(_changeListen, changeAttr, method, listen); }
+				if (changeAttr != null) { add(_changeListen, changeAttr, meta); }
 
 				var timeoutAttr = method.GetCustomAttribute<OnTimeoutAttribute>();
-				if (timeoutAttr != null) { add(_timeoutListen, timeoutAttr, method, listen); }
+				if (timeoutAttr != null) { add(_timeoutListen, timeoutAttr, meta); }
 
 				var failureAttr = method.GetCustomAttribute<OnFailureAttribute>();
-				if (failureAttr != null) { add(_failureListen, failureAttr, method, listen); }
+				if (failureAttr != null) { add(_failureListen, failureAttr, meta); }
 
 				var completeAttr = method.GetCustomAttribute<OnCompleteAttribute>();
-				if (completeAttr != null) { add(_completeListen, completeAttr, method, listen); }
+				if (completeAttr != null) { add(_completeListen, completeAttr, meta); }
 			}
-
 		}
 
 
 
-
-
-		private IListen makeListen(object handle, MethodInfo method, bool useAsync, bool onlyOne)
+		private void add(List<IListen> listenList, NotifiAttribute attr, MethodMeta meta)
 		{
-			bool asyncMethod = method.GetCustomAttributes<AsyncStateMachineAttribute>().Any();
+			_log.Info("Register " + attr.GetName() + " " + meta.FullName);
 
-			if (asyncMethod && !typeof(Task).IsAssignableFrom(method.ReturnType))
-			{
-				var fullName = method.DeclaringType.FullName + "." + method.Name;
-				throw new ArgumentException(fullName, "async 的 return type 必須是 Task");
-			}
-
-
-			IOrionLogger handleLog = _logFactory.Create(handle.GetType().Name);
-
-			IListen listen;
-
-			if (asyncMethod && onlyOne)
-			{ listen = new AsyncOnlyOneListen(handle, method, handleLog); }
-			else if (asyncMethod)
-			{ listen = new AsyncListen(handle, method, handleLog); }
-			else if (useAsync && onlyOne)
-			{ listen = new NormalOnlyOneListen(handle, method, handleLog); }
-			else if (useAsync)
-			{ listen = new NormalAsyncListen(handle, method, handleLog); }
-			else
-			{ listen = new NormalListen(handle, method, handleLog); }
-
-			return listen;
-		}
-
-
-		private void add(List<IListen> listenList, NotifiAttribute attr, MethodInfo method, IListen listen)
-		{
-			var fullName = method.DeclaringType.FullName + "." + method.Name;
-			int paramLimit = attr.GetParamLimit();
-
-			_log.Info("Register " + attr.GetName() + " " + fullName);
-
-			if (method.GetParameters().Length != paramLimit)
-			{ throw new ArgumentOutOfRangeException(fullName, " 參數只能有" + paramLimit + " 個"); }
-
+			IListen listen = attr.MakeListen(meta);
 			listenList.Add(listen);
 		}
-
-
-
-
-
 
 
 
@@ -467,189 +421,223 @@ namespace Orion.Api
 			return _waitListen.Add(timeoutSec, condition);
 		}
 
-
-
-
-
-		/*##########################################################################*/
-
-		internal interface IListen
-		{
-			NotifiMonitor Monitor { get; }
-
-			bool IsMatch(Type type);
-			void Invoke(object model);
-		}
-
-
-
-		/// <summary>針對普通 method 的調用</summary>
-		internal class NormalListen : IListen
-		{
-			protected readonly object Handle;
-			protected readonly MethodInfo Method;
-			protected readonly IOrionLogger Log;
-
-			protected readonly string ExecName;
-			protected readonly bool HasParam;
-
-			private readonly Type _target;
-
-
-			public NotifiMonitor Monitor { get; private set; }
-
-			public NormalListen(object handle, MethodInfo method, IOrionLogger log)
-			{
-				Handle = handle;
-				Method = method;
-				Log = log;
-
-				Monitor = new NotifiMonitor(handle, method);
-
-				ParameterInfo[] parames = method.GetParameters();
-				_target = parames.Select(x => x.ParameterType).DefaultIfEmpty(_noneType).First();
-				ExecName = method.DeclaringType.FullName + "." + method.Name;
-				HasParam = parames.Length > 0;
-			}
-
-
-			public bool IsMatch(Type type)
-			{
-				return _target.IsAssignableFrom(type);
-			}
-
-
-			public virtual void Invoke(object model)
-			{
-				var beginTime = DateTime.Now;
-
-				object[] parameters = HasParam ? new object[] { model } : new object[] { };
-				try
-				{
-					/* 執行 Method */
-					Method.Invoke(Handle, parameters);
-				}
-				catch (AggregateException ex)
-				{
-					string msg = string.Format("Error {0} params: {1}", ExecName, parameters.ToJson());
-					foreach (var inner in ex.InnerExceptions) { Log.Error(msg, inner); }
-				}
-				catch (Exception ex)
-				{
-					string msg = string.Format("Error {0} params: {1}", ExecName, parameters.ToJson());
-					Log.Error(msg, ex);
-				}
-
-				Monitor.Add(beginTime, DateTime.Now);
-			}
-
-
-		}
-
-
-		/// <summary>針對普通 method 非同步的調用</summary>
-		internal class NormalAsyncListen : NormalListen
-		{
-			public NormalAsyncListen(object handle, MethodInfo method, IOrionLogger log) : base(handle, method, log) { }
-
-
-			public override void Invoke(object model)
-			{
-				Task.Run(() => { base.Invoke(model); });
-			}
-		}
-
-
-		/// <summary>針對普通 method 非同步單一執行的調用</summary>
-		internal class NormalOnlyOneListen : NormalListen
-		{
-			public NormalOnlyOneListen(object handle, MethodInfo method, IOrionLogger log) : base(handle, method, log) { }
-
-
-			private bool _runFlag = false;
-
-			public override void Invoke(object model)
-			{
-				if (_runFlag) { return; }
-				_runFlag = true;
-
-				Task.Run(() =>
-				{
-					base.Invoke(model);
-					_runFlag = false;
-				});
-			}
-		}
-
-
-
-		/*======================================================*/
-
-		/// <summary>針對 async method 的呼叫</summary>
-		internal class AsyncListen : NormalListen
-		{
-			public AsyncListen(object handle, MethodInfo method, IOrionLogger log) : base(handle, method, log) { }
-
-
-			public override void Invoke(object model)
-			{
-				_ = InvokeAsync(model);
-			}
-
-			protected virtual async Task InvokeAsync(object model)
-			{
-				var beginTime = DateTime.Now;
-
-				object[] parameters = HasParam ? new object[] { model } : new object[] { };
-				try
-				{
-					/* 執行 Method */
-					await (Task)Method.Invoke(Handle, parameters);
-				}
-				catch (AggregateException ex)
-				{
-					string msg = string.Format("Error {0} params: {1}", ExecName, parameters.ToJson());
-					foreach (var inner in ex.InnerExceptions) { Log.Error(msg, inner); }
-				}
-				catch (Exception ex)
-				{
-					string msg = string.Format("Error {0} params: {1}", ExecName, parameters.ToJson());
-					Log.Error(msg, ex);
-				}
-
-				Monitor.Add(beginTime, DateTime.Now);
-			}
-		}
-
-
-		/// <summary>針對普通 method 非同步單一執行的調用</summary>
-		internal class AsyncOnlyOneListen : AsyncListen
-		{
-			public AsyncOnlyOneListen(object handle, MethodInfo method, IOrionLogger log) : base(handle, method, log) { }
-
-
-			private bool _runFlag = false;
-
-
-			public override void Invoke(object model)
-			{
-				if (_runFlag) { return; }
-				_runFlag = true;
-				_ = InvokeAsync(model);
-			}
-
-			protected override async Task InvokeAsync(object model)
-			{
-				await base.InvokeAsync(model);
-				_runFlag = false;
-			}
-
-		}
-
-
-
-
 	}
+
+
+
+
+
+
+	/*##########################################################################*/
+
+	internal class MethodMeta
+	{
+		public readonly object Handle;
+		public readonly MethodInfo Method;
+		public readonly IOrionLogger Log;
+
+		public readonly NotifiMonitor Monitor;
+		public readonly Type Target;
+
+		public readonly int ParamLength;
+		public readonly bool HasParam;
+		public readonly string FullName;
+
+
+		public MethodMeta(object handle, MethodInfo method, IOrionLogger log)
+		{
+			Handle = handle;
+			Method = method;
+			Log = log;
+
+			ParameterInfo[] parames = method.GetParameters();
+
+			Monitor = new NotifiMonitor(handle, method);
+			Target = parames.Select(x => x.ParameterType).DefaultIfEmpty(Notifier._noneType).First();
+			ParamLength = parames.Length;
+			HasParam = parames.Length > 0;
+			FullName = method.DeclaringType.FullName + "." + method.Name;
+		}
+	}
+
+
+
+	/*##########################################################################*/
+	
+	internal interface IListen
+	{
+		bool IsRun { get; }
+
+		bool IsMatch(Type type);
+		void Invoke(object model);
+	}
+
+
+
+	/// <summary>針對普通 method 的調用</summary>
+	internal class NormalListen : IListen
+	{
+		public bool IsRun { get; set; }
+
+
+		protected readonly MethodMeta Meta;
+
+		public NormalListen(MethodMeta meta)
+		{
+			Meta = meta;
+		}
+
+
+		public bool IsMatch(Type type)
+		{
+			return Meta.Target.IsAssignableFrom(type);
+		}
+
+
+		public void Invoke(object model)
+		{
+			IsRun = true;
+			var beginTime = DateTime.Now;
+
+			object[] parameters = Meta.HasParam ? new object[] { model } : new object[] { };
+			try
+			{
+				/* 執行 Method */
+				Meta.Method.Invoke(Meta.Handle, parameters);
+			}
+			catch (AggregateException ex)
+			{
+				string msg = string.Format("Error {0} params: {1}", Meta.FullName, parameters.ToJson());
+				foreach (var inner in ex.InnerExceptions) { Meta.Log.Error(msg, inner); }
+			}
+			catch (Exception ex)
+			{
+				string msg = string.Format("Error {0} params: {1}", Meta.FullName, parameters.ToJson());
+				Meta.Log.Error(msg, ex);
+			}
+			finally
+			{
+				IsRun = false;
+				Meta.Monitor.Add(beginTime, DateTime.Now);
+			}
+		}
+	}
+
+
+	/// <summary>針對 async method 的呼叫</summary>
+	internal class AsyncListen : IListen
+	{
+		public bool IsRun { get; set; }
+
+
+		protected readonly MethodMeta Meta;
+
+		public AsyncListen(MethodMeta meta)
+		{
+			Meta = meta;
+		}
+
+
+		public bool IsMatch(Type type)
+		{
+			return Meta.Target.IsAssignableFrom(type);
+		}
+
+
+		public void Invoke(object model)
+		{
+			IsRun = true;
+			invokeAsync(model);
+		}
+
+		private async void invokeAsync(object model)
+		{
+			await Task.Yield();
+			var beginTime = DateTime.Now;
+
+			object[] parameters = Meta.HasParam ? new object[] { model } : new object[] { };
+			try
+			{
+				/* 執行 Method */
+				Task task = Meta.Method.Invoke(Meta.Handle, parameters) as Task;
+				if (task != null) { await task; }
+			}
+			catch (AggregateException ex)
+			{
+				string msg = string.Format("Error {0} params: {1}", Meta.FullName, parameters.ToJson());
+				foreach (var inner in ex.InnerExceptions) { Meta.Log.Error(msg, inner); }
+			}
+			catch (Exception ex)
+			{
+				string msg = string.Format("Error {0} params: {1}", Meta.FullName, parameters.ToJson());
+				Meta.Log.Error(msg, ex);
+			}
+			finally
+			{
+				IsRun = false;
+				Meta.Monitor.Add(beginTime, DateTime.Now);
+			}
+		}
+	}
+
+
+	/*======================================================*/
+
+
+
+	/// <summary>針對單一執行的調用</summary>
+	internal class OnlyOneListenWrapper : IListen
+	{
+		public bool IsRun { get { return _listen.IsRun; } }
+		public bool IsMatch(Type type) { return _listen.IsMatch(type); }
+
+
+		private readonly IListen _listen;
+
+		public OnlyOneListenWrapper(IListen listen)
+		{
+			_listen = listen;
+		}
+
+		public void Invoke(object model)
+		{
+			if (_listen.IsRun) { return; }
+
+			_listen.Invoke(model);
+		}
+	}
+
+
+
+	/// <summary>針對間隔執行的調用</summary>
+	internal class IntervalListenWrapper : IListen
+	{
+		public bool IsRun { get { return _listen.IsRun; } }
+		public bool IsMatch(Type type) { return _listen.IsMatch(type); }
+
+
+		private readonly IListen _listen;
+		private readonly int _intervalSecs;
+
+		public IntervalListenWrapper(IListen listen, int intervalSecs)
+		{
+			_listen = listen;
+			_intervalSecs = intervalSecs;
+		}
+
+
+		/// <summary>下次的執行時間</summary>
+		private DateTime _nextTime;
+
+		public void Invoke(object model)
+		{
+			if (_nextTime > DateTime.Now) { return; }
+			_nextTime = DateTime.Now.AddSeconds(_intervalSecs);
+
+			_listen.Invoke(model);
+		}
+	}
+
 
 
 
