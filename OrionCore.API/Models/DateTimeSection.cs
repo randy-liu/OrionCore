@@ -41,6 +41,14 @@ namespace Orion.Api.Models
 
 
 		/// <summary></summary>
+		public bool Contains(DateTimeOffset item) 
+		{
+			return Start <= item && item <= End;
+		}
+
+
+
+		/// <summary></summary>
 		public override bool Equals(object other)
 		{
 			return Equals(other as DateTimeSection);
@@ -66,6 +74,7 @@ namespace Orion.Api.Models
 		{
 			return $"{Start:yyyy-MM-dd HH:mm:ss.fff} ~ {End:yyyy-MM-dd HH:mm:ss.fff}";
 		}
+
 
 
 		/// <summary>覆寫等於運算子</summary>

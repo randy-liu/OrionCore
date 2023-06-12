@@ -501,10 +501,19 @@
         <member name="M:Orion.Api.Extensions.DataRowExtensions.Int(System.Data.DataRow,System.String)">
             <summary></summary>
         </member>
+        <member name="M:Orion.Api.Extensions.DataRowExtensions.IntN(System.Data.DataRow,System.String)">
+            <summary></summary>
+        </member>
         <member name="M:Orion.Api.Extensions.DataRowExtensions.Double(System.Data.DataRow,System.String)">
             <summary></summary>
         </member>
+        <member name="M:Orion.Api.Extensions.DataRowExtensions.DoubleN(System.Data.DataRow,System.String)">
+            <summary></summary>
+        </member>
         <member name="M:Orion.Api.Extensions.DataRowExtensions.Decimal(System.Data.DataRow,System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.DataRowExtensions.DecimalN(System.Data.DataRow,System.String)">
             <summary></summary>
         </member>
         <member name="M:Orion.Api.Extensions.DataRowExtensions.DateTime(System.Data.DataRow,System.String)">
@@ -1477,6 +1486,9 @@
         <member name="M:Orion.Api.Models.DateTimeSection.#ctor(System.String,System.String)">
             <summary></summary>
         </member>
+        <member name="M:Orion.Api.Models.DateTimeSection.Contains(System.DateTimeOffset)">
+            <summary></summary>
+        </member>
         <member name="M:Orion.Api.Models.DateTimeSection.Equals(System.Object)">
             <summary></summary>
         </member>
@@ -1505,7 +1517,7 @@
             <summary></summary>
         </member>
         <member name="P:Orion.Api.Models.PageParams.OrderField">
-            <summary></summary>
+            <summary>欄位可以用 - 號標示逆排 ( Ex: -CREATE_DT, REC_NO )</summary>
         </member>
         <member name="T:Orion.Api.Models.PageParamsExtensions">
             <summary></summary>

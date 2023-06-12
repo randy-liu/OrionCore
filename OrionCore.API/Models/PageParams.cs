@@ -13,7 +13,7 @@ namespace Orion.Api.Models
 		/// <summary></summary>
 		public int PageSize { get; set; }
 
-		/// <summary></summary>
+		/// <summary>欄位可以用 - 號標示逆排 ( Ex: -CREATE_DT, REC_NO )</summary>
 		public string OrderField { get; set; }
 
 	}
