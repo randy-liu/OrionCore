@@ -1,0 +1,140 @@
+建立 .NET 8.0 升級計劃文件
+
+## 升級計劃總結
+- **目標框架**：.NET 8.0
+  - API/MVC/Tests：net8.0（跨平台）
+  - CodeGenerator：net8.0-windows（WPF 限制）
+- **升級策略**：All-At-Once（一次性原子化升級）
+- **平台目標**：跨平台（Windows/Linux 同步支援）
+
+## 探勘發現（Assessment Results）
+- **5 個專案**：由 .NET Core 3.1 升級到 .NET 8.0
+- **206 個相容性議題**：Mandatory (110)、Potential (94)、Optional (2)
+- **14 個受影響檔案**
+- **22,009 行程式碼**
+
+## 主要風險特徵
+1. **GDI+ / System.Drawing**：61 次使用
+   - 現版本：4.7.0（影響：API、MVC）
+   - 目標版本：8.0.24
+   - 跨平台風險：.NET 8 中僅支援 Windows
+   - 建議：評估替代方案（ImageSharp / SkiaSharp）
+
+2. **WPF**：26 次出現
+   - 限制在 CodeGenerator（Windows-only）
+   - API 專案為 ClassLibrary，不受影響
+
+3. **Legacy Configuration**：19 次出現
+   - EF Core 3.1 → 8.0 遷移
+
+## 高優先級阻斷項
+
+### DbContextExtensions.ToSql 重寫（必修）
+- **位置**：OrionCore.API.Tests/DbContextExtensions.cs
+- **現況**：使用 EF Core 內部私有欄位反射
+  - _relationalQueryContext
+  - _relationalCommandCache
+  - EF1001 警告
+- **風險**：EF Core 8.0 升級後失效機率 99%
+- **驗收條件**：
+  - ✓ 不使用 EF 內部私有反射
+  - ✓ 改用支援機制（provider SQL capture/interceptor/logging）
+  - ✓ 在升級後 provider/runtime 組合通過
+  - ✓ 最終測試成功
+
+## NuGet 套件升級清單
+
+### 跨專案升級
+| 套件 | 現版本 | 目標版本 | 影響專案 | 原因 |
+|------|------|--------|--------|-----|
+| Microsoft.EntityFrameworkCore | 3.1.21 | 8.0.24 | 2 | Framework 對齊 |
+| Microsoft.EntityFrameworkCore.Relational | 3.1.21 | 8.0.24 | 2 | Framework 對齊 |
+| System.Drawing.Common | 4.7.0 | 8.0.24 | 2 | GDI 風險修正 + 跨平台評估 |
+
+### 測試/資料層升級
+- Microsoft.EntityFrameworkCore.Design：3.1.21 → 8.0.24
+- Microsoft.EntityFrameworkCore.Sqlite：3.1.21 → 8.0.24
+- Microsoft.EntityFrameworkCore.SqlServer：3.1.21 → 8.0.24
+- Microsoft.EntityFrameworkCore.Tools：3.1.21 → 8.0.24
+- Newtonsoft.Json：13.0.1 → 13.0.4
+
+## 相依性分析
+### 相依圖
+```
+OrionCore.API（核心）
+├─ OrionCore.Mvc
+│  ├─ OrionCore.Mvc.Tests
+│  └─ OrionCore.API.Tests
+└─ OrionCore.API.Tests
+```
+- CodeGenerator：獨立（WPF）
+- 無循環相依
+
+### 優先排查順序
+1. OrionCore.API（核心節點）
+2. OrionCore.Mvc
+3. OrionCore.Mvc.Tests
+4. CodeGenerator（Windows-only 驗證）
+
+## 風險與緩解策略
+
+| 專案 | 風險等級 | 風險描述 | 緩解方案 |
+|-----|--------|--------|--------|
+| CodeGenerator | 高 | WPF + 大量 API 破壞點 | 維持 Windows-only，先收斂 UI/API |
+| OrionCore.API | 高 | System.Drawing 跨平台 + Crypto | 升級套件 + 替代評估 + 測試驗證 |
+| OrionCore.Mvc | 中 | 相依 API + System.Drawing | 對齊 API 修正 + middleware 驗證 |
+| 測試專案 | 高 | EF 升級 + ToSql 內部 API 依賴 | 優先重寫 ToSql + 測試穩定化 |
+
+## 跨平台驗證標準（新增）
+- ✓ OrionCore.API 在 Windows/Linux 可建置與執行
+- ✓ OrionCore.Mvc 在 Windows/Linux 可建置與執行
+- ✓ 測試在 Windows/Linux 至少各執行一次成功
+- ✓ System.Drawing 使用路徑明確隔離或替代
+- ✓ CodeGenerator 明確標記 Windows-only
+
+## 完成標準
+
+### 技術驗收
+- ✓ 所有專案更新目標框架
+- ✓ 所有建議套件升級完成
+- ✓ Solution 構建成功（0 errors）
+- ✓ 所有測試專案執行成功
+- ✓ 無未解決套件依賴衝突
+
+### 品質驗收
+- ✓ System.Drawing 跨平台風險明確緩解
+- ✓ DbContextExtensions.ToSql 完成可支援的重寫
+- ✓ EF Core API 破壞點已處理
+
+### 流程驗收
+- ✓ All-at-Once 策略完成
+- ✓ 單一升級提交（此次）
+- ✓ PR 通過審查與檢查後合併至 master
+
+## 下一步執行階段
+
+### Phase 0：前置準備
+- 確認 .NET 8 SDK 可用
+- 驗證 global.json（若存在）相容性
+
+### Phase 1：原子化升級
+- 更新所有專案目標框架
+- 更新所有 NuGet 套件
+- 修正編譯問題
+- 重新建置至乾淨狀態
+
+### Phase 2：測試與驗證
+- 執行測試專案
+- 修正回歸
+- 跨平台驗證（Windows + Linux）
+
+### Phase 3：最終穩定化
+- System.Drawing 方案確認
+- DbContextExtensions.ToSql 驗收
+- 安全性檢查
+- PR 合併至 master
+
+## 計劃文件位置
+- 計劃文檔：.github/upgrades/scenarios/new-dotnet-version_4435db/plan.md
+- 工作分支：upgrade-to-NET8
+- 合併目標：master
