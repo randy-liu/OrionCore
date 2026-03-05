@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <!-- 專案會在建置後產生 NuGet 包 -->
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Version>1.1.2</Version>
     <AssemblyVersion>$(Version).0</AssemblyVersion>
@@ -40,9 +40,9 @@
   
   <ItemGroup>
     <PackageReference Include="Autofac" Version="5.1.2" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
     <PackageReference Include="NLog" Version="4.7.12" />
-    <PackageReference Include="System.Drawing.Common" Version="4.7.0" />
+    <PackageReference Include="System.Drawing.Common" Version="8.0.24" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Reflection;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query;
-using Microsoft.EntityFrameworkCore.Query.Internal;
-using Microsoft.EntityFrameworkCore.Storage;
 
 namespace Orion.Api.Extensions
 {
@@ -20,30 +15,16 @@ namespace Orion.Api.Extensions
 			table.RemoveRange(table.Where(predicate));
 		}
 
-
-
-		private static T getPrivate<T>(this object obj, string privateField) 
-		{
-			return (T)obj?.GetType().GetField(privateField, BindingFlags.Instance | BindingFlags.NonPublic)?.GetValue(obj);
-		}
-
+		/// <summary>
+		/// 取得 LINQ 查詢對應的 SQL 語句。
+		/// 此方法已重寫為使用 EF Core 8 支援的公開 API（ToQueryString），
+		/// 不再依賴內部私有欄位反射。
+		/// </summary>
 		public static string ToSql<TEntity>(this IQueryable<TEntity> query) where TEntity : class
 		{
-			IEnumerator<TEntity> enumerator = query.Provider.Execute<IEnumerable<TEntity>>(query.Expression).GetEnumerator();
-			
-			var relationalQueryContext = enumerator.getPrivate<RelationalQueryContext>("_relationalQueryContext");
-			var relationalCommandCache = enumerator.getPrivate<RelationalCommandCache>("_relationalCommandCache");
-
-#pragma warning disable EF1001 // Internal EF Core API usage.
-			IRelationalCommand command = relationalCommandCache.GetRelationalCommand(relationalQueryContext.ParameterValues);
-#pragma warning restore EF1001 // Internal EF Core API usage.
-
-			return command.CommandText.Replace("\"", "");
+			// EF Core 5+ 提供的公開 API，可直接取得查詢的 SQL 字串
+			// 不需要反射或依賴內部實作
+			return query.ToQueryString().Replace("\"", "");
 		}
-
-
-
-
-
 	}
 }
