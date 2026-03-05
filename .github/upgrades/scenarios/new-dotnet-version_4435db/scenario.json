@@ -1,0 +1,13 @@
+{
+  "scenarioId": "New-DotNet-Version",
+  "operationId": "4435db0c-34b7-4ecd-86d7-48aa026da006",
+  "description": "Upgrade solution or project to new version of .NET",
+  "startTime": "2026-03-05T08:08:36.4226233Z",
+  "lastUpdateTime": "2026-03-05T08:49:40.2697041Z",
+  "stage": "Execution",
+  "properties": {
+    "SelectedScenarioStrategy": "AllAtOnce",
+    "upgradeTargetFramework": "net8.0"
+  },
+  "folderPath": ""
+}
