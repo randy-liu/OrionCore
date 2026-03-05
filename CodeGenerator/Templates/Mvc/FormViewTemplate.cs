@@ -17,7 +17,7 @@ namespace CodeGenerator.Templates.Mvc
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "..\Dropbox\JW-Project\CoreTpl\CodeGenerator\Templates\Mvc\FormViewTemplate.tt"
+    #line 1 "$(MSBuildProjectDirectory)\..\CodeGenerator\Templates\Mvc\FormViewTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
     public partial class FormViewTemplate : CodeGenerator.Templates.TemplateBase
     {
@@ -29,7 +29,7 @@ namespace CodeGenerator.Templates.Mvc
         {
             this.Write("\r\n");
             
-            #line 5 "..\Dropbox\JW-Project\CoreTpl\CodeGenerator\Templates\Mvc\FormViewTemplate.tt"
+            #line 5 "$(MSBuildProjectDirectory)\..\CodeGenerator\Templates\Mvc\FormViewTemplate.tt"
  
 	FilePath = TableMeta.NameSpace + ".WebApp/Views/" + TableMeta.Name + "/Form.cshtml";
 
@@ -38,7 +38,7 @@ namespace CodeGenerator.Templates.Mvc
             #line hidden
             this.Write("@model ");
             
-            #line 8 "..\Dropbox\JW-Project\CoreTpl\CodeGenerator\Templates\Mvc\FormViewTemplate.tt"
+            #line 8 "$(MSBuildProjectDirectory)\..\CodeGenerator\Templates\Mvc\FormViewTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
@@ -46,14 +46,14 @@ namespace CodeGenerator.Templates.Mvc
             this.Write("ViewModel\r\n\r\n\r\n@{\r\n\tbool isCreate = this.IsRouteAction(\"Create\");\r\n\r\n\tViewBag.Tit" +
                     "le = isCreate ? \"新增");
             
-            #line 14 "..\Dropbox\JW-Project\CoreTpl\CodeGenerator\Templates\Mvc\FormViewTemplate.tt"
+            #line 14 "$(MSBuildProjectDirectory)\..\CodeGenerator\Templates\Mvc\FormViewTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Description));
             
             #line default
             #line hidden
             this.Write("\" : \"編輯");
             
-            #line 14 "..\Dropbox\JW-Project\CoreTpl\CodeGenerator\Templates\Mvc\FormViewTemplate.tt"
+            #line 14 "$(MSBuildProjectDirectory)\..\CodeGenerator\Templates\Mvc\FormViewTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Description));
             
             #line default
@@ -67,7 +67,7 @@ namespace CodeGenerator.Templates.Mvc
 
 
 @section Scripts {
-<script type=""text/javascript"">
+<script>
 jQuery(function ($) {
 });
 </script>
@@ -84,7 +84,7 @@ jQuery(function ($) {
 {
 	@Html.HiddenFor(m => m.");
             
-            #line 38 "..\Dropbox\JW-Project\CoreTpl\CodeGenerator\Templates\Mvc\FormViewTemplate.tt"
+            #line 38 "$(MSBuildProjectDirectory)\..\CodeGenerator\Templates\Mvc\FormViewTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.PK.Name));
             
             #line default
@@ -97,7 +97,7 @@ jQuery(function ($) {
 			<button type=""submit"" class=""btn btn-primary btn-sm""><i class=""fa fa-save fa-lg""></i> 儲存</button>
 			@if (!isCreate @*&& User.AnyAct(ACT.");
             
-            #line 44 "..\Dropbox\JW-Project\CoreTpl\CodeGenerator\Templates\Mvc\FormViewTemplate.tt"
+            #line 44 "$(MSBuildProjectDirectory)\..\CodeGenerator\Templates\Mvc\FormViewTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
@@ -117,49 +117,49 @@ jQuery(function ($) {
 
 ");
             
-            #line 57 "..\Dropbox\JW-Project\CoreTpl\CodeGenerator\Templates\Mvc\FormViewTemplate.tt"
+            #line 57 "$(MSBuildProjectDirectory)\..\CodeGenerator\Templates\Mvc\FormViewTemplate.tt"
  foreach(var col in ActiveColumns.Where(x => !x.IsPrimaryKey)) { 
             
             #line default
             #line hidden
             this.Write("\r\n\t\t<div class=\"form-group\">\r\n\t\t\t@Html.BsLabelFor(m => m.");
             
-            #line 60 "..\Dropbox\JW-Project\CoreTpl\CodeGenerator\Templates\Mvc\FormViewTemplate.tt"
+            #line 60 "$(MSBuildProjectDirectory)\..\CodeGenerator\Templates\Mvc\FormViewTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.Name));
             
             #line default
             #line hidden
             this.Write(", new { @class = labelCol + \"");
             
-            #line 60 "..\Dropbox\JW-Project\CoreTpl\CodeGenerator\Templates\Mvc\FormViewTemplate.tt"
+            #line 60 "$(MSBuildProjectDirectory)\..\CodeGenerator\Templates\Mvc\FormViewTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture((col.IsNullable ? "" : " required")));
             
             #line default
             #line hidden
             this.Write("\" })\r\n\t\t\t<div class=\"@wrapCol\">\r\n\t\t\t\t@Html.");
             
-            #line 62 "..\Dropbox\JW-Project\CoreTpl\CodeGenerator\Templates\Mvc\FormViewTemplate.tt"
+            #line 62 "$(MSBuildProjectDirectory)\..\CodeGenerator\Templates\Mvc\FormViewTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.EditBox()));
             
             #line default
             #line hidden
             this.Write("(m => m.");
             
-            #line 62 "..\Dropbox\JW-Project\CoreTpl\CodeGenerator\Templates\Mvc\FormViewTemplate.tt"
+            #line 62 "$(MSBuildProjectDirectory)\..\CodeGenerator\Templates\Mvc\FormViewTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.Name));
             
             #line default
             #line hidden
             this.Write(")\r\n\t\t\t\t<span class=\"form-tip\">@Html.ValidationMessageFor(m => m.");
             
-            #line 63 "..\Dropbox\JW-Project\CoreTpl\CodeGenerator\Templates\Mvc\FormViewTemplate.tt"
+            #line 63 "$(MSBuildProjectDirectory)\..\CodeGenerator\Templates\Mvc\FormViewTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.Name));
             
             #line default
             #line hidden
             this.Write(")</span>\r\n\t\t\t</div>\r\n\t\t</div>\r\n");
             
-            #line 66 "..\Dropbox\JW-Project\CoreTpl\CodeGenerator\Templates\Mvc\FormViewTemplate.tt"
+            #line 66 "$(MSBuildProjectDirectory)\..\CodeGenerator\Templates\Mvc\FormViewTemplate.tt"
  } 
             
             #line default

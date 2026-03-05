@@ -4,7 +4,7 @@
     <!-- 專案會在建置後產生 NuGet 包 -->
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.0.6</Version>
+    <Version>1.0.10</Version>
     <AssemblyVersion>$(Version).0</AssemblyVersion>
     <FileVersion>$(Version).0</FileVersion>
     <AssemblyName>OrionCore.Mvc</AssemblyName>

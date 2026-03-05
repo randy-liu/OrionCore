@@ -17,6 +17,14 @@ namespace Orion.Api.Extensions
             return table.AsEnumerable().ToDictionary(keySelector, elementSelector);
         }
 
+        /// <summary></summary>
+        public static Dictionary<TKey, TElement> ToDict<TKey, TElement>(this DataTable table, Func<DataRow, (TKey, TElement)> keyValueSelector)
+        {
+            return table.AsEnumerable().Select(keyValueSelector).ToDictionary(x => x.Item1, x => x.Item2);
+        }
+
+
+
 
         /// <summary></summary>
         public static DataRow FirstOrDefault(this DataTable table)

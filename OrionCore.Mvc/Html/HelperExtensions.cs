@@ -265,6 +265,28 @@ namespace Orion.Mvc.Html
 
 
 
+		/*#############################################################*/
+
+		/// <summary></summary>
+		public static string ShowBytes(this long size)
+		{
+			var unit = new string[] { " Bytes", " KB", " MB", " GB", " TB", " PB", " EB", " ZB", " YB" };
+			if (size == 0) { return "n/a"; }
+
+			var i = (int)Math.Floor(Math.Log(size, 1024));
+			return Math.Round(size / Math.Pow(1024, i), 2) + unit[i];
+		}
+
+		/// <summary></summary>
+		public static string ShowBytes(this int size) { return ShowBytes((long)size); }
+
+		/// <summary></summary>
+		public static string ShowBytes(this double size) { return ShowBytes((long)size); }
+
+		/// <summary></summary>
+		public static string ShowBytes(this decimal size) { return ShowBytes((long)size); }
+
+
 
 
 		/*##############################################################################*/

@@ -11,6 +11,19 @@ namespace Orion.Api.Extensions
 	public static class EnumerableExtensions
 	{
 
+		/// <summary></summary>
+		public static Dictionary<TKey, TElement> ToDict<TSource, TKey, TElement>(this IEnumerable<TSource> source, Func<TSource, (TKey, TElement)> keyValueSelector)
+		{
+			return source.Select(keyValueSelector).ToDictionary(x => x.Item1, x => x.Item2);
+		}
+
+		/// <summary></summary>
+		public static Dictionary<TKey, TElement> ToDict<TSource, TKey, TElement>(this IEnumerable<TSource> source, Func<TSource, int, (TKey, TElement)> keyValueSelector)
+		{
+			return source.Select(keyValueSelector).ToDictionary(x => x.Item1, x => x.Item2);
+		}
+
+
 
 		/// <summary>附加 Item 到 IEnumerable 的最後面</summary>
 		public static IEnumerable<TSource> Append<TSource>(this IEnumerable<TSource> source, params TSource[] items)
@@ -77,6 +90,14 @@ namespace Orion.Api.Extensions
 		public static void AddRangeTo<T>(this IEnumerable<T> source, ICollection<T> collection)
 		{
 			foreach (var item in source) { collection.Add(item); }
+		}
+
+		/// <summary></summary>
+		public static void Add<T>(this ICollection<T> target, T value1, T value2, params T[] values)
+		{
+			target.Add(value1);
+			target.Add(value2);
+			foreach (var value in values) { target.Add(value); }
 		}
 
 

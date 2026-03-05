@@ -22,7 +22,7 @@ namespace Orion.Api.Models
     /// <summary></summary>
 	public static class PageParamsExtensions
 	{
-		/// <summary>PageParams 如果為 null 就回傳不限制分頁 Unlimited</summary>
+		/// <summary>PageParams 如果為 null 就回傳不限制分頁 Unlimited ( PageSize = -1 )</summary>
 		public static PageParams NullToUnlimited(this PageParams source)
 		{
 			return source ?? new PageParams { PageSize = -1 };

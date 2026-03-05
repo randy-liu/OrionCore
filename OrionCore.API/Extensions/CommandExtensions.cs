@@ -173,13 +173,13 @@ namespace Orion.Api.Extensions
 
 
 		/// <summary></summary>
-		public static DbCommand WhereAnd(this DbCommand command, object whereValues)
+		public static DbCommand Where(this DbCommand command, object whereValues)
 		{
-			return WhereAnd(command, toDictionary(whereValues));
+			return Where(command, toDictionary(whereValues));
 		}
 
 		/// <summary></summary>
-		public static DbCommand WhereAnd(this DbCommand command, IDictionary<string, object> whereValues)
+		public static DbCommand Where(this DbCommand command, IDictionary<string, object> whereValues)
 		{
 			string prefix = command.ParamPrefix();
 
@@ -194,7 +194,7 @@ namespace Orion.Api.Extensions
 
 
 		/// <summary></summary>
-		public static DbCommand WhereAnd(this DbCommand command, string whereSql, object value)
+		public static DbCommand Where(this DbCommand command, string whereSql, object value)
 		{
 			string prefix = command.ParamPrefix();
 			string name = Regex.Match(whereSql, $@"(?<={prefix})\w+").Value;
@@ -229,16 +229,16 @@ namespace Orion.Api.Extensions
 
 
 		/// <summary></summary>
-		public static DbCommand WhereAndHas(this DbCommand command, string whereSql, object value)
+		public static DbCommand WhereHas(this DbCommand command, string whereSql, object value)
 		{
 			if (!OrionUtils.HasValue(value)) { return command; }
-			return WhereAnd(command, whereSql, value);
+			return Where(command, whereSql, value);
 		}
 
 
 
 		/// <summary></summary>
-		public static DbCommand WhereAndHas(this DbCommand command, string whereSql, object value, DbType dbType)
+		public static DbCommand WhereHas(this DbCommand command, string whereSql, object value, DbType dbType)
 		{
 			if (!OrionUtils.HasValue(value)) { return command; }
 

@@ -158,7 +158,7 @@ namespace Orion.Api.Extensions
 
         /*#[Procedure]###########################################################################*/
 
-        /// <summary></summary>
+        /// <summary>預存程序呼叫</summary>
         public static int Procedure(this DbConnection cnt, string procedureName, params object[] parameters)
         {
             using DbCommand command = connectCommand(cnt);

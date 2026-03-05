@@ -12,16 +12,16 @@ using Orion.Api.Extensions;
 namespace Orion.Mvc.Filters
 {
 
-    /// <summary></summary>
+    /// <summary>棄用</summary>
     public class ConfigureSessionAuthentication : IPostConfigureOptions<CookieAuthenticationOptions>
     {
-        private readonly IMemoryCache _cache;
+        //private readonly IMemoryCache _cache;
 
-        /// <summary></summary>
-        public ConfigureSessionAuthentication(IMemoryCache cache)
-        {
-            _cache = cache;
-        }
+        ///// <summary></summary>
+        //public ConfigureSessionAuthentication(IMemoryCache cache)
+        //{
+        //    _cache = cache;
+        //}
 
         /// <summary></summary>
         public void PostConfigure(string name, CookieAuthenticationOptions options)
@@ -29,6 +29,12 @@ namespace Orion.Mvc.Filters
             options.SessionStore = new DictionaryStore();
         }
     }
+
+    /* 用 MemoryCache 來紀錄登入者資料 
+        services.AddSingleton<IPostConfigureOptions<CookieAuthenticationOptions>, ConfigureSessionAuthentication>();
+     */
+
+
 
 
 
@@ -41,7 +47,7 @@ namespace Orion.Mvc.Filters
     {
         private static readonly ConcurrentDictionary<string, AuthenticationTicket> _cache = new ConcurrentDictionary<string, AuthenticationTicket>();
 
-        private const string _keyPrefix = "AuthSessionStore";
+        private const string _keyPrefix = nameof(DictionaryStore);
 
 
         /// <summary></summary>
@@ -110,7 +116,7 @@ namespace Orion.Mvc.Filters
     /// <summary></summary>
     public class MemoryCacheStore : ITicketStore
     {
-        private const string _keyPrefix = "AuthSessionStore";
+        private const string _keyPrefix = nameof(MemoryCacheStore);
 
         private readonly IMemoryCache _cache;
 

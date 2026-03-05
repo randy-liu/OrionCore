@@ -216,6 +216,33 @@ namespace Orion.Mvc.Html
 			return new HtmlString(html);
 		}
 
+
+
+		/*==========================================================================*/
+
+		/// <summary></summary>
+		public static Func<Expression<Func<TModel, object>>, IHtmlContent> BuildPagerSortFor1<TModel>(this IHtmlHelper<TModel> helper)
+		{
+			return (expr) => PagerSortFor(helper, expr);
+		}
+
+		/// <summary></summary>
+		public static Func<Expression<Func<TModel, object>>, string, IHtmlContent> BuildPagerSortFor2<TModel>(this IHtmlHelper<TModel> helper)
+		{
+			return (expr, name) => PagerSortFor(helper, expr, name);
+		}
+
+		/// <summary></summary>
+		public static Func<Expression<Func<TModel, object>>, IHtmlContent> BuildDisplayNameFor1<TModel>(this IHtmlHelper<TModel> helper)
+		{
+			return (expr) => 
+			{
+				PropertyInfo prop = expr.GetProperty();
+				return new HtmlString(prop.GetDisplayName());
+			}; 
+		}
+
+
 	}
 
 }
