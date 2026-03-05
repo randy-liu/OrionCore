@@ -42,6 +42,12 @@ namespace Orion.Api.Tests
 		/// <summary>New Case 新增案例</summary>
 		private static object[] n(params object[] values) { return values; }
 
+		private static void AssertBetweenSql(string sql)
+		{
+			Assert.Contains(" >= ", sql);
+			Assert.Contains(" <= ", sql);
+		}
+
 
 
 
@@ -74,8 +80,10 @@ namespace Orion.Api.Tests
 		{
 			return new[]
 			{ 
-				n( WhereOperator.In, " IN (" ),
-				n( WhereOperator.NotIn, " NOT IN (" ),
+				// EF Core 8: 單一值的 IN 會被優化為 = (相等)
+				n( WhereOperator.In, " = " ),
+				// EF Core 8: 單一值的 NOT IN 會被優化為 <> (不等於)
+				n( WhereOperator.NotIn, " <> " ),
 				n( WhereOperator.Equals, " = " ),
 				n( WhereOperator.NotEquals, " <> " ),
 				n( WhereOperator.Contains, "instr" ),
@@ -84,8 +92,9 @@ namespace Orion.Api.Tests
 				n( WhereOperator.LessThan, " < " ),
 				n( WhereOperator.LessEquals, " <= " ),
 				n( WhereOperator.GreaterThan, " > " ),
+				// EF Core 8: BETWEEN 會被翻譯為 >= (大於等於)
 				n( WhereOperator.GreaterEquals, " >= " ),
-				n( WhereOperator.Between, " i\r\nORDER" ),
+				n( WhereOperator.Between, " >= " ),
 			};
 		}
 
@@ -105,6 +114,101 @@ namespace Orion.Api.Tests
 			var sql = query.OrderBy(x => x.CreateBy).ToSql();
 
 			Assert.Contains(expected, sql);
+		}
+
+
+		[Fact]
+		public void BetweenIntRangeSqlTest()
+		{
+			var param = new WhereParams<InvoiceIssueDomain>();
+			param.SetValues(x => x.ProductQty, WhereOperator.Between, 1, 5);
+
+			var query = _dc.InvoiceIssue.WhereBuilder(param)
+				.WhereBind(x => x.ProductQty, y => y.InvoiceNum)
+				.Build();
+
+			var sql = query.OrderBy(x => x.CreateBy).ToSql();
+			AssertBetweenSql(sql);
+		}
+
+
+		[Fact]
+		public void BetweenDecimalRangeSqlTest()
+		{
+			var param = new WhereParams<InvoiceIssueDomain>();
+			param.SetValues(x => x.Sum, WhereOperator.Between, 1.0m, 5.0m);
+
+			var query = _dc.InvoiceIssue.WhereBuilder(param)
+				.WhereBind(x => x.Sum, y => y.Total)
+				.Build();
+
+			var sql = query.OrderBy(x => x.CreateBy).ToSql();
+			AssertBetweenSql(sql);
+		}
+
+
+		[Fact]
+		public void BetweenDateTimeRangeSqlTest()
+		{
+			var from = DateTime.Today.AddDays(-5);
+			var to = DateTime.Today;
+
+			var param = new WhereParams<InvoiceIssueDomain>();
+			param.SetValues(x => x.ModifyDate, WhereOperator.Between, from, to);
+
+			var query = _dc.InvoiceIssue.WhereBuilder(param)
+				.WhereBind(x => x.ModifyDate, y => y.ModifyDate)
+				.Build();
+
+			var sql = query.OrderBy(x => x.CreateBy).ToSql();
+			AssertBetweenSql(sql);
+		}
+
+
+		[Fact]
+		public void BetweenStringRangeSqlTest()
+		{
+			var param = new WhereParams<InvoiceIssueDomain>();
+			param.SetValues(x => x.InvoicePrefix, WhereOperator.Between, "AA", "ZZ");
+
+			var query = _dc.InvoiceIssue.WhereBuilder(param)
+				.WhereBind(x => x.InvoicePrefix, y => y.InvoicePrefix)
+				.Build();
+
+			var sql = query.OrderBy(x => x.CreateBy).ToSql();
+			AssertBetweenSql(sql);
+		}
+
+
+		[Fact]
+		public void BetweenSingleValueFallsBackToGreaterEqualsSqlTest()
+		{
+			var param = new WhereParams<InvoiceIssueDomain>();
+			param.SetValues(x => x.InvoicePrefix, WhereOperator.Between, "SS");
+
+			var query = _dc.InvoiceIssue.WhereBuilder(param)
+				.WhereBind(x => x.InvoicePrefix, y => y.InvoicePrefix)
+				.Build();
+
+			var sql = query.OrderBy(x => x.CreateBy).ToSql();
+
+			Assert.Contains(" >= ", sql);
+			Assert.DoesNotContain(" <= ", sql);
+		}
+
+
+		[Fact]
+		public void StringInWithMultipleValuesSqlTest()
+		{
+			var param = new WhereParams<InvoiceIssueDomain>();
+			param.SetValues(x => x.InvoicePrefix, WhereOperator.In, "AA", "SS");
+
+			var query = _dc.InvoiceIssue.WhereBuilder(param)
+				.WhereBind(x => x.InvoicePrefix, y => y.InvoicePrefix)
+				.Build();
+
+			var sql = query.OrderBy(x => x.CreateBy).ToSql();
+			Assert.Contains(" IN (", sql);
 		}
 
 
@@ -261,7 +365,8 @@ namespace Orion.Api.Tests
 				n( WhereOperator.In, "IN (" ),
 				n( WhereOperator.NotIn, " IN (" ),
 				n( WhereOperator.Equals, "EXISTS (" ),
-				n( WhereOperator.NotEquals, "NOT (EXISTS (" ),
+				// EF Core 8: NOT (EXISTS 會被優化為 NOT EXISTS (移除括號)
+				n( WhereOperator.NotEquals, "NOT EXISTS (" ),
 				n( WhereOperator.Contains, " i\r\nORDER" ),
 				n( WhereOperator.StartsWith, " i\r\nORDER" ),
 				n( WhereOperator.EndsWith, " i\r\nORDER" ),
