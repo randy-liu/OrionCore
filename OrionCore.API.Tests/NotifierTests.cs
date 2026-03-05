@@ -82,6 +82,7 @@ namespace Orion.Api.Tests
 		}
 
 
+
 		[Fact]
 		public void WaitListen_ThreadTest()
 		{
@@ -93,10 +94,9 @@ namespace Orion.Api.Tests
 			{
 				for (int i = 0; i < 100; i++)
 				{
-					var tt = notifier.Wait<int>(1);
-					var tt2 = notifier.Wait<int>(1);
-					SpinWait.SpinUntil(() => false, 99);
-					Thread.Sleep(99);
+					var tt = notifier.Wait<int>(2);
+					var tt2 = notifier.Wait<int>(2);
+					await Task.Delay(99);
 					notifier.TriggerChange(1);
 
 					int a = await tt;
@@ -107,9 +107,9 @@ namespace Orion.Api.Tests
 			{
 				for (int i = 0; i < 100; i++)
 				{
-					var tt = notifier.Wait<double>(1);
-					var tt2 = notifier.Wait<double>(1);
-					Thread.Sleep(99);
+					var tt = notifier.Wait<double>(2);
+					var tt2 = notifier.Wait<double>(2);
+					await Task.Delay(99);
 					notifier.TriggerChange(1.1);
 
 					double a = await tt;
@@ -117,17 +117,19 @@ namespace Orion.Api.Tests
 			});
 			var taskC = Task.Run(async () =>
 			{
-				for (int i = 0; i < 100; i++)
+				for (int i = 0; i < 50; i++)
 				{
-					Thread.Sleep(99);
-					string a = await notifier.Wait<string>(1);
+					await Task.Delay(200);
+					notifier.TriggerChange(1m);
+					string a = await notifier.Wait<string>(2);
 				}
 			});
-			var taskD = Task.Run(() =>
+			var taskD = Task.Run(async () =>
 			{
-				for (int i = 0; i < 100; i++)
+				for (int i = 0; i < 50; i++)
 				{
-					Thread.Sleep(99);
+					decimal a = await notifier.Wait<decimal>(60);
+					Thread.Sleep(200);
 					notifier.TriggerChange("");
 				}
 			});
@@ -137,14 +139,15 @@ namespace Orion.Api.Tests
 
 
 
+
 		[Fact]
 		public void WaitListen_DelayTest()
 		{
 			var logFactory = new OrionNLogLoggerFactory();
 			var notifier = new Notifier(logFactory);
 
-			notifier.TriggerChange(1);
 			Task<int> a = notifier.Wait<int>(1);
+			notifier.TriggerChange(1);
 			a.Wait();
 
 			Assert.Equal(1, a.Result);

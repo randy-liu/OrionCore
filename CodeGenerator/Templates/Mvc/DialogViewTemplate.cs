@@ -17,7 +17,7 @@ namespace CodeGenerator.Templates.Mvc
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "D:\Jax-Work\Dropbox\JW-Project\CoreTpl\CodeGenerator\Templates\Mvc\DialogViewTemplate.tt"
+    #line 1 "D:\Jax-Work\Dropbox\NugetProject\OrionCore\CodeGenerator\Templates\Mvc\DialogViewTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
     public partial class DialogViewTemplate : CodeGenerator.Templates.TemplateBase
     {
@@ -29,7 +29,7 @@ namespace CodeGenerator.Templates.Mvc
         {
             this.Write("\r\n");
             
-            #line 5 "D:\Jax-Work\Dropbox\JW-Project\CoreTpl\CodeGenerator\Templates\Mvc\DialogViewTemplate.tt"
+            #line 5 "D:\Jax-Work\Dropbox\NugetProject\OrionCore\CodeGenerator\Templates\Mvc\DialogViewTemplate.tt"
  
 	FilePath = TableMeta.NameSpace + ".WebApp/Views/" + TableMeta.Name + "/Dialog.cshtml";
 
@@ -38,7 +38,7 @@ namespace CodeGenerator.Templates.Mvc
             #line hidden
             this.Write("@model ");
             
-            #line 8 "D:\Jax-Work\Dropbox\JW-Project\CoreTpl\CodeGenerator\Templates\Mvc\DialogViewTemplate.tt"
+            #line 8 "D:\Jax-Work\Dropbox\NugetProject\OrionCore\CodeGenerator\Templates\Mvc\DialogViewTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default
@@ -46,14 +46,14 @@ namespace CodeGenerator.Templates.Mvc
             this.Write("ViewModel\r\n\r\n\r\n@{\r\n\tLayout = \"~/Views/Shared/_DialogLayout.cshtml\";\r\n\r\n\tbool isCr" +
                     "eate = this.IsRouteAction(\"Create\");\r\n\r\n\tViewBag.Title = isCreate ? \"新增");
             
-            #line 16 "D:\Jax-Work\Dropbox\JW-Project\CoreTpl\CodeGenerator\Templates\Mvc\DialogViewTemplate.tt"
+            #line 16 "D:\Jax-Work\Dropbox\NugetProject\OrionCore\CodeGenerator\Templates\Mvc\DialogViewTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Description));
             
             #line default
             #line hidden
             this.Write("\" : \"編輯");
             
-            #line 16 "D:\Jax-Work\Dropbox\JW-Project\CoreTpl\CodeGenerator\Templates\Mvc\DialogViewTemplate.tt"
+            #line 16 "D:\Jax-Work\Dropbox\NugetProject\OrionCore\CodeGenerator\Templates\Mvc\DialogViewTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Description));
             
             #line default
@@ -67,7 +67,7 @@ namespace CodeGenerator.Templates.Mvc
 
 
 @section Scripts {
-<script type=""text/javascript"">
+<script>
 Dialog.resize(480, 360);
 
 jQuery(function ($) {
@@ -86,7 +86,7 @@ jQuery(function ($) {
 {
 	@Html.HiddenFor(m => m.");
             
-            #line 42 "D:\Jax-Work\Dropbox\JW-Project\CoreTpl\CodeGenerator\Templates\Mvc\DialogViewTemplate.tt"
+            #line 42 "D:\Jax-Work\Dropbox\NugetProject\OrionCore\CodeGenerator\Templates\Mvc\DialogViewTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.PK.Name));
             
             #line default
@@ -95,49 +95,49 @@ jQuery(function ($) {
                     "\t</div>\r\n\r\n\t<div class=\"modal-body auto\">\r\n    @{ var labelCol = \"col-sm-4\"; var" +
                     " wrapCol = \"col-sm-8\"; }\r\n\r\n");
             
-            #line 51 "D:\Jax-Work\Dropbox\JW-Project\CoreTpl\CodeGenerator\Templates\Mvc\DialogViewTemplate.tt"
+            #line 51 "D:\Jax-Work\Dropbox\NugetProject\OrionCore\CodeGenerator\Templates\Mvc\DialogViewTemplate.tt"
  foreach(var col in ActiveColumns.Where(x => !x.IsPrimaryKey)) { 
             
             #line default
             #line hidden
             this.Write("\r\n\t\t<div class=\"form-group\">\r\n\t\t\t@Html.BsLabelFor(m => m.");
             
-            #line 54 "D:\Jax-Work\Dropbox\JW-Project\CoreTpl\CodeGenerator\Templates\Mvc\DialogViewTemplate.tt"
+            #line 54 "D:\Jax-Work\Dropbox\NugetProject\OrionCore\CodeGenerator\Templates\Mvc\DialogViewTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.Name));
             
             #line default
             #line hidden
             this.Write(", new { @class = labelCol + \"");
             
-            #line 54 "D:\Jax-Work\Dropbox\JW-Project\CoreTpl\CodeGenerator\Templates\Mvc\DialogViewTemplate.tt"
+            #line 54 "D:\Jax-Work\Dropbox\NugetProject\OrionCore\CodeGenerator\Templates\Mvc\DialogViewTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture((col.IsNullable ? "" : " required")));
             
             #line default
             #line hidden
             this.Write("\" })\r\n\t\t\t<div class=\"@wrapCol\">\r\n\t\t\t\t@Html.");
             
-            #line 56 "D:\Jax-Work\Dropbox\JW-Project\CoreTpl\CodeGenerator\Templates\Mvc\DialogViewTemplate.tt"
+            #line 56 "D:\Jax-Work\Dropbox\NugetProject\OrionCore\CodeGenerator\Templates\Mvc\DialogViewTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.EditBox()));
             
             #line default
             #line hidden
             this.Write("(m => m.");
             
-            #line 56 "D:\Jax-Work\Dropbox\JW-Project\CoreTpl\CodeGenerator\Templates\Mvc\DialogViewTemplate.tt"
+            #line 56 "D:\Jax-Work\Dropbox\NugetProject\OrionCore\CodeGenerator\Templates\Mvc\DialogViewTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.Name));
             
             #line default
             #line hidden
             this.Write(")\r\n\t\t\t\t<span class=\"form-tip\">@Html.ValidationMessageFor(m => m.");
             
-            #line 57 "D:\Jax-Work\Dropbox\JW-Project\CoreTpl\CodeGenerator\Templates\Mvc\DialogViewTemplate.tt"
+            #line 57 "D:\Jax-Work\Dropbox\NugetProject\OrionCore\CodeGenerator\Templates\Mvc\DialogViewTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.Name));
             
             #line default
             #line hidden
             this.Write(")</span>\r\n\t\t\t</div>\r\n\t\t</div>\r\n");
             
-            #line 60 "D:\Jax-Work\Dropbox\JW-Project\CoreTpl\CodeGenerator\Templates\Mvc\DialogViewTemplate.tt"
+            #line 60 "D:\Jax-Work\Dropbox\NugetProject\OrionCore\CodeGenerator\Templates\Mvc\DialogViewTemplate.tt"
  } 
             
             #line default
@@ -152,7 +152,7 @@ jQuery(function ($) {
 
 		@if (!isCreate @*&& User.AnyAct(ACT.");
             
-            #line 69 "D:\Jax-Work\Dropbox\JW-Project\CoreTpl\CodeGenerator\Templates\Mvc\DialogViewTemplate.tt"
+            #line 69 "D:\Jax-Work\Dropbox\NugetProject\OrionCore\CodeGenerator\Templates\Mvc\DialogViewTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(TableMeta.Name));
             
             #line default

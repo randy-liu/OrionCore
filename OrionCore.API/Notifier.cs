@@ -15,17 +15,17 @@ namespace Orion.Api
 	public enum NotifierLog
 	{
 		/// <summary></summary>
+		Trace,
+		/// <summary></summary>
 		Debug,
+		/// <summary></summary>
+		Info,
+		/// <summary></summary>
+		Warn,
 		/// <summary></summary>
 		Error,
 		/// <summary></summary>
 		Fatal,
-		/// <summary></summary>
-		Info,
-		/// <summary></summary>
-		Trace,
-		/// <summary></summary>
-		Warn,
 	}
 
 
@@ -41,52 +41,26 @@ namespace Orion.Api
 
 
 		/// <summary>觸發初始</summary>
-		void TriggerInit();
-		/// <summary>觸發初始</summary>
-		void TriggerInit(NotifierLog level);
-
-
+		void TriggerInit(NotifierLog level = NotifierLog.Trace);
 
 		/// <summary>觸發關閉</summary>
-		void TriggerClose();
-		/// <summary>觸發關閉</summary>
-		void TriggerClose(NotifierLog level);
-
-
+		void TriggerClose(NotifierLog level = NotifierLog.Trace);
 
 		/// <summary>觸發週期</summary>
-		void TriggerCycle();
-		/// <summary>觸發週期</summary>
-		void TriggerCycle(NotifierLog level);
-
+		void TriggerCycle(NotifierLog level = NotifierLog.Trace);
 
 
 		/// <summary>觸發改變</summary>
-		void TriggerChange<T>(T value);
-		/// <summary>觸發改變</summary>
-		void TriggerChange<T>(T value, NotifierLog level);
-
-
+		void TriggerChange<T>(T value, NotifierLog level = NotifierLog.Info);
 
 		/// <summary>觸發逾時</summary>
-		void TriggerTimeout<T>(T value);
-		/// <summary>觸發逾時</summary>
-		void TriggerTimeout<T>(T value, NotifierLog level);
-
-
+		void TriggerTimeout<T>(T value, NotifierLog level = NotifierLog.Warn);
 
 		/// <summary>觸發失敗</summary>
-		void TriggerFailure<T>(T value);
-		/// <summary>觸發失敗</summary>
-		void TriggerFailure<T>(T value, NotifierLog level);
-
-
+		void TriggerFailure<T>(T value, NotifierLog level = NotifierLog.Error);
 
 		/// <summary>觸發完成</summary>
-		void TriggerComplete<T>(T value);
-		/// <summary>觸發完成</summary>
-		void TriggerComplete<T>(T value, NotifierLog level);
-
+		void TriggerComplete<T>(T value, NotifierLog level = NotifierLog.Info);
 
 
 		/// <summary>等待通知</summary>
@@ -108,19 +82,17 @@ namespace Orion.Api
 	/// <summary>事件通知者</summary>
 	public class Notifier : INotifier
 	{
-		internal static readonly Type _noneType = typeof(Notifier);
-
 		private readonly List<NotifiMonitor> _monitorList = new List<NotifiMonitor>();
 		private readonly HashSet<object> _registeredListen = new HashSet<object>();
 
 
-		private readonly List<IListen> _initListen = new List<IListen>();
-		private readonly List<IListen> _closeListen = new List<IListen>();
-		private readonly List<IListen> _cycleListen = new List<IListen>();
-		private readonly List<IListen> _changeListen = new List<IListen>();
-		private readonly List<IListen> _timeoutListen = new List<IListen>();
-		private readonly List<IListen> _failureListen = new List<IListen>();
-		private readonly List<IListen> _completeListen = new List<IListen>();
+		private readonly List<INotifiListen> _initListen = new List<INotifiListen>();
+		private readonly List<INotifiListen> _closeListen = new List<INotifiListen>();
+		private readonly List<INotifiListen> _cycleListen = new List<INotifiListen>();
+		private readonly List<INotifiListen> _changeListen = new List<INotifiListen>();
+		private readonly List<INotifiListen> _timeoutListen = new List<INotifiListen>();
+		private readonly List<INotifiListen> _failureListen = new List<INotifiListen>();
+		private readonly List<INotifiListen> _completeListen = new List<INotifiListen>();
 		private readonly WaitListenCollection _waitListen = new WaitListenCollection();
 
 		private readonly IOrionLoggerFactory _logFactory;
@@ -187,11 +159,11 @@ namespace Orion.Api
 
 
 
-		private void add(List<IListen> listenList, NotifiAttribute attr, MethodMeta meta)
+		private void add(List<INotifiListen> listenList, NotifiAttribute attr, MethodMeta meta)
 		{
 			_log.Info("Register " + attr.GetName() + " " + meta.FullName);
 
-			IListen listen = attr.MakeListen(meta);
+			INotifiListen listen = attr.MakeListen(meta);
 			listenList.Add(listen);
 		}
 
@@ -199,7 +171,7 @@ namespace Orion.Api
 
 
 
-		/*=====================================================*/
+		/*=================================================================*/
 
 		private Type getType<T>(T value)
 		{
@@ -213,12 +185,6 @@ namespace Orion.Api
 			if (setable != null) { setable.SetNotifiStatus(type); }
 		}
 
-
-
-		private void logTrigger<T>(string triggerName, T value)
-		{
-			_log.Info(string.Format("{0} {1} {2}", triggerName, getType(value).Name, value.ToJson()));
-		}
 
 
 		private void addLog(NotifierLog level, string message)
@@ -235,136 +201,80 @@ namespace Orion.Api
 			}
 		}
 
-
-		private void trigger(List<IListen> listenList, Type type, object model)
+		private void trigger(List<INotifiListen> listenList, NotifierLog level, [CallerMemberName] string memberName = "")
 		{
-			IEnumerable<IListen> list = listenList;
-			if (type != _noneType) { list = list.Where(l => l.IsMatch(type)); }
+			addLog(level, memberName);
 
-			list.ForEach(l => l.Invoke(model));
+			var parameters = new object[] { };
+			listenList.ForEach(l => l.Invoke(parameters));
 		}
 
 
-
-
-
-
-		/// <summary>觸發初始</summary>
-		public void TriggerInit()
-		{
-			TriggerInit(NotifierLog.Trace);
-		}
-		/// <summary>觸發初始</summary>
-		public void TriggerInit(NotifierLog level)
-		{
-			addLog(level, nameof(TriggerInit));
-			trigger(_initListen, _noneType, null);
-		}
-
-
-
-
-		/// <summary>觸發關閉</summary>
-		public void TriggerClose()
-		{
-			TriggerClose(NotifierLog.Trace);
-		}
-		/// <summary>觸發關閉</summary>
-		public void TriggerClose(NotifierLog level)
-		{
-			addLog(level, nameof(TriggerClose));
-			trigger(_closeListen, _noneType, null);
-		}
-
-
-
-
-		/// <summary>觸發週期</summary>
-		public void TriggerCycle()
-		{
-			TriggerCycle(NotifierLog.Trace);
-		}
-		/// <summary>觸發週期</summary>
-		public void TriggerCycle(NotifierLog level)
-		{
-			addLog(level, nameof(TriggerCycle));
-			trigger(_cycleListen, _noneType, null);
-		}
-
-
-
-		/// <summary>觸發改變</summary>
-		public void TriggerChange<T>(T value)
-		{
-			TriggerChange(value, NotifierLog.Info);
-		}
-		/// <summary>觸發改變</summary>
-		public void TriggerChange<T>(T value, NotifierLog level)
+		private void trigger<T>(List<INotifiListen> listenList, NotifierLog level, T value, [CallerMemberName] string memberName = "")
 		{
 			Type type = getType(value);
+			addLog(level, memberName + " " + type.Name + " " + value.ToJson());
 
+			var parameters = new object[] { value };
+			listenList.Where(l => l.IsMatch(type)).ForEach(l => l.Invoke(parameters));
+
+			_waitListen.Trigger(type, value);
+		}
+
+
+
+
+
+		/// <summary>觸發初始</summary>
+		public void TriggerInit(NotifierLog level = NotifierLog.Trace)
+		{
+			trigger(_initListen, level);
+		}
+
+		/// <summary>觸發關閉</summary>
+		public void TriggerClose(NotifierLog level = NotifierLog.Trace)
+		{
+			trigger(_closeListen, level);
+		}
+
+		/// <summary>觸發週期</summary>
+		public void TriggerCycle(NotifierLog level = NotifierLog.Trace)
+		{
+			trigger(_cycleListen, level);
+		}
+
+
+
+		/// <summary>觸發改變</summary>
+		public void TriggerChange<T>(T value, NotifierLog level = NotifierLog.Info)
+		{
 			setEventType(value, NotifiStatus.Change);
-			addLog(level, nameof(TriggerChange) + " " + type.Name + " " + value.ToJson());
-			trigger(_changeListen, type, value);
-			_waitListen.Trigger(type, value);
+			trigger(_changeListen, level, value);
 		}
 
-
-
-
 		/// <summary>觸發逾時</summary>
-		public void TriggerTimeout<T>(T value)
+		public void TriggerTimeout<T>(T value, NotifierLog level = NotifierLog.Warn)
 		{
-			TriggerTimeout(value, NotifierLog.Warn);
-		}
-		/// <summary>觸發逾時</summary>
-		public void TriggerTimeout<T>(T value, NotifierLog level)
-		{
-			Type type = getType(value);
-
 			setEventType(value, NotifiStatus.Timeout);
-			addLog(level, nameof(TriggerTimeout) + " " + type.Name + " " + value.ToJson());
-			trigger(_timeoutListen, type, value);
-			_waitListen.Trigger(type, value);
+			trigger(_timeoutListen, level, value);
 		}
 
-
-
-
 		/// <summary>觸發失敗</summary>
-		public void TriggerFailure<T>(T value)
+		public void TriggerFailure<T>(T value, NotifierLog level = NotifierLog.Error)
 		{
-			TriggerFailure(value, NotifierLog.Error);
-		}
-		/// <summary>觸發失敗</summary>
-		public void TriggerFailure<T>(T value, NotifierLog level)
-		{
-			Type type = getType(value);
-
 			setEventType(value, NotifiStatus.Failure);
-			addLog(level, nameof(TriggerFailure) + " " + type.Name + " " + value.ToJson());
-			trigger(_failureListen, type, value);
-			_waitListen.Trigger(type, value);
+			trigger(_failureListen, level, value);
 		}
 
-
-
-
 		/// <summary>觸發完成</summary>
-		public void TriggerComplete<T>(T value)
+		public void TriggerComplete<T>(T value, NotifierLog level = NotifierLog.Info)
 		{
-			TriggerComplete(value, NotifierLog.Info);
-		}
-		/// <summary>觸發完成</summary>
-		public void TriggerComplete<T>(T value, NotifierLog level)
-		{
-			Type type = getType(value);
-
 			setEventType(value, NotifiStatus.Complete);
-			addLog(level, nameof(TriggerComplete) + " " + type.Name + " " + value.ToJson());
-			trigger(_completeListen, type, value);
-			_waitListen.Trigger(type, value);
+			trigger(_completeListen, level, value);
 		}
+
+
+
 
 
 
@@ -440,7 +350,6 @@ namespace Orion.Api
 		public readonly Type Target;
 
 		public readonly int ParamLength;
-		public readonly bool HasParam;
 		public readonly string FullName;
 
 
@@ -453,9 +362,8 @@ namespace Orion.Api
 			ParameterInfo[] parames = method.GetParameters();
 
 			Monitor = new NotifiMonitor(handle, method);
-			Target = parames.Select(x => x.ParameterType).DefaultIfEmpty(Notifier._noneType).First();
+			Target = parames.Select(x => x.ParameterType).FirstOrDefault();
 			ParamLength = parames.Length;
-			HasParam = parames.Length > 0;
 			FullName = method.DeclaringType.FullName + "." + method.Name;
 		}
 	}
@@ -463,21 +371,21 @@ namespace Orion.Api
 
 
 	/*##########################################################################*/
-	
-	internal interface IListen
+
+	internal interface INotifiListen
 	{
 		bool IsRun { get; }
 
 		bool IsMatch(Type type);
-		void Invoke(object model);
+		void Invoke(object[] parameters);
 	}
 
 
 
 	/// <summary>針對普通 method 的調用</summary>
-	internal class NormalListen : IListen
+	internal class NormalListen : INotifiListen
 	{
-		public bool IsRun { get; set; }
+		public bool IsRun { get; private set; }
 
 
 		protected readonly MethodMeta Meta;
@@ -494,12 +402,11 @@ namespace Orion.Api
 		}
 
 
-		public void Invoke(object model)
+		public void Invoke(object[] parameters)
 		{
 			IsRun = true;
 			var beginTime = DateTime.Now;
 
-			object[] parameters = Meta.HasParam ? new object[] { model } : new object[] { };
 			try
 			{
 				/* 執行 Method */
@@ -524,10 +431,11 @@ namespace Orion.Api
 	}
 
 
+
 	/// <summary>針對 async method 的呼叫</summary>
-	internal class AsyncListen : IListen
+	internal class AsyncListen : INotifiListen
 	{
-		public bool IsRun { get; set; }
+		public bool IsRun { get; private set; }
 
 
 		protected readonly MethodMeta Meta;
@@ -544,18 +452,17 @@ namespace Orion.Api
 		}
 
 
-		public void Invoke(object model)
+		public void Invoke(object[] parameters)
 		{
 			IsRun = true;
-			invokeAsync(model);
+			invokeAsync(parameters);
 		}
 
-		private async void invokeAsync(object model)
+		private async void invokeAsync(object[] parameters)
 		{
 			await Task.Yield();
 			var beginTime = DateTime.Now;
 
-			object[] parameters = Meta.HasParam ? new object[] { model } : new object[] { };
 			try
 			{
 				/* 執行 Method */
@@ -581,45 +488,45 @@ namespace Orion.Api
 	}
 
 
+
 	/*======================================================*/
 
 
-
 	/// <summary>針對單一執行的調用</summary>
-	internal class OnlyOneListenWrapper : IListen
+	internal class OnlyOneListenWrapper : INotifiListen
 	{
 		public bool IsRun { get { return _listen.IsRun; } }
 		public bool IsMatch(Type type) { return _listen.IsMatch(type); }
 
 
-		private readonly IListen _listen;
+		private readonly INotifiListen _listen;
 
-		public OnlyOneListenWrapper(IListen listen)
+		public OnlyOneListenWrapper(INotifiListen listen)
 		{
 			_listen = listen;
 		}
 
-		public void Invoke(object model)
+		public void Invoke(object[] parameters)
 		{
 			if (_listen.IsRun) { return; }
 
-			_listen.Invoke(model);
+			_listen.Invoke(parameters);
 		}
 	}
 
 
 
 	/// <summary>針對間隔執行的調用</summary>
-	internal class IntervalListenWrapper : IListen
+	internal class IntervalListenWrapper : INotifiListen
 	{
 		public bool IsRun { get { return _listen.IsRun; } }
 		public bool IsMatch(Type type) { return _listen.IsMatch(type); }
 
 
-		private readonly IListen _listen;
+		private readonly INotifiListen _listen;
 		private readonly int _intervalSecs;
 
-		public IntervalListenWrapper(IListen listen, int intervalSecs)
+		public IntervalListenWrapper(INotifiListen listen, int intervalSecs)
 		{
 			_listen = listen;
 			_intervalSecs = intervalSecs;
@@ -629,12 +536,12 @@ namespace Orion.Api
 		/// <summary>下次的執行時間</summary>
 		private DateTime _nextTime;
 
-		public void Invoke(object model)
+		public void Invoke(object[] parameters)
 		{
 			if (_nextTime > DateTime.Now) { return; }
 			_nextTime = DateTime.Now.AddSeconds(_intervalSecs);
 
-			_listen.Invoke(model);
+			_listen.Invoke(parameters);
 		}
 	}
 

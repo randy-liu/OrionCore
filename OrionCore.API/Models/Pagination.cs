@@ -95,7 +95,12 @@ namespace Orion.Api.Models
         /// <summary>總共頁數</summary>
         public int TotalPages
         {
-            get { return (int)Math.Ceiling(1.0 * TotalItems / PageSize); }
+            get 
+            {
+                if (TotalItems <= 0) { return 0; }
+                if (PageSize <= 0) { return 1; }
+                return (int)Math.Ceiling(1.0 * TotalItems / PageSize); 
+            }
         }
     }
 

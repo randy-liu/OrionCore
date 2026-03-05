@@ -121,6 +121,16 @@ namespace Orion.Api
 				case WhereOperator.NotIn: /* !values.Contains(x) */
 					return Expression.Not(Expression.Call(containsMethod, valuesExpr, parameter));
 
+				case WhereOperator.Between: /* x >= values[0] && x <= values[1] */
+					if (values.Length < 2) { return Expression.GreaterThanOrEqual(compareExpr, Expression.Constant(0)); } /* x >= value */
+
+					var value1Expr = Expression.Convert(Expression.Constant(values[1]), typeof(string));
+					var compare1Expr = Expression.Call(parameter, compareMethod, value1Expr);
+
+					return Expression.AndAlso(
+						Expression.GreaterThanOrEqual(compareExpr, Expression.Constant(0)),
+						Expression.LessThanOrEqual(compare1Expr, Expression.Constant(0))
+					);
 			}
 
 			return null;

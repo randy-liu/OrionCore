@@ -77,16 +77,16 @@
             <summary></summary>
         </member>
         <member name="M:Orion.Mvc.Extensions.ControllerExtensions.SetStatusSuccess(Microsoft.AspNetCore.Mvc.Controller,System.String)">
-            <summary></summary>
+            <summary>TempData["StatusSuccess"] = message</summary>
         </member>
         <member name="M:Orion.Mvc.Extensions.ControllerExtensions.SetStatusError(Microsoft.AspNetCore.Mvc.Controller,System.String)">
-            <summary></summary>
+            <summary>TempData["StatusError"] = message</summary>
         </member>
         <member name="M:Orion.Mvc.Extensions.ControllerExtensions.SetStatusSuccess(Microsoft.AspNetCore.Mvc.RazorPages.PageModel,System.String)">
-            <summary></summary>
+            <summary>TempData["StatusSuccess"] = message</summary>
         </member>
         <member name="M:Orion.Mvc.Extensions.ControllerExtensions.SetStatusError(Microsoft.AspNetCore.Mvc.RazorPages.PageModel,System.String)">
-            <summary></summary>
+            <summary>TempData["StatusError"] = message</summary>
         </member>
         <member name="T:Orion.Mvc.Extensions.EnvironmentExtensions">
             <summary></summary>
@@ -173,10 +173,7 @@
             <summary></summary>
         </member>
         <member name="T:Orion.Mvc.Filters.ConfigureSessionAuthentication">
-            <summary></summary>
-        </member>
-        <member name="M:Orion.Mvc.Filters.ConfigureSessionAuthentication.#ctor(Microsoft.Extensions.Caching.Memory.IMemoryCache)">
-            <summary></summary>
+            <summary>棄用</summary>
         </member>
         <member name="M:Orion.Mvc.Filters.ConfigureSessionAuthentication.PostConfigure(System.String,Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationOptions)">
             <summary></summary>
@@ -1117,6 +1114,18 @@
         <member name="M:Orion.Mvc.Html.HelperExtensions.ShowItemAndKey(System.Object,System.Collections.Generic.IDictionary{System.String,System.String})">
             <summary></summary>
         </member>
+        <member name="M:Orion.Mvc.Html.HelperExtensions.ShowBytes(System.Int64)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.HelperExtensions.ShowBytes(System.Int32)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.HelperExtensions.ShowBytes(System.Double)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.HelperExtensions.ShowBytes(System.Decimal)">
+            <summary></summary>
+        </member>
         <member name="M:Orion.Mvc.Html.HelperExtensions.ToJsonRaw(System.Object)">
             <summary>將 object 轉換為 JsonRaw</summary>
         </member>
@@ -1441,6 +1450,15 @@
             <summary></summary>
         </member>
         <member name="M:Orion.Mvc.Html.PaginationExtensions.PagerSort(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.PaginationExtensions.BuildPagerSortFor1``1(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.PaginationExtensions.BuildPagerSortFor2``1(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Mvc.Html.PaginationExtensions.BuildDisplayNameFor1``1(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper{``0})">
             <summary></summary>
         </member>
         <member name="T:Orion.Mvc.Html.SelectDictionaryExtensions">

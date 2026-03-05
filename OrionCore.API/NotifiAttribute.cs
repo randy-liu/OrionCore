@@ -26,7 +26,7 @@ namespace Orion.Api
 		public abstract int GetParamLimit();
 
 
-		internal virtual IListen MakeListen(MethodMeta meta)
+		internal virtual INotifiListen MakeListen(MethodMeta meta)
 		{
 			if (meta.ParamLength != GetParamLimit())
 			{ throw new ArgumentOutOfRangeException(meta.FullName, " 參數只能有" + GetParamLimit() + " 個"); }
@@ -38,7 +38,7 @@ namespace Orion.Api
 			{ throw new ArgumentException(meta.FullName, "async 的 return type 必須是 Task"); }
 
 
-			IListen listen;
+			INotifiListen listen;
 
 			if (asyncMethod || Async)
 			{ listen = new AsyncListen(meta); }
@@ -123,9 +123,9 @@ namespace Orion.Api
 		public override int GetParamLimit() { return 0; }
 
 
-		internal override IListen MakeListen(MethodMeta meta)
+		internal override INotifiListen MakeListen(MethodMeta meta)
 		{
-			IListen listen = base.MakeListen(meta);
+			INotifiListen listen = base.MakeListen(meta);
 
 			if (IntervalSecs > 0) { listen = new IntervalListenWrapper(listen, IntervalSecs); }
 			if (OnlyOne) { listen = new OnlyOneListenWrapper(listen); }

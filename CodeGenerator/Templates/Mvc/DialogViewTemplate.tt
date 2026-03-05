@@ -22,7 +22,7 @@
 
 
 @section Scripts {
-<script type="text/javascript">
+<script>
 Dialog.resize(480, 360);
 
 jQuery(function ($) {

@@ -8,16 +8,6 @@ namespace Orion.Api.Extensions
     public static class ListExtensions
     {
 
-
-
-        ///// <summary></summary>
-        //public static void AddRange<T>(this ICollection<T> collection, IEnumerable<T> range)
-        //{
-        //	foreach (var item in range) { collection.Add(item); }
-        //}
-
-
-
         /// <summary>將 List 賦予先進先出的功能，取回並刪除第一筆資料</summary>
         public static T Shift<T>(this IList<T> list)
         {

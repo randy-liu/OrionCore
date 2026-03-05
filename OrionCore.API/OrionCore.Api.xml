@@ -342,19 +342,19 @@
         <member name="M:Orion.Api.Extensions.CommandExtensions.AddCommand(System.Data.Common.DbCommand,System.FormattableString)">
             <summary></summary>
         </member>
-        <member name="M:Orion.Api.Extensions.CommandExtensions.WhereAnd(System.Data.Common.DbCommand,System.Object)">
+        <member name="M:Orion.Api.Extensions.CommandExtensions.Where(System.Data.Common.DbCommand,System.Object)">
             <summary></summary>
         </member>
-        <member name="M:Orion.Api.Extensions.CommandExtensions.WhereAnd(System.Data.Common.DbCommand,System.Collections.Generic.IDictionary{System.String,System.Object})">
+        <member name="M:Orion.Api.Extensions.CommandExtensions.Where(System.Data.Common.DbCommand,System.Collections.Generic.IDictionary{System.String,System.Object})">
             <summary></summary>
         </member>
-        <member name="M:Orion.Api.Extensions.CommandExtensions.WhereAnd(System.Data.Common.DbCommand,System.String,System.Object)">
+        <member name="M:Orion.Api.Extensions.CommandExtensions.Where(System.Data.Common.DbCommand,System.String,System.Object)">
             <summary></summary>
         </member>
-        <member name="M:Orion.Api.Extensions.CommandExtensions.WhereAndHas(System.Data.Common.DbCommand,System.String,System.Object)">
+        <member name="M:Orion.Api.Extensions.CommandExtensions.WhereHas(System.Data.Common.DbCommand,System.String,System.Object)">
             <summary></summary>
         </member>
-        <member name="M:Orion.Api.Extensions.CommandExtensions.WhereAndHas(System.Data.Common.DbCommand,System.String,System.Object,System.Data.DbType)">
+        <member name="M:Orion.Api.Extensions.CommandExtensions.WhereHas(System.Data.Common.DbCommand,System.String,System.Object,System.Data.DbType)">
             <summary></summary>
         </member>
         <member name="M:Orion.Api.Extensions.CommandExtensions.OrderBy(System.Data.Common.DbCommand,System.String,System.String)">
@@ -475,7 +475,7 @@
             <summary></summary>
         </member>
         <member name="M:Orion.Api.Extensions.ConnectionExtensions.Procedure(System.Data.Common.DbConnection,System.String,System.Object[])">
-            <summary></summary>
+            <summary>預存程序呼叫</summary>
         </member>
         <member name="M:Orion.Api.Extensions.ConnectionExtensions.OutBoolean(System.Data.Common.DbConnection)">
             <summary></summary>
@@ -529,6 +529,9 @@
             <summary>定義 DataTable 的 Extension</summary>
         </member>
         <member name="M:Orion.Api.Extensions.DataTableExtensions.ToDictionary``2(System.Data.DataTable,System.Func{System.Data.DataRow,``0},System.Func{System.Data.DataRow,``1})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.DataTableExtensions.ToDict``2(System.Data.DataTable,System.Func{System.Data.DataRow,System.ValueTuple{``0,``1}})">
             <summary></summary>
         </member>
         <member name="M:Orion.Api.Extensions.DataTableExtensions.FirstOrDefault(System.Data.DataTable)">
@@ -681,6 +684,12 @@
         <member name="T:Orion.Api.Extensions.EnumerableExtensions">
             <summary>定義 IEnumerable 與泛型 IEnumerable 的 Extension</summary>
         </member>
+        <member name="M:Orion.Api.Extensions.EnumerableExtensions.ToDict``3(System.Collections.Generic.IEnumerable{``0},System.Func{``0,System.ValueTuple{``1,``2}})">
+            <summary></summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.EnumerableExtensions.ToDict``3(System.Collections.Generic.IEnumerable{``0},System.Func{``0,System.Int32,System.ValueTuple{``1,``2}})">
+            <summary></summary>
+        </member>
         <member name="M:Orion.Api.Extensions.EnumerableExtensions.Append``1(System.Collections.Generic.IEnumerable{``0},``0[])">
             <summary>附加 Item 到 IEnumerable 的最後面</summary>
         </member>
@@ -713,6 +722,9 @@
         </member>
         <member name="M:Orion.Api.Extensions.EnumerableExtensions.AddRangeTo``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.ICollection{``0})">
             <summary>加入項目到 ICollection&lt;T&gt;</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.EnumerableExtensions.Add``1(System.Collections.Generic.ICollection{``0},``0,``0,``0[])">
+            <summary></summary>
         </member>
         <member name="M:Orion.Api.Extensions.EnumerableExtensions.ForEach``1(System.Collections.Generic.IEnumerable{``0},System.Action{``0})">
             <summary> 賦予 IEnumerable ForEach Method</summary>
@@ -1523,7 +1535,7 @@
             <summary></summary>
         </member>
         <member name="M:Orion.Api.Models.PageParamsExtensions.NullToUnlimited(Orion.Api.Models.PageParams)">
-            <summary>PageParams 如果為 null 就回傳不限制分頁 Unlimited</summary>
+            <summary>PageParams 如果為 null 就回傳不限制分頁 Unlimited ( PageSize = -1 )</summary>
         </member>
         <member name="M:Orion.Api.Models.PageParamsExtensions.SetOrderField(Orion.Api.Models.PageParams,System.String,System.Boolean)">
             <summary></summary>
@@ -1805,9 +1817,6 @@
         <member name="P:Orion.Api.NotifiAttribute.Async">
             <summary>非同步執行</summary>
         </member>
-        <member name="P:Orion.Api.NotifiAttribute.OnlyOne">
-            <summary>唯一執行</summary>
-        </member>
         <member name="M:Orion.Api.NotifiAttribute.GetName">
             <summary>通知名稱</summary>
         </member>
@@ -1824,12 +1833,6 @@
             <summary>關閉</summary>
         </member>
         <member name="M:Orion.Api.OnCloseAttribute.GetParamLimit">
-            <summary>參數數量 0</summary>
-        </member>
-        <member name="T:Orion.Api.OnCycleAttribute">
-            <summary>週期</summary>
-        </member>
-        <member name="M:Orion.Api.OnCycleAttribute.GetParamLimit">
             <summary>參數數量 0</summary>
         </member>
         <member name="T:Orion.Api.OnChangeAttribute">
@@ -1856,25 +1859,37 @@
         <member name="M:Orion.Api.OnCompleteAttribute.GetParamLimit">
             <summary>參數數量 1</summary>
         </member>
+        <member name="T:Orion.Api.OnCycleAttribute">
+            <summary>週期</summary>
+        </member>
+        <member name="P:Orion.Api.OnCycleAttribute.OnlyOne">
+            <summary>唯一執行</summary>
+        </member>
+        <member name="P:Orion.Api.OnCycleAttribute.IntervalSecs">
+            <summary>間隔秒數</summary>
+        </member>
+        <member name="M:Orion.Api.OnCycleAttribute.GetParamLimit">
+            <summary>參數數量 0</summary>
+        </member>
         <member name="T:Orion.Api.NotifierLog">
             <summary></summary>
         </member>
+        <member name="F:Orion.Api.NotifierLog.Trace">
+            <summary></summary>
+        </member>
         <member name="F:Orion.Api.NotifierLog.Debug">
+            <summary></summary>
+        </member>
+        <member name="F:Orion.Api.NotifierLog.Info">
+            <summary></summary>
+        </member>
+        <member name="F:Orion.Api.NotifierLog.Warn">
             <summary></summary>
         </member>
         <member name="F:Orion.Api.NotifierLog.Error">
             <summary></summary>
         </member>
         <member name="F:Orion.Api.NotifierLog.Fatal">
-            <summary></summary>
-        </member>
-        <member name="F:Orion.Api.NotifierLog.Info">
-            <summary></summary>
-        </member>
-        <member name="F:Orion.Api.NotifierLog.Trace">
-            <summary></summary>
-        </member>
-        <member name="F:Orion.Api.NotifierLog.Warn">
             <summary></summary>
         </member>
         <member name="T:Orion.Api.INotifier">
@@ -1886,44 +1901,23 @@
         <member name="M:Orion.Api.INotifier.RegisterListen(System.Object)">
             <summary>註冊監聽，建立 async method 時回傳型態請用 Task，這樣 Notifier 才有辦法攔截 Exception</summary>
         </member>
-        <member name="M:Orion.Api.INotifier.TriggerInit">
-            <summary>觸發初始</summary>
-        </member>
         <member name="M:Orion.Api.INotifier.TriggerInit(Orion.Api.NotifierLog)">
             <summary>觸發初始</summary>
-        </member>
-        <member name="M:Orion.Api.INotifier.TriggerClose">
-            <summary>觸發關閉</summary>
         </member>
         <member name="M:Orion.Api.INotifier.TriggerClose(Orion.Api.NotifierLog)">
             <summary>觸發關閉</summary>
         </member>
-        <member name="M:Orion.Api.INotifier.TriggerCycle">
-            <summary>觸發週期</summary>
-        </member>
         <member name="M:Orion.Api.INotifier.TriggerCycle(Orion.Api.NotifierLog)">
             <summary>觸發週期</summary>
-        </member>
-        <member name="M:Orion.Api.INotifier.TriggerChange``1(``0)">
-            <summary>觸發改變</summary>
         </member>
         <member name="M:Orion.Api.INotifier.TriggerChange``1(``0,Orion.Api.NotifierLog)">
             <summary>觸發改變</summary>
         </member>
-        <member name="M:Orion.Api.INotifier.TriggerTimeout``1(``0)">
-            <summary>觸發逾時</summary>
-        </member>
         <member name="M:Orion.Api.INotifier.TriggerTimeout``1(``0,Orion.Api.NotifierLog)">
             <summary>觸發逾時</summary>
         </member>
-        <member name="M:Orion.Api.INotifier.TriggerFailure``1(``0)">
-            <summary>觸發失敗</summary>
-        </member>
         <member name="M:Orion.Api.INotifier.TriggerFailure``1(``0,Orion.Api.NotifierLog)">
             <summary>觸發失敗</summary>
-        </member>
-        <member name="M:Orion.Api.INotifier.TriggerComplete``1(``0)">
-            <summary>觸發完成</summary>
         </member>
         <member name="M:Orion.Api.INotifier.TriggerComplete``1(``0,Orion.Api.NotifierLog)">
             <summary>觸發完成</summary>
@@ -1949,44 +1943,23 @@
         <member name="M:Orion.Api.Notifier.RegisterListen(System.Object)">
             <summary>註冊監聽，建立 async method 時回傳型態請用 Task，這樣 Notifier 才有辦法攔截 Exception</summary>
         </member>
-        <member name="M:Orion.Api.Notifier.TriggerInit">
-            <summary>觸發初始</summary>
-        </member>
         <member name="M:Orion.Api.Notifier.TriggerInit(Orion.Api.NotifierLog)">
             <summary>觸發初始</summary>
-        </member>
-        <member name="M:Orion.Api.Notifier.TriggerClose">
-            <summary>觸發關閉</summary>
         </member>
         <member name="M:Orion.Api.Notifier.TriggerClose(Orion.Api.NotifierLog)">
             <summary>觸發關閉</summary>
         </member>
-        <member name="M:Orion.Api.Notifier.TriggerCycle">
-            <summary>觸發週期</summary>
-        </member>
         <member name="M:Orion.Api.Notifier.TriggerCycle(Orion.Api.NotifierLog)">
             <summary>觸發週期</summary>
-        </member>
-        <member name="M:Orion.Api.Notifier.TriggerChange``1(``0)">
-            <summary>觸發改變</summary>
         </member>
         <member name="M:Orion.Api.Notifier.TriggerChange``1(``0,Orion.Api.NotifierLog)">
             <summary>觸發改變</summary>
         </member>
-        <member name="M:Orion.Api.Notifier.TriggerTimeout``1(``0)">
-            <summary>觸發逾時</summary>
-        </member>
         <member name="M:Orion.Api.Notifier.TriggerTimeout``1(``0,Orion.Api.NotifierLog)">
             <summary>觸發逾時</summary>
         </member>
-        <member name="M:Orion.Api.Notifier.TriggerFailure``1(``0)">
-            <summary>觸發失敗</summary>
-        </member>
         <member name="M:Orion.Api.Notifier.TriggerFailure``1(``0,Orion.Api.NotifierLog)">
             <summary>觸發失敗</summary>
-        </member>
-        <member name="M:Orion.Api.Notifier.TriggerComplete``1(``0)">
-            <summary>觸發完成</summary>
         </member>
         <member name="M:Orion.Api.Notifier.TriggerComplete``1(``0,Orion.Api.NotifierLog)">
             <summary>觸發完成</summary>
@@ -2003,20 +1976,20 @@
         <member name="M:Orion.Api.Notifier.Wait``1(System.Int32,System.Func{``0,System.Boolean})">
             <summary>等待通知，逾時會 throw System.TimeoutException</summary>
         </member>
-        <member name="T:Orion.Api.Notifier.NormalListen">
+        <member name="T:Orion.Api.NormalListen">
             <summary>針對普通 method 的調用</summary>
         </member>
-        <member name="T:Orion.Api.Notifier.NormalAsyncListen">
-            <summary>針對普通 method 非同步的調用</summary>
-        </member>
-        <member name="T:Orion.Api.Notifier.NormalOnlyOneListen">
-            <summary>針對普通 method 非同步單一執行的調用</summary>
-        </member>
-        <member name="T:Orion.Api.Notifier.AsyncListen">
+        <member name="T:Orion.Api.AsyncListen">
             <summary>針對 async method 的呼叫</summary>
         </member>
-        <member name="T:Orion.Api.Notifier.AsyncOnlyOneListen">
-            <summary>針對普通 method 非同步單一執行的調用</summary>
+        <member name="T:Orion.Api.OnlyOneListenWrapper">
+            <summary>針對單一執行的調用</summary>
+        </member>
+        <member name="T:Orion.Api.IntervalListenWrapper">
+            <summary>針對間隔執行的調用</summary>
+        </member>
+        <member name="F:Orion.Api.IntervalListenWrapper._nextTime">
+            <summary>下次的執行時間</summary>
         </member>
         <member name="T:Orion.Api.NotifiMonitor">
             <summary></summary>
