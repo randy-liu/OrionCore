@@ -225,6 +225,10 @@ string html = await razorViewCaller.RenderViewToStringAsync("~/Views/Email/Welco
 
 ---
 
-## 授權
+## 致謝與授權 
+本專案基於 Jax Hu 所開發的 OrionCore.API 進行分叉 (fork) 與重構。
 
-Copyright © 2020 Jax Hu Information Co. All rights reserved.
+本專案沿用原專案的授權條款。
+
+Copyright © 2020 Jax Hu
+Copyright © 2026 Randy Liu 
