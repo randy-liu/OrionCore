@@ -7,22 +7,36 @@ using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 namespace Orion.Mvc.Html
 {
-    /// <summary></summary>
+    /// <summary>提供 Bootstrap 日期時間輸入控制項擴充方法。</summary>
     public static class BsDatetimeExtensions
     {
 
 
-        /// <summary></summary>
+        /// <summary>建立日期輸入欄位。</summary>
+        /// <param name="htmlHelper">HTML Helper。</param>
+        /// <param name="name">欄位名稱。</param>
+        /// <param name="value">欄位值。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsDateBox(this IHtmlHelper htmlHelper, string name, object value = null)
         {
             return htmlHelper.BsDateBox(name, value, null);
         }
-        /// <summary></summary>
+        /// <summary>建立日期輸入欄位。</summary>
+        /// <param name="htmlHelper">HTML Helper。</param>
+        /// <param name="name">欄位名稱。</param>
+        /// <param name="value">欄位值。</param>
+        /// <param name="htmlAttributes">HTML 屬性。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsDateBox(this IHtmlHelper htmlHelper, string name, object value, object htmlAttributes = null)
         {
             return htmlHelper.BsDateBox(name, value, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
         }
-        /// <summary></summary>
+        /// <summary>建立日期輸入欄位並指定 HTML 屬性。</summary>
+        /// <param name="htmlHelper">HTML Helper。</param>
+        /// <param name="name">欄位名稱。</param>
+        /// <param name="value">欄位值。</param>
+        /// <param name="htmlAttributes">HTML 屬性。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsDateBox(this IHtmlHelper htmlHelper, string name, object value, IDictionary<string, object> htmlAttributes)
         {
             if (htmlAttributes == null) { htmlAttributes = new Dictionary<string, object>(); }
@@ -33,17 +47,28 @@ namespace Orion.Mvc.Html
 
 
 
-        /// <summary></summary>
+        /// <summary>建立日期輸入欄位。</summary>
+        /// <param name="htmlHelper">型別化 HTML Helper。</param>
+        /// <param name="expression">模型屬性運算式。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsDateBoxFor<TModel, TProperty>(this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression)
         {
             return htmlHelper.BsDateBoxFor(expression, null);
         }
-        /// <summary></summary>
+        /// <summary>建立日期輸入欄位。</summary>
+        /// <param name="htmlHelper">型別化 HTML Helper。</param>
+        /// <param name="expression">模型屬性運算式。</param>
+        /// <param name="htmlAttributes">HTML 屬性。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsDateBoxFor<TModel, TProperty>(this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, object htmlAttributes = null)
         {
             return htmlHelper.BsDateBoxFor(expression, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
         }
-        /// <summary></summary>
+        /// <summary>建立日期輸入欄位並指定 HTML 屬性。</summary>
+        /// <param name="htmlHelper">型別化 HTML Helper。</param>
+        /// <param name="expression">模型屬性運算式。</param>
+        /// <param name="htmlAttributes">HTML 屬性。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsDateBoxFor<TModel, TProperty>(this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IDictionary<string, object> htmlAttributes)
         {
             if (htmlAttributes == null) { htmlAttributes = new Dictionary<string, object>(); }
@@ -56,17 +81,31 @@ namespace Orion.Mvc.Html
 
         /*==================================================== */
 
-        /// <summary></summary>
+        /// <summary>建立行動版日期輸入欄位。</summary>
+        /// <param name="htmlHelper">HTML Helper。</param>
+        /// <param name="name">欄位名稱。</param>
+        /// <param name="value">欄位值。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent MBsDateBox(this IHtmlHelper htmlHelper, string name, object value = null)
         {
             return htmlHelper.MBsDateBox(name, value, null);
         }
-        /// <summary></summary>
+        /// <summary>建立行動版日期輸入欄位。</summary>
+        /// <param name="htmlHelper">HTML Helper。</param>
+        /// <param name="name">欄位名稱。</param>
+        /// <param name="value">欄位值。</param>
+        /// <param name="htmlAttributes">HTML 屬性。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent MBsDateBox(this IHtmlHelper htmlHelper, string name, object value, object htmlAttributes = null)
         {
             return htmlHelper.MBsDateBox(name, value, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
         }
-        /// <summary></summary>
+        /// <summary>建立行動版日期輸入欄位並指定 HTML 屬性。</summary>
+        /// <param name="htmlHelper">HTML Helper。</param>
+        /// <param name="name">欄位名稱。</param>
+        /// <param name="value">欄位值。</param>
+        /// <param name="htmlAttributes">HTML 屬性。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent MBsDateBox(this IHtmlHelper htmlHelper, string name, object value, IDictionary<string, object> htmlAttributes)
         {
             var input = htmlHelper.BsTextBox(name, value, "{0:d}", new Dictionary<string, object>
@@ -80,17 +119,28 @@ namespace Orion.Mvc.Html
 
 
 
-        /// <summary></summary>
+        /// <summary>建立行動版日期輸入欄位。</summary>
+        /// <param name="htmlHelper">型別化 HTML Helper。</param>
+        /// <param name="expression">模型屬性運算式。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent MBsDateBoxFor<TModel, TProperty>(this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression)
         {
             return htmlHelper.MBsDateBoxFor(expression, null);
         }
-        /// <summary></summary>
+        /// <summary>建立行動版日期輸入欄位。</summary>
+        /// <param name="htmlHelper">型別化 HTML Helper。</param>
+        /// <param name="expression">模型屬性運算式。</param>
+        /// <param name="htmlAttributes">HTML 屬性。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent MBsDateBoxFor<TModel, TProperty>(this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, object htmlAttributes = null)
         {
             return htmlHelper.MBsDateBoxFor(expression, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
         }
-        /// <summary></summary>
+        /// <summary>建立行動版日期輸入欄位並指定 HTML 屬性。</summary>
+        /// <param name="htmlHelper">型別化 HTML Helper。</param>
+        /// <param name="expression">模型屬性運算式。</param>
+        /// <param name="htmlAttributes">HTML 屬性。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent MBsDateBoxFor<TModel, TProperty>(this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IDictionary<string, object> htmlAttributes)
         {
             var input = htmlHelper.BsTextBoxFor(expression, "{0:d}", new Dictionary<string, object>
@@ -103,7 +153,7 @@ namespace Orion.Mvc.Html
         }
 
 
-        /// <summary></summary>
+        /// <summary>包裝日期輸入欄位並加入清除按鈕。</summary>
         private static IHtmlContent warpDateBox(IHtmlContent input, IDictionary<string, object> htmlAttributes)
         {
             /*
@@ -144,17 +194,31 @@ namespace Orion.Mvc.Html
 
 
 
-        /// <summary></summary>
+        /// <summary>建立日期時間輸入欄位。</summary>
+        /// <param name="htmlHelper">HTML Helper。</param>
+        /// <param name="name">欄位名稱。</param>
+        /// <param name="value">欄位值。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsDateTimeBox(this IHtmlHelper htmlHelper, string name, object value = null)
         {
             return htmlHelper.BsDateTimeBox(name, value, null);
         }
-        /// <summary></summary>
+        /// <summary>建立日期時間輸入欄位。</summary>
+        /// <param name="htmlHelper">HTML Helper。</param>
+        /// <param name="name">欄位名稱。</param>
+        /// <param name="value">欄位值。</param>
+        /// <param name="htmlAttributes">HTML 屬性。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsDateTimeBox(this IHtmlHelper htmlHelper, string name, object value, object htmlAttributes = null)
         {
             return htmlHelper.BsDateTimeBox(name, value, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
         }
-        /// <summary></summary>
+        /// <summary>建立日期時間輸入欄位並指定 HTML 屬性。</summary>
+        /// <param name="htmlHelper">HTML Helper。</param>
+        /// <param name="name">欄位名稱。</param>
+        /// <param name="value">欄位值。</param>
+        /// <param name="htmlAttributes">HTML 屬性。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsDateTimeBox(this IHtmlHelper htmlHelper, string name, object value, IDictionary<string, object> htmlAttributes)
         {
             if (htmlAttributes == null) { htmlAttributes = new Dictionary<string, object>(); }
@@ -164,17 +228,28 @@ namespace Orion.Mvc.Html
 
 
 
-        /// <summary></summary>
+        /// <summary>建立日期時間輸入欄位。</summary>
+        /// <param name="htmlHelper">型別化 HTML Helper。</param>
+        /// <param name="expression">模型屬性運算式。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsDateTimeBoxFor<TModel, TProperty>(this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression)
         {
             return htmlHelper.BsDateTimeBoxFor(expression, null);
         }
-        /// <summary></summary>
+        /// <summary>建立日期時間輸入欄位。</summary>
+        /// <param name="htmlHelper">型別化 HTML Helper。</param>
+        /// <param name="expression">模型屬性運算式。</param>
+        /// <param name="htmlAttributes">HTML 屬性。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsDateTimeBoxFor<TModel, TProperty>(this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, object htmlAttributes = null)
         {
             return htmlHelper.BsDateTimeBoxFor(expression, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
         }
-        /// <summary></summary>
+        /// <summary>建立日期時間輸入欄位並指定 HTML 屬性。</summary>
+        /// <param name="htmlHelper">型別化 HTML Helper。</param>
+        /// <param name="expression">模型屬性運算式。</param>
+        /// <param name="htmlAttributes">HTML 屬性。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsDateTimeBoxFor<TModel, TProperty>(this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IDictionary<string, object> htmlAttributes)
         {
             if (htmlAttributes == null) { htmlAttributes = new Dictionary<string, object>(); }
@@ -186,17 +261,31 @@ namespace Orion.Mvc.Html
 
         /*==================================================== */
 
-        /// <summary></summary>
+        /// <summary>建立時間輸入欄位。</summary>
+        /// <param name="htmlHelper">HTML Helper。</param>
+        /// <param name="name">欄位名稱。</param>
+        /// <param name="value">欄位值。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsTimeBox(this IHtmlHelper htmlHelper, string name, object value = null)
         {
             return htmlHelper.BsTimeBox(name, value, null);
         }
-        /// <summary></summary>
+        /// <summary>建立時間輸入欄位。</summary>
+        /// <param name="htmlHelper">HTML Helper。</param>
+        /// <param name="name">欄位名稱。</param>
+        /// <param name="value">欄位值。</param>
+        /// <param name="htmlAttributes">HTML 屬性。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsTimeBox(this IHtmlHelper htmlHelper, string name, object value, object htmlAttributes = null)
         {
             return htmlHelper.BsTimeBox(name, value, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
         }
-        /// <summary></summary>
+        /// <summary>建立時間輸入欄位並指定 HTML 屬性。</summary>
+        /// <param name="htmlHelper">HTML Helper。</param>
+        /// <param name="name">欄位名稱。</param>
+        /// <param name="value">欄位值。</param>
+        /// <param name="htmlAttributes">HTML 屬性。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsTimeBox(this IHtmlHelper htmlHelper, string name, object value, IDictionary<string, object> htmlAttributes)
         {
             if (htmlAttributes == null) { htmlAttributes = new Dictionary<string, object>(); }
@@ -206,17 +295,28 @@ namespace Orion.Mvc.Html
 
 
 
-        /// <summary></summary>
+        /// <summary>建立時間輸入欄位。</summary>
+        /// <param name="htmlHelper">型別化 HTML Helper。</param>
+        /// <param name="expression">模型屬性運算式。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsTimeBoxFor<TModel, TProperty>(this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression)
         {
             return htmlHelper.BsTimeBoxFor(expression, null);
         }
-        /// <summary></summary>
+        /// <summary>建立時間輸入欄位。</summary>
+        /// <param name="htmlHelper">型別化 HTML Helper。</param>
+        /// <param name="expression">模型屬性運算式。</param>
+        /// <param name="htmlAttributes">HTML 屬性。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsTimeBoxFor<TModel, TProperty>(this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, object htmlAttributes = null)
         {
             return htmlHelper.BsTimeBoxFor(expression, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
         }
-        /// <summary></summary>
+        /// <summary>建立時間輸入欄位並指定 HTML 屬性。</summary>
+        /// <param name="htmlHelper">型別化 HTML Helper。</param>
+        /// <param name="expression">模型屬性運算式。</param>
+        /// <param name="htmlAttributes">HTML 屬性。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsTimeBoxFor<TModel, TProperty>(this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IDictionary<string, object> htmlAttributes)
         {
             var type = typeof(TProperty);

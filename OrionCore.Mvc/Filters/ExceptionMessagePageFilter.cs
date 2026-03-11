@@ -8,10 +8,11 @@ using Orion.Mvc.Extensions;
 namespace Orion.Mvc.Filters
 {
 
-    /// <summary></summary>
+    /// <summary>Razor Page 例外訊息過濾器，將指定例外轉為友善回應。</summary>
     public class ExceptionMessagePageFilter : AbstractPageFilter
     {
-        /// <summary></summary>
+        /// <summary>在 Page Handler 執行後統一處理 `UserException`。</summary>
+        /// <param name="context">目前 Page Handler 執行結果內容。</param>
         public override void OnPageHandlerExecuted(PageHandlerExecutedContext context)
         {
             if (context.ExceptionHandled) { return; }
@@ -24,6 +25,9 @@ namespace Orion.Mvc.Filters
         }
 
 
+        /// <summary>將 `UserException` 轉為 Razor Page 可用的回應結果。</summary>
+        /// <param name="context">目前 Page Handler 執行結果內容。</param>
+        /// <param name="ex">要處理的使用者例外。</param>
         private void handleUserException(PageHandlerExecutedContext context, UserException ex)
         {
             /* 只針對 PageModel 進行錯誤處理*/

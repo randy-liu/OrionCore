@@ -11,20 +11,20 @@ namespace Orion.Api
 {
 
 
-	/// <summary></summary>
+	/// <summary>通知事件記錄層級。</summary>
 	public enum NotifierLog
 	{
-		/// <summary></summary>
+		/// <summary>追蹤層級，用於最細節的流程訊息。</summary>
 		Trace,
-		/// <summary></summary>
+		/// <summary>除錯層級，用於開發與偵錯訊息。</summary>
 		Debug,
-		/// <summary></summary>
+		/// <summary>資訊層級，用於一般狀態訊息。</summary>
 		Info,
-		/// <summary></summary>
+		/// <summary>警告層級，用於可恢復或需留意狀況。</summary>
 		Warn,
-		/// <summary></summary>
+		/// <summary>錯誤層級，用於失敗但系統仍可持續運作。</summary>
 		Error,
-		/// <summary></summary>
+		/// <summary>嚴重錯誤層級，用於可能導致系統中斷的情境。</summary>
 		Fatal,
 	}
 
@@ -37,35 +37,58 @@ namespace Orion.Api
 
 
 		/// <summary>註冊監聽，建立 async method 時回傳型態請用 Task，這樣 Notifier 才有辦法攔截 Exception</summary>
+		/// <param name="handle">包含通知監聽方法的物件執行個體。</param>
 		void RegisterListen(object handle);
 
 
 		/// <summary>觸發初始</summary>
+		/// <param name="level">此次觸發所使用的記錄層級。</param>
 		void TriggerInit(NotifierLog level = NotifierLog.Trace);
 
 		/// <summary>觸發關閉</summary>
+		/// <param name="level">此次觸發所使用的記錄層級。</param>
 		void TriggerClose(NotifierLog level = NotifierLog.Trace);
 
 		/// <summary>觸發週期</summary>
+		/// <param name="level">此次觸發所使用的記錄層級。</param>
 		void TriggerCycle(NotifierLog level = NotifierLog.Trace);
 
 
 		/// <summary>觸發改變</summary>
+		/// <typeparam name="T">事件資料型別。</typeparam>
+		/// <param name="value">事件資料內容。</param>
+		/// <param name="level">此次觸發所使用的記錄層級。</param>
 		void TriggerChange<T>(T value, NotifierLog level = NotifierLog.Info);
 
 		/// <summary>觸發逾時</summary>
+		/// <typeparam name="T">事件資料型別。</typeparam>
+		/// <param name="value">事件資料內容。</param>
+		/// <param name="level">此次觸發所使用的記錄層級。</param>
 		void TriggerTimeout<T>(T value, NotifierLog level = NotifierLog.Warn);
 
 		/// <summary>觸發失敗</summary>
+		/// <typeparam name="T">事件資料型別。</typeparam>
+		/// <param name="value">事件資料內容。</param>
+		/// <param name="level">此次觸發所使用的記錄層級。</param>
 		void TriggerFailure<T>(T value, NotifierLog level = NotifierLog.Error);
 
 		/// <summary>觸發完成</summary>
+		/// <typeparam name="T">事件資料型別。</typeparam>
+		/// <param name="value">事件資料內容。</param>
+		/// <param name="level">此次觸發所使用的記錄層級。</param>
 		void TriggerComplete<T>(T value, NotifierLog level = NotifierLog.Info);
 
 
 		/// <summary>等待通知</summary>
+		/// <typeparam name="T">等待的事件資料型別。</typeparam>
+		/// <param name="condition">事件條件，回傳 true 才會完成等待；未指定時接受第一筆符合型別的資料。</param>
+		/// <returns>符合條件時完成的非同步工作，結果為事件資料。</returns>
 		Task<T> Wait<T>(Func<T, bool> condition = null);
 		/// <summary>等待通知</summary>
+		/// <typeparam name="T">等待的事件資料型別。</typeparam>
+		/// <param name="timeoutSec">等待逾時秒數。</param>
+		/// <param name="condition">事件條件，回傳 true 才會完成等待；未指定時接受第一筆符合型別的資料。</param>
+		/// <returns>符合條件時完成的非同步工作，結果為事件資料。</returns>
 		Task<T> Wait<T>(int timeoutSec, Func<T, bool> condition = null);
 	}
 
@@ -110,6 +133,7 @@ namespace Orion.Api
 
 
 		/// <summary>事件通知者</summary>
+		/// <param name="logFactory">提供記錄器建立能力的工廠。</param>
 		public Notifier(IOrionLoggerFactory logFactory)
 		{
 			_logFactory = logFactory;
@@ -119,6 +143,7 @@ namespace Orion.Api
 
 
 		/// <summary>註冊監聽，建立 async method 時回傳型態請用 Task，這樣 Notifier 才有辦法攔截 Exception</summary>
+		/// <param name="handle">包含通知監聽方法的物件執行個體。</param>
 		public void RegisterListen(object handle)
 		{
 			if (_registeredListen.Contains(handle)) { return; }
@@ -226,18 +251,21 @@ namespace Orion.Api
 
 
 		/// <summary>觸發初始</summary>
+		/// <param name="level">此次觸發所使用的記錄層級。</param>
 		public void TriggerInit(NotifierLog level = NotifierLog.Trace)
 		{
 			trigger(_initListen, level);
 		}
 
 		/// <summary>觸發關閉</summary>
+		/// <param name="level">此次觸發所使用的記錄層級。</param>
 		public void TriggerClose(NotifierLog level = NotifierLog.Trace)
 		{
 			trigger(_closeListen, level);
 		}
 
 		/// <summary>觸發週期</summary>
+		/// <param name="level">此次觸發所使用的記錄層級。</param>
 		public void TriggerCycle(NotifierLog level = NotifierLog.Trace)
 		{
 			trigger(_cycleListen, level);
@@ -246,6 +274,9 @@ namespace Orion.Api
 
 
 		/// <summary>觸發改變</summary>
+		/// <typeparam name="T">事件資料型別。</typeparam>
+		/// <param name="value">事件資料內容。</param>
+		/// <param name="level">此次觸發所使用的記錄層級。</param>
 		public void TriggerChange<T>(T value, NotifierLog level = NotifierLog.Info)
 		{
 			setEventType(value, NotifiStatus.Change);
@@ -253,6 +284,9 @@ namespace Orion.Api
 		}
 
 		/// <summary>觸發逾時</summary>
+		/// <typeparam name="T">事件資料型別。</typeparam>
+		/// <param name="value">事件資料內容。</param>
+		/// <param name="level">此次觸發所使用的記錄層級。</param>
 		public void TriggerTimeout<T>(T value, NotifierLog level = NotifierLog.Warn)
 		{
 			setEventType(value, NotifiStatus.Timeout);
@@ -260,6 +294,9 @@ namespace Orion.Api
 		}
 
 		/// <summary>觸發失敗</summary>
+		/// <typeparam name="T">事件資料型別。</typeparam>
+		/// <param name="value">事件資料內容。</param>
+		/// <param name="level">此次觸發所使用的記錄層級。</param>
 		public void TriggerFailure<T>(T value, NotifierLog level = NotifierLog.Error)
 		{
 			setEventType(value, NotifiStatus.Failure);
@@ -267,6 +304,9 @@ namespace Orion.Api
 		}
 
 		/// <summary>觸發完成</summary>
+		/// <typeparam name="T">事件資料型別。</typeparam>
+		/// <param name="value">事件資料內容。</param>
+		/// <param name="level">此次觸發所使用的記錄層級。</param>
 		public void TriggerComplete<T>(T value, NotifierLog level = NotifierLog.Info)
 		{
 			setEventType(value, NotifiStatus.Complete);
@@ -282,6 +322,7 @@ namespace Orion.Api
 		/*=====================================================*/
 
 		/// <summary>啟動週期</summary>
+		/// <param name="cycleMilliseconds">週期觸發間隔（毫秒）。</param>
 		public void StartCycle(int cycleMilliseconds)
 		{
 			if (_beginCycle) { return; }
@@ -320,12 +361,19 @@ namespace Orion.Api
 		/*=====================================================*/
 
 		/// <summary>等待通知，逾時會 throw System.TimeoutException</summary>
+		/// <typeparam name="T">等待的事件資料型別。</typeparam>
+		/// <param name="condition">事件條件，回傳 true 才會完成等待；未指定時接受第一筆符合型別的資料。</param>
+		/// <returns>符合條件時完成的非同步工作，結果為事件資料。</returns>
 		public Task<T> Wait<T>(Func<T, bool> condition = null)
 		{
 			return Wait<T>(WaitTimeout, condition);
 		}
 
 		/// <summary>等待通知，逾時會 throw System.TimeoutException</summary>
+		/// <typeparam name="T">等待的事件資料型別。</typeparam>
+		/// <param name="timeoutSec">等待逾時秒數。</param>
+		/// <param name="condition">事件條件，回傳 true 才會完成等待；未指定時接受第一筆符合型別的資料。</param>
+		/// <returns>符合條件時完成的非同步工作，結果為事件資料。</returns>
 		public Task<T> Wait<T>(int timeoutSec, Func<T, bool> condition = null)
 		{
 			return _waitListen.Add(timeoutSec, condition);
@@ -353,6 +401,10 @@ namespace Orion.Api
 		public readonly string FullName;
 
 
+		/// <summary>建立通知方法的中繼資料。</summary>
+		/// <param name="handle">方法所屬的物件執行個體。</param>
+		/// <param name="method">通知方法資訊。</param>
+		/// <param name="log">記錄錯誤用的日誌物件。</param>
 		public MethodMeta(object handle, MethodInfo method, IOrionLogger log)
 		{
 			Handle = handle;
@@ -390,18 +442,25 @@ namespace Orion.Api
 
 		protected readonly MethodMeta Meta;
 
+		/// <summary>建立一般通知監聽器。</summary>
+		/// <param name="meta">通知方法中繼資料。</param>
 		public NormalListen(MethodMeta meta)
 		{
 			Meta = meta;
 		}
 
 
+		/// <summary>判斷事件型別是否符合監聽目標。</summary>
+		/// <param name="type">事件型別。</param>
+		/// <returns>符合目標型別時回傳 true。</returns>
 		public bool IsMatch(Type type)
 		{
 			return Meta.Target.IsAssignableFrom(type);
 		}
 
 
+		/// <summary>執行通知方法。</summary>
+		/// <param name="parameters">方法呼叫參數。</param>
 		public void Invoke(object[] parameters)
 		{
 			IsRun = true;
@@ -440,18 +499,25 @@ namespace Orion.Api
 
 		protected readonly MethodMeta Meta;
 
+		/// <summary>建立非同步通知監聽器。</summary>
+		/// <param name="meta">通知方法中繼資料。</param>
 		public AsyncListen(MethodMeta meta)
 		{
 			Meta = meta;
 		}
 
 
+		/// <summary>判斷事件型別是否符合監聽目標。</summary>
+		/// <param name="type">事件型別。</param>
+		/// <returns>符合目標型別時回傳 true。</returns>
 		public bool IsMatch(Type type)
 		{
 			return Meta.Target.IsAssignableFrom(type);
 		}
 
 
+		/// <summary>啟動非同步通知方法執行。</summary>
+		/// <param name="parameters">方法呼叫參數。</param>
 		public void Invoke(object[] parameters)
 		{
 			IsRun = true;
@@ -496,16 +562,23 @@ namespace Orion.Api
 	internal class OnlyOneListenWrapper : INotifiListen
 	{
 		public bool IsRun { get { return _listen.IsRun; } }
+		/// <summary>判斷事件型別是否符合包裝後的監聽器。</summary>
+		/// <param name="type">事件型別。</param>
+		/// <returns>符合目標型別時回傳 true。</returns>
 		public bool IsMatch(Type type) { return _listen.IsMatch(type); }
 
 
 		private readonly INotifiListen _listen;
 
+		/// <summary>建立單次執行的監聽器包裝。</summary>
+		/// <param name="listen">被包裝的監聽器。</param>
 		public OnlyOneListenWrapper(INotifiListen listen)
 		{
 			_listen = listen;
 		}
 
+		/// <summary>執行通知方法，若目前正在執行則略過。</summary>
+		/// <param name="parameters">方法呼叫參數。</param>
 		public void Invoke(object[] parameters)
 		{
 			if (_listen.IsRun) { return; }
@@ -520,12 +593,18 @@ namespace Orion.Api
 	internal class IntervalListenWrapper : INotifiListen
 	{
 		public bool IsRun { get { return _listen.IsRun; } }
+		/// <summary>判斷事件型別是否符合包裝後的監聽器。</summary>
+		/// <param name="type">事件型別。</param>
+		/// <returns>符合目標型別時回傳 true。</returns>
 		public bool IsMatch(Type type) { return _listen.IsMatch(type); }
 
 
 		private readonly INotifiListen _listen;
 		private readonly int _intervalSecs;
 
+		/// <summary>建立間隔執行的監聽器包裝。</summary>
+		/// <param name="listen">被包裝的監聽器。</param>
+		/// <param name="intervalSecs">最小執行間隔秒數。</param>
 		public IntervalListenWrapper(INotifiListen listen, int intervalSecs)
 		{
 			_listen = listen;
@@ -536,6 +615,8 @@ namespace Orion.Api
 		/// <summary>下次的執行時間</summary>
 		private DateTime _nextTime;
 
+		/// <summary>在符合執行間隔時呼叫監聽器。</summary>
+		/// <param name="parameters">方法呼叫參數。</param>
 		public void Invoke(object[] parameters)
 		{
 			if (_nextTime > DateTime.Now) { return; }

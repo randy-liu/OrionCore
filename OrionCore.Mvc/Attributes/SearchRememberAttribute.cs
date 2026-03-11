@@ -2,7 +2,7 @@
 
 namespace Orion.Mvc.Attributes
 {
-    /// <summary></summary>
+    /// <summary>標記方法需要記住搜尋條件（透過 QueryString/Cookie）。</summary>
     [AttributeUsage(AttributeTargets.Method, Inherited = true)]
     public class SearchRememberAttribute : Attribute
     {

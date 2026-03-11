@@ -23,7 +23,9 @@ namespace Orion.Mvc.Filters
         //    _cache = cache;
         //}
 
-        /// <summary></summary>
+        /// <summary>後置設定 Cookie 驗證選項，指定自訂 `ITicketStore`。</summary>
+        /// <param name="name">驗證方案名稱。</param>
+        /// <param name="options">Cookie 驗證選項。</param>
         public void PostConfigure(string name, CookieAuthenticationOptions options)
         {
             options.SessionStore = new DictionaryStore();
@@ -42,7 +44,7 @@ namespace Orion.Mvc.Filters
 
 
 
-    /// <summary></summary>
+    /// <summary>以記憶體字典實作的 `ITicketStore`。</summary>
     public class DictionaryStore : ITicketStore
     {
         private static readonly ConcurrentDictionary<string, AuthenticationTicket> _cache = new ConcurrentDictionary<string, AuthenticationTicket>();
@@ -50,7 +52,7 @@ namespace Orion.Mvc.Filters
         private const string _keyPrefix = nameof(DictionaryStore);
 
 
-        /// <summary></summary>
+        /// <summary>建立 `DictionaryStore`。</summary>
         public DictionaryStore() { }
 
 
@@ -66,7 +68,9 @@ namespace Orion.Mvc.Filters
         }
 
 
-        /// <summary></summary>
+        /// <summary>儲存驗證票證並回傳鍵值。</summary>
+        /// <param name="ticket">要儲存的驗證票證。</param>
+        /// <returns>票證儲存鍵值。</returns>
         public async Task<string> StoreAsync(AuthenticationTicket ticket)
         {
             /* 刪除過期的 Ticket */
@@ -78,7 +82,10 @@ namespace Orion.Mvc.Filters
         }
 
 
-        /// <summary></summary>
+        /// <summary>更新指定鍵值的驗證票證。</summary>
+        /// <param name="key">票證鍵值。</param>
+        /// <param name="ticket">新的驗證票證內容。</param>
+        /// <returns>已完成的工作。</returns>
         public Task RenewAsync(string key, AuthenticationTicket ticket)
         {
             _cache[key] = ticket;
@@ -86,7 +93,9 @@ namespace Orion.Mvc.Filters
         }
 
 
-        /// <summary></summary>
+        /// <summary>依鍵值取得驗證票證。</summary>
+        /// <param name="key">票證鍵值。</param>
+        /// <returns>對應的驗證票證。</returns>
         public Task<AuthenticationTicket> RetrieveAsync(string key)
         {
             AuthenticationTicket ticket;
@@ -95,7 +104,9 @@ namespace Orion.Mvc.Filters
         }
 
 
-        /// <summary></summary>
+        /// <summary>移除指定鍵值的驗證票證。</summary>
+        /// <param name="key">票證鍵值。</param>
+        /// <returns>已完成的工作。</returns>
         public Task RemoveAsync(string key)
         {
             _cache.TryRemove(key, out AuthenticationTicket ticket);
@@ -113,20 +124,23 @@ namespace Orion.Mvc.Filters
 
     /*====================================================*/
 
-    /// <summary></summary>
+    /// <summary>以 `IMemoryCache` 實作的 `ITicketStore`。</summary>
     public class MemoryCacheStore : ITicketStore
     {
         private const string _keyPrefix = nameof(MemoryCacheStore);
 
         private readonly IMemoryCache _cache;
 
-        /// <summary></summary>
+        /// <summary>建立 `MemoryCacheStore`。</summary>
+        /// <param name="cache">記憶體快取。</param>
         public MemoryCacheStore(IMemoryCache cache)
         {
             _cache = cache;
         }
 
-        /// <summary></summary>
+        /// <summary>儲存驗證票證並回傳鍵值。</summary>
+        /// <param name="ticket">要儲存的驗證票證。</param>
+        /// <returns>票證儲存鍵值。</returns>
         public async Task<string> StoreAsync(AuthenticationTicket ticket)
         {
             var key = _keyPrefix + Guid.NewGuid();
@@ -135,7 +149,10 @@ namespace Orion.Mvc.Filters
         }
 
 
-        /// <summary></summary>
+        /// <summary>更新指定鍵值的驗證票證與過期策略。</summary>
+        /// <param name="key">票證鍵值。</param>
+        /// <param name="ticket">新的驗證票證內容。</param>
+        /// <returns>已完成的工作。</returns>
         public Task RenewAsync(string key, AuthenticationTicket ticket)
         {
             var options = new MemoryCacheEntryOptions
@@ -156,7 +173,9 @@ namespace Orion.Mvc.Filters
         }
 
 
-        /// <summary></summary>
+        /// <summary>依鍵值取得驗證票證。</summary>
+        /// <param name="key">票證鍵值。</param>
+        /// <returns>對應的驗證票證。</returns>
         public Task<AuthenticationTicket> RetrieveAsync(string key)
         {
             AuthenticationTicket ticket;
@@ -165,7 +184,9 @@ namespace Orion.Mvc.Filters
         }
 
 
-        /// <summary></summary>
+        /// <summary>移除指定鍵值的驗證票證。</summary>
+        /// <param name="key">票證鍵值。</param>
+        /// <returns>已完成的工作。</returns>
         public Task RemoveAsync(string key)
         {
             _cache.Remove(key);

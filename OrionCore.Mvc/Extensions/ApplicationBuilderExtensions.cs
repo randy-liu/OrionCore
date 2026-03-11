@@ -10,10 +10,12 @@ using Microsoft.Extensions.DependencyInjection;
 namespace Orion.Mvc.Extensions
 {
 
-    /// <summary></summary>
+    /// <summary>提供 `IApplicationBuilder` 常用中介軟體註冊擴充方法。</summary>
     public static class ApplicationBuilderExtensions
     {
-        /// <summary>使用 FormData 給路由 handler</summary>
+        /// <summary>將表單中的 `handler` 欄位值寫入路由值。</summary>
+        /// <param name="app">應用程式管線建構器。</param>
+        /// <returns>原始 `IApplicationBuilder`。</returns>
         public static IApplicationBuilder UseFormDataToRouteHandler(this IApplicationBuilder app)
         {
             /* 增加 Middlewave */
@@ -34,7 +36,11 @@ namespace Orion.Mvc.Extensions
 
 
 
-        /// <summary>使用 Elmah 清除 XML 的舊紀錄</summary>
+        /// <summary>在例外發生時清理 Elmah XML 舊紀錄。</summary>
+        /// <param name="app">應用程式管線建構器。</param>
+        /// <param name="size">保留的最新紀錄檔數量。</param>
+        /// <param name="logPath">Elmah XML 記錄檔目錄。</param>
+        /// <returns>原始 `IApplicationBuilder`。</returns>
         public static IApplicationBuilder UseElmahClear(this IApplicationBuilder app, int size, string logPath)
         {
             if (logPath.StartsWith("~"))
@@ -63,7 +69,9 @@ namespace Orion.Mvc.Extensions
 
         private static bool _clearElmahFlag = false;
 
-        /// <summary>清除 Elmah XML 的舊紀錄</summary>
+        /// <summary>清理 Elmah XML 舊紀錄，只保留指定數量的新檔案。</summary>
+        /// <param name="size">保留的最新紀錄檔數量。</param>
+        /// <param name="logPath">Elmah XML 記錄檔目錄。</param>
         private static void clearElmahOldXmlLog(int size, string logPath)
         {
             if (_clearElmahFlag) { return; }

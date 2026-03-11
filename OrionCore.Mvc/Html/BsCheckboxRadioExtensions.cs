@@ -10,102 +10,185 @@ using Orion.Api;
 namespace Orion.Mvc.Html
 {
 
-    /// <summary></summary>
+    /// <summary>提供 Bootstrap 風格 RadioList/CheckboxList 擴充方法。</summary>
     public static class BsCheckboxRadioExtensions
     {
 
 
-        /// <summary></summary>
+        /// <summary>建立布林單選選項（Bootstrap 樣式）。</summary>
+        /// <param name="htmlHelper">HTML Helper。</param>
+        /// <param name="name">欄位名稱。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsBoolRadioList(this IHtmlHelper htmlHelper, string name)
         {
             return BsRadioList(htmlHelper, name, HelperUtils.GetBoolSelectListItem(), null);
         }
-        /// <summary></summary>
+        /// <summary>建立布林單選選項（Bootstrap 樣式）。</summary>
+        /// <param name="htmlHelper">HTML Helper。</param>
+        /// <param name="name">欄位名稱。</param>
+        /// <param name="htmlAttributes">HTML 屬性。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsBoolRadioList(this IHtmlHelper htmlHelper, string name, object htmlAttributes)
         {
             return BsRadioList(htmlHelper, name, HelperUtils.GetBoolSelectListItem(), htmlAttributes);
         }
-        /// <summary></summary>
+        /// <summary>建立布林單選選項（Bootstrap 樣式）。</summary>
+        /// <param name="htmlHelper">HTML Helper。</param>
+        /// <param name="name">欄位名稱。</param>
+        /// <param name="trueLabel">布林 True 顯示文字。</param>
+        /// <param name="falseLabel">布林 False 顯示文字。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsBoolRadioList(this IHtmlHelper htmlHelper, string name, string trueLabel, string falseLabel)
         {
             return BsRadioList(htmlHelper, name, HelperUtils.GetBoolSelectListItem(trueLabel, falseLabel), null);
         }
-        /// <summary></summary>
+        /// <summary>建立布林單選選項（Bootstrap 樣式）。</summary>
+        /// <param name="htmlHelper">HTML Helper。</param>
+        /// <param name="name">欄位名稱。</param>
+        /// <param name="trueLabel">布林 True 顯示文字。</param>
+        /// <param name="falseLabel">布林 False 顯示文字。</param>
+        /// <param name="htmlAttributes">HTML 屬性。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsBoolRadioList(this IHtmlHelper htmlHelper, string name, string trueLabel, string falseLabel, object htmlAttributes)
         {
             return BsRadioList(htmlHelper, name, HelperUtils.GetBoolSelectListItem(trueLabel, falseLabel), htmlAttributes);
         }
 
-        /// <summary></summary>
+        /// <summary>建立單選選項清單（Bootstrap 樣式）。</summary>
+        /// <param name="htmlHelper">HTML Helper。</param>
+        /// <param name="name">欄位名稱。</param>
+        /// <param name="selectList">選項來源。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsRadioList(this IHtmlHelper htmlHelper, string name, IEnumerable<int> selectList)
         {
             return BsRadioList(htmlHelper, name, HelperUtils.ToSelectListItem(selectList), null);
         }
-        /// <summary></summary>
+        /// <summary>建立單選選項清單（Bootstrap 樣式）。</summary>
+        /// <param name="htmlHelper">HTML Helper。</param>
+        /// <param name="name">欄位名稱。</param>
+        /// <param name="selectList">選項來源。</param>
+        /// <param name="htmlAttributes">HTML 屬性。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsRadioList(this IHtmlHelper htmlHelper, string name, IEnumerable<int> selectList, object htmlAttributes)
         {
             return BsRadioList(htmlHelper, name, HelperUtils.ToSelectListItem(selectList), htmlAttributes);
         }
-        /// <summary></summary>
+        /// <summary>建立單選選項清單（Bootstrap 樣式）。</summary>
+        /// <param name="htmlHelper">HTML Helper。</param>
+        /// <param name="name">欄位名稱。</param>
+        /// <param name="selectList">選項來源。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsRadioList(this IHtmlHelper htmlHelper, string name, IEnumerable<string> selectList)
         {
             return BsRadioList(htmlHelper, name, HelperUtils.ToSelectListItem(selectList), null);
         }
-        /// <summary></summary>
+        /// <summary>建立單選選項清單（Bootstrap 樣式）。</summary>
+        /// <param name="htmlHelper">HTML Helper。</param>
+        /// <param name="name">欄位名稱。</param>
+        /// <param name="selectList">選項來源。</param>
+        /// <param name="htmlAttributes">HTML 屬性。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsRadioList(this IHtmlHelper htmlHelper, string name, IEnumerable<string> selectList, object htmlAttributes)
         {
             return BsRadioList(htmlHelper, name, HelperUtils.ToSelectListItem(selectList), htmlAttributes);
         }
-        /// <summary></summary>
+        /// <summary>建立單選選項清單（Bootstrap 樣式）。</summary>
+        /// <param name="htmlHelper">HTML Helper。</param>
+        /// <param name="name">欄位名稱。</param>
+        /// <param name="selectList">選項來源。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsRadioList<K, V>(this IHtmlHelper htmlHelper, string name, IDictionary<K, V> selectList)
         {
             return BsRadioList(htmlHelper, name, HelperUtils.ToSelectListItem(selectList), null);
         }
-        /// <summary></summary>
+        /// <summary>建立單選選項清單（Bootstrap 樣式）。</summary>
+        /// <param name="htmlHelper">HTML Helper。</param>
+        /// <param name="name">欄位名稱。</param>
+        /// <param name="selectList">選項來源。</param>
+        /// <param name="htmlAttributes">HTML 屬性。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsRadioList<K, V>(this IHtmlHelper htmlHelper, string name, IDictionary<K, V> selectList, object htmlAttributes)
         {
             return BsRadioList(htmlHelper, name, HelperUtils.ToSelectListItem(selectList), htmlAttributes);
         }
-        /// <summary></summary>
+        /// <summary>建立單選選項清單（Bootstrap 樣式）。</summary>
+        /// <param name="htmlHelper">HTML Helper。</param>
+        /// <param name="name">欄位名稱。</param>
+        /// <param name="selectList">選項來源。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsRadioList(this IHtmlHelper htmlHelper, string name, IEnumerable<SelectListItem> selectList)
         {
             return BsRadioList(htmlHelper, name, selectList, null);
         }
-        /// <summary></summary>
+        /// <summary>建立單選選項清單（Bootstrap 樣式）。</summary>
+        /// <param name="htmlHelper">HTML Helper。</param>
+        /// <param name="name">欄位名稱。</param>
+        /// <param name="selectList">選項來源。</param>
+        /// <param name="htmlAttributes">HTML 屬性。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsRadioList(this IHtmlHelper htmlHelper, string name, IEnumerable<SelectListItem> selectList, object htmlAttributes)
         {
             return BsRadioList(htmlHelper, name, selectList, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
         }
 
 
-
-        /// <summary></summary>
+        /// <summary>建立布林單選選項（Bootstrap 樣式）。</summary>
+        /// <param name="htmlHelper">HTML Helper。</param>
+        /// <param name="name">欄位名稱。</param>
+        /// <param name="htmlAttributes">HTML 屬性。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsBoolRadioList(this IHtmlHelper htmlHelper, string name, IDictionary<string, object> htmlAttributes)
         {
             return BsRadioList(htmlHelper, name, HelperUtils.GetBoolSelectListItem(), htmlAttributes);
         }
-        /// <summary></summary>
+        /// <summary>建立布林單選選項（Bootstrap 樣式）。</summary>
+        /// <param name="htmlHelper">HTML Helper。</param>
+        /// <param name="name">欄位名稱。</param>
+        /// <param name="trueLabel">布林 True 顯示文字。</param>
+        /// <param name="falseLabel">布林 False 顯示文字。</param>
+        /// <param name="htmlAttributes">HTML 屬性。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsBoolRadioList(this IHtmlHelper htmlHelper, string name, string trueLabel, string falseLabel, IDictionary<string, object> htmlAttributes)
         {
             return BsRadioList(htmlHelper, name, HelperUtils.GetBoolSelectListItem(trueLabel, falseLabel), htmlAttributes);
         }
 
-        /// <summary></summary>
+        /// <summary>建立單選選項清單（Bootstrap 樣式）。</summary>
+        /// <param name="htmlHelper">HTML Helper。</param>
+        /// <param name="name">欄位名稱。</param>
+        /// <param name="selectList">選項來源。</param>
+        /// <param name="htmlAttributes">HTML 屬性。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsRadioList(this IHtmlHelper htmlHelper, string name, IEnumerable<int> selectList, IDictionary<string, object> htmlAttributes)
         {
             return BsRadioList(htmlHelper, name, HelperUtils.ToSelectListItem(selectList), htmlAttributes);
         }
-        /// <summary></summary>
+        /// <summary>建立單選選項清單（Bootstrap 樣式）。</summary>
+        /// <param name="htmlHelper">HTML Helper。</param>
+        /// <param name="name">欄位名稱。</param>
+        /// <param name="selectList">選項來源。</param>
+        /// <param name="htmlAttributes">HTML 屬性。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsRadioList(this IHtmlHelper htmlHelper, string name, IEnumerable<string> selectList, IDictionary<string, object> htmlAttributes)
         {
             return BsRadioList(htmlHelper, name, HelperUtils.ToSelectListItem(selectList), htmlAttributes);
         }
-        /// <summary></summary>
+        /// <summary>建立單選選項清單（Bootstrap 樣式）。</summary>
+        /// <param name="htmlHelper">HTML Helper。</param>
+        /// <param name="name">欄位名稱。</param>
+        /// <param name="selectList">選項來源。</param>
+        /// <param name="htmlAttributes">HTML 屬性。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsRadioList<K, V>(this IHtmlHelper htmlHelper, string name, IDictionary<K, V> selectList, IDictionary<string, object> htmlAttributes)
         {
             return BsRadioList(htmlHelper, name, HelperUtils.ToSelectListItem(selectList), htmlAttributes);
         }
-        /// <summary></summary>
+        /// <summary>建立單選選項清單（Bootstrap 樣式）。</summary>
+        /// <param name="htmlHelper">HTML Helper。</param>
+        /// <param name="name">欄位名稱。</param>
+        /// <param name="selectList">選項來源。</param>
+        /// <param name="htmlAttributes">HTML 屬性。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsRadioList(this IHtmlHelper htmlHelper, string name, IEnumerable<SelectListItem> selectList, IDictionary<string, object> htmlAttributes)
         {
             if (htmlAttributes == null) { htmlAttributes = new Dictionary<string, object>(); }
@@ -133,77 +216,138 @@ namespace Orion.Mvc.Html
 
         /*==================================================== */
 
-        /// <summary></summary>
+        /// <summary>建立布林單選選項（Bootstrap 樣式）。</summary>
+        /// <param name="htmlHelper">型別化 HTML Helper。</param>
+        /// <param name="expression">模型屬性運算式。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsBoolRadioListFor<TModel, TBool>(this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TBool>> expression)
         {
             return BsRadioListFor(htmlHelper, expression, HelperUtils.GetBoolSelectListItem(), null);
         }
-        /// <summary></summary>
+        /// <summary>建立布林單選選項（Bootstrap 樣式）。</summary>
+        /// <param name="htmlHelper">型別化 HTML Helper。</param>
+        /// <param name="expression">模型屬性運算式。</param>
+        /// <param name="htmlAttributes">HTML 屬性。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsBoolRadioListFor<TModel, TBool>(this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TBool>> expression, object htmlAttributes)
         {
             return BsRadioListFor(htmlHelper, expression, HelperUtils.GetBoolSelectListItem(), htmlAttributes);
         }
 
-        /// <summary></summary>
+        /// <summary>建立布林單選選項（Bootstrap 樣式）。</summary>
+        /// <param name="htmlHelper">型別化 HTML Helper。</param>
+        /// <param name="expression">模型屬性運算式。</param>
+        /// <param name="trueLabel">布林 True 顯示文字。</param>
+        /// <param name="falseLabel">布林 False 顯示文字。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsBoolRadioListFor<TModel, TBool>(this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TBool>> expression, string trueLabel, string falseLabel)
         {
             return BsRadioListFor(htmlHelper, expression, HelperUtils.GetBoolSelectListItem(trueLabel, falseLabel), null);
         }
-        /// <summary></summary>
+        /// <summary>建立布林單選選項（Bootstrap 樣式）。</summary>
+        /// <param name="htmlHelper">型別化 HTML Helper。</param>
+        /// <param name="expression">模型屬性運算式。</param>
+        /// <param name="trueLabel">布林 True 顯示文字。</param>
+        /// <param name="falseLabel">布林 False 顯示文字。</param>
+        /// <param name="htmlAttributes">HTML 屬性。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsBoolRadioListFor<TModel, TBool>(this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TBool>> expression, string trueLabel, string falseLabel, object htmlAttributes)
         {
             return BsRadioListFor(htmlHelper, expression, HelperUtils.GetBoolSelectListItem(trueLabel, falseLabel), htmlAttributes);
         }
 
-        /// <summary></summary>
+        /// <summary>建立列舉單選選項（Bootstrap 樣式）。</summary>
+        /// <param name="htmlHelper">型別化 HTML Helper。</param>
+        /// <param name="expression">模型屬性運算式。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsEnumRadioListFor<TModel, TEnum>(this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TEnum>> expression)
         {
             IDictionary<string, string> selectList = OrionUtils.EnumToDictionary<TEnum>();
             return BsRadioListFor(htmlHelper, expression, HelperUtils.ToSelectListItem(selectList), null);
         }
-        /// <summary></summary>
+        /// <summary>建立列舉單選選項（Bootstrap 樣式）。</summary>
+        /// <param name="htmlHelper">型別化 HTML Helper。</param>
+        /// <param name="expression">模型屬性運算式。</param>
+        /// <param name="htmlAttributes">HTML 屬性。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsEnumRadioListFor<TModel, TEnum>(this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TEnum>> expression, object htmlAttributes)
         {
             IDictionary<string, string> selectList = OrionUtils.EnumToDictionary<TEnum>();
             return BsRadioListFor(htmlHelper, expression, HelperUtils.ToSelectListItem(selectList), htmlAttributes);
         }
 
-        /// <summary></summary>
+        /// <summary>建立單選選項清單（Bootstrap 樣式）。</summary>
+        /// <param name="htmlHelper">型別化 HTML Helper。</param>
+        /// <param name="expression">模型屬性運算式。</param>
+        /// <param name="selectList">選項來源。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsRadioListFor<TModel, TProperty>(this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<int> selectList)
         {
             return BsRadioListFor(htmlHelper, expression, HelperUtils.ToSelectListItem(selectList), null);
         }
-        /// <summary></summary>
+        /// <summary>建立單選選項清單（Bootstrap 樣式）。</summary>
+        /// <param name="htmlHelper">型別化 HTML Helper。</param>
+        /// <param name="expression">模型屬性運算式。</param>
+        /// <param name="selectList">選項來源。</param>
+        /// <param name="htmlAttributes">HTML 屬性。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsRadioListFor<TModel, TProperty>(this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<int> selectList, object htmlAttributes)
         {
             return BsRadioListFor(htmlHelper, expression, HelperUtils.ToSelectListItem(selectList), htmlAttributes);
         }
-        /// <summary></summary>
+        /// <summary>建立單選選項清單（Bootstrap 樣式）。</summary>
+        /// <param name="htmlHelper">型別化 HTML Helper。</param>
+        /// <param name="expression">模型屬性運算式。</param>
+        /// <param name="selectList">選項來源。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsRadioListFor<TModel, TProperty>(this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<string> selectList)
         {
             return BsRadioListFor(htmlHelper, expression, HelperUtils.ToSelectListItem(selectList), null);
         }
-        /// <summary></summary>
+        /// <summary>建立單選選項清單（Bootstrap 樣式）。</summary>
+        /// <param name="htmlHelper">型別化 HTML Helper。</param>
+        /// <param name="expression">模型屬性運算式。</param>
+        /// <param name="selectList">選項來源。</param>
+        /// <param name="htmlAttributes">HTML 屬性。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsRadioListFor<TModel, TProperty>(this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<string> selectList, object htmlAttributes)
         {
             return BsRadioListFor(htmlHelper, expression, HelperUtils.ToSelectListItem(selectList), htmlAttributes);
         }
-        /// <summary></summary>
+        /// <summary>建立單選選項清單（Bootstrap 樣式）。</summary>
+        /// <param name="htmlHelper">型別化 HTML Helper。</param>
+        /// <param name="expression">模型屬性運算式。</param>
+        /// <param name="selectList">選項來源。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsRadioListFor<TModel, TProperty, K, V>(this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IDictionary<K, V> selectList)
         {
             return BsRadioListFor(htmlHelper, expression, HelperUtils.ToSelectListItem(selectList), null);
         }
-        /// <summary></summary>
+        /// <summary>建立單選選項清單（Bootstrap 樣式）。</summary>
+        /// <param name="htmlHelper">型別化 HTML Helper。</param>
+        /// <param name="expression">模型屬性運算式。</param>
+        /// <param name="selectList">選項來源。</param>
+        /// <param name="htmlAttributes">HTML 屬性。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsRadioListFor<TModel, TProperty, K, V>(this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IDictionary<K, V> selectList, object htmlAttributes)
         {
             return BsRadioListFor(htmlHelper, expression, HelperUtils.ToSelectListItem(selectList), htmlAttributes);
         }
-        /// <summary></summary>
+        /// <summary>建立單選選項清單（Bootstrap 樣式）。</summary>
+        /// <param name="htmlHelper">型別化 HTML Helper。</param>
+        /// <param name="expression">模型屬性運算式。</param>
+        /// <param name="selectList">選項來源。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsRadioListFor<TModel, TProperty>(this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList)
         {
             return BsRadioListFor(htmlHelper, expression, selectList, HtmlHelper.AnonymousObjectToHtmlAttributes(null));
         }
-        /// <summary></summary>
+        /// <summary>建立單選選項清單（Bootstrap 樣式）。</summary>
+        /// <param name="htmlHelper">型別化 HTML Helper。</param>
+        /// <param name="expression">模型屬性運算式。</param>
+        /// <param name="selectList">選項來源。</param>
+        /// <param name="htmlAttributes">HTML 屬性。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsRadioListFor<TModel, TProperty>(this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList, object htmlAttributes)
         {
             return BsRadioListFor(htmlHelper, expression, selectList, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
@@ -212,39 +356,73 @@ namespace Orion.Mvc.Html
 
 
 
-        /// <summary></summary>
+        /// <summary>建立布林單選選項（Bootstrap 樣式）。</summary>
+        /// <param name="htmlHelper">型別化 HTML Helper。</param>
+        /// <param name="expression">模型屬性運算式。</param>
+        /// <param name="htmlAttributes">HTML 屬性。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsBoolRadioListFor<TModel, TBool>(this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TBool>> expression, IDictionary<string, object> htmlAttributes)
         {
             return BsRadioListFor(htmlHelper, expression, HelperUtils.GetBoolSelectListItem(), htmlAttributes);
         }
-        /// <summary></summary>
+        /// <summary>建立布林單選選項（Bootstrap 樣式）。</summary>
+        /// <param name="htmlHelper">型別化 HTML Helper。</param>
+        /// <param name="expression">模型屬性運算式。</param>
+        /// <param name="trueLabel">布林 True 顯示文字。</param>
+        /// <param name="falseLabel">布林 False 顯示文字。</param>
+        /// <param name="htmlAttributes">HTML 屬性。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsBoolRadioListFor<TModel, TBool>(this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TBool>> expression, string trueLabel, string falseLabel, IDictionary<string, object> htmlAttributes)
         {
             return BsRadioListFor(htmlHelper, expression, HelperUtils.GetBoolSelectListItem(trueLabel, falseLabel), htmlAttributes);
         }
 
-        /// <summary></summary>
+        /// <summary>建立列舉單選選項（Bootstrap 樣式）。</summary>
+        /// <param name="htmlHelper">型別化 HTML Helper。</param>
+        /// <param name="expression">模型屬性運算式。</param>
+        /// <param name="htmlAttributes">HTML 屬性。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsEnumRadioListFor<TModel, TEnum>(this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TEnum>> expression, IDictionary<string, object> htmlAttributes)
         {
             IDictionary<string, string> selectList = OrionUtils.EnumToDictionary<TEnum>();
             return BsRadioListFor(htmlHelper, expression, HelperUtils.ToSelectListItem(selectList), htmlAttributes);
         }
-        /// <summary></summary>
+        /// <summary>建立單選選項清單（Bootstrap 樣式）。</summary>
+        /// <param name="htmlHelper">HTML Helper。</param>
+        /// <param name="expression">模型屬性運算式。</param>
+        /// <param name="selectList">選項來源。</param>
+        /// <param name="htmlAttributes">HTML 屬性。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsRadioListFor<TModel, TProperty>(this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<int> selectList, IDictionary<string, object> htmlAttributes)
         {
             return BsRadioListFor(htmlHelper, expression, HelperUtils.ToSelectListItem(selectList), htmlAttributes);
         }
-        /// <summary></summary>
+        /// <summary>建立單選選項清單（Bootstrap 樣式）。</summary>
+        /// <param name="htmlHelper">HTML Helper。</param>
+        /// <param name="expression">模型屬性運算式。</param>
+        /// <param name="selectList">選項來源。</param>
+        /// <param name="htmlAttributes">HTML 屬性。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsRadioListFor<TModel, TProperty>(this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<string> selectList, IDictionary<string, object> htmlAttributes)
         {
             return BsRadioListFor(htmlHelper, expression, HelperUtils.ToSelectListItem(selectList), htmlAttributes);
         }
-        /// <summary></summary>
+        /// <summary>建立單選選項清單（Bootstrap 樣式）。</summary>
+        /// <param name="htmlHelper">HTML Helper。</param>
+        /// <param name="expression">模型屬性運算式。</param>
+        /// <param name="selectList">選項來源。</param>
+        /// <param name="htmlAttributes">HTML 屬性。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsRadioListFor<TModel, TProperty, K, V>(this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IDictionary<K, V> selectList, IDictionary<string, object> htmlAttributes)
         {
             return BsRadioListFor(htmlHelper, expression, HelperUtils.ToSelectListItem(selectList), htmlAttributes);
         }
-        /// <summary></summary>
+        /// <summary>建立單選選項清單（Bootstrap 樣式）。</summary>
+        /// <param name="htmlHelper">HTML Helper。</param>
+        /// <param name="expression">模型屬性運算式。</param>
+        /// <param name="selectList">選項來源。</param>
+        /// <param name="htmlAttributes">HTML 屬性。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsRadioListFor<TModel, TProperty>(this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList, IDictionary<string, object> htmlAttributes)
         {
             if (htmlAttributes == null) { htmlAttributes = new Dictionary<string, object>(); }
@@ -282,64 +460,120 @@ namespace Orion.Mvc.Html
 
 
 
-        /// <summary></summary>
+        /// <summary>建立核取方塊選項清單（Bootstrap 樣式）。</summary>
+        /// <param name="htmlHelper">HTML Helper。</param>
+        /// <param name="name">欄位名稱。</param>
+        /// <param name="selectList">選項來源。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsCheckboxList(this IHtmlHelper htmlHelper, string name, IEnumerable<int> selectList)
         {
             return BsCheckboxList(htmlHelper, name, HelperUtils.ToSelectListItem(selectList), null);
         }
-        /// <summary></summary>
+        /// <summary>建立核取方塊選項清單（Bootstrap 樣式）。</summary>
+        /// <param name="htmlHelper">HTML Helper。</param>
+        /// <param name="name">欄位名稱。</param>
+        /// <param name="selectList">選項來源。</param>
+        /// <param name="htmlAttributes">HTML 屬性。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsCheckboxList(this IHtmlHelper htmlHelper, string name, IEnumerable<int> selectList, object htmlAttributes)
         {
             return BsCheckboxList(htmlHelper, name, HelperUtils.ToSelectListItem(selectList), htmlAttributes);
         }
-        /// <summary></summary>
+        /// <summary>建立核取方塊選項清單（Bootstrap 樣式）。</summary>
+        /// <param name="htmlHelper">HTML Helper。</param>
+        /// <param name="name">欄位名稱。</param>
+        /// <param name="selectList">選項來源。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsCheckboxList(this IHtmlHelper htmlHelper, string name, IEnumerable<string> selectList)
         {
             return BsCheckboxList(htmlHelper, name, HelperUtils.ToSelectListItem(selectList), null);
         }
-        /// <summary></summary>
+        /// <summary>建立核取方塊選項清單（Bootstrap 樣式）。</summary>
+        /// <param name="htmlHelper">HTML Helper。</param>
+        /// <param name="name">欄位名稱。</param>
+        /// <param name="selectList">選項來源。</param>
+        /// <param name="htmlAttributes">HTML 屬性。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsCheckboxList(this IHtmlHelper htmlHelper, string name, IEnumerable<string> selectList, object htmlAttributes)
         {
             return BsCheckboxList(htmlHelper, name, HelperUtils.ToSelectListItem(selectList), htmlAttributes);
         }
-        /// <summary></summary>
+        /// <summary>建立核取方塊選項清單（Bootstrap 樣式）。</summary>
+        /// <param name="htmlHelper">HTML Helper。</param>
+        /// <param name="name">欄位名稱。</param>
+        /// <param name="selectList">選項來源。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsCheckboxList<K, V>(this IHtmlHelper htmlHelper, string name, IDictionary<K, V> selectList)
         {
             return BsCheckboxList(htmlHelper, name, HelperUtils.ToSelectListItem(selectList), null);
         }
-        /// <summary></summary>
+        /// <summary>建立核取方塊選項清單（Bootstrap 樣式）。</summary>
+        /// <param name="htmlHelper">HTML Helper。</param>
+        /// <param name="name">欄位名稱。</param>
+        /// <param name="selectList">選項來源。</param>
+        /// <param name="htmlAttributes">HTML 屬性。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsCheckboxList<K, V>(this IHtmlHelper htmlHelper, string name, IDictionary<K, V> selectList, object htmlAttributes)
         {
             return BsCheckboxList(htmlHelper, name, HelperUtils.ToSelectListItem(selectList), htmlAttributes);
         }
-        /// <summary></summary>
+        /// <summary>建立核取方塊選項清單（Bootstrap 樣式）。</summary>
+        /// <param name="htmlHelper">HTML Helper。</param>
+        /// <param name="name">欄位名稱。</param>
+        /// <param name="selectList">選項來源。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsCheckboxList(this IHtmlHelper htmlHelper, string name, IEnumerable<SelectListItem> selectList)
         {
             return BsCheckboxList(htmlHelper, name, selectList, null);
         }
-        /// <summary></summary>
+        /// <summary>建立核取方塊選項清單（Bootstrap 樣式）。</summary>
+        /// <param name="htmlHelper">HTML Helper。</param>
+        /// <param name="name">欄位名稱。</param>
+        /// <param name="selectList">選項來源。</param>
+        /// <param name="htmlAttributes">HTML 屬性。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsCheckboxList(this IHtmlHelper htmlHelper, string name, IEnumerable<SelectListItem> selectList, object htmlAttributes)
         {
             return BsCheckboxList(htmlHelper, name, selectList, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
         }
 
 
-        /// <summary></summary>
+        /// <summary>建立核取方塊選項清單（Bootstrap 樣式）。</summary>
+        /// <param name="htmlHelper">HTML Helper。</param>
+        /// <param name="name">欄位名稱。</param>
+        /// <param name="selectList">選項來源。</param>
+        /// <param name="htmlAttributes">HTML 屬性。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsCheckboxList(this IHtmlHelper htmlHelper, string name, IEnumerable<int> selectList, IDictionary<string, object> htmlAttributes)
         {
             return BsCheckboxList(htmlHelper, name, HelperUtils.ToSelectListItem(selectList), htmlAttributes);
         }
-        /// <summary></summary>
+        /// <summary>建立核取方塊選項清單（Bootstrap 樣式）。</summary>
+        /// <param name="htmlHelper">HTML Helper。</param>
+        /// <param name="name">欄位名稱。</param>
+        /// <param name="selectList">選項來源。</param>
+        /// <param name="htmlAttributes">HTML 屬性。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsCheckboxList(this IHtmlHelper htmlHelper, string name, IEnumerable<string> selectList, IDictionary<string, object> htmlAttributes)
         {
             return BsCheckboxList(htmlHelper, name, HelperUtils.ToSelectListItem(selectList), htmlAttributes);
         }
-        /// <summary></summary>
+        /// <summary>建立核取方塊選項清單（Bootstrap 樣式）。</summary>
+        /// <param name="htmlHelper">HTML Helper。</param>
+        /// <param name="name">欄位名稱。</param>
+        /// <param name="selectList">選項來源。</param>
+        /// <param name="htmlAttributes">HTML 屬性。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsCheckboxList<K, V>(this IHtmlHelper htmlHelper, string name, IDictionary<K, V> selectList, IDictionary<string, object> htmlAttributes)
         {
             return BsCheckboxList(htmlHelper, name, HelperUtils.ToSelectListItem(selectList), htmlAttributes);
         }
-        /// <summary></summary>
+        /// <summary>建立核取方塊選項清單（Bootstrap 樣式）。</summary>
+        /// <param name="htmlHelper">HTML Helper。</param>
+        /// <param name="name">欄位名稱。</param>
+        /// <param name="selectList">選項來源。</param>
+        /// <param name="htmlAttributes">HTML 屬性。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsCheckboxList(this IHtmlHelper htmlHelper, string name, IEnumerable<SelectListItem> selectList, IDictionary<string, object> htmlAttributes)
         {
             if (htmlAttributes == null) { htmlAttributes = new Dictionary<string, object>(); }
@@ -370,83 +604,150 @@ namespace Orion.Mvc.Html
 
         /*==================================================== */
 
-        /// <summary></summary>
+        /// <summary>建立列舉核取方塊選項清單（Bootstrap 樣式）。</summary>
+        /// <param name="htmlHelper">HTML Helper。</param>
+        /// <param name="expression">模型屬性運算式。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsEnumCheckboxListFor<TModel, TEnum>(this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, IEnumerable<TEnum>>> expression)
         {
             IDictionary<string, string> selectList = OrionUtils.EnumToDictionary<TEnum>();
             return BsCheckboxListFor(htmlHelper, expression, HelperUtils.ToSelectListItem(selectList), null);
         }
-        /// <summary></summary>
+        /// <summary>建立列舉核取方塊選項清單（Bootstrap 樣式）。</summary>
+        /// <param name="htmlHelper">HTML Helper。</param>
+        /// <param name="expression">模型屬性運算式。</param>
+        /// <param name="htmlAttributes">HTML 屬性。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsEnumCheckboxListFor<TModel, TEnum>(this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, IEnumerable<TEnum>>> expression, object htmlAttributes)
         {
             IDictionary<string, string> selectList = OrionUtils.EnumToDictionary<TEnum>();
             return BsCheckboxListFor(htmlHelper, expression, HelperUtils.ToSelectListItem(selectList), htmlAttributes);
         }
 
-        /// <summary></summary>
+        /// <summary>建立核取方塊選項清單（Bootstrap 樣式）。</summary>
+        /// <param name="htmlHelper">HTML Helper。</param>
+        /// <param name="expression">模型屬性運算式。</param>
+        /// <param name="selectList">選項來源。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsCheckboxListFor<TModel, TProperty>(this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<int> selectList)
         {
             return BsCheckboxListFor(htmlHelper, expression, HelperUtils.ToSelectListItem(selectList), null);
         }
-        /// <summary></summary>
+        /// <summary>建立核取方塊選項清單（Bootstrap 樣式）。</summary>
+        /// <param name="htmlHelper">HTML Helper。</param>
+        /// <param name="expression">模型屬性運算式。</param>
+        /// <param name="selectList">選項來源。</param>
+        /// <param name="htmlAttributes">HTML 屬性。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsCheckboxListFor<TModel, TProperty>(this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<int> selectList, object htmlAttributes)
         {
             return BsCheckboxListFor(htmlHelper, expression, HelperUtils.ToSelectListItem(selectList), htmlAttributes);
         }
-        /// <summary></summary>
+        /// <summary>建立核取方塊選項清單（Bootstrap 樣式）。</summary>
+        /// <param name="htmlHelper">HTML Helper。</param>
+        /// <param name="expression">模型屬性運算式。</param>
+        /// <param name="selectList">選項來源。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsCheckboxListFor<TModel, TProperty>(this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<string> selectList)
         {
             return BsCheckboxListFor(htmlHelper, expression, HelperUtils.ToSelectListItem(selectList), null);
         }
-        /// <summary></summary>
+        /// <summary>建立核取方塊選項清單（Bootstrap 樣式）。</summary>
+        /// <param name="htmlHelper">HTML Helper。</param>
+        /// <param name="expression">模型屬性運算式。</param>
+        /// <param name="selectList">選項來源。</param>
+        /// <param name="htmlAttributes">HTML 屬性。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsCheckboxListFor<TModel, TProperty>(this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<string> selectList, object htmlAttributes)
         {
             return BsCheckboxListFor(htmlHelper, expression, HelperUtils.ToSelectListItem(selectList), htmlAttributes);
         }
-        /// <summary></summary>
+        /// <summary>建立核取方塊選項清單（Bootstrap 樣式）。</summary>
+        /// <param name="htmlHelper">HTML Helper。</param>
+        /// <param name="expression">模型屬性運算式。</param>
+        /// <param name="selectList">選項來源。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsCheckboxListFor<TModel, TProperty, K, V>(this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IDictionary<K, V> selectList)
         {
             return BsCheckboxListFor(htmlHelper, expression, HelperUtils.ToSelectListItem(selectList), null);
         }
-        /// <summary></summary>
+        /// <summary>建立核取方塊選項清單（Bootstrap 樣式）。</summary>
+        /// <param name="htmlHelper">HTML Helper。</param>
+        /// <param name="expression">模型屬性運算式。</param>
+        /// <param name="selectList">選項來源。</param>
+        /// <param name="htmlAttributes">HTML 屬性。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsCheckboxListFor<TModel, TProperty, K, V>(this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IDictionary<K, V> selectList, object htmlAttributes)
         {
             return BsCheckboxListFor(htmlHelper, expression, HelperUtils.ToSelectListItem(selectList), htmlAttributes);
         }
-        /// <summary></summary>
+        /// <summary>建立核取方塊選項清單（Bootstrap 樣式）。</summary>
+        /// <param name="htmlHelper">HTML Helper。</param>
+        /// <param name="expression">模型屬性運算式。</param>
+        /// <param name="selectList">選項來源。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsCheckboxListFor<TModel, TProperty>(this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList)
         {
             return BsCheckboxListFor(htmlHelper, expression, selectList, null);
         }
-        /// <summary></summary>
+        /// <summary>建立核取方塊選項清單（Bootstrap 樣式）。</summary>
+        /// <param name="htmlHelper">HTML Helper。</param>
+        /// <param name="expression">模型屬性運算式。</param>
+        /// <param name="selectList">選項來源。</param>
+        /// <param name="htmlAttributes">HTML 屬性。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsCheckboxListFor<TModel, TProperty>(this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList, object htmlAttributes)
         {
             return BsCheckboxListFor(htmlHelper, expression, selectList, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
         }
 
 
-        /// <summary></summary>
+        /// <summary>建立列舉核取方塊選項清單（Bootstrap 樣式）。</summary>
+        /// <param name="htmlHelper">HTML Helper。</param>
+        /// <param name="expression">模型屬性運算式。</param>
+        /// <param name="htmlAttributes">HTML 屬性。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsEnumCheckboxListFor<TModel, TEnum>(this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, IEnumerable<TEnum>>> expression, IDictionary<string, object> htmlAttributes)
         {
             IDictionary<string, string> selectList = OrionUtils.EnumToDictionary<TEnum>();
             return BsCheckboxListFor(htmlHelper, expression, HelperUtils.ToSelectListItem(selectList), htmlAttributes);
         }
-        /// <summary></summary>
+        /// <summary>建立核取方塊選項清單（Bootstrap 樣式）。</summary>
+        /// <param name="htmlHelper">HTML Helper。</param>
+        /// <param name="expression">模型屬性運算式。</param>
+        /// <param name="selectList">選項來源。</param>
+        /// <param name="htmlAttributes">HTML 屬性。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsCheckboxListFor<TModel, TProperty>(this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<int> selectList, IDictionary<string, object> htmlAttributes)
         {
             return BsCheckboxListFor(htmlHelper, expression, HelperUtils.ToSelectListItem(selectList), htmlAttributes);
         }
-        /// <summary></summary>
+        /// <summary>建立核取方塊選項清單（Bootstrap 樣式）。</summary>
+        /// <param name="htmlHelper">HTML Helper。</param>
+        /// <param name="expression">模型屬性運算式。</param>
+        /// <param name="selectList">選項來源。</param>
+        /// <param name="htmlAttributes">HTML 屬性。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsCheckboxListFor<TModel, TProperty>(this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<string> selectList, IDictionary<string, object> htmlAttributes)
         {
             return BsCheckboxListFor(htmlHelper, expression, HelperUtils.ToSelectListItem(selectList), htmlAttributes);
         }
-        /// <summary></summary>
+        /// <summary>建立核取方塊選項清單（Bootstrap 樣式）。</summary>
+        /// <param name="htmlHelper">HTML Helper。</param>
+        /// <param name="expression">模型屬性運算式。</param>
+        /// <param name="selectList">選項來源。</param>
+        /// <param name="htmlAttributes">HTML 屬性。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsCheckboxListFor<TModel, TProperty, K, V>(this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IDictionary<K, V> selectList, IDictionary<string, object> htmlAttributes)
         {
             return BsCheckboxListFor(htmlHelper, expression, HelperUtils.ToSelectListItem(selectList), htmlAttributes);
         }
-        /// <summary></summary>
+        /// <summary>建立核取方塊選項清單（Bootstrap 樣式）。</summary>
+        /// <param name="htmlHelper">HTML Helper。</param>
+        /// <param name="expression">模型屬性運算式。</param>
+        /// <param name="selectList">選項來源。</param>
+        /// <param name="htmlAttributes">HTML 屬性。</param>
+        /// <returns>產生的 HTML 內容。</returns>
         public static IHtmlContent BsCheckboxListFor<TModel, TProperty>(this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList, IDictionary<string, object> htmlAttributes)
         {
             if (htmlAttributes == null) { htmlAttributes = new Dictionary<string, object>(); }

@@ -14,7 +14,7 @@ namespace Orion.API.Tests.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.2");
+                .HasAnnotation("ProductVersion", "8.0.24");
 
             modelBuilder.Entity("Orion.Api.Tests.InventoryTemp", b =>
                 {

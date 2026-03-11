@@ -6,7 +6,7 @@ using System.Runtime.Serialization;
 namespace Orion.Api.Models
 {
 
-    /// <summary>分頁 Interface</summary>
+    /// <summary>分頁結果共用資訊介面。</summary>
     public interface IPagination
     {
 
@@ -40,12 +40,13 @@ namespace Orion.Api.Models
 
     /*=======================================================*/
 
-    /// <summary>分頁 Class</summary>
+    /// <summary>泛型分頁結果資料。</summary>
     [DataContract]
     public class Pagination<T> : IPagination
     {
 
-        /// <summary>取得空的分頁</summary>
+        /// <summary>建立不含資料列的分頁結果。</summary>
+        /// <returns>清單為空的分頁實例。</returns>
         public static Pagination<T> Empty()
         {
             return new Pagination<T> { List = new List<T>() };
@@ -109,11 +110,12 @@ namespace Orion.Api.Models
 
     /*=======================================================*/
 
-    /// <summary>分頁 Class</summary>
+    /// <summary>以 <see cref="DataTable"/> 承載資料的分頁結果。</summary>
     public class DataTablePagination : IPagination
     {
 
-        /// <summary>取得空的分頁</summary>
+        /// <summary>建立不含資料列的分頁結果。</summary>
+        /// <returns><see cref="DataTable"/> 為空白資料表的分頁實例。</returns>
         public static DataTablePagination Empty()
         {
             return new DataTablePagination { DataTable = new DataTable() };

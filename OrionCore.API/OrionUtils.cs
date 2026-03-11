@@ -21,13 +21,16 @@ namespace Orion.Api
     public static class OrionUtils
     {
 
-
-        /// <summary></summary>
-        public static readonly DateTime ValidDate = new DateTime(1753, 1, 1);
+		/// <summary>
+		/// 有效日期下限
+		/// 和 SQL Server DateTime(this DataRow, string) 可接受的最小日期（1753-01-01）對齊。
+		/// </summary>
+		public static readonly DateTime ValidDate = new DateTime(1753, 1, 1);
 
 
 
         /// <summary>判斷 value( Enum, string, DateTime, DateTimeOffset, IEnumerable, decimal ) 是否有值 </summary>
+        /// <param name="value">要檢查是否為有效內容的物件值。</param>
         public static bool HasValue(object value)
         {
             if (value == null) { return false; }
@@ -76,10 +79,9 @@ namespace Orion.Api
         //}
 
 
-
-
-
-        /// <summary></summary>
+        /// <summary>建立指定隔離層級的交易範圍。</summary>
+        /// <param name="level">交易使用的隔離層級。</param>
+        /// <returns>已建立的交易範圍物件。</returns>
         private static TransactionScope tx(IsolationLevel level)
         {
             return new TransactionScope(TransactionScopeOption.Required, new TransactionOptions
@@ -89,15 +91,19 @@ namespace Orion.Api
         }
 
         /// <summary>v0: 在交易期間可以讀取 Volatile (易失性)資料，但無法修改該資料，且不能加入新資料。</summary>
+        /// <returns>可序列化隔離層級的交易範圍。</returns>
         public static TransactionScope TxSerializable() { return tx(IsolationLevel.Serializable); }
 
         /// <summary>v1: 在交易期間可以讀取 Volatile (易失性)資料，但無法修改該資料。 在交易期間可以加入新資料。</summary>
+        /// <returns>可重複讀取隔離層級的交易範圍。</returns>
         public static TransactionScope TxRepeatableRead() { return tx(IsolationLevel.RepeatableRead); }
 
         /// <summary>v2: 在交易期間無法讀取 Volatile (易失性)資料，但可以修改該資料。</summary>
+        /// <returns>讀取已認可隔離層級的交易範圍。</returns>
         public static TransactionScope TxReadCommitted() { return tx(IsolationLevel.ReadCommitted); }
 
         /// <summary>v3: 在交易期間可以讀取和修改 Volatile (易失性)資料。[髒讀]</summary>
+        /// <returns>讀取未認可隔離層級的交易範圍。</returns>
         public static TransactionScope TxReadUncommitted() { return tx(IsolationLevel.ReadUncommitted); }
 
 
@@ -116,6 +122,7 @@ namespace Orion.Api
         }
 
         /// <summary>將 enum 轉為 dictionary&lt;string,string&gt;</summary>
+        /// <param name="enumType">要轉換的列舉型別。</param>
         public static Dictionary<string, string> EnumToDictionary(Type enumType)
         {
             if (enumType.BaseType != typeof(Enum))
@@ -142,6 +149,8 @@ namespace Orion.Api
 
 
         /// <summary>迭代指定範圍，可以 [小到大] 或 [大到小]</summary>
+        /// <param name="start">起始整數（包含）。</param>
+        /// <param name="end">結束整數（包含）。</param>
         public static IEnumerable<int> EnumerateRange(int start, int end)
         {
             if (start < end)
@@ -152,6 +161,8 @@ namespace Orion.Api
 
 
         /// <summary>迭代指定範圍，可以 [小到大] 或 [大到小]</summary>
+        /// <param name="start">起始日期（包含）。</param>
+        /// <param name="end">結束日期（包含）。</param>
         public static IEnumerable<DateTime> EnumerateRange(DateTime start, DateTime end)
         {
             if (start < end)
@@ -171,6 +182,7 @@ namespace Orion.Api
         /*####################################################################*/
 
         /// <summary>取得太陽日</summary>
+        /// <param name="date">日期時間值。</param>
         public static int? GetSolarDay(DateTime? date)
         {
             if (date == null) { return null; }
@@ -182,6 +194,7 @@ namespace Orion.Api
 
 
         /// <summary>解析太陽日</summary>
+        /// <param name="solarDay">太陽日值（格式為 `年差*1000 + 當年第幾天`）。</param>
         public static DateTime? ParseSolarDay(int? solarDay)
         {
             if (solarDay == null) { return null; }
@@ -194,6 +207,7 @@ namespace Orion.Api
 
 
         /// <summary>解析民國日期</summary>
+        /// <param name="dateStr">民國日期字串（例如 `112/08/15`）。</param>
         public static DateTime? ParseCnDate(string dateStr)
         {
             if (dateStr == null) { return null; }
@@ -210,6 +224,7 @@ namespace Orion.Api
 
 
         /// <summary>解析民國日期</summary>
+        /// <param name="dateStr">民國日期時間字串（例如 `112/08/15 13:20:30`）。</param>
         public static DateTime? ParseCnDateTime(string dateStr)
         {
             if (dateStr == null) { return null; }
@@ -235,12 +250,16 @@ namespace Orion.Api
         /*####################################################################*/
 
         /// <summary>傳回兩個日期中較小的一個</summary>
+        /// <param name="val1">第一個日期值。</param>
+        /// <param name="val2">第二個日期值。</param>
         public static DateTime Min(DateTime val1, DateTime val2)
         {
             return val1 < val2 ? val1 : val2;
         }
 
         /// <summary>傳回兩個日期中較大的一個</summary>
+        /// <param name="val1">第一個日期值。</param>
+        /// <param name="val2">第二個日期值。</param>
         public static DateTime Max(DateTime val1, DateTime val2)
         {
             return val1 > val2 ? val1 : val2;
@@ -248,12 +267,16 @@ namespace Orion.Api
 
 
         /// <summary>傳回兩個日期中較小的一個</summary>
+        /// <param name="val1">第一個日期時間偏移值。</param>
+        /// <param name="val2">第二個日期時間偏移值。</param>
         public static DateTimeOffset Min(DateTimeOffset val1, DateTimeOffset val2)
         {
             return val1 < val2 ? val1 : val2;
         }
 
         /// <summary>傳回兩個日期中較大的一個</summary>
+        /// <param name="val1">第一個日期時間偏移值。</param>
+        /// <param name="val2">第二個日期時間偏移值。</param>
         public static DateTimeOffset Max(DateTimeOffset val1, DateTimeOffset val2)
         {
             return val1 > val2 ? val1 : val2;
@@ -261,12 +284,16 @@ namespace Orion.Api
 
 
         /// <summary>傳回兩個時間中較小的一個</summary>
+        /// <param name="val1">第一個時間值。</param>
+        /// <param name="val2">第二個時間值。</param>
         public static TimeSpan Min(TimeSpan val1, TimeSpan val2)
         {
             return val1 < val2 ? val1 : val2;
         }
 
         /// <summary>傳回兩個時間中較大的一個</summary>
+        /// <param name="val1">第一個時間值。</param>
+        /// <param name="val2">第二個時間值。</param>
         public static TimeSpan Max(TimeSpan val1, TimeSpan val2)
         {
             return val1 > val2 ? val1 : val2;
@@ -276,8 +303,9 @@ namespace Orion.Api
 
 
         /*####################################################################*/
-
-
+        /// <summary>讀取旗標檔中的 Process Id。</summary>
+        /// <param name="flagFile">旗標檔完整路徑。</param>
+        /// <returns>成功時回傳 Process Id，失敗時回傳 -1。</returns>
         private static int readFlagId(string flagFile)
         {
             if (!File.Exists(flagFile)) { return -1; }
@@ -295,6 +323,9 @@ namespace Orion.Api
             return pid;
         }
 
+        /// <summary>寫入 Process Id 到旗標檔。</summary>
+        /// <param name="flagFile">旗標檔完整路徑。</param>
+        /// <param name="id">要寫入的 Process Id。</param>
         private static void writeFlagId(string flagFile, int id)
         {
             Directory.CreateDirectory(Path.GetDirectoryName(flagFile));
@@ -309,6 +340,7 @@ namespace Orion.Api
 
 
         /// <summary>是否鎖定中 Process Id</summary>
+        /// <param name="pidFile">用來記錄 Process Id 的旗標檔路徑。</param>
         public static bool IsLockedProcessId(string pidFile)
         {
             int pid = readFlagId(pidFile);
@@ -318,6 +350,7 @@ namespace Orion.Api
 
 
         /// <summary>鎖定 Process Id</summary>
+        /// <param name="pidFile">用來記錄 Process Id 的旗標檔路徑。</param>
         public static bool LockProcessId(string pidFile)
         {
             if (IsLockedProcessId(pidFile)) { return false; }
@@ -328,6 +361,7 @@ namespace Orion.Api
 
 
         /// <summary>解鎖 Process Id</summary>
+        /// <param name="pidFile">用來記錄 Process Id 的旗標檔路徑。</param>
         public static bool UnlockProcessId(string pidFile)
         {
             int pid = readFlagId(pidFile);
@@ -344,12 +378,16 @@ namespace Orion.Api
 
         /*####################################################################*/
 
+        /// <summary>將位元組陣列轉為不含分隔符號的十六進位字串。</summary>
+        /// <param name="byteArray">要轉換的位元組陣列。</param>
+        /// <returns>十六進位字串。</returns>
         private static string getByteArrayString(byte[] byteArray)
         {
             return BitConverter.ToString(byteArray).Replace("-", "");
         }
 
         /// <summary>MD5 輸入字串</summary>
+        /// <param name="value">要計算 MD5 的字串內容。</param>
         public static string Md5String(string value)
         {
             byte[] bytes = Encoding.Default.GetBytes(value);
@@ -358,12 +396,14 @@ namespace Orion.Api
         }
 
         /// <summary>MD5 檔案</summary>
+        /// <param name="filePath">檔案路徑。</param>
         public static string Md5File(string filePath)
         {
             return Md5File(new FileStream(filePath, FileMode.Open));
         }
 
         /// <summary>MD5 檔案</summary>
+        /// <param name="fileStream">要計算 MD5 的檔案資料流。</param>
         public static string Md5File(Stream fileStream)
         {
             byte[] hash = MD5.Create().ComputeHash(fileStream);
@@ -371,6 +411,7 @@ namespace Orion.Api
         }
 
         /// <summary>MD5 檔案</summary>
+        /// <param name="fileContents">要計算 MD5 的檔案位元組內容。</param>
         public static string Md5File(byte[] fileContents)
         {
             byte[] hash = MD5.Create().ComputeHash(fileContents);
@@ -379,6 +420,8 @@ namespace Orion.Api
 
 
         /// <summary>分配雜湊路徑 /ed/a0/123</summary>
+        /// <param name="hashPrefix">用來參與雜湊計算的前綴字串。</param>
+        /// <param name="fileId">檔案識別碼。</param>
         public static string AllotHashPath(string hashPrefix, int fileId)
         {
             byte[] bytes = Encoding.Default.GetBytes(hashPrefix + "_" + fileId);
@@ -390,6 +433,7 @@ namespace Orion.Api
 
 
         /// <summary>分配路徑 /000/000/123</summary>
+        /// <param name="fileId">檔案識別碼。</param>
         public static string AllotPath(int fileId)
         {
             string pad = fileId.ToString().PadLeft(9, '0');

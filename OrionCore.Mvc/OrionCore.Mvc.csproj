@@ -52,7 +52,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\OrionCore.Api\OrionCore.Api.csproj" />
+    <ProjectReference Include="..\OrionCore.API\OrionCore.API.csproj" />
   </ItemGroup>
 
   <ItemGroup>

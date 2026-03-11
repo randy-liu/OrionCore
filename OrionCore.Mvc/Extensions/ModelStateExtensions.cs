@@ -9,7 +9,8 @@ namespace Orion.Mvc.Extensions
     public static class ModelStateExtensions
     {
 
-        /// <summary></summary>
+        /// <summary>若 `ModelState` 驗證失敗則拋出 `UserException`。</summary>
+        /// <param name="modelState">目前模型驗證狀態。</param>
         public static void ThrowIfNotValid(this ModelStateDictionary modelState)
         {
             if (modelState.IsValid) { return; }

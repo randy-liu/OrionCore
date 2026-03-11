@@ -7,7 +7,10 @@ namespace Orion.Api.Extensions
     public static class MarshalExtensions
     {
 
-        /// <summary>取得 struct 的 byte array</summary>
+        /// <summary>將結構體轉為位元組陣列。</summary>
+        /// <typeparam name="T">結構體型別。</typeparam>
+        /// <param name="source">來源資料。</param>
+        /// <returns>對應記憶體內容的位元組陣列。</returns>
         public static byte[] ToByteArray<T>(this T source) where T : struct
         {
             int size = Marshal.SizeOf(typeof(T));
@@ -21,7 +24,10 @@ namespace Orion.Api.Extensions
         }
 
 
-        /// <summary>取得 struct 的 byte array</summary>
+        /// <summary>將位元組陣列還原為指定結構體。</summary>
+        /// <typeparam name="T">結構體型別。</typeparam>
+        /// <param name="bytes">來源位元組陣列。</param>
+        /// <returns>還原後的結構體實例。</returns>
         public static T ToStruct<T>(this byte[] bytes) where T : struct
         {
             Type type = typeof(T);

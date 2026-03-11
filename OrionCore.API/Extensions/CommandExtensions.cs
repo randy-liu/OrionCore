@@ -10,11 +10,12 @@ using Orion.Api.Models;
 namespace Orion.Api.Extensions
 {
 
-	/// <summary></summary>
+	/// <summary>提供 `DbCommand` 的 SQL 建構與查詢擴充方法。</summary>
 	public static class CommandExtensions
 	{
-
-		/// <summary></summary>
+		/// <summary>取得資料庫參數前綴字元（Oracle 為 `:`，其餘為 `@`）。</summary>
+		/// <param name="command">資料庫命令。</param>
+		/// <returns>參數前綴字元。</returns>
 		public static string ParamPrefix(this DbCommand command)
 		{
 			string prefix = command.GetType().Name.Contains("Oracle") ? ":" : "@";
@@ -22,7 +23,11 @@ namespace Orion.Api.Extensions
 		}
 
 
-		/// <summary></summary>
+		/// <summary>新增參數到 `DbCommand`，並處理常見型別轉換。</summary>
+		/// <param name="command">資料庫命令。</param>
+		/// <param name="name">欄位名稱。</param>
+		/// <param name="value">欄位值。</param>
+		/// <returns>新增後的參數物件。</returns>
 		public static DbParameter AddParameter(this DbCommand command, string name, object value)
 		{
 			DbParameter param = command.CreateParameter();
@@ -104,7 +109,9 @@ namespace Orion.Api.Extensions
 
 
 
-		/// <summary></summary>
+		/// <summary>判斷查詢是否存在資料。</summary>
+		/// <param name="command">資料庫命令。</param>
+		/// <returns>存在資料時回傳 `true`。</returns>
 		public static bool IsDataExists(this DbCommand command)
 		{
 			if (!command.Connection.State.HasFlag(ConnectionState.Open))
@@ -121,7 +128,10 @@ namespace Orion.Api.Extensions
 
 
 
-		/// <summary></summary>
+		/// <summary>將插值字串 SQL 與參數附加到命令物件。</summary>
+		/// <param name="command">資料庫命令。</param>
+		/// <param name="commandText">命令文字。</param>
+		/// <returns>目前命令物件。</returns>
 		public static DbCommand AddCommand(this DbCommand command, FormattableString commandText)
 		{
 			string prefix = command.ParamPrefix();
@@ -172,13 +182,19 @@ namespace Orion.Api.Extensions
 
 
 
-		/// <summary></summary>
+		/// <summary>以物件欄位建立 `WHERE` 條件並附加參數。</summary>
+		/// <param name="command">資料庫命令。</param>
+		/// <param name="whereValues">Where 條件值。</param>
+		/// <returns>目前命令物件。</returns>
 		public static DbCommand Where(this DbCommand command, object whereValues)
 		{
 			return Where(command, toDictionary(whereValues));
 		}
 
-		/// <summary></summary>
+		/// <summary>以字典欄位建立 `WHERE` 條件並附加參數。</summary>
+		/// <param name="command">資料庫命令。</param>
+		/// <param name="whereValues">Where 條件值。</param>
+		/// <returns>目前命令物件。</returns>
 		public static DbCommand Where(this DbCommand command, IDictionary<string, object> whereValues)
 		{
 			string prefix = command.ParamPrefix();
@@ -193,7 +209,11 @@ namespace Orion.Api.Extensions
 		}
 
 
-		/// <summary></summary>
+		/// <summary>附加單一 `WHERE` SQL 片段與參數。</summary>
+		/// <param name="command">資料庫命令。</param>
+		/// <param name="whereSql">Where 條件 SQL。</param>
+		/// <param name="value">欄位值。</param>
+		/// <returns>目前命令物件。</returns>
 		public static DbCommand Where(this DbCommand command, string whereSql, object value)
 		{
 			string prefix = command.ParamPrefix();
@@ -228,7 +248,11 @@ namespace Orion.Api.Extensions
 
 
 
-		/// <summary></summary>
+		/// <summary>當值存在時才附加 `WHERE` 條件。</summary>
+		/// <param name="command">資料庫命令。</param>
+		/// <param name="whereSql">Where 條件 SQL。</param>
+		/// <param name="value">欄位值。</param>
+		/// <returns>目前命令物件。</returns>
 		public static DbCommand WhereHas(this DbCommand command, string whereSql, object value)
 		{
 			if (!OrionUtils.HasValue(value)) { return command; }
@@ -237,7 +261,12 @@ namespace Orion.Api.Extensions
 
 
 
-		/// <summary></summary>
+		/// <summary>當值存在時才附加 `WHERE` 條件，並指定 `DbType`。</summary>
+		/// <param name="command">資料庫命令。</param>
+		/// <param name="whereSql">Where 條件 SQL。</param>
+		/// <param name="value">欄位值。</param>
+		/// <param name="dbType">資料型別。</param>
+		/// <returns>目前命令物件。</returns>
 		public static DbCommand WhereHas(this DbCommand command, string whereSql, object value, DbType dbType)
 		{
 			if (!OrionUtils.HasValue(value)) { return command; }
@@ -251,7 +280,11 @@ namespace Orion.Api.Extensions
 		}
 
 
-		/// <summary></summary>
+		/// <summary>附加 `ORDER BY` 排序欄位。</summary>
+		/// <param name="command">資料庫命令。</param>
+		/// <param name="fields">排序欄位字串，支援 `-` 前綴表示遞減排序，多欄位以逗號分隔。</param>
+		/// <param name="defaultFields">當 `fields` 為空時使用的預設排序欄位。</param>
+		/// <returns>目前命令物件。</returns>
 		public static DbCommand OrderBy(this DbCommand command, string fields, string defaultFields = null)
 		{
 			if (fields.NoText()) { fields = defaultFields; }
@@ -272,7 +305,9 @@ namespace Orion.Api.Extensions
 
 		/*############################################################################*/
 
-		/// <summary></summary>
+		/// <summary>執行命令並回傳 `DataTable`。</summary>
+		/// <param name="command">資料庫命令。</param>
+		/// <returns>查詢結果 `DataTable`。</returns>
 		public static DataTable FetchDataTable(this DbCommand command)
 		{
 			using DbDataAdapter adapter = DbProviderFactories.GetFactory(command.Connection).CreateDataAdapter();
@@ -285,7 +320,9 @@ namespace Orion.Api.Extensions
 
 
 
-		/// <summary></summary>
+		/// <summary>執行命令並回傳第一筆 `DataRow`。</summary>
+		/// <param name="command">資料庫命令。</param>
+		/// <returns>第一筆資料列。</returns>
 		public static DataRow FetchDataRow(this DbCommand command)
 		{
 			string commandText = command.CommandText;
@@ -298,7 +335,9 @@ namespace Orion.Api.Extensions
 		}
 
 
-		/// <summary></summary>
+		/// <summary>執行命令並回傳第一欄值。</summary>
+		/// <param name="command">資料庫命令。</param>
+		/// <returns>第一欄值。</returns>
 		public static T FetchOne<T>(this DbCommand command)
 		{
 			DataRow row = FetchDataRow(command);
@@ -309,7 +348,10 @@ namespace Orion.Api.Extensions
 		}
 
 
-		/// <summary></summary>
+		/// <summary>執行命令並將結果資料表轉為模型清單。</summary>
+		/// <param name="command">資料庫命令。</param>
+		/// <typeparam name="TModel">目標模型型別。</typeparam>
+		/// <returns>模型清單。</returns>
 		public static List<TModel> FetchList<TModel>(this DbCommand command) where TModel : new()
 		{
 			DataTable dataTable = command.FetchDataTable();
@@ -317,7 +359,10 @@ namespace Orion.Api.Extensions
 		}
 
 
-		/// <summary></summary>
+		/// <summary>執行命令並回傳第一筆模型資料。</summary>
+		/// <param name="command">資料庫命令。</param>
+		/// <typeparam name="TModel">目標模型型別。</typeparam>
+		/// <returns>第一筆模型資料。</returns>
 		public static TModel FetchModel<TModel>(this DbCommand command) where TModel : new()
 		{
 			string commandText = command.CommandText;
@@ -333,7 +378,11 @@ namespace Orion.Api.Extensions
 
 
 
-		/// <summary></summary>
+		/// <summary>執行分頁查詢並回傳 `DataTablePagination`。</summary>
+		/// <param name="command">資料庫命令。</param>
+		/// <param name="pageNumber">頁碼（從 1 開始）。</param>
+		/// <param name="pageSize">每頁筆數，-1 表示不分頁。</param>
+		/// <returns>分頁查詢結果。</returns>
 		public static DataTablePagination FetchPagination(this DbCommand command, int pageNumber, int pageSize)
 		{
 			string commandText = command.CommandText;
@@ -395,6 +444,8 @@ namespace Orion.Api.Extensions
 
 
 		/// <summary>列舉 DataRow</summary>
+		/// <param name="pagination">分頁資料。</param>
+		/// <returns>分頁資料列舉。</returns>
 		public static IEnumerable<DataRow> AsEnumerable(this DataTablePagination pagination)
 		{
 			if (pagination == null || pagination.DataTable == null)
@@ -424,7 +475,11 @@ namespace Orion.Api.Extensions
 
 		/*#[Insert]###########################################################################*/
 
-		/// <summary></summary>
+		/// <summary>建立 `INSERT` 指令並附加參數。</summary>
+		/// <param name="command">資料庫命令。</param>
+		/// <param name="tableName">資料表名稱。</param>
+		/// <param name="nameValues">欄位名稱與值。</param>
+		/// <returns>目前命令物件。</returns>
 		public static DbCommand BuildInsert(this DbCommand command, string tableName, object nameValues)
 		{
 			string prefix = command.ParamPrefix();
@@ -449,7 +504,12 @@ namespace Orion.Api.Extensions
 
 		/*#[Update]###########################################################################*/
 
-		/// <summary></summary>
+		/// <summary>建立 `UPDATE` 指令並附加參數。</summary>
+		/// <param name="command">資料庫命令。</param>
+		/// <param name="tableName">資料表名稱。</param>
+		/// <param name="setValues">更新欄位值。</param>
+		/// <param name="whereValues">Where 條件值。</param>
+		/// <returns>目前命令物件。</returns>
 		public static DbCommand BuildUpdate(this DbCommand command, string tableName, object setValues, object whereValues)
 		{
 			string prefix = command.ParamPrefix();
@@ -480,7 +540,11 @@ namespace Orion.Api.Extensions
 
 		/*#[Delete]###########################################################################*/
 
-		/// <summary></summary>
+		/// <summary>建立 `DELETE` 指令並附加參數。</summary>
+		/// <param name="command">資料庫命令。</param>
+		/// <param name="tableName">資料表名稱。</param>
+		/// <param name="whereValues">Where 條件值。</param>
+		/// <returns>目前命令物件。</returns>
 		public static DbCommand BuildDelete(this DbCommand command, string tableName, object whereValues)
 		{
 			string prefix = command.ParamPrefix();
@@ -504,7 +568,11 @@ namespace Orion.Api.Extensions
 
 		/*#[Procedure]###########################################################################*/
 
-		/// <summary></summary>
+		/// <summary>建立預存程序呼叫命令並附加參數。</summary>
+		/// <param name="command">資料庫命令。</param>
+		/// <param name="procedureName">預存程序名稱。</param>
+		/// <param name="parameters">參數集合。</param>
+		/// <returns>目前命令物件。</returns>
 		public static DbCommand BuildProcedure(this DbCommand command, string procedureName, params object[] parameters)
 		{
 			string prefix = command.ParamPrefix();
@@ -533,13 +601,10 @@ namespace Orion.Api.Extensions
 
 		/*====================================================*/
 
-		/// <summary>
-		/// query = query.WhereBuilder(param)<para/>
-		///     .Mapping(x =&gt; x.InvoicePrefix,  y =&gt; y.InvoicePrefix)<para/>
-		///     .Mapping(x =&gt; x.Sum,            y =&gt; y.Total)<para/>
-		///     .Mapping(x =&gt; x.ProductQty,     y =&gt; y.InvoiceIssueItems.Select(z =&gt; (int?)z.Qty))<para/>
-		///     .Build();<para/>
-		/// </summary>
+		/// <summary>建立 `WhereCommandBuilder` 以鏈式方式組合動態查詢條件。</summary>
+		/// <param name="command">資料庫命令。</param>
+		/// <param name="param">封裝條件值與比對設定的參數物件。</param>
+		/// <returns>Where 指令建構器。</returns>
 		public static WhereCommandBuilder WhereBuilder(this DbCommand command, WhereParams param)
 		{
 			return new WhereCommandBuilder(command, param);
@@ -552,7 +617,7 @@ namespace Orion.Api.Extensions
 
 
 
-	/// <summary></summary>
+	/// <summary>提供 `DbParameter` 取值轉型擴充方法。</summary>
 	public static class OracleParameterExtensions
 	{
 
@@ -581,31 +646,41 @@ namespace Orion.Api.Extensions
 		}
 
 
-		/// <summary></summary>
+		/// <summary>以字串型別讀取資料庫參數值。</summary>
+		/// <param name="parameter">資料庫參數物件。</param>
+		/// <returns>字串值。</returns>
 		public static string String(this DbParameter parameter)
 		{
 			return getValue<string>(parameter, null);
 		}
 
-		/// <summary></summary>
+		/// <summary>以布林型別讀取資料庫參數值。</summary>
+		/// <param name="parameter">資料庫參數物件。</param>
+		/// <returns>布林值。</returns>
 		public static bool Bool(this DbParameter parameter)
 		{
 			return getValue<bool>(parameter, false);
 		}
 
-		/// <summary></summary>
+		/// <summary>以整數型別讀取資料庫參數值。</summary>
+		/// <param name="parameter">資料庫參數物件。</param>
+		/// <returns>整數值。</returns>
 		public static int Int(this DbParameter parameter)
 		{
 			return getValue<int>(parameter, 0);
 		}
 
-		/// <summary></summary>
+		/// <summary>以長整數型別讀取資料庫參數值。</summary>
+		/// <param name="parameter">資料庫參數物件。</param>
+		/// <returns>長整數值。</returns>
 		public static long Long(this DbParameter parameter)
 		{
 			return getValue<long>(parameter, 0);
 		}
 
-		/// <summary></summary>
+		/// <summary>以十進位型別讀取資料庫參數值。</summary>
+		/// <param name="parameter">資料庫參數物件。</param>
+		/// <returns>十進位值。</returns>
 		public static decimal Decimal(this DbParameter parameter)
 		{
 			return getValue<decimal>(parameter, 0m);

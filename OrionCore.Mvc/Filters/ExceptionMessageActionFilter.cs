@@ -11,7 +11,8 @@ namespace Orion.Mvc.Filters
     public class ExceptionMessageActionFilter : ActionFilterAttribute
     {
 
-        /// <summary></summary>
+        /// <summary>在 Action 執行前將主要 ViewModel/Domain 物件寫入 `ViewData.Model`。</summary>
+        /// <param name="filterContext">目前 Action 執行內容。</param>
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             /* 自動將 Action 的 Arguments 中的 ViewModel 賦予給 ViewData
@@ -28,7 +29,8 @@ namespace Orion.Mvc.Filters
         }
 
 
-        /// <summary></summary>
+        /// <summary>在 Action 執行後統一處理 `UserException` 並轉為對應結果。</summary>
+        /// <param name="filterContext">目前 Action 執行結果內容。</param>
         public override void OnActionExecuted(ActionExecutedContext filterContext)
         {
             /* 判斷 Exception 是否已經被處理了 */

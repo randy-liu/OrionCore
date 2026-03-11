@@ -12,7 +12,7 @@ using Orion.Mvc.Attributes;
 
 namespace Orion.Mvc.Filters
 {
-	/// <summary></summary>
+	/// <summary>在 MVC Action 中記錄與還原查詢字串參數的過濾器。</summary>
 	[AttributeUsage(AttributeTargets.Method, Inherited = true)]
 	public class SearchRememberActionFilter : ActionFilterAttribute
 	{
@@ -21,14 +21,16 @@ namespace Orion.Mvc.Filters
 		private static string _storeName = "sr";
 		private static string[] _skipKey;
 
-		/// <summary></summary>
+		/// <summary>建立查詢參數記憶過濾器。</summary>
+		/// <param name="skipKey">不寫入 Cookie 的參數名稱清單。</param>
 		public SearchRememberActionFilter(string[] skipKey)
 		{
 			_skipKey = skipKey;
 		}
 
 
-		/// <summary></summary>
+		/// <summary>於 Action 執行前依屬性設定保存查詢參數，或在無參數時從 Cookie 還原並重導向。</summary>
+		/// <param name="context">目前 Action 執行內容。</param>
 		public override void OnActionExecuting(ActionExecutingContext context)
 		{
 			base.OnActionExecuting(context);
