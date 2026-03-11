@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Concurrent;
 using System.Reflection;
 using Autofac;
@@ -7,11 +7,14 @@ using Autofac;
 namespace Orion.Api
 {
 
-    /// <summary></summary>
+    /// <summary>使用 <see cref="DispatchProxy"/> 依回傳型別從 DI 容器解析服務。</summary>
     public class ServiceContextGenerator : DispatchProxy
     {
 
-        /// <summary></summary>
+        /// <summary>建立服務內容代理物件。</summary>
+        /// <typeparam name="T">要代理的服務型別。</typeparam>
+        /// <param name="resolver">用於解析服務的 Autofac 容器。</param>
+        /// <returns>可攔截方法並回傳對應服務的代理實例。</returns>
         public static T Create<T>(IComponentContext resolver)
         {
             object proxy = Create<T, ServiceContextGenerator>();
@@ -49,7 +52,10 @@ namespace Orion.Api
 
 
 
-        /// <summary></summary>
+        /// <summary>攔截方法呼叫並回傳對應服務或處理基礎方法。</summary>
+        /// <param name="targetMethod">被呼叫的方法資訊。</param>
+        /// <param name="args">方法參數。</param>
+        /// <returns>方法執行結果，通常為從容器解析出的服務實例。</returns>
         protected override object Invoke(MethodInfo targetMethod, object[] args)
         {
             switch (targetMethod.Name)
@@ -71,3 +77,4 @@ namespace Orion.Api
     }
 
 }
+

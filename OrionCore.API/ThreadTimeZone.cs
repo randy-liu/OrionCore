@@ -18,12 +18,14 @@ namespace Orion.Api
 
 
         /// <summary>修補 DateTimeOffset 的時區到當前時區</summary>
+        /// <param name="value">欄位值。</param>
         public static DateTimeOffset PatchZone(DateTimeOffset value)
         {
             return value.PatchZone(_current);
         }
 
         /// <summary>修補 DateTimeOffset 的時區到當前時區</summary>
+        /// <param name="value">欄位值。</param>
         public static DateTimeOffset? PatchZone(DateTimeOffset? value)
         {
             return value.PatchZone(_current);
@@ -31,6 +33,7 @@ namespace Orion.Api
 
 
         /// <summary>轉換 DateTimeOffset 到當前時區</summary>
+        /// <param name="value">欄位值。</param>
         public static DateTimeOffset ConvertZone(DateTimeOffset value)
         {
             return value.ConvertZone(_current);
@@ -38,6 +41,7 @@ namespace Orion.Api
 
 
         /// <summary>轉換 DateTimeOffset 到當前時區</summary>
+        /// <param name="value">欄位值。</param>
         public static DateTimeOffset? ConvertZone(DateTimeOffset? value)
         {
             return value.ConvertZone(_current);

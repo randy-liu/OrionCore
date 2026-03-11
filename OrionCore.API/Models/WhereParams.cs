@@ -12,7 +12,10 @@ namespace Orion.Api.Models
     /// <summary>WhereBuilder 的查詢參數</summary>
     public class WhereParams
     {
-        /// <summary>根據物件建立 WhereParams</summary>
+        /// <summary>從可讀屬性有值的物件建立等值查詢條件集合。</summary>
+        /// <typeparam name="TParams">來源物件型別。</typeparam>
+        /// <param name="obj">用來產生查詢條件的來源物件。</param>
+        /// <returns>包含來源物件有值屬性之等值條件的查詢參數。</returns>
         public static WhereParams<TParams> CreateByObject<TParams>(TParams obj)
         {
             WhereParams param = new WhereParams<TParams>();
@@ -34,7 +37,7 @@ namespace Orion.Api.Models
         /*==============================================================*/
         /*==============================================================*/
 
-        /// <summary></summary>
+        /// <summary>原始查詢參數集合（欄位名稱對應查詢條件）。</summary>
         public Dictionary<string, WhereParamsPair> Source { get; internal set; } = new Dictionary<string, WhereParamsPair>();
 
 
@@ -42,7 +45,12 @@ namespace Orion.Api.Models
         /*===========================================================*/
 
 
-        /// <summary>設定欄位值與查詢條件</summary>
+        /// <summary>以指定欄位名稱設定查詢運算子與查詢值。</summary>
+        /// <typeparam name="TValue">欄位值型別。</typeparam>
+        /// <param name="name">欄位名稱。</param>
+        /// <param name="oper">套用到欄位的查詢運算子。</param>
+        /// <param name="values">要寫入欄位的查詢值集合；傳入 <c>null</c> 時會視為空集合。</param>
+        /// <returns>目前的查詢參數實例，供鏈式呼叫使用。</returns>
         public WhereParams SetValues<TValue>(string name, WhereOperator oper, params TValue[] values)
         {
             if (values == null) { values = new TValue[0]; }
@@ -53,7 +61,10 @@ namespace Orion.Api.Models
         }
 
 
-        /// <summary>設定欄位值與查詢條件</summary>
+        /// <summary>更新既有欄位條件的查詢運算子。</summary>
+        /// <param name="name">欄位名稱。</param>
+        /// <param name="oper">要套用的新查詢運算子。</param>
+        /// <returns>目前的查詢參數實例；若欄位不存在則不異動。</returns>
         public WhereParams SetOperator(string name, WhereOperator oper)
         {
             if (!Source.ContainsKey(name)) { return this; }
@@ -63,7 +74,9 @@ namespace Orion.Api.Models
         }
 
 
-        /// <summary>移除欄位值與查詢條件</summary>
+        /// <summary>移除指定欄位的查詢條件與查詢值。</summary>
+        /// <param name="name">欄位名稱。</param>
+        /// <returns>目前的查詢參數實例，供鏈式呼叫使用。</returns>
         public WhereParams Remove(string name)
         {
             Source.Remove(name);
@@ -71,14 +84,18 @@ namespace Orion.Api.Models
         }
 
 
-        /// <summary>取得查詢條件</summary>
+        /// <summary>取得指定欄位的查詢運算子。</summary>
+        /// <param name="name">欄位名稱。</param>
+        /// <returns>欄位存在時回傳其運算子，否則回傳 <see cref="WhereOperator.NotValue"/>。</returns>
         public WhereOperator GetOperator(string name)
         {
             return Source.ContainsKey(name) ? Source[name].Operator : WhereOperator.NotValue;
         }
 
 
-        /// <summary>取得欄位數值清單</summary>
+        /// <summary>取得指定欄位的原始查詢值集合。</summary>
+        /// <param name="name">欄位名稱。</param>
+        /// <returns>欄位存在時回傳其查詢值陣列，否則回傳空陣列。</returns>
         public virtual object[] GetValues(string name)
         {
             if (!Source.ContainsKey(name)) { return new string[0]; }
@@ -93,8 +110,8 @@ namespace Orion.Api.Models
 
 
 
-    /// <summary>WhereBuilder 的查詢參數</summary>
-    /// <typeparam name="TParams">POCO Model Type</typeparam>
+    /// <summary>提供強型別欄位指定方式的查詢參數容器。</summary>
+    /// <typeparam name="TParams">查詢目標模型型別。</typeparam>
     public class WhereParams<TParams> : WhereParams
     {
 
@@ -109,7 +126,9 @@ namespace Orion.Api.Models
 
 
 
-        /// <summary>轉換類型</summary>
+        /// <summary>以相同條件來源轉成另一個模型型別的查詢參數。</summary>
+        /// <typeparam name="TParams2">要轉換成的模型型別。</typeparam>
+        /// <returns>共用目前條件集合的新查詢參數實例。</returns>
         public WhereParams<TParams2> As<TParams2>()
         {
             var newParams = new WhereParams<TParams2>();
@@ -130,22 +149,42 @@ namespace Orion.Api.Models
             return this;
         }
 
-        /// <summary>設定欄位值與查詢條件</summary>
+        /// <summary>以集合屬性欄位指定方式設定查詢運算子與查詢值。</summary>
+        /// <typeparam name="TProperty">欄位元素型別。</typeparam>
+        /// <param name="column">欄位名稱。</param>
+        /// <param name="oper">套用到欄位的查詢運算子。</param>
+        /// <param name="values">要寫入欄位的查詢值集合；傳入 <c>null</c> 時會視為空集合。</param>
+        /// <returns>目前的查詢參數實例，供鏈式呼叫使用。</returns>
         public WhereParams<TParams> SetValues<TProperty>(Expression<Func<TParams, IEnumerable<TProperty>>> column, WhereOperator oper, params TProperty[] values)
         {
             return setValues(column, oper, values);
         }
-        /// <summary>設定欄位值與查詢條件</summary>
+        /// <summary>以 <see cref="List{T}"/> 屬性欄位指定方式設定查詢運算子與查詢值。</summary>
+        /// <typeparam name="TProperty">欄位元素型別。</typeparam>
+        /// <param name="column">欄位名稱。</param>
+        /// <param name="oper">套用到欄位的查詢運算子。</param>
+        /// <param name="values">要寫入欄位的查詢值集合；傳入 <c>null</c> 時會視為空集合。</param>
+        /// <returns>目前的查詢參數實例，供鏈式呼叫使用。</returns>
         public WhereParams<TParams> SetValues<TProperty>(Expression<Func<TParams, List<TProperty>>> column, WhereOperator oper, params TProperty[] values)
         {
             return setValues(column, oper, values);
         }
-        /// <summary>設定欄位值與查詢條件</summary>
+        /// <summary>以陣列屬性欄位指定方式設定查詢運算子與查詢值。</summary>
+        /// <typeparam name="TProperty">欄位元素型別。</typeparam>
+        /// <param name="column">欄位名稱。</param>
+        /// <param name="oper">套用到欄位的查詢運算子。</param>
+        /// <param name="values">要寫入欄位的查詢值集合；傳入 <c>null</c> 時會視為空集合。</param>
+        /// <returns>目前的查詢參數實例，供鏈式呼叫使用。</returns>
         public WhereParams<TParams> SetValues<TProperty>(Expression<Func<TParams, TProperty[]>> column, WhereOperator oper, params TProperty[] values)
         {
             return setValues(column, oper, values);
         }
-        /// <summary>設定欄位值與查詢條件</summary>
+        /// <summary>以單值屬性欄位指定方式設定查詢運算子與查詢值。</summary>
+        /// <typeparam name="TProperty">欄位值型別。</typeparam>
+        /// <param name="column">欄位名稱。</param>
+        /// <param name="oper">套用到欄位的查詢運算子。</param>
+        /// <param name="values">要寫入欄位的查詢值集合；傳入 <c>null</c> 時會視為空集合。</param>
+        /// <returns>目前的查詢參數實例，供鏈式呼叫使用。</returns>
         public WhereParams<TParams> SetValues<TProperty>(Expression<Func<TParams, TProperty>> column, WhereOperator oper, params TProperty[] values)
         {
             return setValues(column, oper, values);
@@ -153,7 +192,11 @@ namespace Orion.Api.Models
 
 
 
-        /// <summary>設定欄位值與查詢條件</summary>
+        /// <summary>更新指定欄位條件的查詢運算子。</summary>
+        /// <typeparam name="TProperty">欄位值型別。</typeparam>
+        /// <param name="column">欄位名稱。</param>
+        /// <param name="oper">要套用的新查詢運算子。</param>
+        /// <returns>目前的查詢參數實例；若欄位不存在則不異動。</returns>
         public WhereParams<TParams> SetOperator<TProperty>(Expression<Func<TParams, TProperty>> column, WhereOperator oper)
         {
             string name = getPropertyName(column);
@@ -163,7 +206,10 @@ namespace Orion.Api.Models
 
 
 
-        /// <summary>移除欄位值與查詢條件</summary>
+        /// <summary>移除指定欄位的查詢條件與查詢值。</summary>
+        /// <typeparam name="TProperty">欄位值型別。</typeparam>
+        /// <param name="column">欄位名稱。</param>
+        /// <returns>目前的查詢參數實例，供鏈式呼叫使用。</returns>
         public WhereParams<TParams> Remove<TProperty>(Expression<Func<TParams, TProperty>> column)
         {
             string name = getPropertyName(column);
@@ -172,7 +218,10 @@ namespace Orion.Api.Models
         }
 
 
-        /// <summary>取得查詢條件</summary>
+        /// <summary>取得指定欄位目前的查詢運算子。</summary>
+        /// <typeparam name="TProperty">欄位值型別。</typeparam>
+        /// <param name="column">欄位名稱。</param>
+        /// <returns>欄位存在時回傳其運算子，否則回傳 <see cref="WhereOperator.NotValue"/>。</returns>
         public WhereOperator GetOperator<TProperty>(Expression<Func<TParams, TProperty>> column)
         {
             string name = getPropertyName(column);
@@ -187,7 +236,9 @@ namespace Orion.Api.Models
         /*===========================================================*/
 
 
-        /// <summary>取得欄位數值清單</summary>
+        /// <summary>取得指定欄位並轉型後的查詢值集合。</summary>
+        /// <param name="name">欄位名稱。</param>
+        /// <returns>欄位存在時回傳依屬性型別轉換後的值陣列，否則回傳空陣列。</returns>
         public override object[] GetValues(string name)
         {
             if (!Source.ContainsKey(name)) { return new object[] { }; }
@@ -214,22 +265,34 @@ namespace Orion.Api.Models
 
 
 
-        /// <summary>取得欄位數值清單</summary>
+        /// <summary>取得集合屬性欄位的查詢值集合。</summary>
+        /// <typeparam name="TProperty">欄位元素型別。</typeparam>
+        /// <param name="column">欄位名稱。</param>
+        /// <returns>指定欄位的查詢值陣列；若無資料則為空陣列。</returns>
         public TProperty[] GetValues<TProperty>(Expression<Func<TParams, IEnumerable<TProperty>>> column)
         {
             return getValues<TProperty>(column);
         }
-        /// <summary>取得欄位數值清單</summary>
+        /// <summary>取得 <see cref="List{T}"/> 屬性欄位的查詢值集合。</summary>
+        /// <typeparam name="TProperty">欄位元素型別。</typeparam>
+        /// <param name="column">欄位名稱。</param>
+        /// <returns>指定欄位的查詢值陣列；若無資料則為空陣列。</returns>
         public TProperty[] GetValues<TProperty>(Expression<Func<TParams, List<TProperty>>> column)
         {
             return getValues<TProperty>(column);
         }
-        /// <summary>取得欄位數值清單</summary>
+        /// <summary>取得陣列屬性欄位的查詢值集合。</summary>
+        /// <typeparam name="TProperty">欄位元素型別。</typeparam>
+        /// <param name="column">欄位名稱。</param>
+        /// <returns>指定欄位的查詢值陣列；若無資料則為空陣列。</returns>
         public TProperty[] GetValues<TProperty>(Expression<Func<TParams, TProperty[]>> column)
         {
             return getValues<TProperty>(column);
         }
-        /// <summary>取得欄位數值清單</summary>
+        /// <summary>取得單值屬性欄位的查詢值集合。</summary>
+        /// <typeparam name="TProperty">欄位值型別。</typeparam>
+        /// <param name="column">欄位名稱。</param>
+        /// <returns>指定欄位的查詢值陣列；若無資料則為空陣列。</returns>
         public TProperty[] GetValues<TProperty>(Expression<Func<TParams, TProperty>> column)
         {
             return getValues<TProperty>(column);
@@ -240,7 +303,9 @@ namespace Orion.Api.Models
 
         /*===========================================================*/
 
-        /// <summary>設定欄位值與查詢條件</summary>
+        /// <summary>從布林條件運算式解析欄位、運算子與值後寫入查詢條件。</summary>
+        /// <param name="conditionExpr">用於解析查詢條件的布林運算式。</param>
+        /// <returns>目前的查詢參數實例，供鏈式呼叫使用。</returns>
         public WhereParams<TParams> Assign(Expression<Func<TParams, bool>> conditionExpr)
         {
             PropertyInfo prop = conditionExpr.GetProperty();
@@ -402,19 +467,21 @@ namespace Orion.Api.Models
 
     /*##########################################################*/
 
-    /// <summary></summary>
+    /// <summary>單一查詢欄位的條件與值集合。</summary>
     public class WhereParamsPair
     {
-        /// <summary></summary>
+        /// <summary>查詢運算子。</summary>
         public WhereOperator Operator { get; set; }
 
-        /// <summary></summary>
+        /// <summary>查詢值集合（字串表示）。</summary>
         public string[] Values { get; set; }
 
-        /// <summary></summary>
+        /// <summary>建立空白查詢條件配對。</summary>
         public WhereParamsPair() { }
 
-        /// <summary></summary>
+        /// <summary>建立查詢條件配對。</summary>
+        /// <param name="oper">查詢運算子。</param>
+        /// <param name="values">查詢值集合。</param>
         public WhereParamsPair(WhereOperator oper, string[] values)
         {
             Operator = oper;

@@ -28,7 +28,9 @@ namespace Orion.Api
 		private WhereParams<TParams> _param;
 
 
-		/// <summary></summary>
+		/// <summary>建立 `WhereQueryableBuilder`。</summary>
+		/// <param name="query">來源查詢。</param>
+		/// <param name="param">查詢條件參數。</param>
 		public WhereQueryableBuilder(IQueryable<TModel> query, WhereParams<TParams> param)
 		{
 			_query = query;
@@ -242,7 +244,11 @@ namespace Orion.Api
 		/*=====================================================================*/
 
 
-		/// <summary>綁定查詢欄位</summary>
+		/// <summary>將參數中的集合條件套用至模型集合欄位。</summary>
+		/// <typeparam name="T">集合元素型別。</typeparam>
+		/// <param name="find">從參數模型取值的運算式。</param>
+		/// <param name="columnSelector">模型集合欄位運算式。</param>
+		/// <returns>目前建構器實例，供串接呼叫。</returns>
 		public WhereQueryableBuilder<TModel, TParams> WhereBind<T>(Expression<Func<TParams, IEnumerable<T>>> find, Expression<Func<TModel, IEnumerable<T>>> columnSelector)
 		{
 			if (_param == null) { return this; }
@@ -254,7 +260,11 @@ namespace Orion.Api
 		}
 
 
-		/// <summary>綁定查詢欄位</summary>
+		/// <summary>將參數中的單值條件套用至模型集合欄位。</summary>
+		/// <typeparam name="T">條件值與集合元素型別。</typeparam>
+		/// <param name="find">從參數模型取值的運算式。</param>
+		/// <param name="columnSelector">模型集合欄位運算式。</param>
+		/// <returns>目前建構器實例，供串接呼叫。</returns>
 		public WhereQueryableBuilder<TModel, TParams> WhereBind<T>(Expression<Func<TParams, T>> find, Expression<Func<TModel, IEnumerable<T>>> columnSelector)
 		{
 			if (_param == null) { return this; }
@@ -266,7 +276,11 @@ namespace Orion.Api
 		}
 
 
-		/// <summary>綁定查詢欄位</summary>
+		/// <summary>將參數中的單值條件套用至模型欄位。</summary>
+		/// <typeparam name="T">欄位值型別。</typeparam>
+		/// <param name="find">從參數模型取值的運算式。</param>
+		/// <param name="columnSelector">模型欄位運算式。</param>
+		/// <returns>目前建構器實例，供串接呼叫。</returns>
 		public WhereQueryableBuilder<TModel, TParams> WhereBind<T>(Expression<Func<TParams, T>> find, Expression<Func<TModel, T>> columnSelector)
 		{
 			if (_param == null) { return this; }
@@ -286,7 +300,10 @@ namespace Orion.Api
 
 
 
-		/// <summary>綁定查詢欄位</summary>
+		/// <summary>將列舉參數條件（字串表示）套用至模型字串欄位。</summary>
+		/// <param name="find">從參數模型取列舉值的運算式。</param>
+		/// <param name="columnSelector">模型字串欄位運算式。</param>
+		/// <returns>目前建構器實例，供串接呼叫。</returns>
 		public WhereQueryableBuilder<TModel, TParams> WhereBind(Expression<Func<TParams, Enum>> find, Expression<Func<TModel, string>> columnSelector)
 		{
 			if (_param == null) { return this; }
@@ -308,7 +325,8 @@ namespace Orion.Api
 
 
 
-		/// <summary></summary>
+		/// <summary>回傳套用條件後的查詢物件。</summary>
+		/// <returns>目前建構完成的查詢。</returns>
 		public IQueryable<TModel> Build()
 		{
 			return _query;

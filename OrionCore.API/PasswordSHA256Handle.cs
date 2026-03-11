@@ -5,10 +5,12 @@ using System.Text.RegularExpressions;
 
 namespace Orion.Api
 {
-	/// <summary>SHA256 Tools</summary>
+	/// <summary>以 SHA256 與 Base64 處理密碼字串。</summary>
 	public class PasswordSHA256Handle : IPasswordHandle
 	{
-		/// <summary>驗證 SHA256 字串是否由 a-z 加 A-Z 加 0-9 組成</summary>
+		/// <summary>驗證字串是否符合密碼規則（至少 6 碼且包含大小寫英文字母與數字）。</summary>
+		/// <param name="password">待驗證密碼字串。</param>
+		/// <returns>符合規則時回傳 <c>true</c>。</returns>
 		public bool Validate(string password)
 		{
 			if (password.Length < 6) { return false; }
@@ -19,7 +21,9 @@ namespace Orion.Api
 			return true;
 		}
 
-		/// <summary>將 string to SHA256 to Base64 </summary>
+		/// <summary>將密碼字串做 SHA256 計算後轉成 Base64 字串。</summary>
+		/// <param name="password">要加密的原始密碼。</param>
+		/// <returns>SHA256 計算結果的 Base64 字串。</returns>
 		public string Encrypt(string password)
 		{
 			SHA256 sha256 = new SHA256CryptoServiceProvider();

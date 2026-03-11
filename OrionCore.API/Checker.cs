@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -23,6 +23,8 @@ namespace Orion.Api
 
 
 		/// <summary>檢查有資料</summary>
+		/// <param name="value">欄位值。</param>
+		/// <param name="errorMessage">驗證失敗時拋出的錯誤訊息。</param>
 		public static void Has(object value, string errorMessage)
 		{
 			if (OrionUtils.HasValue(value)) { return; }
@@ -30,6 +32,9 @@ namespace Orion.Api
 		}
 
 		/// <summary>檢查是否等於指定值</summary>
+		/// <param name="value">欄位值。</param>
+		/// <param name="expected">期望的值。</param>
+		/// <param name="errorMessage">驗證失敗時拋出的錯誤訊息。</param>
 		public static void Is<T>(T value, T expected, string errorMessage)
 		{
 			if (expected.Equals(value)) { return; }
@@ -38,6 +43,9 @@ namespace Orion.Api
 
 
 		/// <summary>檢查是否在指定清單內</summary>
+		/// <param name="value">欄位值。</param>
+		/// <param name="expected">允許的値集合。</param>
+		/// <param name="errorMessage">驗證失敗時拋出的錯誤訊息。</param>
 		public static void In<T>(Nullable<T> value, IEnumerable<T> expected, string errorMessage) where T : struct
 		{
 			if (value.HasValue && expected.Contains(value.Value)) { return; }
@@ -46,6 +54,9 @@ namespace Orion.Api
 
 
 		/// <summary>檢查是否在指定清單內</summary>
+		/// <param name="value">欄位值。</param>
+		/// <param name="expected">允許的値集合。</param>
+		/// <param name="errorMessage">驗證失敗時拋出的錯誤訊息。</param>
 		public static void In<T>(T value, IEnumerable<T> expected, string errorMessage)
 		{
 			if (expected.Contains(value)) { return; }
@@ -59,30 +70,45 @@ namespace Orion.Api
 		/*===============================================================*/
 
 		/// <summary>檢查value是否符合最小限制</summary>
+		/// <param name="value">欄位值。</param>
+		/// <param name="min">最小限制值。</param>
+		/// <param name="errorMessage">驗證失敗時拋出的錯誤訊息。</param>
 		public static void Min(int value, int min, string errorMessage)
 		{
 			if (value >= min) { return; }
 			throwException(errorMessage, value, min);
 		}
 		/// <summary>檢查value是否符合最小限制</summary>
+		/// <param name="value">欄位值。</param>
+		/// <param name="min">最小限制值。</param>
+		/// <param name="errorMessage">驗證失敗時拋出的錯誤訊息。</param>
 		public static void Min(float value, float min, string errorMessage)
 		{
 			if (value >= min) { return; }
 			throwException(errorMessage, value, min);
 		}
 		/// <summary>檢查value是否符合最小限制</summary>
+		/// <param name="value">欄位值。</param>
+		/// <param name="min">最小限制值。</param>
+		/// <param name="errorMessage">驗證失敗時拋出的錯誤訊息。</param>
 		public static void Min(double value, double min, string errorMessage)
 		{
 			if (value >= min) { return; }
 			throwException(errorMessage, value, min);
 		}
 		/// <summary>檢查value是否符合最小限制</summary>
+		/// <param name="value">欄位值。</param>
+		/// <param name="min">最小限制值。</param>
+		/// <param name="errorMessage">驗證失敗時拋出的錯誤訊息。</param>
 		public static void Min(decimal value, decimal min, string errorMessage)
 		{
 			if (value >= min) { return; }
 			throwException(errorMessage, value, min);
 		}
 		/// <summary>檢查value是否符合最小限制</summary>
+		/// <param name="value">欄位值。</param>
+		/// <param name="min">最小限制值。</param>
+		/// <param name="errorMessage">驗證失敗時拋出的錯誤訊息。</param>
 		public static void Min(DateTimeOffset value, DateTimeOffset min, string errorMessage)
 		{
 			if (value >= min) { return; }
@@ -92,30 +118,45 @@ namespace Orion.Api
 
 
 		/// <summary>檢查value是否符合最小限制</summary>
+		/// <param name="value">欄位值。</param>
+		/// <param name="min">最小限制值。</param>
+		/// <param name="errorMessage">驗證失敗時拋出的錯誤訊息。</param>
 		public static void Min(int? value, int min, string errorMessage)
 		{
 			if (value == null) { return; }
 			Min(value.Value, min, errorMessage);
 		}
 		/// <summary>檢查value是否符合最小限制</summary>
+		/// <param name="value">欄位值。</param>
+		/// <param name="min">最小限制值。</param>
+		/// <param name="errorMessage">驗證失敗時拋出的錯誤訊息。</param>
 		public static void Min(float? value, float min, string errorMessage)
 		{
 			if (value == null) { return; }
 			Min(value.Value, min, errorMessage);
 		}
 		/// <summary>檢查value是否符合最小限制</summary>
+		/// <param name="value">欄位值。</param>
+		/// <param name="min">最小限制值。</param>
+		/// <param name="errorMessage">驗證失敗時拋出的錯誤訊息。</param>
 		public static void Min(double? value, double min, string errorMessage)
 		{
 			if (value == null) { return; }
 			Min(value.Value, min, errorMessage);
 		}
 		/// <summary>檢查value是否符合最小限制</summary>
+		/// <param name="value">欄位值。</param>
+		/// <param name="min">最小限制值。</param>
+		/// <param name="errorMessage">驗證失敗時拋出的錯誤訊息。</param>
 		public static void Min(decimal? value, decimal min, string errorMessage)
 		{
 			if (value == null) { return; }
 			Min(value.Value, min, errorMessage);
 		}
 		/// <summary>檢查value是否符合最小限制</summary>
+		/// <param name="value">欄位值。</param>
+		/// <param name="min">最小限制值。</param>
+		/// <param name="errorMessage">驗證失敗時拋出的錯誤訊息。</param>
 		public static void Min(DateTimeOffset? value, DateTimeOffset min, string errorMessage)
 		{
 			if (value == null) { return; }
@@ -129,30 +170,45 @@ namespace Orion.Api
 
 
 		/// <summary>檢查value是否符合最大限制</summary>
+		/// <param name="value">欄位值。</param>
+		/// <param name="max">最大限制值。</param>
+		/// <param name="errorMessage">驗證失敗時拋出的錯誤訊息。</param>
 		public static void Max(int value, int max, string errorMessage)
 		{
 			if (value <= max) { return; }
 			throwException(errorMessage, value, max);
 		}
 		/// <summary>檢查value是否符合最大限制</summary>
+		/// <param name="value">欄位值。</param>
+		/// <param name="max">最大限制值。</param>
+		/// <param name="errorMessage">驗證失敗時拋出的錯誤訊息。</param>
 		public static void Max(float value, float max, string errorMessage)
 		{
 			if (value <= max) { return; }
 			throwException(errorMessage, value, max);
 		}
 		/// <summary>檢查value是否符合最大限制</summary>
+		/// <param name="value">欄位值。</param>
+		/// <param name="max">最大限制值。</param>
+		/// <param name="errorMessage">驗證失敗時拋出的錯誤訊息。</param>
 		public static void Max(double value, double max, string errorMessage)
 		{
 			if (value <= max) { return; }
 			throwException(errorMessage, value, max);
 		}
 		/// <summary>檢查value是否符合最大限制</summary>
+		/// <param name="value">欄位值。</param>
+		/// <param name="max">最大限制值。</param>
+		/// <param name="errorMessage">驗證失敗時拋出的錯誤訊息。</param>
 		public static void Max(decimal value, decimal max, string errorMessage)
 		{
 			if (value <= max) { return; }
 			throwException(errorMessage, value, max);
 		}
 		/// <summary>檢查value是否符合最大限制</summary>
+		/// <param name="value">欄位值。</param>
+		/// <param name="max">最大限制值。</param>
+		/// <param name="errorMessage">驗證失敗時拋出的錯誤訊息。</param>
 		public static void Max(DateTimeOffset value, DateTimeOffset max, string errorMessage)
 		{
 			if (value <= max) { return; }
@@ -161,30 +217,45 @@ namespace Orion.Api
 
 
 		/// <summary>檢查value是否符合最大限制</summary>
+		/// <param name="value">欄位值。</param>
+		/// <param name="max">最大限制值。</param>
+		/// <param name="errorMessage">驗證失敗時拋出的錯誤訊息。</param>
 		public static void Max(int? value, int max, string errorMessage)
 		{
 			if (value == null) { return; }
 			Max(value.Value, max, errorMessage);
 		}
 		/// <summary>檢查value是否符合最大限制</summary>
+		/// <param name="value">欄位值。</param>
+		/// <param name="max">最大限制值。</param>
+		/// <param name="errorMessage">驗證失敗時拋出的錯誤訊息。</param>
 		public static void Max(float? value, float max, string errorMessage)
 		{
 			if (value == null) { return; }
 			Max(value.Value, max, errorMessage);
 		}
 		/// <summary>檢查value是否符合最大限制</summary>
+		/// <param name="value">欄位值。</param>
+		/// <param name="max">最大限制值。</param>
+		/// <param name="errorMessage">驗證失敗時拋出的錯誤訊息。</param>
 		public static void Max(double? value, double max, string errorMessage)
 		{
 			if (value == null) { return; }
 			Max(value.Value, max, errorMessage);
 		}
 		/// <summary>檢查value是否符合最大限制</summary>
+		/// <param name="value">欄位值。</param>
+		/// <param name="max">最大限制值。</param>
+		/// <param name="errorMessage">驗證失敗時拋出的錯誤訊息。</param>
 		public static void Max(decimal? value, decimal max, string errorMessage)
 		{
 			if (value == null) { return; }
 			Max(value.Value, max, errorMessage);
 		}
 		/// <summary>檢查value是否符合最大限制</summary>
+		/// <param name="value">欄位值。</param>
+		/// <param name="max">最大限制值。</param>
+		/// <param name="errorMessage">驗證失敗時拋出的錯誤訊息。</param>
 		public static void Max(DateTimeOffset? value, DateTimeOffset max, string errorMessage)
 		{
 			if (value == null) { return; }
@@ -198,30 +269,45 @@ namespace Orion.Api
 		/*===============================================================*/
 
 		/// <summary>檢查value是否大於最小限制</summary>
+		/// <param name="value">欄位值。</param>
+		/// <param name="min">最小限制值。</param>
+		/// <param name="errorMessage">驗證失敗時拋出的錯誤訊息。</param>
 		public static void Greater(int value, int min, string errorMessage)
 		{
 			if (value > min) { return; }
 			throwException(errorMessage, value, min);
 		}
 		/// <summary>檢查value是否大於最小限制</summary>
+		/// <param name="value">欄位值。</param>
+		/// <param name="min">最小限制值。</param>
+		/// <param name="errorMessage">驗證失敗時拋出的錯誤訊息。</param>
 		public static void Greater(float value, float min, string errorMessage)
 		{
 			if (value > min) { return; }
 			throwException(errorMessage, value, min);
 		}
 		/// <summary>檢查value是否大於最小限制</summary>
+		/// <param name="value">欄位值。</param>
+		/// <param name="min">最小限制值。</param>
+		/// <param name="errorMessage">驗證失敗時拋出的錯誤訊息。</param>
 		public static void Greater(double value, double min, string errorMessage)
 		{
 			if (value > min) { return; }
 			throwException(errorMessage, value, min);
 		}
 		/// <summary>檢查value是否大於最小限制</summary>
+		/// <param name="value">欄位值。</param>
+		/// <param name="min">最小限制值。</param>
+		/// <param name="errorMessage">驗證失敗時拋出的錯誤訊息。</param>
 		public static void Greater(decimal value, decimal min, string errorMessage)
 		{
 			if (value > min) { return; }
 			throwException(errorMessage, value, min);
 		}
 		/// <summary>檢查value是否大於最小限制</summary>
+		/// <param name="value">欄位值。</param>
+		/// <param name="min">最小限制值。</param>
+		/// <param name="errorMessage">驗證失敗時拋出的錯誤訊息。</param>
 		public static void Greater(DateTimeOffset value, DateTimeOffset min, string errorMessage)
 		{
 			if (value > min) { return; }
@@ -230,30 +316,45 @@ namespace Orion.Api
 
 
 		/// <summary>檢查value是否大於最小限制</summary>
+		/// <param name="value">欄位值。</param>
+		/// <param name="min">最小限制值。</param>
+		/// <param name="errorMessage">驗證失敗時拋出的錯誤訊息。</param>
 		public static void Greater(int? value, int min, string errorMessage)
 		{
 			if (value == null) { return; }
 			Greater(value.Value, min, errorMessage);
 		}
 		/// <summary>檢查value是否大於最小限制</summary>
+		/// <param name="value">欄位值。</param>
+		/// <param name="min">最小限制值。</param>
+		/// <param name="errorMessage">驗證失敗時拋出的錯誤訊息。</param>
 		public static void Greater(float? value, float min, string errorMessage)
 		{
 			if (value == null) { return; }
 			Greater(value.Value, min, errorMessage);
 		}
 		/// <summary>檢查value是否大於最小限制</summary>
+		/// <param name="value">欄位值。</param>
+		/// <param name="min">最小限制值。</param>
+		/// <param name="errorMessage">驗證失敗時拋出的錯誤訊息。</param>
 		public static void Greater(double? value, double min, string errorMessage)
 		{
 			if (value == null) { return; }
 			Greater(value.Value, min, errorMessage);
 		}
 		/// <summary>檢查value是否大於最小限制</summary>
+		/// <param name="value">欄位值。</param>
+		/// <param name="min">最小限制值。</param>
+		/// <param name="errorMessage">驗證失敗時拋出的錯誤訊息。</param>
 		public static void Greater(decimal? value, decimal min, string errorMessage)
 		{
 			if (value == null) { return; }
 			Greater(value.Value, min, errorMessage);
 		}
 		/// <summary>檢查value是否大於最小限制</summary>
+		/// <param name="value">欄位值。</param>
+		/// <param name="min">最小限制值。</param>
+		/// <param name="errorMessage">驗證失敗時拋出的錯誤訊息。</param>
 		public static void Greater(DateTimeOffset? value, DateTimeOffset min, string errorMessage)
 		{
 			if (value == null) { return; }
@@ -264,30 +365,45 @@ namespace Orion.Api
 
 
 		/// <summary>檢查value是否小於最大限制</summary>
+		/// <param name="value">欄位值。</param>
+		/// <param name="max">最大限制值。</param>
+		/// <param name="errorMessage">驗證失敗時拋出的錯誤訊息。</param>
 		public static void Less(int value, int max, string errorMessage)
 		{
 			if (value < max) { return; }
 			throwException(errorMessage, value, max);
 		}
 		/// <summary>檢查value是否小於最大限制</summary>
+		/// <param name="value">欄位值。</param>
+		/// <param name="max">最大限制值。</param>
+		/// <param name="errorMessage">驗證失敗時拋出的錯誤訊息。</param>
 		public static void Less(float value, float max, string errorMessage)
 		{
 			if (value < max) { return; }
 			throwException(errorMessage, value, max);
 		}
 		/// <summary>檢查value是否小於最大限制</summary>
+		/// <param name="value">欄位值。</param>
+		/// <param name="max">最大限制值。</param>
+		/// <param name="errorMessage">驗證失敗時拋出的錯誤訊息。</param>
 		public static void Less(double value, double max, string errorMessage)
 		{
 			if (value < max) { return; }
 			throwException(errorMessage, value, max);
 		}
 		/// <summary>檢查value是否小於最大限制</summary>
+		/// <param name="value">欄位值。</param>
+		/// <param name="max">最大限制值。</param>
+		/// <param name="errorMessage">驗證失敗時拋出的錯誤訊息。</param>
 		public static void Less(decimal value, decimal max, string errorMessage)
 		{
 			if (value < max) { return; }
 			throwException(errorMessage, value, max);
 		}
 		/// <summary>檢查value是否小於最大限制</summary>
+		/// <param name="value">欄位值。</param>
+		/// <param name="max">最大限制值。</param>
+		/// <param name="errorMessage">驗證失敗時拋出的錯誤訊息。</param>
 		public static void Less(DateTimeOffset value, DateTimeOffset max, string errorMessage)
 		{
 			if (value < max) { return; }
@@ -296,30 +412,45 @@ namespace Orion.Api
 
 
 		/// <summary>檢查value是否小於最大限制</summary>
+		/// <param name="value">欄位值。</param>
+		/// <param name="max">最大限制值。</param>
+		/// <param name="errorMessage">驗證失敗時拋出的錯誤訊息。</param>
 		public static void Less(int? value, int max, string errorMessage)
 		{
 			if (value == null) { return; }
 			Less(value.Value, max, errorMessage);
 		}
 		/// <summary>檢查value是否小於最大限制</summary>
+		/// <param name="value">欄位值。</param>
+		/// <param name="max">最大限制值。</param>
+		/// <param name="errorMessage">驗證失敗時拋出的錯誤訊息。</param>
 		public static void Less(float? value, float max, string errorMessage)
 		{
 			if (value == null) { return; }
 			Less(value.Value, max, errorMessage);
 		}
 		/// <summary>檢查value是否小於最大限制</summary>
+		/// <param name="value">欄位值。</param>
+		/// <param name="max">最大限制值。</param>
+		/// <param name="errorMessage">驗證失敗時拋出的錯誤訊息。</param>
 		public static void Less(double? value, double max, string errorMessage)
 		{
 			if (value == null) { return; }
 			Less(value.Value, max, errorMessage);
 		}
 		/// <summary>檢查value是否小於最大限制</summary>
+		/// <param name="value">欄位值。</param>
+		/// <param name="max">最大限制值。</param>
+		/// <param name="errorMessage">驗證失敗時拋出的錯誤訊息。</param>
 		public static void Less(decimal? value, decimal max, string errorMessage)
 		{
 			if (value == null) { return; }
 			Less(value.Value, max, errorMessage);
 		}
 		/// <summary>檢查value是否小於最大限制</summary>
+		/// <param name="value">欄位值。</param>
+		/// <param name="max">最大限制值。</param>
+		/// <param name="errorMessage">驗證失敗時拋出的錯誤訊息。</param>
 		public static void Less(DateTimeOffset? value, DateTimeOffset max, string errorMessage)
 		{
 			if (value == null) { return; }
@@ -350,30 +481,50 @@ namespace Orion.Api
 		/*===============================================================*/
 
 		/// <summary>檢查數值範圍</summary>
+		/// <param name="value">欄位值。</param>
+		/// <param name="min">下界限制值。</param>
+		/// <param name="max">上界限制值。</param>
+		/// <param name="errorMessage">驗證失敗時拋出的錯誤訊息。</param>
 		public static void Range(int value, int min, int max, string errorMessage)
 		{
 			if (value >= min && value <= max) { return; }
 			throwException(errorMessage, value, min, max);
 		}
 		/// <summary>檢查數值範圍</summary>
+		/// <param name="value">欄位值。</param>
+		/// <param name="min">最小限制值。</param>
+		/// <param name="max">最大限制值。</param>
+		/// <param name="errorMessage">驗證失敗時拋出的錯誤訊息。</param>
 		public static void Range(float value, float min, float max, string errorMessage)
 		{
 			if (value >= min && value <= max) { return; }
 			throwException(errorMessage, value, min, max);
 		}
 		/// <summary>檢查數值範圍</summary>
+		/// <param name="value">欄位值。</param>
+		/// <param name="min">最小限制值。</param>
+		/// <param name="max">最大限制值。</param>
+		/// <param name="errorMessage">驗證失敗時拋出的錯誤訊息。</param>
 		public static void Range(double value, double min, double max, string errorMessage)
 		{
 			if (value >= min && value <= max) { return; }
 			throwException(errorMessage, value, min, max);
 		}
 		/// <summary>檢查數值範圍</summary>
+		/// <param name="value">欄位值。</param>
+		/// <param name="min">最小限制值。</param>
+		/// <param name="max">最大限制值。</param>
+		/// <param name="errorMessage">驗證失敗時拋出的錯誤訊息。</param>
 		public static void Range(decimal value, decimal min, decimal max, string errorMessage)
 		{
 			if (value >= min && value <= max) { return; }
 			throwException(errorMessage, value, min, max);
 		}
 		/// <summary>檢查數值範圍</summary>
+		/// <param name="value">欄位值。</param>
+		/// <param name="min">最小限制值。</param>
+		/// <param name="max">最大限制值。</param>
+		/// <param name="errorMessage">驗證失敗時拋出的錯誤訊息。</param>
 		public static void Range(DateTimeOffset value, DateTimeOffset min, DateTimeOffset max, string errorMessage)
 		{
 			if (value >= min && value <= max) { return; }
@@ -382,30 +533,50 @@ namespace Orion.Api
 
 
 		/// <summary>檢查數值範圍</summary>
+		/// <param name="value">欄位值。</param>
+		/// <param name="min">最小限制值。</param>
+		/// <param name="max">最大限制值。</param>
+		/// <param name="errorMessage">驗證失敗時拋出的錯誤訊息。</param>
 		public static void Range(int? value, int min, int max, string errorMessage)
 		{
 			if (value == null) { return; }
 			Range(value.Value, min, max, errorMessage);
 		}
 		/// <summary>檢查數值範圍</summary>
+		/// <param name="value">欄位值。</param>
+		/// <param name="min">最小限制值。</param>
+		/// <param name="max">最大限制值。</param>
+		/// <param name="errorMessage">驗證失敗時拋出的錯誤訊息。</param>
 		public static void Range(float? value, float min, float max, string errorMessage)
 		{
 			if (value == null) { return; }
 			Range(value.Value, min, max, errorMessage);
 		}
 		/// <summary>檢查數值範圍</summary>
+		/// <param name="value">欄位值。</param>
+		/// <param name="min">最小限制值。</param>
+		/// <param name="max">最大限制值。</param>
+		/// <param name="errorMessage">驗證失敗時拋出的錯誤訊息。</param>
 		public static void Range(double? value, double min, double max, string errorMessage)
 		{
 			if (value == null) { return; }
 			Range(value.Value, min, max, errorMessage);
 		}
 		/// <summary>檢查數值範圍</summary>
+		/// <param name="value">欄位值。</param>
+		/// <param name="min">最小限制值。</param>
+		/// <param name="max">最大限制值。</param>
+		/// <param name="errorMessage">驗證失敗時拋出的錯誤訊息。</param>
 		public static void Range(decimal? value, decimal min, decimal max, string errorMessage)
 		{
 			if (value == null) { return; }
 			Range(value.Value, min, max, errorMessage);
 		}
 		/// <summary>檢查數值範圍</summary>
+		/// <param name="value">欄位值。</param>
+		/// <param name="min">最小限制值。</param>
+		/// <param name="max">最大限制值。</param>
+		/// <param name="errorMessage">驗證失敗時拋出的錯誤訊息。</param>
 		public static void Range(DateTimeOffset? value, DateTimeOffset min, DateTimeOffset max, string errorMessage)
 		{
 			if (value == null) { return; }
@@ -419,6 +590,9 @@ namespace Orion.Api
 		/*===============================================================*/
 
 		/// <summary>檢查最小長度</summary>
+		/// <param name="value">欄位值。</param>
+		/// <param name="minLength">最小長度。</param>
+		/// <param name="errorMessage">驗證失敗時拋出的錯誤訊息。</param>
 		public static void MinLength(string value, int minLength, string errorMessage)
 		{
 			if (value == null) { return; }
@@ -426,6 +600,9 @@ namespace Orion.Api
 			throwException(errorMessage, value, minLength);
 		}
 		/// <summary>檢查最小長度</summary>
+		/// <param name="value">欄位值。</param>
+		/// <param name="minLength">最小長度。</param>
+		/// <param name="errorMessage">驗證失敗時拋出的錯誤訊息。</param>
 		public static void MinLength<T>(IEnumerable<T> value, int minLength, string errorMessage)
 		{
 			if (value == null) { return; }
@@ -435,6 +612,9 @@ namespace Orion.Api
 
 
 		/// <summary>檢查最大長度</summary>
+		/// <param name="value">欄位值。</param>
+		/// <param name="maxLength">最大長度。</param>
+		/// <param name="errorMessage">驗證失敗時拋出的錯誤訊息。</param>
 		public static void MaxLength(string value, int maxLength, string errorMessage)
 		{
 			if (value == null) { return; }
@@ -443,6 +623,9 @@ namespace Orion.Api
 		}
 
 		/// <summary>檢查最大長度</summary>
+		/// <param name="value">欄位值。</param>
+		/// <param name="maxLength">最大長度。</param>
+		/// <param name="errorMessage">驗證失敗時拋出的錯誤訊息。</param>
 		public static void MaxLength<T>(IEnumerable<T> value, int maxLength, string errorMessage)
 		{
 			if (value == null) { return; }
@@ -457,6 +640,10 @@ namespace Orion.Api
 		/*===============================================================*/
 
 		/// <summary>檢查長度範圍</summary>
+		/// <param name="value">欄位值。</param>
+		/// <param name="minLength">最小長度。</param>
+		/// <param name="maxLength">最大長度。</param>
+		/// <param name="errorMessage">驗證失敗時拋出的錯誤訊息。</param>
 		public static void RangeLength(string value, int minLength, int maxLength, string errorMessage)
 		{
 			if (value == null) { return; }
@@ -466,6 +653,10 @@ namespace Orion.Api
 			throwException(errorMessage, value, minLength, maxLength);
 		}
 		/// <summary>檢查長度範圍</summary>
+		/// <param name="value">欄位值。</param>
+		/// <param name="minLength">最小長度。</param>
+		/// <param name="maxLength">最大長度。</param>
+		/// <param name="errorMessage">驗證失敗時拋出的錯誤訊息。</param>
 		public static void RangeLength<T>(IEnumerable<T> value, int minLength, int maxLength, string errorMessage)
 		{
 			if (value == null) { return; }
@@ -483,6 +674,9 @@ namespace Orion.Api
 		/*===============================================================*/
 
 		/// <summary>檢查是否在清單中</summary>
+		/// <param name="value">欄位值。</param>
+		/// <param name="items">要檢查的項目。</param>
+		/// <param name="errorMessage">驗證失敗時拋出的錯誤訊息。</param>
 		public static void Contains(string value, string items, string errorMessage)
 		{
 			if (value == null) { return; }
@@ -490,6 +684,9 @@ namespace Orion.Api
 			throwException(errorMessage, value, items);
 		}
 		/// <summary>檢查是否在清單中</summary>
+		/// <param name="value">欄位值。</param>
+		/// <param name="items">要檢查的項目。</param>
+		/// <param name="errorMessage">驗證失敗時拋出的錯誤訊息。</param>
 		public static void Contains(string value, IEnumerable<string> items, string errorMessage)
 		{
 			if (value == null) { return; }
@@ -498,6 +695,9 @@ namespace Orion.Api
 			throwException(errorMessage, value, items);
 		}
 		/// <summary>檢查是否在清單中</summary>
+		/// <param name="value">欄位值。</param>
+		/// <param name="items">要檢查的項目。</param>
+		/// <param name="errorMessage">驗證失敗時拋出的錯誤訊息。</param>
 		public static void Contains<T>(T value, IEnumerable<T> items, string errorMessage)
 		{
 			if (value == null) { return; }
@@ -509,6 +709,9 @@ namespace Orion.Api
 
 
 		/// <summary>檢查是否符合 Pattern</summary>
+		/// <param name="value">欄位值。</param>
+		/// <param name="pattern">正規表達式模式。</param>
+		/// <param name="errorMessage">驗證失敗時拋出的錯誤訊息。</param>
 		public static void Pattern(string value, string pattern, string errorMessage)
 		{
 			if (value == null) { return; }
@@ -535,6 +738,10 @@ namespace Orion.Api
 
 
 		/// <summary>檢查是否符合狀態轉換規則</summary>
+		/// <param name="fromStatus">起始狀態。</param>
+		/// <param name="toStatus">目標狀態。</param>
+		/// <param name="rule">狀態轉換規則字典。</param>
+		/// <param name="errorMessage">驗證失敗時拋出的錯誤訊息。</param>
 		public static void StatusRule<T, Allow>(T fromStatus, T toStatus, IDictionary<T, Allow> rule, string errorMessage) where Allow : IEnumerable<T>
 		{
 			var allow = Enumerable.Empty<T>();
@@ -554,22 +761,30 @@ namespace Orion.Api
 		/*===============================================================*/
 
 		/// <summary>是否在清單中</summary>
+		/// <param name="value">欄位值。</param>
+		/// <param name="args">要檢查的項目清單。</param>
 		public static bool IsIn<T>(this T value, params T[] args)
 		{
 			return args.Contains(value);
 		}
 		/// <summary>是否在清單中</summary>
+		/// <param name="value">欄位值。</param>
+		/// <param name="args">要檢查的項目清單。</param>
 		public static bool IsIn<T>(this T value, IEnumerable<T> args)
 		{
 			return args.Contains(value);
 		}
 
 		/// <summary>是否不在清單中</summary>
+		/// <param name="value">欄位值。</param>
+		/// <param name="args">要檢查的項目清單。</param>
 		public static bool NotIn<T>(this T value, params T[] args)
 		{
 			return !args.Contains(value);
 		}
 		/// <summary>是否不在清單中</summary>
+		/// <param name="value">欄位值。</param>
+		/// <param name="args">要檢查的項目清單。</param>
 		public static bool NotIn<T>(this T value, IEnumerable<T> args)
 		{
 			return !args.Contains(value);
@@ -578,3 +793,6 @@ namespace Orion.Api
 
 	}
 }
+
+
+

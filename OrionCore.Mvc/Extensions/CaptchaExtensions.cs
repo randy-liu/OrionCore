@@ -13,7 +13,7 @@ using Orion.Api.Extensions;
 namespace Orion.Mvc.Extensions
 {
 
-    /// <summary></summary>
+    /// <summary>提供驗證碼產生與驗證的擴充方法。</summary>
     public static class CaptchaExtensions
     {
         private static Random _random = new Random();
@@ -23,7 +23,8 @@ namespace Orion.Mvc.Extensions
  
 
 
-        /// <summary>載入字型檔</summary>
+        /// <summary>載入驗證碼字型。</summary>
+        /// <returns>字型載入成功時回傳 `FontFamily`，否則回傳 `null`。</returns>
         private static FontFamily ensureFontFamily()
         {
             if (_fontFamily != null) { return _fontFamily; }
@@ -47,6 +48,9 @@ namespace Orion.Mvc.Extensions
             }
         }
 
+        /// <summary>依指定長度產生隨機驗證碼字串。</summary>
+        /// <param name="length">驗證碼長度。</param>
+        /// <returns>由 `_baseChars` 組成的隨機字串。</returns>
         private static string randomCode(int length)
         {
             string code = Enumerable.Range(0, length)
@@ -61,7 +65,10 @@ namespace Orion.Mvc.Extensions
 
         /*========================================================*/
 
-        /// <summary></summary>
+        /// <summary>驗證 Controller 中輸入的驗證碼是否正確。</summary>
+        /// <param name="controller">目前 Controller。</param>
+        /// <param name="code">使用者輸入驗證碼。</param>
+        /// <returns>驗證成功時回傳 `true`。</returns>
         public static bool IsCaptchaValid(this Controller controller, string code)
         {
             if (code.NoText()) { return false; }
@@ -70,7 +77,11 @@ namespace Orion.Mvc.Extensions
             return code.Equals(store, StringComparison.OrdinalIgnoreCase);
         }
 
-        /// <summary></summary>
+        /// <summary>產生 Controller 可回傳的驗證碼 PNG 圖片結果。</summary>
+        /// <param name="controller">目前 Controller。</param>
+        /// <param name="length">驗證碼長度。</param>
+        /// <param name="colorName">字型顏色（HTML 色碼或名稱）。</param>
+        /// <returns>PNG 影像串流結果。</returns>
         public static FileStreamResult CaptchaResult(this Controller controller, int length, string colorName)
         {
             string code = randomCode(length); 
@@ -85,7 +96,10 @@ namespace Orion.Mvc.Extensions
 
         /*========================================================*/
 
-        /// <summary></summary>
+        /// <summary>驗證 Razor Page 中輸入的驗證碼是否正確。</summary>
+        /// <param name="page">目前 PageModel。</param>
+        /// <param name="code">使用者輸入驗證碼。</param>
+        /// <returns>驗證成功時回傳 `true`。</returns>
         public static bool IsCaptchaValid(this PageModel page, string code)
         {
             if (code.NoText()) { return false; }
@@ -94,7 +108,11 @@ namespace Orion.Mvc.Extensions
             return code.Equals(store, StringComparison.OrdinalIgnoreCase);
         }
 
-        /// <summary></summary>
+        /// <summary>產生 Razor Page 可回傳的驗證碼 PNG 圖片結果。</summary>
+        /// <param name="page">目前 PageModel。</param>
+        /// <param name="length">驗證碼長度。</param>
+        /// <param name="colorName">字型顏色（HTML 色碼或名稱）。</param>
+        /// <returns>PNG 影像串流結果。</returns>
         public static FileStreamResult CaptchaResult(this PageModel page, int length, string colorName)
         {
             string code = randomCode(length); 
@@ -110,7 +128,10 @@ namespace Orion.Mvc.Extensions
 
         /*========================================================*/
 
-        /// <summary></summary>
+        /// <summary>建立驗證碼 PNG 圖檔串流。</summary>
+        /// <param name="code">要繪製的驗證碼文字。</param>
+        /// <param name="fontColor">字型顏色（HTML 色碼或名稱）。</param>
+        /// <returns>包含 PNG 內容的可讀取串流。</returns>
         public static Stream CreateCaptchaPng(string code, string fontColor)
         {
             Color color = ColorTranslator.FromHtml(fontColor);

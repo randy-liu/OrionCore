@@ -10,7 +10,10 @@ namespace Orion.Api.Extensions
     public static class DateTimeSectionExtensions
     {
 
-        /// <summary>取得重疊日期時間區段</summary>
+        /// <summary>計算兩個日期時間區段的重疊區間。</summary>
+        /// <param name="sectionA">第一個要比較的日期時間區段。</param>
+        /// <param name="sectionB">要比較的另一個日期時間區段。</param>
+        /// <returns>由最大起點與最小終點組成的重疊區段。</returns>
         public static DateTimeSection Overlap(this DateTimeSection sectionA, DateTimeSection sectionB)
         {
             return new DateTimeSection
@@ -22,7 +25,9 @@ namespace Orion.Api.Extensions
 
 
 
-        /// <summary>將日期時間區段清單反轉成空缺區段</summary>
+        /// <summary>將已占用區段轉為其間的空缺區段序列。</summary>
+        /// <param name="source">已占用的日期時間區段集合。</param>
+        /// <returns>由 `DateTimeOffset.MinValue` 到 `MaxValue` 的空缺區段序列。</returns>
         public static IEnumerable<DateTimeSection> InvertSection(this IEnumerable<DateTimeSection> source)
         {
             source = source.Where(x => x != null).OrderBy(x => x.Start);
@@ -42,7 +47,10 @@ namespace Orion.Api.Extensions
 
 
 
-        /// <summary>取得日期時間區段清單的交集</summary>
+        /// <summary>計算兩組日期時間區段的交集。</summary>
+        /// <param name="source">第一組要計算交集的日期時間區段集合。</param>
+        /// <param name="target">第二組要計算交集的日期時間區段集合。</param>
+        /// <returns>兩組區段重疊後的區段序列。</returns>
         public static IEnumerable<DateTimeSection> IntersectSection(this IEnumerable<DateTimeSection> source, IEnumerable<DateTimeSection> target)
         {
             source = source.Where(x => x != null && x.Start < x.End).OrderBy(x => x.End);
@@ -67,7 +75,10 @@ namespace Orion.Api.Extensions
 
 
 
-        /// <summary>取得日期時間區段清單的聯集</summary>
+        /// <summary>合併兩組日期時間區段並串接重疊部分。</summary>
+        /// <param name="source">第一組要合併的日期時間區段集合。</param>
+        /// <param name="target">第二組要合併的日期時間區段集合。</param>
+        /// <returns>依開始時間排序且已合併重疊的區段序列。</returns>
         public static IEnumerable<DateTimeSection> UnionSection(this IEnumerable<DateTimeSection> source, IEnumerable<DateTimeSection> target)
         {
             source = source.Concat(target).Where(x => x != null).OrderBy(x => x.Start);
@@ -95,7 +106,10 @@ namespace Orion.Api.Extensions
 
 
 
-        /// <summary>取得日期時間區段清單的差集</summary>
+        /// <summary>計算第一組區段扣除第二組區段後的差集。</summary>
+        /// <param name="first">被扣除的來源日期時間區段集合。</param>
+        /// <param name="second">要從 `first` 排除的日期時間區段集合。</param>
+        /// <returns>扣除後剩餘的區段序列。</returns>
         public static IEnumerable<DateTimeSection> ExceptSection(this IEnumerable<DateTimeSection> first, IEnumerable<DateTimeSection> second)
         {
             return first.IntersectSection(second.InvertSection());
@@ -103,7 +117,9 @@ namespace Orion.Api.Extensions
 
 
 
-        /// <summary>統計日期時間區段長度</summary>
+        /// <summary>加總日期時間區段集合的持續時間。</summary>
+        /// <param name="source">要加總持續時間的日期時間區段集合。</param>
+        /// <returns>所有區段持續時間的總和。</returns>
         public static TimeSpan SumDuration(this IEnumerable<DateTimeSection> source)
         {
             if (!source.Any()) { return TimeSpan.Zero; }
@@ -113,6 +129,7 @@ namespace Orion.Api.Extensions
 
 
         /// <summary>檢查日期時間區段是否重疊</summary>
+        /// <param name="source">要檢查是否互相重疊的日期時間區段集合。</param>
         public static void CheckOverlap(this IEnumerable<DateTimeSection> source)
         {
             source = source.Where(x => x != null).OrderBy(x => x.Start);
@@ -132,7 +149,9 @@ namespace Orion.Api.Extensions
 
 
 
-        /// <summary>連接日期時間區段的重疊</summary>
+        /// <summary>將同一集合中互相重疊的區段合併為不重疊序列。</summary>
+        /// <param name="source">要合併重疊區段的日期時間區段集合。</param>
+        /// <returns>合併後的區段序列。</returns>
         public static IEnumerable<DateTimeSection> JoinOverlap(this IEnumerable<DateTimeSection> source)
         {
             source = source.Where(x => x != null).OrderBy(x => x.Start).ThenByDescending(x => x.End);

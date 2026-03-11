@@ -12,18 +12,19 @@ using Orion.Api.Models;
 namespace Orion.Mvc.Html
 {
 
-	/// <summary></summary>
+	/// <summary>分頁與欄位排序 HtmlHelper 擴充方法。</summary>
 	public static class PaginationExtensions
 	{
-		/// <summary></summary>
+		/// <summary>分頁頁碼參數名稱。</summary>
 		public static string IndexParam { get; set; } = "pageIndex";
-		/// <summary></summary>
+		/// <summary>排序欄位參數名稱。</summary>
 		public static string SortParam { get; set; } = "orderField";
 
 
 		/// <summary>換頁的頁面連結列</summary>
 		/// <param name="helper">The HTML Helper</param>
 		/// <param name="pagination">The datasource</param>
+		/// <returns>產生的 HTML 內容。</returns>
 		public static IHtmlContent PagerLinks(this IHtmlHelper helper, IPagination pagination)
 		{
 			/*資料為空*/
@@ -168,12 +169,19 @@ namespace Orion.Mvc.Html
 
 
 
-		/// <summary></summary>
+		/// <summary>依模型屬性產生可切換排序方向的連結。</summary>
+		/// <param name="helper">型別化 HTML Helper。</param>
+		/// <param name="expression">排序欄位屬性運算式。</param>
+		/// <returns>產生的 HTML 內容。</returns>
 		public static IHtmlContent PagerSortFor<TModel, TProp>(this IHtmlHelper<TModel> helper, Expression<Func<TModel, TProp>> expression)
 		{
 			return PagerSortFor(helper, expression, null);
 		}
-		/// <summary></summary>
+		/// <summary>依模型屬性與顯示名稱產生可切換排序方向的連結。</summary>
+		/// <param name="helper">型別化 HTML Helper。</param>
+		/// <param name="expression">排序欄位屬性運算式。</param>
+		/// <param name="name">顯示名稱。</param>
+		/// <returns>產生的 HTML 內容。</returns>
 		public static IHtmlContent PagerSortFor<TModel, TProp>(this IHtmlHelper<TModel> helper, Expression<Func<TModel, TProp>> expression, string name)
 		{
 			PropertyInfo prop = expression.GetProperty();
@@ -185,7 +193,11 @@ namespace Orion.Mvc.Html
 
 
 
-		/// <summary></summary>
+		/// <summary>依欄位名稱與標題產生排序連結。</summary>
+		/// <param name="helper">HTML Helper。</param>
+		/// <param name="column">排序欄位名稱。</param>
+		/// <param name="name">顯示名稱。</param>
+		/// <returns>產生的 HTML 內容。</returns>
 		public static IHtmlContent PagerSort(this IHtmlHelper helper, string column, string name)
 		{
 			string queryString = helper.ViewContext.HttpContext.Request.QueryString.Value;
@@ -220,19 +232,25 @@ namespace Orion.Mvc.Html
 
 		/*==========================================================================*/
 
-		/// <summary></summary>
+		/// <summary>建立 `PagerSortFor`（單參數）委派。</summary>
+		/// <param name="helper">型別化 HTML Helper。</param>
+		/// <returns>可呼叫的排序委派。</returns>
 		public static Func<Expression<Func<TModel, object>>, IHtmlContent> BuildPagerSortFor1<TModel>(this IHtmlHelper<TModel> helper)
 		{
 			return (expr) => PagerSortFor(helper, expr);
 		}
 
-		/// <summary></summary>
+		/// <summary>建立 `PagerSortFor`（含名稱）委派。</summary>
+		/// <param name="helper">型別化 HTML Helper。</param>
+		/// <returns>可呼叫的排序委派。</returns>
 		public static Func<Expression<Func<TModel, object>>, string, IHtmlContent> BuildPagerSortFor2<TModel>(this IHtmlHelper<TModel> helper)
 		{
 			return (expr, name) => PagerSortFor(helper, expr, name);
 		}
 
-		/// <summary></summary>
+		/// <summary>建立顯示屬性名稱的委派。</summary>
+		/// <param name="helper">型別化 HTML Helper。</param>
+		/// <returns>可呼叫的顯示名稱委派。</returns>
 		public static Func<Expression<Func<TModel, object>>, IHtmlContent> BuildDisplayNameFor1<TModel>(this IHtmlHelper<TModel> helper)
 		{
 			return (expr) => 

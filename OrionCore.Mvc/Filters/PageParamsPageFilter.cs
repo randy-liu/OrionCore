@@ -14,7 +14,9 @@ namespace Orion.Mvc.Filters
 		private readonly string _sizeParam;
 		private readonly int _defaultSize;
 
-		/// <summary></summary>
+		/// <summary>建立 Razor Page 分頁參數預設值過濾器。</summary>
+		/// <param name="sizeParam">頁面大小對應的 Query/Cookie 參數名稱。</param>
+		/// <param name="defaultSize">預設頁面大小。</param>
 		public PageParamsPageFilter(string sizeParam, int defaultSize)
 		{
 			_sizeParam = sizeParam;
@@ -22,7 +24,8 @@ namespace Orion.Mvc.Filters
 		}
 
 
-		/// <summary></summary>
+		/// <summary>在 Page Handler 執行前套用 `PageParams.PageSize` 預設值並同步 Cookie。</summary>
+		/// <param name="context">目前 Page Handler 執行內容。</param>
 		public override void OnPageHandlerExecuting(PageHandlerExecutingContext context)
 		{
 			PageParams pageParams = context.HandlerArguments.Values.OfType<PageParams>().FirstOrDefault();

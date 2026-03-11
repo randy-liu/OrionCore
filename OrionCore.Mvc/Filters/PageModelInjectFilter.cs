@@ -9,14 +9,16 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Orion.Mvc.Filters
 {
-    /// <summary></summary>
+    /// <summary>為 Razor PageModel 屬性（`[Inject]`）進行依賴注入的過濾器。</summary>
     public class PageModelInjectFilter : AbstractPageFilter
     {
         /// <summary>注入器的快取</summary>
         private readonly ConcurrentDictionary<Type, Action<PageModel, IServiceProvider>> _injecterCache = new ConcurrentDictionary<Type, Action<PageModel, IServiceProvider>>();
 
 
-        /// <summary>建構注入器</summary>
+        /// <summary>為指定 PageModel 型別建立屬性注入委派。</summary>
+        /// <param name="type">要建立注入規則的 PageModel 型別。</param>
+        /// <returns>可對 PageModel 執行 `[Inject]` 屬性注入的委派。</returns>
         private Action<PageModel, IServiceProvider> buildInjecter(Type type) 
         {
             Action<PageModel, IServiceProvider> action = (page, provider) => { };
@@ -43,7 +45,8 @@ namespace Orion.Mvc.Filters
         }
 
 
-        /// <summary>在選取處理常式方法之後，但在進行模型系結之前呼叫。</summary>
+        /// <summary>在選取處理常式方法之後、模型繫結之前，對 PageModel 執行屬性注入。</summary>
+        /// <param name="context">Page Handler 選取內容。</param>
         public override void OnPageHandlerSelected(PageHandlerSelectedContext context)
         {
             var page = context.HandlerInstance as PageModel;

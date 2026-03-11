@@ -13,7 +13,12 @@ namespace Orion.Api.Extensions
         public static int DefaultPageSize { get; set; } = 20;
 
 
-        /// <summary>取得換頁泛型物件</summary>
+        /// <summary>將列舉集合轉為分頁物件。</summary>
+        /// <typeparam name="T">元素型別。</typeparam>
+        /// <param name="source">要分頁的來源集合。</param>
+		/// <param name="pageNumber">要求的頁碼；小於 1 會自動調整為 1。</param>
+		/// <param name="pageSize">每頁筆數；`-1` 表示回傳全部資料，`0` 或負值（不含 `-1`）會改用 `DefaultPageSize`。</param>
+        /// <returns>計算後的分頁結果。</returns>
         public static Pagination<T> AsPagination<T>(this IEnumerable<T> source, int pageNumber, int pageSize)
         {
             IQueryable<T> query = source.AsQueryable();
@@ -21,7 +26,12 @@ namespace Orion.Api.Extensions
         }
 
 
-        /// <summary>取得換頁泛型物件</summary>
+        /// <summary>將查詢物件轉為分頁結果。</summary>
+        /// <typeparam name="T">元素型別。</typeparam>
+		/// <param name="query">要分頁的來源查詢。</param>
+		/// <param name="pageNumber">要求的頁碼；小於 1 會自動調整為 1，超過總頁數會調整為最後一頁。</param>
+		/// <param name="pageSize">每頁筆數；`-1` 表示回傳全部資料，`0` 或負值（不含 `-1`）會改用 `DefaultPageSize`。</param>
+        /// <returns>計算後的分頁結果。</returns>
         public static Pagination<T> AsPagination<T>(this IQueryable<T> query, int pageNumber, int pageSize)
         {
             var result = new Pagination<T>
@@ -56,7 +66,12 @@ namespace Orion.Api.Extensions
 
 
 
-        /// <summary>將 Pagination 的 List Member Projection 後，再次傳回 Pagination</summary>
+        /// <summary>將分頁內容投影為另一種型別並保留分頁資訊。</summary>
+        /// <typeparam name="TSource">來源項目型別。</typeparam>
+        /// <typeparam name="TResult">目標項目型別。</typeparam>
+		/// <param name="src">要進行投影的來源分頁物件。</param>
+		/// <param name="selector">將來源項目轉換為目標型別的函式。</param>
+        /// <returns>投影後的分頁結果。</returns>
         public static Pagination<TResult> As<TSource, TResult>(this Pagination<TSource> src, Func<TSource, TResult> selector)
         {
             var pagination = new Pagination<TResult>

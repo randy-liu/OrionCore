@@ -1,9 +1,9 @@
-﻿using System;
+using System;
 using System.Reflection;
 
 namespace Orion.Api
 {
-    /// <summary></summary>
+    /// <summary>記錄通知監聽方法的執行統計資訊。</summary>
     public class NotifiMonitor
     {
         /// <summary>執行對象</summary>
@@ -50,7 +50,9 @@ namespace Orion.Api
 
         private readonly object _lockFlag = new object();
 
-        /// <summary></summary>
+        /// <summary>建立通知監控資訊。</summary>
+        /// <param name="handle">監聽方法所在物件實例。</param>
+        /// <param name="method">要調用的方法。</param>
         public NotifiMonitor(object handle, MethodInfo method)
         {
             Handle = handle;
@@ -59,7 +61,9 @@ namespace Orion.Api
         }
 
 
-        /// <summary></summary>
+        /// <summary>新增一次執行紀錄並更新統計結果。</summary>
+        /// <param name="beginTime">本次執行開始時間。</param>
+        /// <param name="endTime">本次執行結束時間。</param>
         public void Add(DateTime beginTime, DateTime endTime)
         {
             double duration = (endTime - beginTime).TotalSeconds;
@@ -90,3 +94,4 @@ namespace Orion.Api
 
     }
 }
+

@@ -12,7 +12,7 @@ using Orion.Mvc.Attributes;
 
 namespace Orion.Mvc.Filters
 {
-    /// <summary></summary>
+    /// <summary>在 Razor Page Handler 中記錄與還原查詢字串參數的過濾器。</summary>
     public class SearchRememberPageFilter : AbstractPageFilter
     {
         private readonly ConcurrentDictionary<MethodInfo, SearchRememberAttribute> _cache = new ConcurrentDictionary<MethodInfo, SearchRememberAttribute>();
@@ -20,14 +20,16 @@ namespace Orion.Mvc.Filters
         private readonly string _storeName = "sr";
         private readonly string[] _skipKey;
 
-        /// <summary></summary>
+        /// <summary>建立 Razor Page 查詢參數記憶過濾器。</summary>
+        /// <param name="skipKey">不寫入 Cookie 的參數名稱清單。</param>
         public SearchRememberPageFilter(string[] skipKey)
         {
             _skipKey = skipKey;
         }
 
 
-        /// <summary></summary>
+        /// <summary>於 Handler 執行前依屬性設定保存查詢參數，或在無參數時從 Cookie 還原並重導向。</summary>
+        /// <param name="context">目前 Page Handler 執行內容。</param>
         public override void OnPageHandlerExecuting(PageHandlerExecutingContext context)
         {
             if (context.HandlerMethod == null) { return; }

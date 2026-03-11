@@ -22,7 +22,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>D:\Jax-Work\Dropbox\NugetProject\OrionCore\OrionCore.Mvc\OrionCore.Mvc.xml</DocumentationFile>
+    <DocumentationFile>$(MSBuildProjectDirectory)\OrionCore.Mvc.xml</DocumentationFile>
     <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
@@ -52,7 +52,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\OrionCore.Api\OrionCore.Api.csproj" />
+    <ProjectReference Include="..\OrionCore.API\OrionCore.API.csproj" />
   </ItemGroup>
 
   <ItemGroup>

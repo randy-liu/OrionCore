@@ -1,10 +1,10 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Orion.Api.Models
 {
-    /// <summary>日曆參數</summary>
+    /// <summary>提供單月日曆顯示與日期判斷所需的參數與工具方法。</summary>
     public class CalendarParams
     {
         private string[] _weekName = new[]
@@ -23,7 +23,7 @@ namespace Orion.Api.Models
         private DayOfWeek _weekDayLast = DayOfWeek.Saturday;
 
 
-        /// <summary></summary>
+        /// <summary>建立日曆參數並初始化當月日期區間。</summary>
         public CalendarParams()
         {
             updateStartEnd();
@@ -37,14 +37,14 @@ namespace Orion.Api.Models
         }
 
 
-        /// <summary>年</summary>
+        /// <summary>目前日曆年份；設定後會同步更新當月首尾日期。</summary>
         public int Year
         {
             get { return _year; }
             set { _year = value; updateStartEnd(); }
         }
 
-        /// <summary>月</summary>
+        /// <summary>目前日曆月份；設定後會同步更新當月首尾日期。</summary>
         public int Month
         {
             get { return _month; }
@@ -53,7 +53,7 @@ namespace Orion.Api.Models
 
 
 
-        /// <summary>每周第一天</summary>
+        /// <summary>每週第一天；設定後會自動調整對應的每週最後一天。</summary>
         public DayOfWeek WeekDayFirst
         {
             get { return _weekDayFirst; }
@@ -64,17 +64,17 @@ namespace Orion.Api.Models
             }
         }
 
-        /// <summary>每周最後一天</summary>
+        /// <summary>每週最後一天（由 <see cref="WeekDayFirst"/> 推算）。</summary>
         public DayOfWeek WeekDayLast { get { return _weekDayLast; } }
 
-        /// <summary>當月第一天</summary>
+        /// <summary>當月第一天日期。</summary>
         public DateTime FirstDate { get { return _firstDate; } }
 
-        /// <summary>當月最後一天</summary>
+        /// <summary>當月最後一天日期。</summary>
         public DateTime LastDate { get { return _lastDate; } }
 
 
-        /// <summary>補齊行事曆第一天</summary>
+        /// <summary>補齊到完整週顯示時的第一天日期。</summary>
         public DateTime PadFirstDate
         {
             get
@@ -85,7 +85,7 @@ namespace Orion.Api.Models
             }
         }
 
-        /// <summary>補齊行事曆最後一天</summary>
+        /// <summary>補齊到完整週顯示時的最後一天日期。</summary>
         public DateTime PadLastDate
         {
             get
@@ -96,14 +96,14 @@ namespace Orion.Api.Models
             }
         }
 
-        /// <summary>上個月</summary>
+        /// <summary>以上月同日（當月第一天往前一個月）表示的日期。</summary>
         public DateTime PreviousMonth { get { return _firstDate.AddMonths(-1); } }
 
-        /// <summary>下個月</summary>
+        /// <summary>以下月同日（當月第一天往後一個月）表示的日期。</summary>
         public DateTime NextMonth { get { return _firstDate.AddMonths(1); } }
 
 
-        /// <summary>以指定起始星期為基礎，產生本周星期清單</summary>
+        /// <summary>依每週起始日順序回傳星期名稱清單。</summary>
         public string[] WeekNameItems
         {
             get
@@ -114,51 +114,65 @@ namespace Orion.Api.Models
         }
 
 
-        /// <summary>取得從 (目前年份-10) 開始，往後取(目前年份 + 9)數量 的陣列</summary>
+        /// <summary>取得以目前年份為中心的連續年份清單。</summary>
+        /// <param name="count">要回傳的年份總數。</param>
+        /// <returns>從目前年份往前 <c>count / 2</c> 年開始的連續年份陣列。</returns>
         public int[] GetYearItems(int count = 20)
         {
             return Enumerable.Range(_year - (count / 2), count).ToArray();
         }
 
-        /// <summary>取得月份的陣列</summary>
+        /// <summary>取得 1 到 12 月的月份清單。</summary>
+        /// <returns>包含 1~12 的月份陣列。</returns>
         public int[] GetMonthItems()
         {
             return Enumerable.Range(1, 12).ToArray();
         }
 
-        /// <summary>是否為今天</summary>
+        /// <summary>判斷指定日期是否為系統今天日期。</summary>
+        /// <param name="date">要判斷的日期。</param>
+        /// <returns>日期等於 <see cref="DateTime.Today"/> 時回傳 <c>true</c>，否則回傳 <c>false</c>。</returns>
         public bool IsToday(DateTime date)
         {
             return date == DateTime.Today;
         }
 
-        /// <summary>是否為周末</summary>
+        /// <summary>判斷指定日期是否為週末（星期六或星期日）。</summary>
+        /// <param name="date">要判斷的日期。</param>
+        /// <returns>為星期六或星期日時回傳 <c>true</c>，否則回傳 <c>false</c>。</returns>
         public bool IsWeekend(DateTime date)
         {
             return date.DayOfWeek == DayOfWeek.Saturday || date.DayOfWeek == DayOfWeek.Sunday;
         }
 
-        /// <summary>是否於當月區間</summary>
+        /// <summary>判斷指定日期是否落在目前月份區間（含首尾日）。</summary>
+        /// <param name="date">要判斷的日期。</param>
+        /// <returns>日期介於當月第一天與最後一天之間（含邊界）時回傳 <c>true</c>，否則回傳 <c>false</c>。</returns>
         public bool IsInMonth(DateTime date)
         {
             return _firstDate <= date && date <= _lastDate;
         }
 
 
-        /// <summary>是否為每周第一天</summary>
+        /// <summary>判斷指定日期是否為設定的每週第一天。</summary>
+        /// <param name="date">要判斷的日期。</param>
+        /// <returns>星期值等於 <see cref="WeekDayFirst"/> 時回傳 <c>true</c>，否則回傳 <c>false</c>。</returns>
         public bool IsWeekDayFirst(DateTime date)
         {
             return WeekDayFirst == date.DayOfWeek;
         }
 
-        /// <summary>是否為每周最後一天</summary>
+        /// <summary>判斷指定日期是否為設定的每週最後一天。</summary>
+        /// <param name="date">要判斷的日期。</param>
+        /// <returns>星期值等於 <see cref="WeekDayLast"/> 時回傳 <c>true</c>，否則回傳 <c>false</c>。</returns>
         public bool IsWeekDayLast(DateTime date)
         {
             return WeekDayLast == date.DayOfWeek;
         }
 
 
-        /// <summary>列舉行事曆的每一天</summary>
+        /// <summary>依日期遞增列舉目前月份的每一天。</summary>
+        /// <returns>從 <see cref="FirstDate"/> 到 <see cref="LastDate"/>（含邊界）的日期序列。</returns>
         public IEnumerable<DateTime> EnumerateDates()
         {
             for (var date = FirstDate; date <= LastDate; date = date.AddDays(1))
@@ -168,7 +182,8 @@ namespace Orion.Api.Models
         }
 
 
-        /// <summary>列舉補齊行事曆的每一天</summary>
+        /// <summary>依日期遞增列舉補齊完整週後的每一天。</summary>
+        /// <returns>從 <see cref="PadFirstDate"/> 到 <see cref="PadLastDate"/>（含邊界）的日期序列。</returns>
         public IEnumerable<DateTime> EnumeratePadDates()
         {
             for (var date = PadFirstDate; date <= PadLastDate; date = date.AddDays(1))
@@ -179,3 +194,4 @@ namespace Orion.Api.Models
 
     }
 }
+

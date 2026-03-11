@@ -16,12 +16,17 @@ namespace Orion.Api.Extensions
         {
             public List<TFind> List { get; private set; }
 
+            /// <summary>建立搜尋造訪者並立即掃描運算式樹。</summary>
+            /// <param name="expr">要搜尋的運算式樹根節點。</param>
             public ExpressionFinder(Expression expr)
             {
                 List = new List<TFind>();
                 Visit(expr);
             }
 
+            /// <summary>造訪運算式節點並收集符合型別的節點。</summary>
+            /// <param name="expr">目前要造訪的運算式節點。</param>
+            /// <returns>造訪後的運算式節點。</returns>
             public override Expression Visit(Expression expr)
             {
                 var target = expr as TFind;
@@ -32,7 +37,10 @@ namespace Orion.Api.Extensions
         }
 
 
-        /// <summary>尋找 Lambda Expression tree 中指定類型</summary>
+        /// <summary>在運算式樹中找出指定型別的節點。</summary>
+        /// <typeparam name="T">要搜尋的節點型別。</typeparam>
+        /// <param name="expr">要搜尋的運算式樹。</param>
+        /// <returns>符合型別的節點清單。</returns>
         public static List<T> FindByType<T>(this Expression expr) where T : Expression
         {
             var finder = new ExpressionFinder<T>(expr);
@@ -42,7 +50,9 @@ namespace Orion.Api.Extensions
 
 
 
-        /// <summary>尋找 Lambda Expression tree 中的 MemberInfo</summary>
+        /// <summary>從 Lambda 運算式中取得第一個對應參數型別的成員資訊。</summary>
+        /// <param name="expr">要分析的 Lambda 運算式。</param>
+        /// <returns>成員資訊；找不到時回傳 `null`。</returns>
         public static MemberInfo GetMember(this LambdaExpression expr)
         {
             var paramType = expr.Parameters[0].Type;
@@ -54,7 +64,9 @@ namespace Orion.Api.Extensions
         }
 
 
-        /// <summary>尋找 Lambda Expression tree 中的 PropertyInfo</summary>
+        /// <summary>從 Lambda 運算式中取得第一個對應參數型別的屬性資訊。</summary>
+        /// <param name="expr">要分析的 Lambda 運算式。</param>
+        /// <returns>屬性資訊；找不到時回傳 `null`。</returns>
         public static PropertyInfo GetProperty(this LambdaExpression expr)
         {
             var paramType = expr.Parameters[0].Type;
@@ -90,12 +102,18 @@ namespace Orion.Api.Extensions
             private readonly Expression _oldExpr;
             private readonly Expression _newExpr;
 
+            /// <summary>建立節點替換造訪者。</summary>
+            /// <param name="oldExpr">要被替換的節點。</param>
+            /// <param name="newExpr">用來取代的節點。</param>
             public ExpressionReplacer(Expression oldExpr, Expression newExpr)
             {
                 _oldExpr = oldExpr;
                 _newExpr = newExpr;
             }
 
+            /// <summary>造訪運算式並替換目標節點。</summary>
+            /// <param name="expr">目前要造訪的節點。</param>
+            /// <returns>替換後的節點。</returns>
             public override Expression Visit(Expression expr)
             {
                 if (expr == _oldExpr) { expr = _newExpr; }
@@ -105,7 +123,11 @@ namespace Orion.Api.Extensions
 
 
 
-        /// <summary>Expression 節點替換</summary>
+        /// <summary>以新節點取代運算式樹中的指定節點。</summary>
+        /// <param name="source">要進行替換的來源運算式樹。</param>
+        /// <param name="oldExpr">要被替換的來源運算式節點。</param>
+        /// <param name="newExpr">替換後的新運算式節點。</param>
+        /// <returns>替換後的運算式樹。</returns>
         public static Expression Replace(this Expression source, Expression oldExpr, Expression newExpr)
         {
             var replacer = new ExpressionReplacer(oldExpr, newExpr);
@@ -115,7 +137,11 @@ namespace Orion.Api.Extensions
 
 
 
-        /// <summary></summary>
+		/// <summary>將兩個條件以 `AndAlso` 串接為新條件。</summary>
+		/// <typeparam name="T">目標型別。</typeparam>
+		/// <param name="first">第一個布林條件運算式（也作為參數基準）。</param>
+		/// <param name="second">要串接的第二個布林條件運算式。</param>
+		/// <returns>串接後條件。</returns>
         public static Expression<Func<T, bool>> And<T>(this Expression<Func<T, bool>> first, Expression<Func<T, bool>> second)
         {
             /* 替換參數 */
@@ -127,7 +153,11 @@ namespace Orion.Api.Extensions
 
 
 
-        /// <summary>Expression Or 串接</summary>
+        /// <summary>將兩個條件以 `OrElse` 串接為新條件。</summary>
+        /// <typeparam name="T">目標型別。</typeparam>
+        /// <param name="first">第一個布林條件運算式（也作為參數基準）。</param>
+        /// <param name="second">要串接的第二個條件。</param>
+        /// <returns>串接後條件。</returns>
         public static Expression<Func<T, bool>> Or<T>(this Expression<Func<T, bool>> first, Expression<Func<T, bool>> second)
         {
             /* 替換參數 */

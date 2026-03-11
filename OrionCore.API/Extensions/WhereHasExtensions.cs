@@ -24,14 +24,22 @@ namespace Orion.Api.Extensions
 
 
 
-        /// <summary>判斷是否有值後進行 where 篩選</summary>
+        /// <summary>若條件運算式中的外部值有效，才套用 `Where` 篩選。</summary>
+        /// <typeparam name="TSource">來源元素型別。</typeparam>
+        /// <param name="source">來源資料。</param>
+        /// <param name="predicate">篩選條件。</param>
+        /// <returns>條件有效時回傳篩選結果，否則回傳原序列。</returns>
         public static IEnumerable<TSource> WhereHas<TSource>(this IEnumerable<TSource> source, Expression<Func<TSource, bool>> predicate)
         {
             if (!hasQueryValue(predicate)) { return source; }
             return source.Where(predicate.Compile());
         }
 
-        /// <summary>判斷是否有值後進行 where 篩選</summary>
+        /// <summary>若條件運算式中的外部值有效，才套用含索引的 `Where` 篩選。</summary>
+        /// <typeparam name="TSource">來源元素型別。</typeparam>
+        /// <param name="source">來源資料。</param>
+        /// <param name="predicate">篩選條件。</param>
+        /// <returns>條件有效時回傳篩選結果，否則回傳原序列。</returns>
         public static IEnumerable<TSource> WhereHas<TSource>(this IEnumerable<TSource> source, Expression<Func<TSource, int, bool>> predicate)
         {
             if (!hasQueryValue(predicate)) { return source; }
@@ -40,14 +48,22 @@ namespace Orion.Api.Extensions
 
 
 
-        /// <summary>判斷是否有值後進行 where 篩選</summary>
+        /// <summary>若條件運算式中的外部值有效，才套用查詢式 `Where` 篩選。</summary>
+        /// <typeparam name="TSource">來源元素型別。</typeparam>
+        /// <param name="source">來源資料。</param>
+        /// <param name="predicate">篩選條件。</param>
+        /// <returns>條件有效時回傳篩選查詢，否則回傳原查詢。</returns>
         public static IQueryable<TSource> WhereHas<TSource>(this IQueryable<TSource> source, Expression<Func<TSource, bool>> predicate)
         {
             if (!hasQueryValue(predicate)) { return source; }
             return source.Where(predicate);
         }
 
-        /// <summary>判斷是否有值後進行 where 篩選</summary>
+        /// <summary>若條件運算式中的外部值有效，才套用含索引的查詢式 `Where` 篩選。</summary>
+        /// <typeparam name="TSource">來源元素型別。</typeparam>
+        /// <param name="source">來源資料。</param>
+        /// <param name="predicate">篩選條件。</param>
+        /// <returns>條件有效時回傳篩選查詢，否則回傳原查詢。</returns>
         public static IQueryable<TSource> WhereHas<TSource>(this IQueryable<TSource> source, Expression<Func<TSource, int, bool>> predicate)
         {
             if (!hasQueryValue(predicate)) { return source; }

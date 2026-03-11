@@ -17,7 +17,9 @@ namespace Orion.Api
 		private readonly WhereParams _param;
 
 
-		/// <summary></summary>
+		/// <summary>建立 `WhereCommandBuilder`。</summary>
+		/// <param name="command">要附加查詢條件的資料庫命令。</param>
+		/// <param name="param">Where 條件參數。</param>
 		public WhereCommandBuilder(DbCommand command, WhereParams param)
 		{
 			_command = command;
@@ -67,7 +69,10 @@ namespace Orion.Api
 		/*=====================================================================*/
 
 
-		/// <summary>綁定查詢欄位</summary>
+		/// <summary>依查詢參數設定將條件附加到命令文字與參數集合。</summary>
+		/// <param name="paramColumn">Where 參數中的欄位名稱。</param>
+		/// <param name="sqlColumn">資料庫欄位名稱；未指定時使用 <paramref name="paramColumn"/>。</param>
+		/// <returns>目前建構器實例，供串接呼叫。</returns>
 		public WhereCommandBuilder Bind(string paramColumn, string sqlColumn = null)
 		{
 			if (paramColumn == null) { return this; }

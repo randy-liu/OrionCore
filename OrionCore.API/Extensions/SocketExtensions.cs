@@ -5,11 +5,14 @@ using System.Security.Cryptography;
 namespace Orion.Api.Extensions
 {
 
-    /// <summary></summary>
+    /// <summary>Socket 加解密傳輸擴充方法。</summary>
     public static class SocketExtensions
     {
 
-        /// <summary></summary>
+        /// <summary>將資料加密後透過 Socket 傳送。</summary>
+        /// <param name="socket">目標 Socket。</param>
+        /// <param name="algorithm">對稱式加密演算法。</param>
+        /// <param name="data">要傳送的原始資料。</param>
         public static void SendEncrypt(this Socket socket, SymmetricAlgorithm algorithm, byte[] data)
         {
             using (var memoryStream = new MemoryStream())
@@ -23,7 +26,10 @@ namespace Orion.Api.Extensions
         }
 
 
-        /// <summary></summary>
+        /// <summary>從 Socket 接收資料並解密。</summary>
+        /// <param name="socket">來源 Socket。</param>
+        /// <param name="algorithm">對稱式加密演算法。</param>
+        /// <returns>解密後位元組陣列。</returns>
         public static byte[] ReceiveDecrypt(this Socket socket, SymmetricAlgorithm algorithm)
         {
             var buffer = new byte[4096];

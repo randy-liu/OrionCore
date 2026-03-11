@@ -5,14 +5,16 @@ using System.Reflection;
 
 namespace Orion.Api.Extensions
 {
-    /// <summary></summary>
+    /// <summary>取得型別與方法宣告名稱的擴充方法。</summary>
     public static class DeclareExtensions
     {
         private static readonly ConcurrentDictionary<Type, string> _typeCache = new ConcurrentDictionary<Type, string>();
         private static readonly ConcurrentDictionary<MethodInfo, string> _methodCache = new ConcurrentDictionary<MethodInfo, string>();
 
 
-        /// <summary>取得類型的宣告名稱</summary>
+        /// <summary>取得型別宣告名稱，泛型型別會包含型別參數名稱。</summary>
+        /// <param name="type">型別。</param>
+        /// <returns>型別宣告字串。</returns>
         public static string GetDeclareName(this Type type)
         {
             return _typeCache.GetOrAdd(type, _ =>
@@ -29,7 +31,9 @@ namespace Orion.Api.Extensions
         }
 
 
-        /// <summary>取得方法的宣告名稱</summary>
+        /// <summary>取得方法宣告名稱，包含參數型別清單。</summary>
+        /// <param name="method">方法資訊。</param>
+        /// <returns>方法宣告字串。</returns>
         public static string GetDeclareName(this MethodInfo method)
         {
             return _methodCache.GetOrAdd(method, _ =>

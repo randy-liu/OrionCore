@@ -7,10 +7,11 @@ using Orion.Mvc.Attributes;
 
 namespace Orion.Mvc.Filters
 {
-	/// <summary></summary>
+	/// <summary>依 `UseViewPageAttribute` 套用 View 名稱與標題的 Action 過濾器。</summary>
 	public class UseViewPageActionFilter : ActionFilterAttribute
 	{
-		/// <summary></summary>
+		/// <summary>在 Action 執行後調整 `ViewResult` 的 ViewName 與 Title。</summary>
+		/// <param name="context">目前 Action 執行結果內容。</param>
 		public override void OnActionExecuted(ActionExecutedContext context)
 		{
 			base.OnActionExecuted(context);
