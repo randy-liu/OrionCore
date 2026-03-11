@@ -4,8 +4,8 @@ OrionCore 是一套基於 ASP.NET Core 的工具函式庫，提供兩個 NuGet �
 
 | 套件 | 版本 | 說明 |
 |------|------|------|
-| [OrionCore.Api](#orioncore-api) | 1.1.2 | 通用工具、資料驗證、查詢建構、監控、擴充方法 |
-| [OrionCore.Mvc](#orioncore-mvc) | 1.0.10 | ASP.NET Core MVC / Razor Pages 擴充 |
+| [OrionCore.Api](#orioncoreapi) | 1.1.2 | 通用工具、資料驗證、查詢建構、監控、擴充方法 |
+| [OrionCore.Mvc](#orioncoremvc) | 1.0.10 | ASP.NET Core MVC / Razor Pages 擴充 |
 
 ---
 
@@ -23,6 +23,20 @@ dotnet add package OrionCore.Api
 
 # MVC / Razor Pages 擴充套件（包含 OrionCore.Api）
 dotnet add package OrionCore.Mvc
+```
+
+---
+
+## 開發與測試
+
+```bash
+# 建置 OrionCore.Mvc（跨平台環境建議使用）
+# 從專案根目錄的上一層（包含 OrionCore 資料夾）執行：
+bash OrionCore/build-mvc.sh
+
+# 執行測試
+dotnet test OrionCore/OrionCore.API.Tests/OrionCore.API.Tests.csproj
+dotnet test OrionCore/OrionCore.Mvc.Tests/OrionCore.Mvc.Tests.csproj
 ```
 
 ---
