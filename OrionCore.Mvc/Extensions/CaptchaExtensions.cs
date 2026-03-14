@@ -1,14 +1,16 @@
 ﻿using System;
-using System.Drawing;
-using System.Drawing.Imaging;
-using System.Drawing.Text;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.InteropServices;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Orion.Api.Extensions;
+using SixLabors.Fonts;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Drawing.Processing;
+using SixLabors.ImageSharp.Formats.Png;
+using SixLabors.ImageSharp.PixelFormats;
+using SixLabors.ImageSharp.Processing;
 
 namespace Orion.Mvc.Extensions
 {
@@ -17,35 +19,46 @@ namespace Orion.Mvc.Extensions
     public static class CaptchaExtensions
     {
         private static Random _random = new Random();
-        private static FontFamily _fontFamily;
+        private static readonly FontCollection _fontCollection = new FontCollection();
+        private static readonly object _fontLock = new object();
+        private static FontFamily? _fontFamily;
         private static string _baseChars = "2345789ABCDEFGHJKLMNPRSTUVWXYZ";
         private static string _storeName = "CaptchaStore";
  
 
 
-        /// <summary>載入驗證碼字型。</summary>
-        /// <returns>字型載入成功時回傳 `FontFamily`，否則回傳 `null`。</returns>
+        /// <summary>從內嵌資源載入驗證碼字型。</summary>
+        /// <returns>可用於繪製驗證碼的字型家族。</returns>
+        /// <exception cref="InvalidOperationException">找不到內嵌字型資源時拋出。</exception>
         private static FontFamily ensureFontFamily()
         {
-            if (_fontFamily != null) { return _fontFamily; }
+            if (_fontFamily.HasValue) { return _fontFamily.Value; }
 
-            var assembly = Assembly.GetExecutingAssembly();
-
-            using (var pfc = new PrivateFontCollection())
-            using (Stream stream = assembly.GetManifestResourceStream("Orion.Mvc.OCR-b.ttf"))
+            lock (_fontLock)
             {
-                if (stream == null) { return null; }
+                if (_fontFamily.HasValue) { return _fontFamily.Value; }
 
-                byte[] fontData = new byte[stream.Length];
-                stream.Read(fontData, 0, fontData.Length);
+                var assembly = Assembly.GetExecutingAssembly();
+                using Stream stream = assembly.GetManifestResourceStream("Orion.Mvc.OCR-b.ttf")
+                    ?? throw new InvalidOperationException("找不到驗證碼字型資源 Orion.Mvc.OCR-b.ttf。");
 
-                IntPtr ptr = Marshal.AllocHGlobal(fontData.Length);
-                Marshal.Copy(fontData, 0, ptr, fontData.Length);
-
-                pfc.AddMemoryFont(ptr, fontData.Length);
-                _fontFamily = pfc.Families[0];
-                return _fontFamily;
+                _fontFamily = _fontCollection.Add(stream);
+                return _fontFamily.Value;
             }
+        }
+
+        /// <summary>解析驗證碼字型顏色字串。</summary>
+        /// <param name="fontColor">HTML 色碼或色彩名稱。</param>
+        /// <returns>ImageSharp 可使用的顏色物件。</returns>
+        /// <exception cref="ArgumentException">`fontColor` 無法解析為有效顏色時拋出。</exception>
+        private static Color parseCaptchaColor(string fontColor)
+        {
+            if (!Color.TryParse(fontColor, out Color color))
+            {
+                throw new ArgumentException($"無法解析驗證碼顏色：{fontColor}", nameof(fontColor));
+            }
+
+            return color;
         }
 
         /// <summary>依指定長度產生隨機驗證碼字串。</summary>
@@ -82,6 +95,8 @@ namespace Orion.Mvc.Extensions
         /// <param name="length">驗證碼長度。</param>
         /// <param name="colorName">字型顏色（HTML 色碼或名稱）。</param>
         /// <returns>PNG 影像串流結果。</returns>
+        /// <exception cref="ArgumentException">`colorName` 無法解析為有效顏色時拋出。</exception>
+        /// <exception cref="InvalidOperationException">找不到內嵌字型資源時拋出。</exception>
         public static FileStreamResult CaptchaResult(this Controller controller, int length, string colorName)
         {
             string code = randomCode(length); 
@@ -113,6 +128,8 @@ namespace Orion.Mvc.Extensions
         /// <param name="length">驗證碼長度。</param>
         /// <param name="colorName">字型顏色（HTML 色碼或名稱）。</param>
         /// <returns>PNG 影像串流結果。</returns>
+        /// <exception cref="ArgumentException">`colorName` 無法解析為有效顏色時拋出。</exception>
+        /// <exception cref="InvalidOperationException">找不到內嵌字型資源時拋出。</exception>
         public static FileStreamResult CaptchaResult(this PageModel page, int length, string colorName)
         {
             string code = randomCode(length); 
@@ -132,24 +149,28 @@ namespace Orion.Mvc.Extensions
         /// <param name="code">要繪製的驗證碼文字。</param>
         /// <param name="fontColor">字型顏色（HTML 色碼或名稱）。</param>
         /// <returns>包含 PNG 內容的可讀取串流。</returns>
+        /// <exception cref="ArgumentException">`fontColor` 無法解析為有效顏色時拋出。</exception>
+        /// <exception cref="InvalidOperationException">找不到內嵌字型資源時拋出。</exception>
         public static Stream CreateCaptchaPng(string code, string fontColor)
         {
-            Color color = ColorTranslator.FromHtml(fontColor);
+            Color color = parseCaptchaColor(fontColor);
             FontFamily fontFamily = ensureFontFamily();
+            Font font = fontFamily.CreateFont(34, FontStyle.Bold);
 
-            using var brush = new SolidBrush(color);
             int width = 30 * code.Length;
             int height = 34;
 
             var stream = new MemoryStream();
-            using var bmp = new Bitmap(width, height);
-            using var graphics = Graphics.FromImage(bmp);
-            using var font = new Font(fontFamily, height, FontStyle.Bold);
-
-            graphics.Clear(Color.White);
-            graphics.DrawString(code, font, brush, 0, -4);
-
-            bmp.Save(stream, ImageFormat.Png);
+            using var image = new Image<Rgba32>(width, height, Color.White);
+            image.Mutate(x =>
+            {
+                var options = new RichTextOptions(font)
+                {
+                    Origin = new PointF(0, -4)
+                };
+                x.DrawText(options, code, color);
+            });
+            image.SaveAsPng(stream, new PngEncoder());
             stream.Position = 0;
 
             return stream;
