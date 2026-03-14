@@ -603,6 +603,14 @@
             <param name="registry">元件登錄建構器。</param>
             <param name="registration">目前正在登錄的元件定義。</param>
         </member>
+        <member name="T:Orion.Api.Extensions.AutofacRenderingExtensions">
+            <summary>提供渲染核心的 Autofac 註冊擴充方法。</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.AutofacRenderingExtensions.RegisterOrionRenderingCore(Autofac.ContainerBuilder)">
+            <summary>註冊 Orion 渲染核心元件。</summary>
+            <param name="builder">容器建構器。</param>
+            <returns>容器建構器本體。</returns>
+        </member>
         <member name="T:Orion.Api.Extensions.CommandExtensions">
             <summary>提供 `DbCommand` 的 SQL 建構與查詢擴充方法。</summary>
         </member>
@@ -2061,28 +2069,83 @@
             <returns>投影後的分頁結果。</returns>
         </member>
         <member name="T:Orion.Api.Extensions.PrintDocumentExtensions">
-            <summary>提供 `PrintDocument` 轉圖檔相關擴充方法。</summary>
+            <summary>提供 `PrintDocument` 舊版邊界與渲染核心串接的擴充方法。</summary>
         </member>
         <member name="M:Orion.Api.Extensions.PrintDocumentExtensions.ToBitmap(System.Drawing.Printing.PrintDocument)">
-            <summary>將 `PrintDocument` 渲染為 `Bitmap`。</summary>
+            <summary>將 `PrintDocument` 以舊版路徑渲染為 `Bitmap`。</summary>
             <param name="doc">列印文件。</param>
             <returns>渲染後影像。</returns>
+            <exception cref="T:System.ArgumentNullException">`doc` 為 `null` 時拋出。</exception>
+            <exception cref="T:System.Reflection.TargetInvocationException">反射呼叫列印流程時，若內部拋出例外則包裝後拋出。</exception>
+            <exception cref="T:System.PlatformNotSupportedException">非 Windows 平台呼叫時拋出，並提供遷移指引。</exception>
         </member>
         <member name="M:Orion.Api.Extensions.PrintDocumentExtensions.ToImageStream(System.Drawing.Printing.PrintDocument,System.Drawing.Imaging.ImageFormat)">
-            <summary>將 `PrintDocument` 轉為指定格式影像串流。</summary>
+            <summary>將 `PrintDocument` 以舊版路徑轉為指定格式影像串流。</summary>
             <param name="doc">列印文件。</param>
             <param name="format">影像格式。</param>
             <returns>影像串流。</returns>
+            <exception cref="T:System.ArgumentNullException">`doc` 或 `format` 為 `null` 時拋出。</exception>
+            <exception cref="T:System.PlatformNotSupportedException">非 Windows 平台呼叫時拋出，並提供遷移指引。</exception>
         </member>
         <member name="M:Orion.Api.Extensions.PrintDocumentExtensions.ToJpegStream(System.Drawing.Printing.PrintDocument)">
-            <summary>將 `PrintDocument` 轉為 JPEG 影像串流。</summary>
+            <summary>將 `PrintDocument` 以舊版路徑轉為 JPEG 影像串流。</summary>
             <param name="doc">列印文件。</param>
             <returns>JPEG 影像串流。</returns>
+            <remarks>此方法僅支援 Windows。跨平台情境請改用渲染核心。</remarks>
+            <exception cref="T:System.ArgumentNullException">`doc` 為 `null` 時拋出。</exception>
+            <exception cref="T:System.PlatformNotSupportedException">非 Windows 平台呼叫時拋出，並提供遷移指引。</exception>
         </member>
         <member name="M:Orion.Api.Extensions.PrintDocumentExtensions.ToPngStream(System.Drawing.Printing.PrintDocument)">
-            <summary>將 `PrintDocument` 轉為 PNG 影像串流。</summary>
+            <summary>將 `PrintDocument` 以舊版路徑轉為 PNG 影像串流。</summary>
             <param name="doc">列印文件。</param>
             <returns>PNG 影像串流。</returns>
+            <remarks>此方法僅支援 Windows。跨平台情境請改用渲染核心。</remarks>
+            <exception cref="T:System.ArgumentNullException">`doc` 為 `null` 時拋出。</exception>
+            <exception cref="T:System.PlatformNotSupportedException">非 Windows 平台呼叫時拋出，並提供遷移指引。</exception>
+        </member>
+        <member name="M:Orion.Api.Extensions.PrintDocumentExtensions.ToPdfStream(Orion.Api.Rendering.Contracts.IRenderGateway,Orion.Api.Rendering.Requests.PdfRenderRequest,System.Threading.CancellationToken)">
+            <summary>透過渲染核心將 PDF 請求轉為串流。</summary>
+            <param name="renderGateway">渲染核心入口。</param>
+            <param name="request">PDF 渲染請求。</param>
+            <param name="cancellationToken">取消權杖。</param>
+            <returns>唯讀 PDF 串流。</returns>
+            <remarks>此為同步封裝，會封鎖目前執行緒直到渲染完成。</remarks>
+            <exception cref="T:System.ArgumentNullException">`renderGateway` 或 `request` 為 `null` 時拋出。</exception>
+        </member>
+        <member name="M:Orion.Api.Extensions.PrintDocumentExtensions.ToPngStream(Orion.Api.Rendering.Contracts.IRenderGateway,Orion.Api.Rendering.Requests.PngRenderRequest,System.Threading.CancellationToken)">
+            <summary>透過渲染核心將 PNG 請求轉為串流。</summary>
+            <param name="renderGateway">渲染核心入口。</param>
+            <param name="request">PNG 渲染請求。</param>
+            <param name="cancellationToken">取消權杖。</param>
+            <returns>唯讀 PNG 串流。</returns>
+            <remarks>此為同步封裝，會封鎖目前執行緒直到渲染完成。</remarks>
+            <exception cref="T:System.ArgumentNullException">`renderGateway` 或 `request` 為 `null` 時拋出。</exception>
+        </member>
+        <member name="M:Orion.Api.Extensions.PrintDocumentExtensions.ToPdfStreamAsync(Orion.Api.Rendering.Contracts.IRenderGateway,Orion.Api.Rendering.Requests.PdfRenderRequest,System.Threading.CancellationToken)">
+            <summary>透過渲染核心非同步將 PDF 請求轉為串流。</summary>
+            <param name="renderGateway">渲染核心入口。</param>
+            <param name="request">PDF 渲染請求。</param>
+            <param name="cancellationToken">取消權杖。</param>
+            <returns>唯讀 PDF 串流。</returns>
+            <exception cref="T:System.ArgumentNullException">`renderGateway` 或 `request` 為 `null` 時拋出。</exception>
+        </member>
+        <member name="M:Orion.Api.Extensions.PrintDocumentExtensions.ToPngStreamAsync(Orion.Api.Rendering.Contracts.IRenderGateway,Orion.Api.Rendering.Requests.PngRenderRequest,System.Threading.CancellationToken)">
+            <summary>透過渲染核心非同步將 PNG 請求轉為串流。</summary>
+            <param name="renderGateway">渲染核心入口。</param>
+            <param name="request">PNG 渲染請求。</param>
+            <param name="cancellationToken">取消權杖。</param>
+            <returns>唯讀 PNG 串流。</returns>
+            <exception cref="T:System.ArgumentNullException">`renderGateway` 或 `request` 為 `null` 時拋出。</exception>
+        </member>
+        <member name="M:Orion.Api.Extensions.PrintDocumentExtensions.EnsureLegacyPrintDocumentSupported">
+            <summary>確認舊版 `PrintDocument` 路徑可在目前平台執行。</summary>
+            <exception cref="T:System.PlatformNotSupportedException">目前平台非 Windows 時拋出，並提供遷移指引。</exception>
+        </member>
+        <member name="M:Orion.Api.Extensions.PrintDocumentExtensions.ToReadOnlyStream(Orion.Api.Rendering.RenderResult)">
+            <summary>將渲染結果內容包裝為唯讀記憶體串流。</summary>
+            <param name="renderResult">渲染結果。</param>
+            <returns>可從開頭讀取的唯讀記憶體串流。</returns>
+            <exception cref="T:System.ArgumentNullException">`renderResult` 為 `null` 時拋出。</exception>
         </member>
         <member name="T:Orion.Api.Extensions.QueryableExtensions">
             <summary>定義 IQueryable&lt;TSource&gt; 的 Extension</summary>
@@ -3823,6 +3886,191 @@
             <summary>將密碼字串做 SHA256 計算後轉成 Base64 字串。</summary>
             <param name="password">要加密的原始密碼。</param>
             <returns>SHA256 計算結果的 Base64 字串。</returns>
+        </member>
+        <member name="T:Orion.Api.Rendering.Contracts.IRenderer">
+            <summary>定義單一輸出格式的渲染器。</summary>
+        </member>
+        <member name="P:Orion.Api.Rendering.Contracts.IRenderer.Format">
+            <summary>取得此渲染器負責的輸出格式。</summary>
+        </member>
+        <member name="M:Orion.Api.Rendering.Contracts.IRenderer.RenderAsync(Orion.Api.Rendering.Requests.RenderRequest,System.Threading.CancellationToken)">
+            <summary>執行渲染並回傳結果。</summary>
+            <param name="request">渲染請求內容。</param>
+            <param name="cancellationToken">取消權杖。</param>
+            <returns>渲染輸出結果。</returns>
+            <exception cref="T:System.OperationCanceledException">`cancellationToken` 已取消時拋出。</exception>
+            <exception cref="T:System.ArgumentException">`request` 型別或內容不符合渲染器需求時拋出。</exception>
+        </member>
+        <member name="T:Orion.Api.Rendering.Contracts.IRenderGateway">
+            <summary>定義渲染核心入口。</summary>
+        </member>
+        <member name="M:Orion.Api.Rendering.Contracts.IRenderGateway.RenderAsync(Orion.Api.Rendering.Requests.RenderRequest,System.Threading.CancellationToken)">
+            <summary>依請求格式執行渲染流程。</summary>
+            <param name="request">渲染請求內容。</param>
+            <param name="cancellationToken">取消權杖。</param>
+            <returns>渲染輸出結果。</returns>
+            <exception cref="T:System.ArgumentNullException">`request` 為 `null` 時拋出。</exception>
+            <exception cref="T:System.NotSupportedException">查無對應格式渲染器時拋出。</exception>
+        </member>
+        <member name="M:Orion.Api.Rendering.Contracts.IRenderGateway.RenderPdfAsync(Orion.Api.Rendering.Requests.PdfRenderRequest,System.Threading.CancellationToken)">
+            <summary>執行 PDF 渲染流程。</summary>
+            <param name="request">PDF 渲染請求。</param>
+            <param name="cancellationToken">取消權杖。</param>
+            <returns>PDF 渲染輸出結果。</returns>
+            <exception cref="T:System.ArgumentNullException">`request` 為 `null` 時拋出。</exception>
+            <exception cref="T:System.NotSupportedException">未註冊 PDF 渲染器時拋出。</exception>
+        </member>
+        <member name="M:Orion.Api.Rendering.Contracts.IRenderGateway.RenderPngAsync(Orion.Api.Rendering.Requests.PngRenderRequest,System.Threading.CancellationToken)">
+            <summary>執行 PNG 渲染流程。</summary>
+            <param name="request">PNG 渲染請求。</param>
+            <param name="cancellationToken">取消權杖。</param>
+            <returns>PNG 渲染輸出結果。</returns>
+            <exception cref="T:System.ArgumentNullException">`request` 為 `null` 時拋出。</exception>
+            <exception cref="T:System.NotSupportedException">未註冊 PNG 渲染器時拋出。</exception>
+        </member>
+        <member name="T:Orion.Api.Rendering.Contracts.IRenderRequest">
+            <summary>定義渲染請求的共用欄位。</summary>
+        </member>
+        <member name="P:Orion.Api.Rendering.Contracts.IRenderRequest.Format">
+            <summary>取得目標輸出格式。</summary>
+        </member>
+        <member name="T:Orion.Api.Rendering.Renderers.ImageSharpPngRenderer">
+            <summary>以 ImageSharp 實作的 PNG 渲染器。</summary>
+        </member>
+        <member name="P:Orion.Api.Rendering.Renderers.ImageSharpPngRenderer.Format">
+            <summary>取得此渲染器負責的輸出格式。</summary>
+        </member>
+        <member name="M:Orion.Api.Rendering.Renderers.ImageSharpPngRenderer.RenderAsync(Orion.Api.Rendering.Requests.RenderRequest,System.Threading.CancellationToken)">
+            <summary>執行 PNG 渲染並輸出位元組內容。</summary>
+            <param name="request">渲染請求內容。</param>
+            <param name="cancellationToken">取消權杖。</param>
+            <returns>PNG 渲染輸出結果。</returns>
+            <exception cref="T:System.OperationCanceledException">`cancellationToken` 已取消時拋出。</exception>
+            <exception cref="T:System.ArgumentException">`request` 不是 `PngRenderRequest`，或像素資料長度與寬高不符時拋出。</exception>
+        </member>
+        <member name="T:Orion.Api.Rendering.Renderers.QuestPdfRenderer">
+            <summary>以 QuestPDF 實作的 PDF 渲染器。</summary>
+        </member>
+        <member name="P:Orion.Api.Rendering.Renderers.QuestPdfRenderer.Format">
+            <summary>取得此渲染器負責的輸出格式。</summary>
+        </member>
+        <member name="M:Orion.Api.Rendering.Renderers.QuestPdfRenderer.RenderAsync(Orion.Api.Rendering.Requests.RenderRequest,System.Threading.CancellationToken)">
+            <summary>執行 PDF 渲染並輸出位元組內容。</summary>
+            <param name="request">渲染請求內容。</param>
+            <param name="cancellationToken">取消權杖。</param>
+            <returns>PDF 渲染輸出結果。</returns>
+            <exception cref="T:System.OperationCanceledException">`cancellationToken` 已取消時拋出。</exception>
+            <exception cref="T:System.ArgumentException">`request` 不是 `PdfRenderRequest` 時拋出。</exception>
+        </member>
+        <member name="T:Orion.Api.Rendering.RenderFormat">
+            <summary>定義渲染輸出格式。</summary>
+        </member>
+        <member name="F:Orion.Api.Rendering.RenderFormat.Pdf">
+            <summary>PDF 文件格式。</summary>
+        </member>
+        <member name="F:Orion.Api.Rendering.RenderFormat.Png">
+            <summary>PNG 影像格式。</summary>
+        </member>
+        <member name="T:Orion.Api.Rendering.RenderGateway">
+            <summary>根據格式分派渲染請求的核心閘道。</summary>
+        </member>
+        <member name="M:Orion.Api.Rendering.RenderGateway.#ctor(System.Collections.Generic.IEnumerable{Orion.Api.Rendering.Contracts.IRenderer})">
+            <summary>建立渲染閘道並載入可用渲染器。</summary>
+            <param name="renderers">渲染器集合。</param>
+            <exception cref="T:System.ArgumentNullException">`renderers` 為 `null` 時拋出。</exception>
+        </member>
+        <member name="M:Orion.Api.Rendering.RenderGateway.RenderAsync(Orion.Api.Rendering.Requests.RenderRequest,System.Threading.CancellationToken)">
+            <summary>依請求格式執行渲染流程。</summary>
+            <param name="request">渲染請求內容。</param>
+            <param name="cancellationToken">取消權杖。</param>
+            <returns>渲染輸出結果。</returns>
+            <exception cref="T:System.ArgumentNullException">`request` 為 `null` 時拋出。</exception>
+            <exception cref="T:System.NotSupportedException">查無對應 `request.Format` 的渲染器時拋出。</exception>
+        </member>
+        <member name="M:Orion.Api.Rendering.RenderGateway.RenderPdfAsync(Orion.Api.Rendering.Requests.PdfRenderRequest,System.Threading.CancellationToken)">
+            <summary>執行 PDF 渲染流程。</summary>
+            <param name="request">PDF 渲染請求。</param>
+            <param name="cancellationToken">取消權杖。</param>
+            <returns>PDF 渲染輸出結果。</returns>
+            <exception cref="T:System.ArgumentNullException">`request` 為 `null` 時拋出。</exception>
+            <exception cref="T:System.NotSupportedException">未註冊 PDF 渲染器時拋出。</exception>
+        </member>
+        <member name="M:Orion.Api.Rendering.RenderGateway.RenderPngAsync(Orion.Api.Rendering.Requests.PngRenderRequest,System.Threading.CancellationToken)">
+            <summary>執行 PNG 渲染流程。</summary>
+            <param name="request">PNG 渲染請求。</param>
+            <param name="cancellationToken">取消權杖。</param>
+            <returns>PNG 渲染輸出結果。</returns>
+            <exception cref="T:System.ArgumentNullException">`request` 為 `null` 時拋出。</exception>
+            <exception cref="T:System.NotSupportedException">未註冊 PNG 渲染器時拋出。</exception>
+        </member>
+        <member name="T:Orion.Api.Rendering.RenderResult">
+            <summary>描述渲染完成後的輸出內容。</summary>
+        </member>
+        <member name="M:Orion.Api.Rendering.RenderResult.#ctor(Orion.Api.Rendering.RenderFormat,System.Byte[],System.String,System.String)">
+            <summary>建立渲染結果物件。</summary>
+            <param name="format">輸出格式。</param>
+            <param name="content">輸出位元組內容。</param>
+            <param name="contentType">輸出 MIME 類型。</param>
+            <param name="fileExtension">輸出檔案副檔名（含 `.`）。</param>
+            <exception cref="T:System.ArgumentNullException">`content` 為 `null` 時拋出。</exception>
+            <exception cref="T:System.ArgumentException">`contentType` 或 `fileExtension` 為空白時拋出。</exception>
+        </member>
+        <member name="P:Orion.Api.Rendering.RenderResult.Format">
+            <summary>取得輸出格式。</summary>
+        </member>
+        <member name="P:Orion.Api.Rendering.RenderResult.Content">
+            <summary>取得輸出位元組內容。</summary>
+        </member>
+        <member name="P:Orion.Api.Rendering.RenderResult.ContentType">
+            <summary>取得輸出 MIME 類型。</summary>
+        </member>
+        <member name="P:Orion.Api.Rendering.RenderResult.FileExtension">
+            <summary>取得輸出檔案副檔名（含 `.`）。</summary>
+        </member>
+        <member name="T:Orion.Api.Rendering.Requests.PdfRenderRequest">
+            <summary>描述 PDF 渲染所需資訊。</summary>
+        </member>
+        <member name="M:Orion.Api.Rendering.Requests.PdfRenderRequest.#ctor(QuestPDF.Infrastructure.IDocument)">
+            <summary>建立 PDF 渲染請求。</summary>
+            <param name="document">QuestPDF 文件模型。</param>
+            <exception cref="T:System.ArgumentNullException">`document` 為 `null` 時拋出。</exception>
+        </member>
+        <member name="P:Orion.Api.Rendering.Requests.PdfRenderRequest.Document">
+            <summary>取得 QuestPDF 文件模型。</summary>
+        </member>
+        <member name="T:Orion.Api.Rendering.Requests.PngRenderRequest">
+            <summary>描述 PNG 渲染所需資訊。</summary>
+        </member>
+        <member name="M:Orion.Api.Rendering.Requests.PngRenderRequest.#ctor(System.Int32,System.Int32,System.Byte[],System.Action{SixLabors.ImageSharp.Image{SixLabors.ImageSharp.PixelFormats.Rgba32}})">
+            <summary>建立 PNG 渲染請求。</summary>
+            <param name="width">影像寬度（像素）。</param>
+            <param name="height">影像高度（像素）。</param>
+            <param name="rgbaPixels">RGBA32 像素資料。</param>
+            <param name="pipeline">可選的 ImageSharp 後處理管線。</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">`width` 或 `height` 小於等於 0 時拋出。</exception>
+            <exception cref="T:System.ArgumentNullException">`rgbaPixels` 為 `null` 時拋出。</exception>
+        </member>
+        <member name="P:Orion.Api.Rendering.Requests.PngRenderRequest.Width">
+            <summary>取得影像寬度（像素）。</summary>
+        </member>
+        <member name="P:Orion.Api.Rendering.Requests.PngRenderRequest.Height">
+            <summary>取得影像高度（像素）。</summary>
+        </member>
+        <member name="P:Orion.Api.Rendering.Requests.PngRenderRequest.RgbaPixels">
+            <summary>取得 RGBA32 像素資料。</summary>
+        </member>
+        <member name="P:Orion.Api.Rendering.Requests.PngRenderRequest.Pipeline">
+            <summary>取得可選的 ImageSharp 後處理管線。</summary>
+        </member>
+        <member name="T:Orion.Api.Rendering.Requests.RenderRequest">
+            <summary>表示渲染請求的共用基底。</summary>
+        </member>
+        <member name="M:Orion.Api.Rendering.Requests.RenderRequest.#ctor(Orion.Api.Rendering.RenderFormat)">
+            <summary>建立渲染請求基底。</summary>
+            <param name="format">目標輸出格式。</param>
+        </member>
+        <member name="P:Orion.Api.Rendering.Requests.RenderRequest.Format">
+            <summary>取得目標輸出格式。</summary>
         </member>
         <member name="T:Orion.Api.ServiceContextGenerator">
             <summary>使用 <see cref="T:System.Reflection.DispatchProxy"/> 依回傳型別從 DI 容器解析服務。</summary>
