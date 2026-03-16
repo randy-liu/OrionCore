@@ -154,6 +154,45 @@ namespace Orion.Api.Tests
 		}
 
 
+		[Fact]
+		public async Task StartCycle_StopCycle_Test()
+		{
+			var logFactory = new OrionNLogLoggerFactory();
+			var notifier = new Notifier(logFactory);
+			var cycleCounter = new CycleCounterHandle();
+			notifier.RegisterListen(cycleCounter);
+
+			notifier.StartCycle(50);
+			await Task.Delay(220);
+			notifier.StopCycle();
+
+			int countAfterStop = cycleCounter.Count;
+			Assert.True(countAfterStop > 0);
+
+			await Task.Delay(180);
+			Assert.Equal(countAfterStop, cycleCounter.Count);
+		}
+
+		[Fact]
+		public async Task StartCycle_ImmediateFirstTick_Test()
+		{
+			var logFactory = new OrionNLogLoggerFactory();
+			var notifier = new Notifier(logFactory);
+			var cycleCounter = new CycleCounterHandle();
+			notifier.RegisterListen(cycleCounter);
+
+			notifier.StartCycle(1000);
+
+			for (int i = 0; i < 20 && cycleCounter.Count == 0; i++)
+			{
+				await Task.Delay(25);
+			}
+
+			notifier.StopCycle();
+			Assert.True(cycleCounter.Count > 0);
+		}
+
+
 
 		[Fact]
 		public void RegisterListen_AsyncCheckTest()
@@ -166,6 +205,19 @@ namespace Orion.Api.Tests
 				notifier.RegisterListen(new NotifierHandle2());
 			});
 			 
+		}
+	}
+
+	public class CycleCounterHandle
+	{
+		private int _count;
+
+		public int Count { get { return _count; } }
+
+		[OnCycle]
+		public void Listen()
+		{
+			Interlocked.Increment(ref _count);
 		}
 	}
 
