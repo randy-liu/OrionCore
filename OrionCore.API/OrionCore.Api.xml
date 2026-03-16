@@ -1242,6 +1242,15 @@
             <param name="source">要合併重疊區段的日期時間區段集合。</param>
             <returns>合併後的區段序列。</returns>
         </member>
+        <member name="T:Orion.Api.Extensions.DbContextOptionsBuilderExtensions">
+            <summary>DbContextOptionsBuilder 常用資料庫設定擴充。</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.DbContextOptionsBuilderExtensions.UseOrionSqlServer(Microsoft.EntityFrameworkCore.DbContextOptionsBuilder,System.String)">
+            <summary>使用 SQL Server 作為 DbContext provider。</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.DbContextOptionsBuilderExtensions.UseOrionSqlServer``1(Microsoft.EntityFrameworkCore.DbContextOptionsBuilder{``0},System.String)">
+            <summary>使用 SQL Server 作為 DbContext provider。</summary>
+        </member>
         <member name="T:Orion.Api.Extensions.DeclareExtensions">
             <summary>取得型別與方法宣告名稱的擴充方法。</summary>
         </member>
@@ -2491,6 +2500,21 @@
             <param name="idsStr">要以逗號分隔並轉型的字串內容。</param>
             <typeparam name="T">目標元素型別。</typeparam>
             <returns>轉型成功且去重後的陣列。</returns>
+        </member>
+        <member name="T:Orion.Api.Extensions.TableInfoExtensions">
+            <summary>資料表空間統計查詢相關擴充。</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.TableInfoExtensions.GetTableInfo(Microsoft.EntityFrameworkCore.DbContext)">
+            <summary>取得資料表空間統計資訊。</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.TableInfoExtensions.TableInfoUseNpgsql(Microsoft.EntityFrameworkCore.ModelBuilder,Microsoft.EntityFrameworkCore.DbContext)">
+            <summary>設定 Npgsql 的 TableInfo 查詢。</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.TableInfoExtensions.TableInfoUseSqlServer(Microsoft.EntityFrameworkCore.ModelBuilder,Microsoft.EntityFrameworkCore.DbContext)">
+            <summary>設定 SQL Server 的 TableInfo 查詢。</summary>
+        </member>
+        <member name="M:Orion.Api.Extensions.TableInfoExtensions.ApplyTableInfoQueryByProvider(Microsoft.EntityFrameworkCore.ModelBuilder,Microsoft.EntityFrameworkCore.DbContext)">
+            <summary>依資料庫 provider 套用對應的 TableInfo 查詢映射。</summary>
         </member>
         <member name="T:Orion.Api.Extensions.TextReaderExtensions">
             <summary>提供 `TextReader` 逐行讀取擴充方法。</summary>

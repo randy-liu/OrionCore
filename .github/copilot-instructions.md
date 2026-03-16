@@ -13,8 +13,10 @@
 This project runs in a cross-platform Docker environment. 
 Do not attempt to change file permissions of the `obj` or `bin` folders to fix `MSB3374` or `Access denied` errors.
 
-You MUST isolate outputs for ALL build and test commands by using `--artifacts-path /tmp/orioncore-artifacts`.
+You MUST isolate outputs for ALL build and test commands by using the appropriate artifacts path based on the operating system:
+- On Windows, use `$env:TEMP\orioncore-artifacts`
+- On Linux, use `/tmp/orioncore-artifacts`
 
 - To build MVC project: execute `bash OrionCore/build-mvc.sh`
 - To test API project: execute `bash OrionCore/test-api.sh` 
-(If you run any other `dotnet build` or `dotnet test` commands manually, you MUST append `--artifacts-path /tmp/orioncore-artifacts` to the command).
+(If you run any other `dotnet build` or `dotnet test` commands manually, you MUST append the appropriate `--artifacts-path` to the command).

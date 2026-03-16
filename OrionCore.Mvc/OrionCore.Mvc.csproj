@@ -18,6 +18,7 @@
     <OutputType>Library</OutputType>
     <IsPackable>true</IsPackable>
     <PackageIcon>orion_logo.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <IncludeSymbols>true</IncludeSymbols>
   </PropertyGroup>
 
@@ -37,6 +38,10 @@
     <None Remove="OCR-b.ttf" />
     <None Remove="UI\menus.xsd" />
     <None Include="orion_logo.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="README.md">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
