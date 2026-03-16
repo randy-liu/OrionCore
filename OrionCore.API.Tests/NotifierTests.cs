@@ -28,7 +28,7 @@ namespace Orion.Api.Tests
 
 
 		[Fact]
-		public async void WaitListen_Test()
+		public async Task WaitListen_Test()
 		{
 			var logFactory = new OrionNLogLoggerFactory();
 			var notifier = new Notifier(logFactory);
@@ -49,7 +49,7 @@ namespace Orion.Api.Tests
 		}
 
 		[Fact]
-		public async void WaitListen_Test2()
+		public async Task WaitListen_Test2()
 		{
 			var logFactory = new OrionNLogLoggerFactory();
 			var notifier = new Notifier(logFactory);
@@ -65,26 +65,18 @@ namespace Orion.Api.Tests
 
 
 		[Fact]
-		public async void WaitListen_TimeoutTest()
+		public async Task WaitListen_TimeoutTest()
 		{
 			var logFactory = new OrionNLogLoggerFactory();
 			var notifier = new Notifier(logFactory);
 
-			try
-			{
-				int a = await notifier.Wait<int>(1);
-				Assert.True(false);
-			}
-			catch (TimeoutException)
-			{
-				Assert.True(true);
-			}
+			await Assert.ThrowsAsync<TimeoutException>(() => notifier.Wait<int>(1));
 		}
 
 
 
 		[Fact]
-		public void WaitListen_ThreadTest()
+		public async Task WaitListen_ThreadTest()
 		{
 			var logFactory = new OrionNLogLoggerFactory();
 			var notifier = new Notifier(logFactory);
@@ -129,28 +121,28 @@ namespace Orion.Api.Tests
 				for (int i = 0; i < 50; i++)
 				{
 					decimal a = await notifier.Wait<decimal>(60);
-					Thread.Sleep(200);
+					await Task.Delay(200);
 					notifier.TriggerChange("");
 				}
 			});
 
-			Task.WaitAll(taskA, taskB, taskC, taskD);
+			await Task.WhenAll(taskA, taskB, taskC, taskD);
 		}
 
 
 
 
 		[Fact]
-		public void WaitListen_DelayTest()
+		public async Task WaitListen_DelayTest()
 		{
 			var logFactory = new OrionNLogLoggerFactory();
 			var notifier = new Notifier(logFactory);
 
 			Task<int> a = notifier.Wait<int>(1);
 			notifier.TriggerChange(1);
-			a.Wait();
+			int value = await a;
 
-			Assert.Equal(1, a.Result);
+			Assert.Equal(1, value);
 		}
 
 
