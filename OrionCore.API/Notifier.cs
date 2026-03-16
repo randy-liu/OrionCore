@@ -121,6 +121,8 @@ namespace Orion.Api
 		private readonly IOrionLoggerFactory _logFactory;
 		private readonly IOrionLogger _log;
 
+		private readonly object _cycleSync = new object();
+		private CancellationTokenSource _cycleCts;
 		private bool _beginCycle = false;
 
 
@@ -325,35 +327,63 @@ namespace Orion.Api
 		/// <param name="cycleMilliseconds">週期觸發間隔（毫秒）。</param>
 		public void StartCycle(int cycleMilliseconds)
 		{
-			if (_beginCycle) { return; }
-			_beginCycle = true;
+			if (cycleMilliseconds <= 0)
+			{ throw new ArgumentOutOfRangeException(nameof(cycleMilliseconds), "cycleMilliseconds must be greater than 0."); }
 
-			var thread = new Thread(() =>
+			lock (_cycleSync)
 			{
-				while (_beginCycle)
+				if (_beginCycle) { return; }
+				_beginCycle = true;
+				_cycleCts = new CancellationTokenSource();
+				Task.Run(() => runCycleAsync(cycleMilliseconds, _cycleCts.Token));
+			}
+		}
+
+		private async Task runCycleAsync(int cycleMilliseconds, CancellationToken token)
+		{
+			triggerCycleSafely();
+			using var timer = new PeriodicTimer(TimeSpan.FromMilliseconds(cycleMilliseconds));
+
+			try
+			{
+				while (await timer.WaitForNextTickAsync(token))
 				{
-					var nextBegin = DateTime.Now.AddMilliseconds(cycleMilliseconds);
-
-					TriggerCycle();
-
-					/* Sleep 直到下一次開始 */
-					while (DateTime.Now < nextBegin)
-					{
-						if (!_beginCycle) { return; }
-						Thread.Sleep(100); /* 分段 Sleep 可以讓程式比較快關閉 */
-					}
+					triggerCycleSafely();
 				}
-			});
-			thread.SetApartmentState(ApartmentState.MTA);
-			thread.Priority = ThreadPriority.Highest;
-			thread.Start();
+			}
+			catch (OperationCanceledException)
+			{
+				return;
+			}
+		}
+
+		private void triggerCycleSafely()
+		{
+			try
+			{
+				TriggerCycle();
+			}
+			catch (Exception ex)
+			{
+				_log.Error("Error Notifier.StartCycle", ex);
+			}
 		}
 
 
 		/// <summary>停止週期</summary>
 		public void StopCycle()
 		{
-			_beginCycle = false;
+			CancellationTokenSource cycleCts;
+			lock (_cycleSync)
+			{
+				if (!_beginCycle) { return; }
+				_beginCycle = false;
+				cycleCts = _cycleCts;
+				_cycleCts = null;
+			}
+
+			cycleCts?.Cancel();
+			cycleCts?.Dispose();
 		}
 
 
