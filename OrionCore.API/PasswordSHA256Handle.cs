@@ -26,7 +26,7 @@ namespace Orion.Api
 		/// <returns>SHA256 計算結果的 Base64 字串。</returns>
 		public string Encrypt(string password)
 		{
-			SHA256 sha256 = new SHA256CryptoServiceProvider();
+			using SHA256 sha256 = SHA256.Create();
 			byte[] source = Encoding.Default.GetBytes(password);
 			byte[] crypto = sha256.ComputeHash(source);
 			string result = Convert.ToBase64String(crypto);
