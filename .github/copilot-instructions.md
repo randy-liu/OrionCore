@@ -9,10 +9,12 @@
 
 ## Developer Guidelines for Copilot
 
-### Build Instructions (CRITICAL)
-This project runs in a cross-platform Docker environment (Windows NTFS mounted to Linux). To avoid `MSB3374` permission errors and timestamp issues, NEVER use the standard `dotnet build` command for the MVC project.
+## Build & Test Instructions (CRITICAL)
+This project runs in a cross-platform Docker environment. 
+Do not attempt to change file permissions of the `obj` or `bin` folders to fix `MSB3374` or `Access denied` errors.
 
-Whenever you need to build, compile, or verify `OrionCore.Mvc`, you MUST execute the following custom script:
-`bash OrionCore/build-mvc.sh`
+You MUST isolate outputs for ALL build and test commands by using `--artifacts-path /tmp/orioncore-artifacts`.
 
-Do not attempt to change file permissions of the `obj` or `bin` folders. Always rely on the script above which uses `--artifacts-path` to isolate outputs.
+- To build MVC project: execute `bash OrionCore/build-mvc.sh`
+- To test API project: execute `bash OrionCore/test-api.sh` 
+(If you run any other `dotnet build` or `dotnet test` commands manually, you MUST append `--artifacts-path /tmp/orioncore-artifacts` to the command).
