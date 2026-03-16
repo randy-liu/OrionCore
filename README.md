@@ -37,6 +37,9 @@ bash OrionCore/build-mvc.sh
 # 執行測試
 dotnet test OrionCore/OrionCore.API.Tests/OrionCore.API.Tests.csproj
 dotnet test OrionCore/OrionCore.Mvc.Tests/OrionCore.Mvc.Tests.csproj
+
+# （選用）啟用 SQL Server smoke test
+export ORIONCORE_SQLSERVER_TEST_CONN="Data Source=localhost;Initial Catalog=Orion_API_Tests;Integrated Security=True;TrustServerCertificate=True"
 ```
 
 ---
@@ -99,6 +102,33 @@ query = new WhereQueryableBuilder<Order>(query, whereParams)
     .Bind(x => x.Status)
     .Build();
 ```
+
+### SQL Server / PostgreSQL TableInfo 支援
+
+`OrionCore.Api` 現在提供 provider-aware 的 `TableInfo` 映射與 SQL Server 設定入口：
+
+```csharp
+using Orion.Api.Extensions;
+
+// DbContextOptionsBuilder
+builder.UseOrionSqlServer(connectionString);
+
+// OnModelCreating
+protected override void OnModelCreating(ModelBuilder modelBuilder)
+{
+    base.OnModelCreating(modelBuilder);
+    modelBuilder.ApplyTableInfoQueryByProvider(this);
+}
+
+// 取得資料表統計
+List<TableInfo> infos = dbContext.GetTableInfo();
+```
+
+說明：
+
+- SQL Server provider 會使用 SQL Server 專屬查詢（`sp_spaceused`）
+- Npgsql provider 會使用 PostgreSQL 專屬查詢（`pg_total_relation_size` 等）
+- 其他 provider（例如 SQLite）不會自動套用 `TableInfo` 查詢映射
 
 ### NotifiMonitor / Notifier — 效能監控
 

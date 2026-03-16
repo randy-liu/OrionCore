@@ -17,14 +17,20 @@ namespace Orion.Api.Extensions
 
 		/// <summary>
 		/// 取得 LINQ 查詢對應的 SQL 語句。
-		/// 此方法已重寫為使用 EF Core 8 支援的公開 API（ToQueryString），
-		/// 不再依賴內部私有欄位反射。
+		/// 使用 EF Core 公開 API（ToQueryString），並將輸出正規化為跨平台穩定格式。
 		/// </summary>
 		public static string ToSql<TEntity>(this IQueryable<TEntity> query) where TEntity : class
 		{
-			// EF Core 5+ 提供的公開 API，可直接取得查詢的 SQL 字串
-			// 不需要反射或依賴內部實作
-			return query.ToQueryString().Replace("\"", "");
+			if (query == null) { throw new ArgumentNullException(nameof(query)); }
+
+			string sql = query.ToQueryString().Replace("\"", "");
+			return normalizeSql(sql);
+		}
+
+		private static string normalizeSql(string sql)
+		{
+			sql = sql.Replace("\r\n", "\n").Replace('\r', '\n');
+			return string.Join("\r\n", sql.Split('\n').Select(line => line.TrimEnd()));
 		}
 	}
 }

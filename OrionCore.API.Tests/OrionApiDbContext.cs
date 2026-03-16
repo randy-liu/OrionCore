@@ -21,7 +21,14 @@ namespace Orion.Api.Tests
 		public static OrionApiDbContext CreateUseSqlServer()
 		{
 			var builder = new DbContextOptionsBuilder<OrionApiDbContext>();
-			builder.UseSqlServer("Data Source=localhost;Initial Catalog=Orion_API_Tests;Integrated Security=True");
+			builder.UseOrionSqlServer("Data Source=localhost;Initial Catalog=Orion_API_Tests;Integrated Security=True;TrustServerCertificate=True");
+			return new OrionApiDbContext(builder.Options);
+		}
+
+		public static OrionApiDbContext CreateUseSqlServer(string connectionString)
+		{
+			var builder = new DbContextOptionsBuilder<OrionApiDbContext>();
+			builder.UseOrionSqlServer(connectionString);
 			return new OrionApiDbContext(builder.Options);
 		}
 
@@ -54,6 +61,7 @@ namespace Orion.Api.Tests
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			base.OnModelCreating(modelBuilder);
+			modelBuilder.ApplyTableInfoQueryByProvider(this);
 
 			//modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 

@@ -4121,9 +4121,6 @@
             <param name="message">例外訊息。</param>
             <param name="innerException">內部例外。</param>
         </member>
-        <member name="M:Orion.Api.UserException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
-            <summary>供序列化機制還原例外內容的受保護建構式。</summary>
-        </member>
         <member name="T:Orion.Api.UserNoDataException">
             <summary>表示查無資料的使用者自訂例外。</summary>
         </member>
@@ -4135,9 +4132,6 @@
             <summary>使用訊息與內部例外初始化例外。</summary>
             <param name="message">例外訊息。</param>
             <param name="innerException">內部例外。</param>
-        </member>
-        <member name="M:Orion.Api.UserNoDataException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
-            <summary>供序列化機制還原例外內容的受保護建構式。</summary>
         </member>
         <member name="T:Orion.Api.VariableMonitor">
             <summary>變數監看</summary>
