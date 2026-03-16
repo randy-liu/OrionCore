@@ -128,6 +128,69 @@ builder.RegisterType<OrderService>()
        .EnableClassInterceptors();
 ```
 
+### Orion.Api.Rendering — 渲染核心
+
+跨平台渲染架構，支援 PDF（QuestPDF）與 PNG（ImageSharp），可在 Linux 與 Windows 上執行。
+
+#### 核心介面與類別
+
+| 類別 / 介面 | 說明 |
+|------------|------|
+| `IRenderGateway` / `RenderGateway` | 渲染入口，依格式分派至對應渲染器 |
+| `IRenderer` | 單一格式渲染器介面 |
+| `RenderFormat` | 輸出格式列舉（`Pdf`、`Png`） |
+| `RenderRequest` | 渲染請求基底類別 |
+| `PdfRenderRequest` | PDF 渲染請求（需傳入 QuestPDF `IDocument`） |
+| `PngRenderRequest` | PNG 渲染請求（需傳入寬高與 RGBA32 像素資料） |
+| `RenderResult` | 渲染輸出結果（含位元組內容、MIME 類型、副檔名） |
+| `QuestPdfRenderer` | 以 QuestPDF 實作的 PDF 渲染器 |
+| `ImageSharpPngRenderer` | 以 ImageSharp 實作的 PNG 渲染器 |
+
+#### 使用範例
+
+```csharp
+// PDF 渲染
+var request = new PdfRenderRequest(myQuestPdfDocument);
+RenderResult result = await renderGateway.RenderPdfAsync(request);
+// result.Content    → byte[]
+// result.ContentType → "application/pdf"
+
+// PNG 渲染
+var pngRequest = new PngRenderRequest(width, height, rgbaPixels);
+RenderResult pngResult = await renderGateway.RenderPngAsync(pngRequest);
+// pngResult.ContentType → "image/png"
+
+// 同步封裝（IRenderGateway 擴充方法）
+Stream pdfStream = renderGateway.ToPdfStream(pdfRequest);
+Stream pngStream = renderGateway.ToPngStream(pngRequest);
+```
+
+#### Autofac DI 註冊
+
+```csharp
+// ContainerBuilder 擴充（AutofacRenderingExtensions）
+builder.RegisterOrionRenderingCore();
+// 等同於：
+// builder.RegisterType<QuestPdfRenderer>().As<IRenderer>().SingleInstance();
+// builder.RegisterType<ImageSharpPngRenderer>().As<IRenderer>().SingleInstance();
+// builder.RegisterType<RenderGateway>().As<IRenderGateway>().SingleInstance();
+```
+
+### PrintDocumentExtensions — 舊版列印支援（Windows 限定）
+
+> ⚠️ `PrintDocument` 相關方法**僅支援 Windows**，非 Windows 平台呼叫會拋出 `PlatformNotSupportedException`。  
+> 跨平台情境請改用 `Orion.Api.Rendering` 渲染核心。
+
+```csharp
+// Windows 限定：舊版路徑
+Stream jpegStream = doc.ToJpegStream();   // [SupportedOSPlatform("windows")]
+Stream pngStream  = doc.ToPngStream();    // [SupportedOSPlatform("windows")]
+
+// 遷移至渲染核心（跨平台）
+Stream pdfStream = renderGateway.ToPdfStream(pdfRequest);
+Stream pngStream = renderGateway.ToPngStream(pngRequest);
+```
+
 ### 常用擴充方法
 
 #### StringExtensions
@@ -202,10 +265,20 @@ this.SuccessJson(data);            // 回傳標準成功 JSON
 this.ErrorJson("錯誤訊息");        // 回傳標準錯誤 JSON
 ```
 
-#### CaptchaExtensions — 驗證碼
+#### CaptchaExtensions — 驗證碼（ImageSharp 跨平台實作）
+
+驗證碼圖片已改用 **SixLabors.ImageSharp** 繪製，支援 Linux 與 Windows，不再依賴 `System.Drawing`。
+
 ```csharp
-// 產生驗證碼圖片
-byte[] image = HttpContext.GenerateCaptcha("captchaKey");
+// Controller / PageModel：產生並儲存驗證碼，回傳 PNG 圖片
+public IActionResult Captcha()
+    => this.CaptchaResult(length: 5, colorName: "#1a3a5c");
+
+// 驗證使用者輸入
+bool valid = this.IsCaptchaValid(userInput);
+
+// 底層方法：直接產生 PNG 串流（可自行控制輸出）
+Stream stream = CaptchaExtensions.CreateCaptchaPng(code, fontColor: "DarkBlue");
 ```
 
 #### RequestExtensions
@@ -234,8 +307,8 @@ string html = await razorViewCaller.RenderViewToStringAsync("~/Views/Email/Welco
 
 | 版本 | 套件 | 異動 |
 |------|------|------|
-| 1.1.2 | OrionCore.Api | 升級至 .NET 8.0；更新相依套件 |
-| 1.0.10 | OrionCore.Mvc | 升級至 .NET 8.0；更新相依套件 |
+| 1.1.2 | OrionCore.Api | 升級至 .NET 8.0；新增 `Orion.Api.Rendering` 渲染核心（QuestPDF / ImageSharp）；`PrintDocumentExtensions` 標註 Windows 限定並提供 `IRenderGateway` 擴充；新增 Autofac DI 註冊擴充 `RegisterOrionRenderingCore()` |
+| 1.0.10 | OrionCore.Mvc | 升級至 .NET 8.0；驗證碼改用 SixLabors.ImageSharp 跨平台實作，移除 System.Drawing 依賴 |
 
 ---
 
