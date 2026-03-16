@@ -28,6 +28,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="D\**" />
+    <EmbeddedResource Remove="D\**" />
+    <None Remove="D\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="Extensions\NumberCommaExtensions.cs" />
   </ItemGroup>
   
@@ -56,7 +62,7 @@
     <ItemGroup>
       <SymbolFiles Include="$(TargetDir)\..\*.symbols.nupkg" />
     </ItemGroup>    
-    <Move SourceFiles="%(SymbolFiles.FullPath)" DestinationFiles="@(SymbolFiles -> Replace('.symbols.nupkg', '.nupkg'))" />
+    <Move SourceFiles="%(SymbolFiles.FullPath)" DestinationFiles="@(SymbolFiles -&gt; Replace('.symbols.nupkg', '.nupkg'))" />
 
     <ItemGroup>
       <NupkgFiles Include="$(TargetDir)\..\*.nupkg" />
