@@ -31,7 +31,10 @@ dotnet add package OrionCore.Mvc
 
 ```bash
 # 建置 OrionCore.Mvc（跨平台環境建議使用）
-# 從專案根目錄的上一層（包含 OrionCore 資料夾）執行：
+# 若目前在 OrionCore 專案根目錄：
+bash build-mvc.sh
+
+# 若目前在 OrionCore 的上一層目錄（該層包含 OrionCore 資料夾）：
 bash OrionCore/build-mvc.sh
 
 # 執行測試
