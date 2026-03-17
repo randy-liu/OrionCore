@@ -37,9 +37,8 @@ bash build-mvc.sh
 # 若目前在 OrionCore 的上一層目錄（該層包含 OrionCore 資料夾）：
 bash OrionCore/build-mvc.sh
 
-# 執行測試
-dotnet test OrionCore/OrionCore.API.Tests/OrionCore.API.Tests.csproj
-dotnet test OrionCore/OrionCore.Mvc.Tests/OrionCore.Mvc.Tests.csproj
+# 執行 API 測試
+bash OrionCore/test-api.sh
 
 # （選用）啟用 SQL Server smoke test
 export ORIONCORE_SQLSERVER_TEST_CONN="Data Source=localhost;Initial Catalog=Orion_API_Tests;Integrated Security=True;TrustServerCertificate=True"
@@ -54,18 +53,20 @@ export ORIONCORE_SQLSERVER_TEST_CONN="Data Source=localhost;Initial Catalog=Orio
 | 方法 | 說明 |
 |------|------|
 | `HasValue(object)` | 判斷值是否有效（支援 string、DateTime、Enum、IEnumerable、數值型態） |
-| `TxSerializable()` / `TxReadCommitted()` … | 建立指定隔離層級的 `TransactionScope` |
+| `TxSerializable()` / `TxRepeatableRead()` / `TxReadCommitted()` / `TxReadUncommitted()` | 建立指定隔離層級的 `TransactionScope` |
 | `EnumToDictionary<T>()` | 將 Enum 轉換為 `Dictionary<string, string>`（支援 `Display` 屬性） |
 | `GetEnumValues<T>()` | 取得 Enum 所有值的陣列 |
 | `EnumerateRange(int, int)` | 迭代整數範圍（升冪或降冪） |
 | `EnumerateRange(DateTime, DateTime)` | 迭代日期範圍（逐日） |
 | `GetSolarDay(DateTime?)` | 取得太陽日（`(year-1900)*1000 + dayOfYear`） |
 | `ParseSolarDay(int?)` | 解析太陽日為 `DateTime` |
-| `ParseCnDate(string)` | 解析民國日期字串為 `DateTime` |
+| `ParseCnDate(string)` | 解析民國日期字串為 `DateTime`（例如 `112/08/15`） |
+| `ParseCnDateTime(string)` | 解析民國日期時間字串為 `DateTime`（例如 `112/08/15 13:20:30`） |
+| `Min(DateTime, DateTime)` / `Max(DateTime, DateTime)` | 取得兩個日期 / 時間中較小或較大的一個（支援 `DateTime`、`DateTimeOffset`、`TimeSpan`） |
 | `Md5String(string)` / `Md5File(...)` | 計算 MD5 雜湊值 |
 | `AllotPath(int)` | 產生分層路徑（`/000/000/123`） |
 | `AllotHashPath(string, int)` | 產生 MD5 雜湊分層路徑 |
-| `LockProcessId(string)` / `UnlockProcessId(string)` | 以 PID 檔進行單一執行個體鎖定 |
+| `LockProcessId(string)` / `UnlockProcessId(string)` / `IsLockedProcessId(string)` | 以 PID 檔進行單一執行個體鎖定 |
 
 ### Checker — 資料驗證
 
@@ -108,7 +109,7 @@ query = new WhereQueryableBuilder<Order>(query, whereParams)
 
 ### SQL Server / PostgreSQL TableInfo 支援
 
-`OrionCore.Api` 現在提供 provider-aware 的 `TableInfo` 映射與 SQL Server 設定入口：
+`OrionCore.Api` 提供 provider-aware 的 `TableInfo` 映射與資料庫設定入口：
 
 ```csharp
 using Orion.Api.Extensions;
@@ -185,7 +186,7 @@ builder.RegisterType<OrderService>()
 // PDF 渲染
 var request = new PdfRenderRequest(myQuestPdfDocument);
 RenderResult result = await renderGateway.RenderPdfAsync(request);
-// result.Content    → byte[]
+// result.Content     → byte[]
 // result.ContentType → "application/pdf"
 
 // PNG 渲染
@@ -265,18 +266,26 @@ var pagination = query.ToPagination(pageParams);
 
 | Filter | 用途 |
 |--------|------|
-| `ExceptionMessageActionFilter` | 統一捕捉 `UserException`，回傳 JSON 錯誤訊息 |
-| `PageParamsActionFilter` / `PageParamsPageFilter` | 自動將分頁參數注入 Action |
-| `SearchRememberActionFilter` | 記憶搜尋條件至 Session |
-| `HandlerAuthorizeFilter` | 自訂授權邏輯 |
-| `UseViewPageActionFilter` | 切換 Razor 視圖頁面 |
+| `ExceptionMessageActionFilter` | 統一捕捉 `UserException`，對 AJAX 回傳 HTTP 400，對一般頁面設定 `TempData["StatusError"]` |
+| `ExceptionMessagePageFilter` | 同上，適用於 Razor Pages |
+| `PageParamsActionFilter` | 自動套用分頁參數預設值並同步 Cookie（MVC Action） |
+| `PageParamsPageFilter` | 自動套用分頁參數預設值並同步 Cookie（Razor Pages） |
+| `SearchRememberActionFilter` | 以 Cookie 記憶並還原查詢條件（MVC Action） |
+| `SearchRememberPageFilter` | 以 Cookie 記憶並還原查詢條件（Razor Pages） |
+| `HandlerAuthorizeFilter` | 依 Razor Page Handler 上的 `AuthorizeAttribute` 進行角色授權檢查 |
+| `UseViewPageActionFilter` | 依 `UseViewPageAttribute` 切換 Razor 視圖名稱與標題 |
+| `PageModelInjectFilter` | 將依賴注入物件自動注入 Razor PageModel |
+| `ConfigureSessionAuthentication` | 設定 Session 驗證流程的輔助過濾器 |
+| `DevelopAuthorizationFilter` | 開發環境專用授權旁路過濾器 |
 
 ```csharp
 // Program.cs
 builder.Services.AddControllers(options =>
 {
     options.Filters.Add<ExceptionMessageActionFilter>();
-    options.Filters.Add<PageParamsActionFilter>();
+    options.Filters.Add(new PageParamsActionFilter("pageSize", defaultSize: 20));
+    options.Filters.Add(new SearchRememberActionFilter(skipKey: new[] { "page" }));
+    options.Filters.Add<UseViewPageActionFilter>();
 });
 ```
 
@@ -288,19 +297,23 @@ public IActionResult Delete(int id) { ... }
 
 [SearchRemember]
 public IActionResult Index(SearchParams search) { ... }
+
+[UseViewPage("_MyView", Title = "頁面標題")]
+public IActionResult Edit(int id) { ... }
 ```
 
 ### Extensions
 
 #### ControllerExtensions
 ```csharp
-this.SuccessJson(data);            // 回傳標準成功 JSON
-this.ErrorJson("錯誤訊息");        // 回傳標準錯誤 JSON
+// Controller / PageModel：設定 TempData 狀態訊息
+this.SetStatusSuccess("儲存成功");
+this.SetStatusError("操作失敗");
 ```
 
 #### CaptchaExtensions — 驗證碼（ImageSharp 跨平台實作）
 
-驗證碼圖片已改用 **SixLabors.ImageSharp** 繪製，支援 Linux 與 Windows，不再依賴 `System.Drawing`。
+驗證碼圖片以 **SixLabors.ImageSharp** 繪製，支援 Linux 與 Windows，不依賴 `System.Drawing`。
 
 ```csharp
 // Controller / PageModel：產生並儲存驗證碼，回傳 PNG 圖片
@@ -316,22 +329,74 @@ Stream stream = CaptchaExtensions.CreateCaptchaPng(code, fontColor: "DarkBlue");
 
 #### RequestExtensions
 ```csharp
-Request.IsAjax()                   // 判斷是否為 AJAX 請求
-Request.GetClientIp()              // 取得用戶端 IP
+Request.IsAjaxRequest()            // 判斷是否為 AJAX 請求（X-Requested-With）
+Request.IsGetMethod()              // 判斷是否為 GET 請求
+Request.IsPostMethod()             // 判斷是否為 POST 請求
 ```
 
 #### ModelStateExtensions
 ```csharp
-if (!ModelState.IsValid)
-{
-    return BadRequest(ModelState.GetErrors());
-}
+// 驗證失敗時直接拋出 UserException（訊息為所有錯誤的串接）
+ModelState.ThrowIfNotValid();
+```
+
+#### ApplicationBuilderExtensions
+```csharp
+// 將表單中的 handler 欄位值寫入路由值（Razor Pages 輔助）
+app.UseFormDataToRouteHandler();
+
+// 在例外發生時自動清理過舊的 Elmah XML 記錄檔，只保留最新 N 筆
+app.UseElmahClear(size: 100, logPath: "~/App_Data/Elmah");
+```
+
+#### IPrincipalExtensions — 使用者 Claim 讀取
+```csharp
+User.AnyAct(ActEnum.Edit, ActEnum.Delete)   // 是否具備任一角色
+User.AllAct(ActEnum.Edit, ActEnum.Delete)   // 是否具備全部角色
+User.GetUserId()                            // 取得使用者識別碼（int）
+User.GetUserName()                          // 取得使用者名稱
+User.GetUserType()                          // 取得使用者類型
+User.GetAccount()                           // 取得帳號
+```
+
+#### OrionUser — Claim 名稱常數
+```csharp
+// 搭配 ClaimsIdentity 設定 Claim 時使用
+new Claim(OrionUser.UserId,   userId.ToString()),
+new Claim(OrionUser.UserName, userName),
+new Claim(OrionUser.UserType, userType),
+new Claim(OrionUser.Account,  account),
 ```
 
 ### RazorViewCaller — 程式碼中渲染 Razor 視圖
 
 ```csharp
-string html = await razorViewCaller.RenderViewToStringAsync("~/Views/Email/Welcome.cshtml", model);
+// 注入 RazorViewCaller 後呼叫
+string html = razorViewCaller.Render("~/Views/Email/Welcome.cshtml", model);
+```
+
+### UI — 選單與麵包屑
+
+#### MenuProvider / MenuManager
+```csharp
+// 從 XML 設定檔讀取選單（支援 XSD 驗證）
+var provider = new MenuProvider(areaName: "Admin", configPath: "menus.config");
+
+// 依使用者角色過濾可存取選單
+List<MenuItem> menu = provider.GetAllowList(User, currentUrl);
+
+// 多區域管理
+MenuManager.Register(provider);
+List<MenuItem> allMenus = MenuManager.Instance.GetAllowList(User, currentUrl);
+```
+
+#### BreadcrumbProvider
+```csharp
+// 從 XML 設定檔建立麵包屑提供者
+var breadcrumbs = new BreadcrumbProvider("breadcrumb.config");
+
+// 依目前 URL 取得路徑清單
+List<IBreadcrumb> path = breadcrumbs.GetPathList(currentUrl);
 ```
 
 ---
