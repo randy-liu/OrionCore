@@ -1,0 +1,58 @@
+name: DotNet PR AI Review
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  ai-review:
+    if: github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Gather PR diff
+        id: diff
+        run: |
+          gh api \
+            repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }} \
+            --jq '.diff_url' > diff_url.txt
+          curl -L "$(cat diff_url.txt)" > pr.diff
+          echo "DIFF_PATH=pr.diff" >> $GITHUB_ENV
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # 這裡示意：你可以改成你實際使用的 LLM CLI / API
+      - name: Run AI review
+        id: review
+        run: |
+          PROMPT_FILE=".github/agents/dotnet8-pr-review.agent.md"
+          {
+            echo "Please review this PR using the following reviewer instructions."
+            echo "All review output must be in Traditional Chinese (繁體中文, zh-TW)."
+            echo "Keep code blocks, file paths, class names, method names, and technical keywords in original form."
+            echo
+            cat "$PROMPT_FILE"
+            echo
+            echo "=== PR DIFF START ==="
+            cat "$DIFF_PATH"
+            echo "=== PR DIFF END ==="
+          } > review_input.txt
+
+          # 你自己的指令：例如 openai / copilot / 其他
+          # 下面用 placeholder
+          echo "AI_REVIEW_OUTPUT<<EOF" >> $GITHUB_ENV
+          echo "自動化審查結果（placeholder）：請替換為實際模型呼叫，並確保輸出為繁體中文。" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
+      - name: Post PR comment
+        run: |
+          gh pr comment ${{ github.event.pull_request.number }} \
+            --body "$AI_REVIEW_OUTPUT"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

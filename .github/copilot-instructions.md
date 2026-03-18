@@ -20,3 +20,8 @@ You MUST isolate outputs for ALL build and test commands by using the appropriat
 - To build MVC project: execute `bash OrionCore/build-mvc.sh`
 - To test API project: execute `bash OrionCore/test-api.sh` 
 (If you run any other `dotnet build` or `dotnet test` commands manually, you MUST append the appropriate `--artifacts-path` to the command).
+
+## Local Review Guidelines
+- For local `dotnet-cr` reviews, exclude PR-trigger/workflow-operation warnings.
+- Omit untracked-file warnings.
+- Exclude temporary network-robustness warnings (e.g., curl fail-fast/timeout).
