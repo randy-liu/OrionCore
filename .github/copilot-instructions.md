@@ -8,6 +8,7 @@
 - User wants to record potential optimization items (e.g., DI wiring confirmation, Random/License settings) for future processing, without making immediate changes in the current step.
 
 ## Developer Guidelines for Copilot
+- Local review tooling must explicitly require the upgraded `copilot` CLI and not support legacy `gh copilot` fallback.
 
 ## Build & Test Instructions (CRITICAL)
 This project runs in a cross-platform Docker environment. 
@@ -24,4 +25,4 @@ You MUST isolate outputs for ALL build and test commands by using the appropriat
 ## Local Review Guidelines
 - For local `dotnet-cr` reviews, exclude PR-trigger/workflow-operation warnings.
 - Omit untracked-file warnings.
-- Exclude temporary network-robustness warnings (e.g., curl fail-fast/timeout).
+- Exclude temporary network-robustness warnings (e.g., curl fail-fast/timeout)

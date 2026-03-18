@@ -72,30 +72,17 @@ $promptFile = ".tmp/dotnet8-local-review-prompt-$ts.txt"
 Set-Content -Path $promptFile -Value $instruction -Encoding UTF8
 Write-Host "Prompt file  : $promptFile"
 
-# 優先使用新版 Copilot CLI，舊版 gh copilot suggest 作為 fallback
+# 使用新版 Copilot CLI，透過 @promptFile 避免超長命令列參數
 $result = ""
 $copilotCli = Get-Command copilot -ErrorAction SilentlyContinue
 if ($null -ne $copilotCli) {
-    Write-Host "Using: copilot -p"
-    $result = & copilot -p $instruction --silent | Out-String
+    Write-Host "Using: copilot -p @promptFile"
+    $result = & copilot -p "@$promptFile" --silent | Out-String
+} else {
+    throw "No usable Copilot CLI found. Please install 'copilot' CLI."
 }
 
-if ([string]::IsNullOrWhiteSpace($result)) {
-    $null = Get-Command gh -ErrorAction Stop
-    $help = (& gh copilot --help | Out-String)
-
-    if ($help -notmatch "suggest") {
-        throw "No usable Copilot CLI found. Please install 'copilot' CLI or enable 'gh copilot suggest'."
-    }
-
-    Write-Host "Using: gh copilot suggest"
-    # 注意：suggest 比較像單次回答，這裡直接把整段 instruction 當 query
-    $result = & gh copilot suggest -t shell $instruction | Out-String
-}
-
-if ([string]::IsNullOrWhiteSpace($result)) {
-    throw "No output from gh copilot suggest."
-}
+if ([string]::IsNullOrWhiteSpace($result)) { throw "No output from copilot CLI." }
 
 Set-Content -Path $outFile -Value $result -Encoding UTF8
 Write-Host "✅ Review report: $outFile"
