@@ -10,6 +10,8 @@
 ## Developer Guidelines for Copilot
 - Local review tooling must explicitly require the upgraded `copilot` CLI and not support legacy `gh copilot` fallback.
 - User prefers a hybrid code review flow: local staged review on Windows via `dotnet-cr`, automatic review on git push, and automatic review on PR review events, while maintaining the project in WSL Docker using the upgraded `copilot` CLI.
+- For code review policy, when workflow intentionally uses noise-reduction trigger strategy (e.g., only changes_requested), non-full pull_request_review coverage should be classified as Info/Note, not a defect, unless full review-event rerun is an explicit requirement.
+- The rationale and trade-offs for the noise-reduction trigger strategy are documented in `docs/adr/ADR-0001-pr-review-trigger-noise-reduction.md` and should be treated as accepted-by-design unless requirements change.
 
 ## Local Review Guidelines
 - For local `dotnet-cr` reviews, always target staged changes (git add files) as the primary scope whenever manually running `dotnet-cr`.

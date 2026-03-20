@@ -1,58 +1,152 @@
 name: DotNet PR AI Review
 
 on:
+  push:
+    branches-ignore:
+      - main
+      - master
+    paths:
+      - '**/*.cs'
+      - '**/*.csproj'
+      - '**/*.sln'
+      - '.github/agents/**'
+      - '.github/workflows/**'
   pull_request:
     types: [opened, synchronize, reopened, ready_for_review]
+    paths:
+      - '**/*.cs'
+      - '**/*.csproj'
+      - '**/*.sln'
+      - '.github/agents/**'
+      - '.github/workflows/**'
+  pull_request_review:
+    # Noise-reduction strategy:
+    # Keep this event enabled for PR review integration, but actual execution is
+    # intentionally limited to `changes_requested` in job-level `if` condition.
+    # Rationale is documented in docs/adr/ADR-0001-pr-review-trigger-noise-reduction.md.
+    types: [submitted]
 
 permissions:
   contents: read
+  issues: write
   pull-requests: write
+
+concurrency:
+  group: dotnet-ai-review-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   ai-review:
-    if: github.event.pull_request.draft == false
+    # By design, for pull_request_review we only run when state is changes_requested.
+    # This is an accepted trade-off to reduce duplicate runs/comments.
+    # If team requirement changes to "rerun on all review events", update this condition.
+    if: (github.event_name != 'pull_request' || github.event.pull_request.draft == false) && (github.event_name != 'pull_request_review' || github.event.review.state == 'changes_requested')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-      - name: Gather PR diff
-        id: diff
+      - name: Resolve review scope
+        id: scope
         run: |
-          gh api \
-            repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }} \
-            --jq '.diff_url' > diff_url.txt
-          curl -L "$(cat diff_url.txt)" > pr.diff
-          echo "DIFF_PATH=pr.diff" >> $GITHUB_ENV
+          if [[ "${{ github.event_name }}" == "pull_request" || "${{ github.event_name }}" == "pull_request_review" ]]; then
+            PR_NUMBER="${{ github.event.pull_request.number }}"
+            gh api \
+              repos/${{ github.repository }}/pulls/${PR_NUMBER} \
+              --jq '.diff_url' > diff_url.txt
+            curl -fsSL "$(cat diff_url.txt)" > review.diff
+            echo "PR_NUMBER=${PR_NUMBER}" >> $GITHUB_ENV
+          else
+            BEFORE="${{ github.event.before }}"
+            AFTER="${{ github.sha }}"
+            if [[ -n "$BEFORE" && "$BEFORE" != "0000000000000000000000000000000000000000" ]]; then
+              git diff "$BEFORE...$AFTER" > review.diff
+            else
+              git show --format= --patch "$AFTER" > review.diff
+            fi
+
+            BRANCH_NAME="${GITHUB_REF_NAME}"
+            PR_NUMBER=$(gh api \
+              "repos/${{ github.repository }}/pulls?head=${{ github.repository_owner }}:${BRANCH_NAME}&state=open" \
+              --jq '.[0].number // empty')
+            if [[ -n "$PR_NUMBER" ]]; then
+              echo "PR_NUMBER=${PR_NUMBER}" >> $GITHUB_ENV
+            fi
+          fi
+          echo "DIFF_PATH=review.diff" >> $GITHUB_ENV
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # 這裡示意：你可以改成你實際使用的 LLM CLI / API
-      - name: Run AI review
-        id: review
+      - name: Build review prompt
         run: |
           PROMPT_FILE=".github/agents/dotnet8-pr-review.agent.md"
           {
-            echo "Please review this PR using the following reviewer instructions."
+            echo "Please review this change set using the following reviewer instructions."
             echo "All review output must be in Traditional Chinese (繁體中文, zh-TW)."
             echo "Keep code blocks, file paths, class names, method names, and technical keywords in original form."
             echo
             cat "$PROMPT_FILE"
             echo
-            echo "=== PR DIFF START ==="
+            echo "=== DIFF START ==="
             cat "$DIFF_PATH"
-            echo "=== PR DIFF END ==="
+            echo "=== DIFF END ==="
           } > review_input.txt
 
-          # 你自己的指令：例如 openai / copilot / 其他
-          # 下面用 placeholder
-          echo "AI_REVIEW_OUTPUT<<EOF" >> $GITHUB_ENV
-          echo "自動化審查結果（placeholder）：請替換為實際模型呼叫，並確保輸出為繁體中文。" >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
-
-      - name: Post PR comment
+      - name: Run AI review with upgraded copilot CLI
+        id: review
         run: |
-          gh pr comment ${{ github.event.pull_request.number }} \
-            --body "$AI_REVIEW_OUTPUT"
+          if ! command -v copilot >/dev/null 2>&1; then
+            echo "Missing required 'copilot' CLI. Install upgraded copilot CLI before running this workflow." >&2
+            exit 1
+          fi
+
+          copilot -p "@review_input.txt" --silent > review_output.md
+
+          if [[ ! -s review_output.md ]]; then
+            echo "AI review output is empty." >&2
+            exit 1
+          fi
+
+      - name: Upsert PR comment
+        if: env.PR_NUMBER != ''
+        run: |
+          MARKER="<!-- dotnet-ai-review-comment -->"
+          COMBINED_FILE="review_output_with_marker.md"
+
+          {
+            echo "$MARKER"
+            echo
+            echo "### 🤖 DotNet AI Review"
+            echo
+            cat review_output.md
+          } > "$COMBINED_FILE"
+
+          COMMENT_ID=$(gh api \
+            repos/${{ github.repository }}/issues/${PR_NUMBER}/comments \
+            --jq '.[] | select(.user.type == "Bot" and (.body | contains("<!-- dotnet-ai-review-comment -->"))) | .id' \
+            | tail -n 1)
+
+          if [[ -n "$COMMENT_ID" ]]; then
+            gh api \
+              --method PATCH \
+              repos/${{ github.repository }}/issues/comments/${COMMENT_ID} \
+              --field body="$(cat "$COMBINED_FILE")" >/dev/null
+          else
+            gh pr comment "$PR_NUMBER" --body-file "$COMBINED_FILE"
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload review artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ai-review-output-${{ github.run_id }}
+          path: |
+            review.diff
+            review_input.txt
+            review_output.md
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
