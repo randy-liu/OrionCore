@@ -35,14 +35,8 @@ if (-not (Test-Path ".tmp")) { New-Item -ItemType Directory -Path ".tmp" | Out-N
 $ts = Get-Date -Format "yyyyMMdd-HHmmss"
 $outFile = ".tmp/dotnet8-local-review-$ts.md"
 
-# 取 diff（簡化 fallback）
-$diff = ""
-try { $diff = git diff --merge-base origin/main...HEAD | Out-String } catch {}
-if ([string]::IsNullOrWhiteSpace($diff)) {
-    try { $diff = git diff --merge-base origin/master...HEAD | Out-String } catch {}
-}
-if ([string]::IsNullOrWhiteSpace($diff)) { $diff = git diff --staged | Out-String }
-if ([string]::IsNullOrWhiteSpace($diff)) { $diff = git diff | Out-String }
+# 取 diff：dotnet-cr 本機手動審查固定以 staged 變更為主
+$diff = git diff --staged | Out-String
 
 $policyText = Get-Content $policyAgent -Raw
 

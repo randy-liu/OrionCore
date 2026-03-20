@@ -56,7 +56,10 @@ jobs:
             gh api \
               repos/${{ github.repository }}/pulls/${PR_NUMBER} \
               --jq '.diff_url' > diff_url.txt
-            curl -fsSL "$(cat diff_url.txt)" > review.diff
+            curl -fsSL \
+              -H "Authorization: Bearer $GH_TOKEN" \
+              -H "Accept: application/vnd.github.v3.diff" \
+              "$(cat diff_url.txt)" > review.diff
             echo "PR_NUMBER=${PR_NUMBER}" >> $GITHUB_ENV
           else
             BEFORE="${{ github.event.before }}"
@@ -129,10 +132,11 @@ jobs:
             | tail -n 1)
 
           if [[ -n "$COMMENT_ID" ]]; then
+            jq -Rs '{body: .}' "$COMBINED_FILE" > comment_body.json
             gh api \
               --method PATCH \
               repos/${{ github.repository }}/issues/comments/${COMMENT_ID} \
-              --field body="$(cat "$COMBINED_FILE")" >/dev/null
+              --input comment_body.json >/dev/null
           else
             gh pr comment "$PR_NUMBER" --body-file "$COMBINED_FILE"
           fi
