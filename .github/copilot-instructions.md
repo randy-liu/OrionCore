@@ -9,6 +9,7 @@
 
 ## Developer Guidelines for Copilot
 - Local review tooling must explicitly require the upgraded `copilot` CLI and not support legacy `gh copilot` fallback.
+- User prefers a hybrid code review flow: local staged review on Windows via `dotnet-cr`, automatic review on git push, and automatic review on PR review events, while maintaining the project in WSL Docker using the upgraded `copilot` CLI.
 
 ## Build & Test Instructions (CRITICAL)
 This project runs in a cross-platform Docker environment. 
