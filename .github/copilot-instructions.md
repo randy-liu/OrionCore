@@ -11,6 +11,12 @@
 - Local review tooling must explicitly require the upgraded `copilot` CLI and not support legacy `gh copilot` fallback.
 - User prefers a hybrid code review flow: local staged review on Windows via `dotnet-cr`, automatic review on git push, and automatic review on PR review events, while maintaining the project in WSL Docker using the upgraded `copilot` CLI.
 
+## Local Review Guidelines
+- For local `dotnet-cr` reviews, always target staged changes (git add files) as the primary scope whenever manually running `dotnet-cr`.
+- Exclude PR-trigger/workflow-operation warnings.
+- Omit untracked-file warnings.
+- Exclude temporary network-robustness warnings (e.g., curl fail-fast/timeout).
+
 ## Build & Test Instructions (CRITICAL)
 This project runs in a cross-platform Docker environment. 
 Do not attempt to change file permissions of the `obj` or `bin` folders to fix `MSB3374` or `Access denied` errors.
@@ -22,8 +28,3 @@ You MUST isolate outputs for ALL build and test commands by using the appropriat
 - To build MVC project: execute `bash OrionCore/build-mvc.sh`
 - To test API project: execute `bash OrionCore/test-api.sh` 
 (If you run any other `dotnet build` or `dotnet test` commands manually, you MUST append the appropriate `--artifacts-path` to the command).
-
-## Local Review Guidelines
-- For local `dotnet-cr` reviews, exclude PR-trigger/workflow-operation warnings.
-- Omit untracked-file warnings.
-- Exclude temporary network-robustness warnings (e.g., curl fail-fast/timeout)
