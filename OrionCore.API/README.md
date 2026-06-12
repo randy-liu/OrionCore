@@ -29,3 +29,12 @@ query = new WhereQueryableBuilder<Order>(query, whereParams)
 ```
 
 For full documentation and advanced samples, see the repository root `README.md`.
+
+## Local Packaging
+
+To build and pack the NuGet package locally to a custom directory, you can override the target directory using the `NugetPublishDir` property:
+
+```powershell
+dotnet pack OrionCore.API.csproj -c Release /p:NugetPublishDir=D:\Source\NugetPackages
+```
+
