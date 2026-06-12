@@ -20,6 +20,8 @@
     <PackageIcon>orion_logo.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <IncludeSymbols>true</IncludeSymbols>
+    <!-- 預設為空，不包含任何本機絕對路徑 -->
+    <NugetPublishDir Condition="'$(NugetPublishDir)' == ''"></NugetPublishDir>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -72,10 +74,11 @@
     </ItemGroup>    
     <Move SourceFiles="%(SymbolFiles.FullPath)" DestinationFiles="@(SymbolFiles -&gt; Replace('.symbols.nupkg', '.nupkg'))" />
 
-    <ItemGroup>
+    <!-- 僅當外部有指定發行目錄時才執行搬移 -->
+    <ItemGroup Condition=" '$(NugetPublishDir)' != '' ">
       <NupkgFiles Include="$(TargetDir)\..\*.nupkg" />
     </ItemGroup>
-    <Move SourceFiles="%(NupkgFiles.FullPath)" DestinationFolder="bin\NugetArchive" OverwriteReadOnlyFiles="True" />
+    <Move Condition=" '$(NugetPublishDir)' != '' " SourceFiles="%(NupkgFiles.FullPath)" DestinationFolder="$(NugetPublishDir)" OverwriteReadOnlyFiles="True" />
 
     <Message Text="##################################################################" />
   </Target>
